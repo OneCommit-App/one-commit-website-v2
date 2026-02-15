@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useWaitlist } from "@/components/waitlist-dialog"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -8,6 +9,8 @@ const fadeUp = {
 }
 
 export default function CTASection() {
+  const { openWaitlist } = useWaitlist()
+
   return (
     <motion.section
       variants={fadeUp}
@@ -27,16 +30,14 @@ export default function CTASection() {
           Stop waiting to be found. Join the beta and start connecting with programs that fit you.
         </p>
         <div className="mt-6">
-          <motion.a
-            href="https://www.onecommit.us/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button
+            onClick={openWaitlist}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             className="h-11 px-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center hover:bg-white/90 transition-colors"
           >
             Join the Track Beta
-          </motion.a>
+          </motion.button>
         </div>
       </motion.div>
     </motion.section>

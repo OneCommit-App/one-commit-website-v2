@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useWaitlist } from "@/components/waitlist-dialog"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -18,6 +19,8 @@ const cardReveal = {
 }
 
 export default function PricingSection() {
+  const { openWaitlist } = useWaitlist()
+
   return (
     <motion.section
       variants={fadeUp}
@@ -55,9 +58,9 @@ export default function PricingSection() {
               <p className="text-white/40 text-sm mb-4">Full access to all features during the beta period. No credit card required.</p>
               <div className="text-white text-5xl font-bold mb-1">$0</div>
               <div className="text-white/30 text-sm mb-5">free during beta</div>
-              <a href="https://www.onecommit.us/" target="_blank" rel="noopener noreferrer" className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
+              <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
                 Join the Track Beta
-              </a>
+              </button>
             </div>
             <div className="mt-6 flex flex-col gap-2">
               {[

@@ -7,6 +7,7 @@ import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
 import CTASection from "@/components/cta-section"
 import FooterSection from "@/components/footer-section"
+import { WaitlistProvider, useWaitlist } from "@/components/waitlist-dialog"
 
 const subtitles = [
   "Build your school list in minutes.",
@@ -86,6 +87,15 @@ const popIn = {
 const viewportOnce = { once: true, margin: "-80px" as const }
 
 export default function LandingPage() {
+  return (
+    <WaitlistProvider>
+      <LandingPageContent />
+    </WaitlistProvider>
+  )
+}
+
+function LandingPageContent() {
+  const { openWaitlist } = useWaitlist()
   const [activeStep, setActiveStep] = useState(0)
   const [animKey, setAnimKey] = useState(0)
   const [mounted, setMounted] = useState(false)
@@ -160,9 +170,9 @@ export default function LandingPage() {
               <a href="#pricing" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Pricing</a>
             </div>
           </div>
-          <a href="https://www.onecommit.us/" target="_blank" rel="noopener noreferrer" className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
+          <button onClick={openWaitlist} className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
             Join Beta
-          </a>
+          </button>
         </div>
       </motion.nav>
 
@@ -195,9 +205,9 @@ export default function LandingPage() {
         </motion.p>
 
         <motion.div variants={heroChild} className="flex items-center gap-3 mt-8">
-          <a href="https://www.onecommit.us/" target="_blank" rel="noopener noreferrer" className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
+          <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
             Join the Track Beta
-          </a>
+          </button>
           <a href="#how-it-works" className="h-10 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors">
             See how it works
           </a>
