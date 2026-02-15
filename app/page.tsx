@@ -142,7 +142,7 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="w-full min-h-screen bg-[#0f1a14] overflow-x-hidden">
+    <div className="w-full min-h-screen bg-[#0f1a14]">
       {/* Nav */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}

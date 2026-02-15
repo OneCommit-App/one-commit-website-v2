@@ -11,9 +11,12 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "OneCommit - Your Recruiting Copilot for Track & Field",
+  title: "OneCommit",
   description:
     "Get recruited faster for Track & Field. OneCommit turns your stats + preferences into matched schools, then helps you send outreach emails and track coach replies.",
+  icons: {
+    icon: "/logo.ico",
+  },
 }
 
 export const viewport: Viewport = {
@@ -27,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} antialiased`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased overflow-x-hidden">{children}</body>
     </html>
   )
 }
