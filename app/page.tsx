@@ -206,10 +206,9 @@ export default function LandingPage() {
 
       {/* Video */}
       <motion.section
-        variants={scaleUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.6 }}
         className="px-4 pb-8 pt-4 flex justify-center"
       >
         <div className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_0_80px_rgba(74,222,128,0.06)]">
