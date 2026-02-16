@@ -165,6 +165,7 @@ function LandingPageContent() {
             <img src="/logo.ico" alt="OneCommit logo" className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
+              <a href="/demo" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Demo</a>
               <a href="#features" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Features</a>
               <a href="#how-it-works" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">How It Works</a>
               <a href="#pricing" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Pricing</a>
