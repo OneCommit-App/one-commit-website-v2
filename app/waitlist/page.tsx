@@ -44,7 +44,6 @@ export default function WaitlistPage() {
         email: (formData.email || "").trim().toLowerCase(),
         sport: "Track & Field",
         grad_year: String(formData.grad_year || ""),
-        state: null,
         phone: (formData.phone || "").trim() || null,
       }
 
@@ -64,7 +63,12 @@ export default function WaitlistPage() {
         website_guard: "",
       })
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err ?? "")
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === "object" && err !== null && "message" in err
+            ? String((err as { message?: string }).message)
+            : String(err ?? "")
 
       if (message.includes("duplicate") || message.includes("unique")) {
         setError("This email is already on the waitlist.")
