@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
 import TestimonialsSection from "@/components/testimonials-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
@@ -97,6 +98,7 @@ export default function LandingPage() {
 function LandingPageContent() {
   const { openWaitlist } = useWaitlist()
   const [activeStep, setActiveStep] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [animKey, setAnimKey] = useState(0)
   const [mounted, setMounted] = useState(false)
 
@@ -158,7 +160,7 @@ function LandingPageContent() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
+        className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center px-4 pt-4"
       >
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -171,10 +173,50 @@ function LandingPageContent() {
               <a href="#pricing" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Pricing</a>
             </div>
           </div>
-          <button onClick={openWaitlist} className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
-            Join Beta
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="flex sm:hidden w-8 h-8 items-center justify-center text-white/50 hover:text-white/80 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+            <button onClick={openWaitlist} className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
+              Join Free Beta
+            </button>
+          </div>
         </div>
+
+        {/* Mobile dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="w-full max-w-2xl mt-2 bg-[#0f1a14]/95 backdrop-blur-xl border border-white/[0.08] rounded-2xl overflow-hidden sm:hidden"
+            >
+              <div className="py-2 flex flex-col">
+                {[
+                  { label: "Demo", href: "/demo" },
+                  { label: "Features", href: "#features" },
+                  { label: "How It Works", href: "#how-it-works" },
+                  { label: "Pricing", href: "#pricing" },
+                ].map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-5 py-3 text-white/60 text-sm font-medium hover:text-white hover:bg-white/[0.04] transition-colors"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero */}
@@ -222,7 +264,7 @@ function LandingPageContent() {
         transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.6 }}
         className="px-4 pb-8 pt-4 flex justify-center"
       >
-        <div className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_0_80px_rgba(74,222,128,0.06)]">
+        <div className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_0_80px_rgba(74,222,128,0.06)] relative group">
           <video
             autoPlay
             loop
@@ -232,6 +274,13 @@ function LandingPageContent() {
           >
             <source src="/demo.mp4" type="video/mp4" />
           </video>
+          <a
+            href="/demo"
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full text-white/60 text-xs font-medium hover:text-white hover:bg-black/70 transition-all whitespace-nowrap"
+          >
+            <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor"><path d="M0 0l8 5-8 5V0z"/></svg>
+            Watch full demo
+          </a>
         </div>
       </motion.section>
 
@@ -440,17 +489,34 @@ function LandingPageContent() {
         variants={fadeUp}
         className="px-4 pb-14 flex justify-center"
       >
-        <div className="w-full max-w-2xl text-center">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Our Story</span>
-          <blockquote className="mt-4 text-white text-lg sm:text-xl md:text-2xl font-medium leading-relaxed tracking-tight text-balance">
-            {"\u201CIn early 2024, I began my journey to becoming a college track athlete. I knew who I was as an athlete and a student, but didn\u2019t know anything about where I could fit.\u201D"}
-          </blockquote>
-          <p className="mt-3 text-white/50 text-sm leading-relaxed max-w-lg mx-auto">
-            {"After finding coach contact emails and writing the same introductory email over and over again, I decided to write some code to do it for me \u2014 thus, OneCommit was born. The recruiting process is broken for anyone not in the top 1%. We\u2019re here to level the playing field."}
-          </p>
-          <div className="mt-3">
-            <div className="text-[#4ade80] text-sm font-semibold">The OneCommit Founder</div>
-            <div className="text-white/40 text-xs">Student-Athlete Who Lived the Problem</div>
+        <div className="w-full max-w-2xl">
+          <div className="text-center mb-6">
+            <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Our Story</span>
+          </div>
+          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 sm:p-8">
+            <blockquote className="text-white text-lg sm:text-xl font-medium leading-relaxed tracking-tight">
+              {"\u201CIn early 2024, I started reaching out to college track programs. I had the times, the grades, the drive \u2014 but I had no idea which schools actually fit me athletically and academically.\u201D"}
+            </blockquote>
+            <div className="mt-4 flex flex-col gap-3 text-white/50 text-sm leading-relaxed">
+              <p>
+                {"I spent weeks manually Googling coach emails, copy-pasting the same intro letter over and over, and sending messages into the void. Most never got a reply. I had no system for tracking who I\u2019d contacted, what they said, or when to follow up."}
+              </p>
+              <p>
+                {"So I built one. What started as a quick script to automate my own outreach turned into a full matching and email system. Within weeks, coaches were actually writing back. I realized the problem wasn\u2019t my ability \u2014 it was the process."}
+              </p>
+              <p>
+                {"The recruiting system is designed for the top 1%. Everyone else gets left to figure it out alone, or pay thousands for a service that posts a passive profile and waits. OneCommit exists to fix that."}
+              </p>
+            </div>
+            <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-[#4ade80]/10 border border-[#4ade80]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-[#4ade80] text-xs font-bold">HK</span>
+              </div>
+              <div>
+                <div className="text-[#4ade80] text-sm font-semibold">Hugh Kopittke</div>
+                <div className="text-white/40 text-xs">OneCommit Founder &middot; Student-Athlete</div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
