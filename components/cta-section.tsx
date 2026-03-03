@@ -29,7 +29,7 @@ export default function CTASection() {
         <p className="mt-3 text-white/50 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
           Stop waiting to be found. Join the beta and start connecting with programs that fit you.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col items-center gap-3">
           <motion.button
             onClick={openWaitlist}
             whileHover={{ scale: 1.05 }}
@@ -38,6 +38,9 @@ export default function CTASection() {
           >
             Join the Track Beta
           </motion.button>
+          <p className="text-white/30 text-xs">
+            Join 500+ athletes already on the waitlist &mdash; free during beta
+          </p>
         </div>
       </motion.div>
     </motion.section>

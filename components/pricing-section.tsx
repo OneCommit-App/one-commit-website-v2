@@ -45,7 +45,7 @@ export default function PricingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {/* Beta Free */}
           <motion.div
@@ -107,6 +107,42 @@ export default function PricingSection() {
               ].map((f, i) => (
                 <div key={i} className="flex items-center gap-2.5">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" /></svg>
+                  <span className="text-white/30 text-xs">{f}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Pro Plan — Coming Soon */}
+          <motion.div
+            variants={cardReveal}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-6 flex flex-col justify-between relative overflow-hidden"
+          >
+            <div className="absolute top-4 right-4 px-2 py-0.5 bg-white/[0.06] border border-white/[0.08] rounded-full text-white/40 text-[10px] font-semibold uppercase tracking-wider">
+              Coming Soon
+            </div>
+            <div>
+              <div className="text-white/60 text-sm font-semibold mb-1">Pro Plan</div>
+              <p className="text-white/30 text-sm mb-4">Everything in beta plus expanded features as OneCommit grows.</p>
+              <div className="text-white/40 text-5xl font-bold mb-1">—</div>
+              <div className="text-white/20 text-sm mb-5">beta users lock in early pricing</div>
+              <button onClick={openWaitlist} className="block w-full h-10 bg-white/[0.06] border border-white/[0.10] text-white/50 text-sm font-medium rounded-full flex items-center justify-center hover:bg-white/[0.08] hover:text-white/70 transition-colors">
+                Join beta to lock rate
+              </button>
+            </div>
+            <div className="mt-6 flex flex-col gap-2">
+              {[
+                "Everything in beta",
+                "Multi-sport support (roadmap)",
+                "Priority school matching",
+                "Advanced email analytics",
+                "Unlimited outreach",
+                "Dedicated onboarding",
+                "Early access to new features",
+              ].map((f, i) => (
+                <div key={i} className="flex items-center gap-2.5">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" /></svg>
                   <span className="text-white/30 text-xs">{f}</span>
                 </div>
               ))}
