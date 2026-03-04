@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,7 +20,7 @@ export default function FooterSection() {
       <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start gap-8">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2">
-            <img src="/logo.ico" alt="OneCommit logo" className="w-6 h-6 rounded-full" />
+            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </div>
           <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">The first self-service recruiting copilot built for the overlooked.</p>
