@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ArrowRight } from "lucide-react"
 import TestimonialsSection from "@/components/testimonials-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
@@ -85,6 +85,21 @@ const popIn = {
 
 const viewportOnce = { once: true, margin: "-80px" as const }
 
+const wordStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+}
+
+const wordChild = {
+  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as const } },
+}
+
+const heroChildBlur = {
+  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as const } },
+}
+
 export default function LandingPage() {
   return (
     <WaitlistProvider>
@@ -100,6 +115,17 @@ function LandingPageContent() {
   const [animKey, setAnimKey] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [showStickyCTA, setShowStickyCTA] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
+
+  /* ── scroll progress ── */
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
+
+  /* ── mouse parallax ── */
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const blobX = useTransform(mouseX, [0, 1440], [-30, 30])
+  const blobY = useTransform(mouseY, [0, 900], [-20, 20])
 
   /* ── typewriter state ── */
   const [typeIndex, setTypeIndex] = useState(0)
@@ -116,6 +142,23 @@ function LandingPageContent() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  /* ── active section observer ── */
+  useEffect(() => {
+    if (!mounted) return
+    const ids = ["features", "how-it-works", "pricing"]
+    const observers = ids.map((id) => {
+      const el = document.getElementById(id)
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) setActiveSection(id) },
+        { threshold: 0.3 }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((o) => o?.disconnect())
+  }, [mounted])
 
   /* ── typewriter effect ── */
   useEffect(() => {
@@ -160,10 +203,26 @@ function LandingPageContent() {
   }, [])
 
   return (
-    <div className="w-full min-h-screen bg-[#0f1a14] relative">
+    <div
+      className="w-full min-h-screen bg-[#0f1a14] relative"
+      onMouseMove={(e) => {
+        if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return
+        mouseX.set(e.clientX)
+        mouseY.set(e.clientY)
+      }}
+    >
+      {/* Scroll progress bar */}
+      <motion.div
+        style={{ scaleX, transformOrigin: "left" }}
+        className="fixed top-0 left-0 right-0 h-[2px] bg-[#4ade80] z-[60] pointer-events-none"
+      />
+
       {/* Hero background pulse */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-[#4ade80] blur-[200px] animate-hero-pulse" />
+        <motion.div
+          style={{ x: blobX, y: blobY }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-[#4ade80] blur-[200px] animate-hero-pulse"
+        />
       </div>
 
       {/* Nav */}
@@ -178,10 +237,30 @@ function LandingPageContent() {
             <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
-              <a href="/demo" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Demo</a>
-              <a href="#features" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Features</a>
-              <a href="#how-it-works" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">How It Works</a>
-              <a href="#pricing" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Pricing</a>
+              {[
+                { label: "Demo", href: "/demo", id: "" },
+                { label: "Features", href: "#features", id: "features" },
+                { label: "How It Works", href: "#how-it-works", id: "how-it-works" },
+                { label: "Pricing", href: "#pricing", id: "pricing" },
+              ].map(({ label, href, id }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  className={`relative text-xs font-medium transition-colors ${
+                    activeSection === id && id ? "text-white" : "text-white/50 hover:text-white/80"
+                  }`}
+                  whileHover="hover"
+                  initial="rest"
+                >
+                  {label}
+                  <motion.span
+                    variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
+                    style={{ originX: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#4ade80]"
+                  />
+                </motion.a>
+              ))}
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -241,9 +320,22 @@ function LandingPageContent() {
           <span className="text-[#4ade80] text-xs font-medium">{"Track & Field Beta \u2014 Free Early Access"}</span>
         </motion.div>
 
-        <motion.h1 variants={heroChild} className="text-white text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight max-w-3xl text-balance">
-          {"Stop waiting for coaches "}
-          <span className="text-[#4ade80]">{"to find you"}</span>
+        <motion.h1
+          variants={wordStagger}
+          className="text-white text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight max-w-3xl text-balance"
+        >
+          {["Stop", "waiting", "for", "coaches"].map((word, i) => (
+            <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
+              {word}
+            </motion.span>
+          ))}
+          <span className="text-[#4ade80]">
+            {["to", "find", "you"].map((word, i) => (
+              <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
+                {word}
+              </motion.span>
+            ))}
+          </span>
         </motion.h1>
 
         {/* Typewriter subtitle */}
@@ -254,13 +346,14 @@ function LandingPageContent() {
           </span>
         </motion.div>
 
-        <motion.p variants={heroChild} className="mt-3 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
+        <motion.p variants={heroChildBlur} className="mt-3 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
           {"OneCommit analyzes your PRs, GPA, and preferences to surface matched schools \u2014 then helps you send personalized emails and track every reply. Free during beta."}
         </motion.p>
 
         <motion.div variants={heroChild} className="flex items-center gap-3 mt-8">
-          <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors relative overflow-hidden">
+          <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group">
             <span className="relative z-10">Get Early Access &mdash; It&apos;s Free</span>
+            <ArrowRight size={14} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
             <span className="absolute inset-0 animate-shimmer" />
           </button>
           <a href="/demo" className="h-10 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors">
@@ -286,17 +379,28 @@ function LandingPageContent() {
             className="w-full h-auto block"
           >
             <source src="/demo.mp4" type="video/mp4" />
-            <track src="/demo.vtt" kind="captions" label="English" default />
           </video>
           <a
             href="/demo"
             className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full text-white/60 text-xs font-medium hover:text-white hover:bg-black/70 transition-all whitespace-nowrap"
           >
-            <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor"><path d="M0 0l8 5-8 5V0z"/></svg>
+            <div className="relative flex-shrink-0 w-3 h-3 flex items-center justify-center">
+              <motion.div
+                animate={{ scale: [1, 1.9], opacity: [0.6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full bg-[#4ade80]/50"
+              />
+              <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" className="relative z-10"><path d="M0 0l8 5-8 5V0z"/></svg>
+            </div>
             Watch full demo
           </a>
         </div>
       </motion.section>
+
+      {/* Floating connector orb */}
+      <div className="relative h-px flex justify-center overflow-visible pointer-events-none">
+        <div className="absolute w-[200px] h-[200px] rounded-full bg-[#4ade80] blur-[80px] opacity-[0.025] animate-float" style={{ top: "-100px" }} />
+      </div>
 
       {/* School marquee */}
       <SchoolMarquee />
@@ -482,7 +586,19 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="flex-1 flex justify-center items-stretch"
             >
-              <div className="w-full max-w-[320px] bg-[#f5f5f5] rounded-[2rem] overflow-hidden border-[3px] border-white/[0.10] shadow-[0_0_60px_rgba(74,222,128,0.06)] relative">
+              <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.08}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -50 || info.velocity.x < -300) {
+                    handleStepClick((activeStep + 1) % steps.length)
+                  } else if (info.offset.x > 50 || info.velocity.x > 300) {
+                    handleStepClick((activeStep - 1 + steps.length) % steps.length)
+                  }
+                }}
+                className="touch-pan-y cursor-grab active:cursor-grabbing w-full max-w-[320px] bg-[#f5f5f5] rounded-[2rem] overflow-hidden border-[3px] border-white/[0.10] shadow-[0_0_60px_rgba(74,222,128,0.06)] relative"
+              >
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeStep}
@@ -492,10 +608,10 @@ function LandingPageContent() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.03 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="w-full h-auto block"
+                    className="w-full h-auto block pointer-events-none"
                   />
                 </AnimatePresence>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -571,9 +687,10 @@ function LandingPageContent() {
             <span className="text-white/50 text-xs font-medium hidden sm:inline">Free during beta</span>
             <button
               onClick={openWaitlist}
-              className="h-8 px-5 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+              className="h-8 px-5 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center gap-1.5 hover:bg-white/90 transition-colors group"
             >
               Get Early Access
+              <ArrowRight size={12} className="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
           </motion.div>
         )}

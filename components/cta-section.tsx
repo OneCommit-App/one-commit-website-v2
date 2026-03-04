@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
 import { useWaitlist } from "@/components/waitlist-dialog"
 
 const fadeUp = {
@@ -34,9 +35,10 @@ export default function CTASection() {
             onClick={openWaitlist}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            className="h-11 px-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center hover:bg-white/90 transition-colors"
+            className="h-11 px-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center gap-2 hover:bg-white/90 transition-colors group"
           >
             Join the Track Beta
+            <ArrowRight size={15} className="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
           </motion.button>
           <p className="text-white/30 text-xs">
             Join 500+ athletes already on the waitlist &mdash; free during beta

@@ -18,6 +18,16 @@ const cardReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 }
 
+const featureListStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } },
+}
+
+const featureItem = {
+  hidden: { opacity: 0, x: -8 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+}
+
 export default function PricingSection() {
   const { openWaitlist } = useWaitlist()
 
@@ -63,7 +73,13 @@ export default function PricingSection() {
                 Join the Track Beta
               </button>
             </div>
-            <div className="mt-6 flex flex-col gap-2">
+            <motion.div
+              variants={featureListStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              className="mt-6 flex flex-col gap-2"
+            >
               {[
                 "Smart school matching (Reach/Target/Foundational)",
                 "Personalized email generation",
@@ -73,12 +89,12 @@ export default function PricingSection() {
                 "Preferences interview",
                 "SmartAdd AI search",
               ].map((f, i) => (
-                <div key={i} className="flex items-center gap-2.5">
+                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                   <span className="text-white/70 text-xs">{f}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Legacy */}
@@ -96,7 +112,13 @@ export default function PricingSection() {
                 The old way
               </div>
             </div>
-            <div className="mt-6 flex flex-col gap-2">
+            <motion.div
+              variants={featureListStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              className="mt-6 flex flex-col gap-2"
+            >
               {[
                 "Generic profile on a recruiting website",
                 "Coaches have to find you (passive)",
@@ -106,12 +128,12 @@ export default function PricingSection() {
                 "One-size-fits-all approach",
                 "You don't control the conversation",
               ].map((f, i) => (
-                <div key={i} className="flex items-center gap-2.5">
+                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" /></svg>
                   <span className="text-white/30 text-xs">{f}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Pro Plan — Coming Soon */}
@@ -132,7 +154,13 @@ export default function PricingSection() {
                 Join beta to lock rate
               </button>
             </div>
-            <div className="mt-6 flex flex-col gap-2">
+            <motion.div
+              variants={featureListStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              className="mt-6 flex flex-col gap-2"
+            >
               {[
                 "Everything in beta",
                 "Multi-sport support (roadmap)",
@@ -142,12 +170,12 @@ export default function PricingSection() {
                 "Dedicated onboarding",
                 "Early access to new features",
               ].map((f, i) => (
-                <div key={i} className="flex items-center gap-2.5">
+                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" /></svg>
                   <span className="text-white/30 text-xs">{f}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

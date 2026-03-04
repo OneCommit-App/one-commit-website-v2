@@ -162,7 +162,19 @@ export default function TestimonialsSection() {
               />
             ))}
           </div>
-          <div className="min-h-[120px] relative overflow-hidden">
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.08}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -50 || info.velocity.x < -300) {
+                go((active + 1) % testimonials.length)
+              } else if (info.offset.x > 50 || info.velocity.x > 300) {
+                go((active - 1 + testimonials.length) % testimonials.length)
+              }
+            }}
+            className="touch-pan-y cursor-grab active:cursor-grabbing min-h-[120px] relative overflow-hidden"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -183,7 +195,7 @@ export default function TestimonialsSection() {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
           <div className="mt-5 flex gap-2">
             <motion.button
               whileHover={{ scale: 1.1 }}

@@ -7,8 +7,10 @@ import {
   useCallback,
   type ReactNode,
 } from "react"
+import { useMemo } from "react"
 import { CheckCircle } from "lucide-react"
 import { track } from "@vercel/analytics"
+import { motion } from "framer-motion"
 import {
   Dialog,
   DialogContent,
@@ -17,6 +19,45 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import WaitlistForm from "@/components/waitlist-form"
+
+/* ── confetti particles ── */
+function ConfettiBurst() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 28 }, (_, i) => ({
+        id: i,
+        color: i % 3 === 0 ? "#4ade80" : i % 3 === 1 ? "#ffffff" : "#86efac",
+        x: (Math.random() - 0.5) * 320,
+        y: (Math.random() - 0.5) * 280,
+        rotate: Math.random() * 720,
+        size: Math.random() * 6 + 4,
+        delay: Math.random() * 0.15,
+      })),
+    []
+  )
+  return (
+    <>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ x: 0, y: 0, opacity: 1, scale: 1, rotate: 0 }}
+          animate={{ x: p.x, y: p.y, opacity: 0, scale: 0, rotate: p.rotate }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: p.delay }}
+          style={{
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            borderRadius: "2px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            pointerEvents: "none",
+          }}
+        />
+      ))}
+    </>
+  )
+}
 
 /* ── context ── */
 type WaitlistContextValue = { openWaitlist: () => void }
@@ -58,14 +99,31 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
         >
           {success ? (
             /* ── success state ── */
-            <div className="flex flex-col items-center py-6 text-center">
-              <CheckCircle className="h-14 w-14 text-[#4ade80] mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">
+            <div className="relative flex flex-col items-center py-6 text-center overflow-hidden">
+              <ConfettiBurst />
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+              >
+                <CheckCircle className="h-14 w-14 text-[#4ade80] mb-4" />
+              </motion.div>
+              <motion.h3
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.35 }}
+                className="text-2xl font-bold text-white mb-2"
+              >
                 You&apos;re in.
-              </h3>
-              <p className="text-white/50 text-sm">
+              </motion.h3>
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.35 }}
+                className="text-white/50 text-sm"
+              >
                 We&apos;ll email you when your wave opens.
-              </p>
+              </motion.p>
             </div>
           ) : (
             /* ── form ── */
