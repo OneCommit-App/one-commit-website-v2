@@ -2,18 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import TestimonialsSection from "@/components/testimonials-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
 import CTASection from "@/components/cta-section"
 import FooterSection from "@/components/footer-section"
+import StatsSection from "@/components/stats-section"
+import SchoolMarquee from "@/components/school-marquee"
 import { WaitlistProvider, useWaitlist } from "@/components/waitlist-dialog"
 
 const subtitles = [
-  "Build your school list in minutes.",
-  "Generate coach emails that sound like you.",
-  "Track replies like a recruiting CRM.",
+  "Match to 40+ colleges that fit your times and GPA.",
+  "Send outreach emails coaches actually read.",
+  "See exactly who replied and who's interested.",
 ]
 
 const steps = [
@@ -24,10 +27,10 @@ const steps = [
 ]
 
 const problems = [
-  { p: "You don\u2019t know where you fit", s: "Smart matching shows exactly where you stand across hundreds of programs." },
-  { p: "Emails get ghosted", s: "Emails come from YOUR inbox. Coaches see a real person and respond." },
-  { p: "Legacy services cost thousands", s: "OneCommit is free during beta and will always be a fraction of the cost." },
-  { p: "Profile sites put coaches in control", s: "You control the timeline, strategy, and conversation. No middleman." },
+  { p: "You\u2019re guessing which schools are realistic", s: "Smart matching shows exactly where you stand across hundreds of programs." },
+  { p: "Your emails disappear into a coach\u2019s inbox", s: "Emails come from YOUR inbox. Coaches see a real person and respond." },
+  { p: "You shouldn\u2019t need to pay $3,000 for a spreadsheet", s: "OneCommit is free during beta and will always be a fraction of the cost." },
+  { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You control the timeline, strategy, and conversation. No middleman." },
 ]
 
 const features = [
@@ -65,11 +68,6 @@ const fadeUpItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 }
 
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: "easeOut" as const } },
-}
-
 const fadeInLeft = {
   hidden: { opacity: 0, x: -40 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
@@ -101,6 +99,7 @@ function LandingPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [animKey, setAnimKey] = useState(0)
   const [mounted, setMounted] = useState(false)
+  const [showStickyCTA, setShowStickyCTA] = useState(false)
 
   /* ── typewriter state ── */
   const [typeIndex, setTypeIndex] = useState(0)
@@ -109,6 +108,13 @@ function LandingPageContent() {
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  /* ── sticky CTA on scroll ── */
+  useEffect(() => {
+    const handleScroll = () => setShowStickyCTA(window.scrollY > 600)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   /* ── typewriter effect ── */
@@ -154,7 +160,12 @@ function LandingPageContent() {
   }, [])
 
   return (
-    <div className="w-full min-h-screen bg-[#0f1a14]">
+    <div className="w-full min-h-screen bg-[#0f1a14] relative">
+      {/* Hero background pulse */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-[#4ade80] blur-[200px] animate-hero-pulse" />
+      </div>
+
       {/* Nav */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
@@ -164,7 +175,7 @@ function LandingPageContent() {
       >
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.ico" alt="OneCommit logo" className="w-6 h-6 rounded-full" />
+            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
               <a href="/demo" className="text-white/50 text-xs font-medium hover:text-white/80 transition-colors">Demo</a>
@@ -231,8 +242,8 @@ function LandingPageContent() {
         </motion.div>
 
         <motion.h1 variants={heroChild} className="text-white text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight max-w-3xl text-balance">
-          {"Get recruited faster "}
-          <span className="text-[#4ade80]">{"for Track & Field"}</span>
+          {"Stop waiting for coaches "}
+          <span className="text-[#4ade80]">{"to find you"}</span>
         </motion.h1>
 
         {/* Typewriter subtitle */}
@@ -244,15 +255,16 @@ function LandingPageContent() {
         </motion.div>
 
         <motion.p variants={heroChild} className="mt-3 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-          {"OneCommit turns your stats + preferences into matched schools, then helps you send outreach emails and track coach replies."}
+          {"OneCommit analyzes your PRs, GPA, and preferences to surface matched schools \u2014 then helps you send personalized emails and track every reply. Free during beta."}
         </motion.p>
 
         <motion.div variants={heroChild} className="flex items-center gap-3 mt-8">
-          <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
-            Join the Track Beta
+          <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors relative overflow-hidden">
+            <span className="relative z-10">Get Early Access &mdash; It&apos;s Free</span>
+            <span className="absolute inset-0 animate-shimmer" />
           </button>
-          <a href="#how-it-works" className="h-10 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors">
-            See how it works
+          <a href="/demo" className="h-10 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors">
+            Watch the 2-min demo
           </a>
         </motion.div>
       </motion.section>
@@ -270,9 +282,11 @@ function LandingPageContent() {
             loop
             muted
             playsInline
+            preload="none"
             className="w-full h-auto block"
           >
             <source src="/demo.mp4" type="video/mp4" />
+            <track src="/demo.vtt" kind="captions" label="English" default />
           </video>
           <a
             href="/demo"
@@ -284,6 +298,9 @@ function LandingPageContent() {
         </div>
       </motion.section>
 
+      {/* School marquee */}
+      <SchoolMarquee />
+
       {/* Quick feature pills */}
       <motion.section
         variants={staggerContainer}
@@ -294,7 +311,7 @@ function LandingPageContent() {
       >
         <div className="flex flex-wrap justify-center gap-3">
           {featurePills.map((f) => (
-            <motion.div key={f} variants={popIn} className="px-4 py-2 bg-white/[0.04] border border-white/[0.06] rounded-full text-white/70 text-xs font-medium">
+            <motion.div key={f} variants={popIn} whileHover={{ borderColor: "rgba(74,222,128,0.5)", boxShadow: "0 0 12px rgba(74,222,128,0.2)" }} className="px-4 py-2 bg-white/[0.04] border border-white/[0.06] rounded-full text-white/70 text-xs font-medium transition-shadow">
               {f}
             </motion.div>
           ))}
@@ -313,9 +330,9 @@ function LandingPageContent() {
           <div className="text-center mb-6">
             <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">The Problem</span>
             <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-              {"Recruiting is broken for the 99%"}
+              {"The recruiting system isn\u2019t built for you"}
             </h2>
-            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Unless you\u2019re a blue-chip recruit, the system wasn\u2019t built for you."}</p>
+            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Unless you\u2019re a blue-chip recruit, you\u2019re on your own. We\u2019re changing that."}</p>
           </div>
           <motion.div
             variants={staggerContainer}
@@ -338,6 +355,9 @@ function LandingPageContent() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Stats */}
+      <StatsSection />
 
       {/* Features Bento */}
       <motion.section
@@ -375,7 +395,7 @@ function LandingPageContent() {
                 </div>
                 <div className="px-4 pb-4 flex-1 flex items-end">
                   <div className="w-full rounded-xl overflow-hidden bg-[#f5f5f5] border border-white/[0.08] shadow-lg">
-                    <img src={feat.img} alt={feat.title} className="w-full h-auto block" />
+                    <Image src={feat.img} alt={feat.title} width={600} height={400} className="w-full h-auto block" sizes="(max-width: 768px) 100vw, 50vw" />
                   </div>
                 </div>
               </motion.div>
@@ -537,6 +557,27 @@ function LandingPageContent() {
 
       {/* Footer */}
       <FooterSection />
+
+      {/* Sticky CTA bar */}
+      <AnimatePresence>
+        {showStickyCTA && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+          >
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free during beta</span>
+            <button
+              onClick={openWaitlist}
+              className="h-8 px-5 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+            >
+              Get Early Access
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

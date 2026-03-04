@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function DemoPage() {
@@ -15,7 +16,7 @@ export default function DemoPage() {
       >
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/logo.ico" alt="OneCommit logo" className="w-6 h-6 rounded-full" />
+            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </Link>
           <Link
@@ -54,6 +55,7 @@ export default function DemoPage() {
             className="w-full h-auto block"
           >
             <source src="/demo.mp4" type="video/mp4" />
+            <track src="/demo.vtt" kind="captions" label="English" default />
           </video>
         </div>
 

@@ -33,10 +33,10 @@ export default function PricingSection() {
         <div className="text-center mb-8">
           <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Beta Pricing</span>
           <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Built for athletes, not budgets
+            Why pay thousands for something you can do yourself?
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">
-            {"Traditional recruiting services charge $3,000-$5,000+. OneCommit is free during beta -- and always affordable after."}
+            {"Traditional services charge $3,000\u2013$5,000+ for a passive profile. OneCommit puts you in control \u2014 for free."}
           </p>
         </div>
 
@@ -57,7 +57,8 @@ export default function PricingSection() {
               <div className="text-[#4ade80] text-sm font-semibold mb-1">Beta Access</div>
               <p className="text-white/40 text-sm mb-4">Full access to all features during the beta period. No credit card required.</p>
               <div className="text-white text-5xl font-bold mb-1">$0</div>
-              <div className="text-white/30 text-sm mb-5">free during beta</div>
+              <div className="text-white/30 text-sm mb-1">free during beta</div>
+              <div className="text-white/20 text-xs mb-4">No credit card. No commitment. Just results.</div>
               <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
                 Join the Track Beta
               </button>
