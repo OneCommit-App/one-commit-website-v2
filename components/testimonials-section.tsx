@@ -132,7 +132,13 @@ export default function TestimonialsSection() {
             <motion.div
               key={i}
               variants={fadeUpItem}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 flex flex-col"
+              whileHover={{
+                y: -6,
+                borderColor: "rgba(74,222,128,0.28)",
+                boxShadow: "0 0 28px rgba(74,222,128,0.08)",
+                transition: { duration: 0.22 },
+              }}
+              className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 flex flex-col cursor-default"
             >
               <span className="text-[#4ade80] text-[10px] font-semibold uppercase tracking-wider bg-[#4ade80]/10 border border-[#4ade80]/20 px-2 py-0.5 rounded-full self-start mb-3">
                 {t.badge}

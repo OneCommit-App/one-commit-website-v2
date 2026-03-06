@@ -114,7 +114,7 @@ export default function WaitlistForm({
   }
 
   const inputClass =
-    "bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/30 focus-visible:border-[#4ade80] focus-visible:ring-[#4ade80]/20"
+    "bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/30 focus-visible:border-[#4ade80]/60 focus-visible:ring-[#4ade80]/15 focus-visible:shadow-[0_0_0_3px_rgba(74,222,128,0.08),0_0_14px_rgba(74,222,128,0.07)] transition-all duration-200"
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -277,9 +277,20 @@ export default function WaitlistForm({
       <button
         type="submit"
         disabled={submitting}
-        className="w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
       >
-        {submitting ? "Joining..." : "Join Beta Waitlist"}
+        {!submitting && <span className="absolute inset-0 animate-shimmer" />}
+        {submitting ? (
+          <span className="flex items-center gap-2 relative z-10">
+            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            Joining...
+          </span>
+        ) : (
+          <span className="relative z-10">Join Beta Waitlist</span>
+        )}
       </button>
     </form>
   )
