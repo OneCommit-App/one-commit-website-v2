@@ -60,13 +60,24 @@ export default function FAQSection() {
           {faqData.map((item, i) => {
             const isOpen = open.includes(i)
             return (
-              <motion.div key={i} variants={fadeUpItem} className="border-b border-white/[0.06]">
+              <motion.div
+                key={i}
+                variants={fadeUpItem}
+                animate={{
+                  backgroundColor: isOpen ? "rgba(74,222,128,0.03)" : "transparent",
+                  borderLeftColor: isOpen ? "rgba(74,222,128,0.35)" : "transparent",
+                }}
+                transition={{ duration: 0.25 }}
+                className="border-b border-white/[0.06] border-l-2 pl-3 -ml-3"
+              >
                 <button onClick={() => toggle(i)} className="w-full py-4 flex items-center justify-between text-left group" aria-expanded={isOpen}>
-                  <span className="text-white text-sm font-medium pr-4">{item.q}</span>
+                  <span className={`text-sm font-medium pr-4 transition-colors duration-200 ${isOpen ? "text-white" : "text-white/80 group-hover:text-white"}`}>
+                    {item.q}
+                  </span>
                   <motion.svg
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="w-5 h-5 text-white/30 flex-shrink-0"
+                    className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${isOpen ? "text-[#4ade80]" : "text-white/30 group-hover:text-white/50"}`}
                     viewBox="0 0 24 24"
                     fill="none"
                   >
@@ -82,7 +93,7 @@ export default function FAQSection() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="text-white/40 text-sm leading-relaxed pb-4">{item.a}</p>
+                      <p className="text-white/50 text-sm leading-relaxed pb-4">{item.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
