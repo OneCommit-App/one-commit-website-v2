@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { motion, useInView, useAnimate } from "framer-motion"
 
 const stats = [
@@ -11,9 +11,8 @@ const stats = [
 
 function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
   const [scope, animate] = useAnimate()
+  const inView = useInView(scope, { once: true, margin: "-80px" })
 
   useEffect(() => {
     if (!inView) return
@@ -34,7 +33,7 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
   }, [inView, target, animate, scope])
 
   return (
-    <span ref={(el) => { (ref as React.MutableRefObject<HTMLSpanElement | null>).current = el; scope.current = el }}>
+    <span ref={scope}>
       {count}
       {suffix}
     </span>
