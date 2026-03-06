@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate, useInView } from "framer-motion"
 import Image from "next/image"
 import { Menu, X, ArrowRight } from "lucide-react"
 import TestimonialsSection from "@/components/testimonials-section"
@@ -101,6 +101,38 @@ const heroChildBlur = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as const } },
 }
 
+/* ── Animated underline on key words ── */
+function UnderlineText({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-80px" })
+  return (
+    <span ref={ref} className="relative inline-block">
+      {children}
+      <motion.span
+        initial={{ scaleX: 0 }}
+        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const, delay }}
+        style={{ originX: 0 }}
+        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#4ade80] rounded-full pointer-events-none"
+      />
+    </span>
+  )
+}
+
+/* ── Section divider ── */
+function SectionDivider() {
+  return (
+    <motion.div
+      initial={{ scaleX: 0, opacity: 0 }}
+      whileInView={{ scaleX: 1, opacity: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.8, ease: "easeOut" as const }}
+      className="w-full max-w-4xl mx-auto h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-14"
+      style={{ originX: 0.5 }}
+    />
+  )
+}
+
 /* ── Magnetic wrapper ── */
 function Magnetic({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -136,7 +168,7 @@ function Magnetic({ children }: { children: React.ReactNode }) {
 }
 
 /* ── Feature card with tilt + image parallax ── */
-function FeatureCard({ feat }: { feat: typeof features[0] }) {
+function FeatureCard({ feat, wide = false }: { feat: typeof features[0]; wide?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -172,17 +204,24 @@ function FeatureCard({ feat }: { feat: typeof features[0] }) {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{ rotateX: springRX, rotateY: springRY, transformPerspective: 1000 }}
-      className="bg-white/[0.03] border border-white/[0.06] rounded-xl overflow-hidden flex flex-col relative"
+      className={`bg-white/[0.03] border border-white/[0.06] rounded-xl overflow-hidden relative h-full ${wide ? "flex flex-col md:flex-row" : "flex flex-col"}`}
     >
       <motion.div style={{ background: glowBg }} className="absolute inset-0 z-10 pointer-events-none rounded-xl" />
-      <div className="p-5 pb-3 relative z-20">
+      <div className={`p-5 pb-3 relative z-20 ${wide ? "md:w-[38%] md:pb-5 md:flex md:flex-col md:justify-center md:flex-shrink-0" : ""}`}>
         <h3 className="text-white text-base font-semibold mb-1">{feat.title}</h3>
         <p className="text-white/50 text-sm leading-relaxed">{feat.desc}</p>
       </div>
-      <div className="px-4 pb-4 flex-1 flex items-end relative z-20 overflow-hidden">
-        <div className="w-full rounded-xl overflow-hidden bg-[#f5f5f5] border border-white/[0.08] shadow-lg">
-          <motion.div style={{ x: imgX, y: imgY }}>
-            <Image src={feat.img} alt={feat.title} width={600} height={400} className="w-full h-auto block" sizes="(max-width: 768px) 100vw, 50vw" />
+      <div className={`flex-1 flex items-end relative z-20 overflow-hidden ${wide ? "px-0 pb-0 md:items-stretch" : "px-4 pb-4"}`}>
+        <div className={`w-full overflow-hidden bg-[#f5f5f5] border border-white/[0.08] shadow-lg ${wide ? "rounded-xl md:rounded-none md:rounded-r-xl md:h-full" : "rounded-xl"}`}>
+          <motion.div style={{ x: imgX, y: imgY }} className={wide ? "h-full" : ""}>
+            <Image
+              src={feat.img}
+              alt={feat.title}
+              width={600}
+              height={400}
+              className={`w-full block ${wide ? "h-auto md:h-full md:object-cover md:object-left-top" : "h-auto"}`}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </motion.div>
         </div>
       </div>
@@ -495,7 +534,17 @@ function LandingPageContent() {
         transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.6 }}
         className="px-4 pb-8 pt-4 flex justify-center"
       >
-        <div className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_0_80px_rgba(74,222,128,0.06)] relative group">
+        <motion.div
+          animate={{
+            boxShadow: [
+              "0 0 40px rgba(74,222,128,0.04)",
+              "0 0 80px rgba(74,222,128,0.10)",
+              "0 0 40px rgba(74,222,128,0.04)",
+            ],
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 relative group"
+        >
           <video
             autoPlay
             loop
@@ -520,7 +569,7 @@ function LandingPageContent() {
             </div>
             Watch full demo
           </a>
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Floating connector orb */}
@@ -566,11 +615,14 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
             >
-              {["The", "recruiting", "system", "isn\u2019t", "built", "for", "you"].map((word, i) => (
+              {["The", "recruiting", "system", "isn\u2019t", "built", "for"].map((word, i) => (
                 <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                   {word}
                 </motion.span>
               ))}
+              <motion.span variants={wordChild} className="inline-block">
+                <UnderlineText delay={0.4}>you</UnderlineText>
+              </motion.span>
             </motion.h2>
             <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Unless you\u2019re a blue-chip recruit, you\u2019re on your own. We\u2019re changing that."}</p>
           </div>
@@ -585,10 +637,17 @@ function LandingPageContent() {
               <TiltCard key={i} className="rounded-xl">
                 <motion.div
                   variants={fadeUpItem}
-                  className="p-4 bg-white/[0.03] border border-white/[0.06] rounded-xl relative z-20"
+                  className="bg-white/[0.03] border border-white/[0.06] rounded-xl overflow-hidden relative z-20"
                 >
-                  <h3 className="text-white text-sm font-semibold mb-1">{item.p}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{item.s}</p>
+                  <div className="px-4 pt-4 pb-3 flex gap-2.5 items-start">
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-[10px] font-bold leading-none">✗</span>
+                    <p className="text-white/50 text-sm leading-relaxed">{item.p}</p>
+                  </div>
+                  <div className="mx-4 h-px bg-white/[0.05]" />
+                  <div className="px-4 pt-3 pb-4 flex gap-2.5 items-start">
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-[#4ade80]/10 border border-[#4ade80]/20 flex items-center justify-center text-[#4ade80] text-[10px] font-bold leading-none">✓</span>
+                    <p className="text-white/70 text-sm leading-relaxed">{item.s}</p>
+                  </div>
                 </motion.div>
               </TiltCard>
             ))}
@@ -596,8 +655,14 @@ function LandingPageContent() {
         </div>
       </motion.section>
 
+      {/* Divider */}
+      <SectionDivider />
+
       {/* Stats */}
       <StatsSection />
+
+      {/* Divider */}
+      <SectionDivider />
 
       {/* Features Bento */}
       <motion.section
@@ -618,11 +683,14 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
             >
-              {["Everything", "you", "need", "to", "get", "recruited"].map((word, i) => (
+              {["Everything", "you", "need", "to", "get"].map((word, i) => (
                 <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                   {word}
                 </motion.span>
               ))}
+              <motion.span variants={wordChild} className="inline-block mr-[0.25em]">
+                <UnderlineText delay={0.4}>recruited</UnderlineText>
+              </motion.span>
             </motion.h2>
           </div>
           <motion.div
@@ -630,14 +698,18 @@ function LandingPageContent() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4"
           >
-            {features.map((feat, i) => (
-              <FeatureCard key={i} feat={feat} />
-            ))}
+            <div className="md:col-span-2"><FeatureCard feat={features[0]} wide /></div>
+            <div className="md:col-span-1"><FeatureCard feat={features[1]} /></div>
+            <div className="md:col-span-1"><FeatureCard feat={features[2]} /></div>
+            <div className="md:col-span-2"><FeatureCard feat={features[3]} wide /></div>
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Divider */}
+      <SectionDivider />
 
       {/* How It Works - 4 steps */}
       <motion.section
@@ -658,11 +730,14 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
             >
-              {["Four", "steps.", "You\u2019re", "in", "control."].map((word, i) => (
+              {["Four", "steps.", "You\u2019re", "in"].map((word, i) => (
                 <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                   {word}
                 </motion.span>
               ))}
+              <motion.span variants={wordChild} className="inline-block">
+                <UnderlineText delay={0.4}>{"control."}</UnderlineText>
+              </motion.span>
             </motion.h2>
             <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, discover matched schools, send outreach, and track replies."}</p>
           </div>
@@ -757,6 +832,9 @@ function LandingPageContent() {
           </div>
         </div>
       </motion.section>
+
+      {/* Divider */}
+      <SectionDivider />
 
       {/* Founder Story */}
       <motion.section
