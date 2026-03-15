@@ -75,7 +75,7 @@ export default function CTASection() {
     >
       <motion.div
         whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
-        className="w-full max-w-3xl bg-[#235d48]/20 border border-[#235d48]/30 rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden"
+        className="w-full max-w-4xl bg-[#235d48]/20 border border-[#235d48]/30 rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden"
       >
         {/* Animated ambient particles */}
         <AmbientParticles />

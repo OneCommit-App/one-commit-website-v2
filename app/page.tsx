@@ -10,7 +10,6 @@ import PricingSection from "@/components/pricing-section"
 import CTASection from "@/components/cta-section"
 import FooterSection from "@/components/footer-section"
 import StatsSection from "@/components/stats-section"
-import SchoolMarquee from "@/components/school-marquee"
 import TiltCard from "@/components/tilt-card"
 import { WaitlistProvider, useWaitlist } from "@/components/waitlist-dialog"
 
@@ -40,8 +39,6 @@ const features = [
   { title: "Outreach Dashboard", desc: "Generate emails, track sent messages & replies, and manage all coach conversations.", img: "/proof-engagement.png" },
   { title: "Reply Tracking", desc: "See match details, communication history, and reply status for every school.", img: "/track.png" },
 ]
-
-const featurePills = ["Smart Matching", "AI-Powered Outreach", "Engagement Tracking", "SmartAdd Search"]
 
 /* ── animation variants ── */
 const fadeUp = {
@@ -77,11 +74,6 @@ const fadeInLeft = {
 const fadeInRight = {
   hidden: { opacity: 0, x: 40 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-}
-
-const popIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" as const } },
 }
 
 const viewportOnce = { once: true, margin: "-80px" as const }
@@ -577,26 +569,6 @@ function LandingPageContent() {
         <div className="absolute w-[200px] h-[200px] rounded-full bg-[#4ade80] blur-[80px] opacity-[0.025] animate-float" style={{ top: "-100px" }} />
       </div>
 
-      {/* School marquee */}
-      <SchoolMarquee />
-
-      {/* Quick feature pills */}
-      <motion.section
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        className="px-4 pb-10 flex justify-center"
-      >
-        <div className="flex flex-wrap justify-center gap-3">
-          {featurePills.map((f) => (
-            <motion.div key={f} variants={popIn} whileHover={{ borderColor: "rgba(74,222,128,0.5)", boxShadow: "0 0 12px rgba(74,222,128,0.2)" }} className="px-4 py-2 bg-white/[0.04] border border-white/[0.06] rounded-full text-white/70 text-xs font-medium transition-shadow">
-              {f}
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
       {/* Problem + Solution */}
       <motion.section
         initial="hidden"
@@ -698,12 +670,11 @@ function LandingPageContent() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
-            <div className="md:col-span-2"><FeatureCard feat={features[0]} wide /></div>
-            <div className="md:col-span-1"><FeatureCard feat={features[1]} /></div>
-            <div className="md:col-span-1"><FeatureCard feat={features[2]} /></div>
-            <div className="md:col-span-2"><FeatureCard feat={features[3]} wide /></div>
+            {features.map((feat, i) => (
+              <div key={i} className="h-full"><FeatureCard feat={feat} /></div>
+            ))}
           </motion.div>
         </div>
       </motion.section>
@@ -844,7 +815,7 @@ function LandingPageContent() {
         variants={fadeUp}
         className="px-4 pb-14 flex justify-center"
       >
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-4xl">
           <div className="text-center mb-6">
             <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Our Story</span>
           </div>
