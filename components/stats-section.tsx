@@ -69,7 +69,7 @@ export default function StatsSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="w-full max-w-3xl grid grid-cols-3 gap-3"
+        className="w-full max-w-4xl grid grid-cols-3 gap-3"
       >
         {stats.map((stat, i) => (
           <motion.div
