@@ -28,6 +28,16 @@ const featureItem = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
 }
 
+const wordStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+}
+
+const wordChild = {
+  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as const } },
+}
+
 export default function PricingSection() {
   const { openWaitlist } = useWaitlist()
 
@@ -42,9 +52,19 @@ export default function PricingSection() {
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8">
           <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Beta Pricing</span>
-          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Why pay thousands for something you can do yourself?
-          </h2>
+          <motion.h2
+            variants={wordStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
+          >
+            {["Why", "pay", "thousands", "for", "something", "you", "can", "do", "yourself?"].map((word, i) => (
+              <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
+                {word}
+              </motion.span>
+            ))}
+          </motion.h2>
           <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">
             {"Traditional services charge $3,000\u2013$5,000+ for a passive profile. OneCommit puts you in control \u2014 for free."}
           </p>
@@ -57,20 +77,48 @@ export default function PricingSection() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          {/* Beta Free */}
+          {/* Beta Free — featured card */}
           <motion.div
             variants={cardReveal}
+            animate={{
+              boxShadow: [
+                "0 0 0 1px rgba(74,222,128,0.12), 0 0 30px rgba(74,222,128,0.03)",
+                "0 0 0 1px rgba(74,222,128,0.32), 0 0 60px rgba(74,222,128,0.10)",
+                "0 0 0 1px rgba(74,222,128,0.12), 0 0 30px rgba(74,222,128,0.03)",
+              ],
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/[0.04] border border-[#4ade80]/20 rounded-xl p-6 flex flex-col justify-between"
+            className="bg-white/[0.04] border border-[#4ade80]/20 rounded-xl p-6 flex flex-col justify-between relative overflow-hidden"
           >
+            {/* Shimmer sweep */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
+              <motion.div
+                animate={{ x: ["-100%", "220%"] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "linear", repeatDelay: 5 }}
+                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -skew-x-12"
+              />
+            </div>
+
+            {/* Free Beta badge */}
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 bg-[#4ade80]/10 border border-[#4ade80]/20 rounded-full">
+              <motion.span
+                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
+              />
+              <span className="text-[#4ade80] text-[10px] font-semibold uppercase tracking-wider">Free Beta</span>
+            </div>
+
             <div>
               <div className="text-[#4ade80] text-sm font-semibold mb-1">Beta Access</div>
               <p className="text-white/40 text-sm mb-4">Full access to all features during the beta period. No credit card required.</p>
               <div className="text-white text-5xl font-bold mb-1">$0</div>
               <div className="text-white/30 text-sm mb-1">free during beta</div>
               <div className="text-white/20 text-xs mb-4">No credit card. No commitment. Just results.</div>
-              <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
-                Join the Track Beta
+              <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors relative overflow-hidden group">
+                <span className="absolute inset-0 animate-shimmer" />
+                <span className="relative z-10">Join the Track Beta</span>
               </button>
             </div>
             <motion.div

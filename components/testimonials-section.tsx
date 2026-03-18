@@ -89,8 +89,18 @@ const staggerContainer = {
 }
 
 const fadeUpItem = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
+}
+
+const wordStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+}
+
+const wordChild = {
+  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as const } },
 }
 
 export default function TestimonialsSection() {
@@ -120,6 +130,25 @@ export default function TestimonialsSection() {
       className="px-4 pb-14 flex justify-center"
     >
       <div className="w-full max-w-4xl">
+        {/* Section heading */}
+        <div className="text-center mb-8">
+          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Testimonials</span>
+          <motion.h2
+            variants={wordStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
+          >
+            {["Athletes", "who", "took", "control"].map((word, i) => (
+              <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
+                {word}
+              </motion.span>
+            ))}
+          </motion.h2>
+          <p className="mt-2 text-white/40 text-sm max-w-sm mx-auto">Real results from student-athletes who stopped waiting and started winning.</p>
+        </div>
+
         {/* Desktop: 3-column grid */}
         <motion.div
           variants={staggerContainer}
@@ -134,8 +163,7 @@ export default function TestimonialsSection() {
               variants={fadeUpItem}
               whileHover={{
                 y: -6,
-                borderColor: "rgba(74,222,128,0.28)",
-                boxShadow: "0 0 28px rgba(74,222,128,0.08)",
+                boxShadow: "0 0 0 1px rgba(74,222,128,0.28), 0 0 28px rgba(74,222,128,0.08)",
                 transition: { duration: 0.22 },
               }}
               className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 flex flex-col cursor-default"

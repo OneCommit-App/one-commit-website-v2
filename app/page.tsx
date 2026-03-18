@@ -525,7 +525,35 @@ function LandingPageContent() {
             </a>
           </Magnetic>
         </motion.div>
+
+        {/* Social proof row */}
+        <motion.div variants={heroChild} className="flex items-center gap-3 mt-5">
+          <div className="flex -space-x-1.5">
+            {["EK", "ML", "JT", "AS", "CB"].map((initials, i) => (
+              <div
+                key={i}
+                className="w-7 h-7 rounded-full bg-[#4ade80]/[0.12] border-[1.5px] border-[#0f1a14] flex items-center justify-center text-[#4ade80] text-[9px] font-bold flex-shrink-0"
+              >
+                {initials}
+              </div>
+            ))}
+          </div>
+          <p className="text-white/40 text-xs">
+            <span className="text-white/60 font-semibold">500+</span> athletes already on the list
+          </p>
+        </motion.div>
       </motion.section>
+
+      {/* Scroll-down indicator */}
+      <motion.div
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        className="flex justify-center -mt-1 pb-1 pointer-events-none"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9L12 15L18 9" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </motion.div>
 
       {/* Video */}
       <motion.section
@@ -698,12 +726,11 @@ function LandingPageContent() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
-            <div className="md:col-span-2"><FeatureCard feat={features[0]} wide /></div>
-            <div className="md:col-span-1"><FeatureCard feat={features[1]} /></div>
-            <div className="md:col-span-1"><FeatureCard feat={features[2]} /></div>
-            <div className="md:col-span-2"><FeatureCard feat={features[3]} wide /></div>
+            {features.map((feat, i) => (
+              <FeatureCard key={i} feat={feat} />
+            ))}
           </motion.div>
         </div>
       </motion.section>
@@ -741,7 +768,7 @@ function LandingPageContent() {
             </motion.h2>
             <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, discover matched schools, send outreach, and track replies."}</p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 items-stretch">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             {/* Step cards */}
             <motion.div
               variants={fadeInLeft}
@@ -800,12 +827,20 @@ function LandingPageContent() {
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              className="flex-1 flex justify-center items-stretch"
+              className="flex-1 flex justify-center items-center"
             >
               <motion.div
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.08}
+                animate={{
+                  boxShadow: [
+                    "0 0 40px rgba(74,222,128,0.05), 0 20px 60px rgba(0,0,0,0.3)",
+                    "0 0 80px rgba(74,222,128,0.14), 0 20px 60px rgba(0,0,0,0.3)",
+                    "0 0 40px rgba(74,222,128,0.05), 0 20px 60px rgba(0,0,0,0.3)",
+                  ],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 onDragEnd={(_, info) => {
                   if (info.offset.x < -50 || info.velocity.x < -300) {
                     handleStepClick((activeStep + 1) % steps.length)
@@ -813,7 +848,7 @@ function LandingPageContent() {
                     handleStepClick((activeStep - 1 + steps.length) % steps.length)
                   }
                 }}
-                className="touch-pan-y cursor-grab active:cursor-grabbing w-full max-w-[320px] bg-[#f5f5f5] rounded-[2rem] overflow-hidden border-[3px] border-white/[0.10] shadow-[0_0_60px_rgba(74,222,128,0.06)] relative"
+                className="touch-pan-y cursor-grab active:cursor-grabbing w-full max-w-[360px] bg-[#f5f5f5] rounded-[2rem] overflow-hidden border-[3px] border-white/[0.10] relative"
               >
                 <AnimatePresence mode="wait">
                   <motion.img
