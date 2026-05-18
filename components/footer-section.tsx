@@ -15,7 +15,7 @@ export default function FooterSection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-40px" }}
-      className="px-4 pt-8 pb-12 flex justify-center border-t border-white/[0.06]"
+      className="px-4 pt-8 pb-12 flex flex-col items-center border-t border-white/[0.06]"
     >
       <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start gap-8">
         <div className="flex flex-col gap-3">
@@ -24,7 +24,7 @@ export default function FooterSection() {
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </div>
           <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">The first self-service recruiting copilot built for the overlooked.</p>
-          <a href="mailto:onecommitapplication@gmail.com" className="text-[#4ade80] text-xs font-medium hover:underline">onecommitapplication@gmail.com</a>
+          <a href="mailto:admin@onecommit.us" className="text-[#4ade80] text-xs font-medium hover:underline">admin@onecommit.us</a>
           <div className="flex items-center gap-3 mt-1">
             <motion.a
               href="https://x.com/onecommit"
@@ -53,17 +53,19 @@ export default function FooterSection() {
           </div>
         </div>
 
-        <div className="flex gap-12 sm:gap-16">
+        <div className="flex flex-wrap gap-12 sm:gap-16">
           <div className="flex flex-col gap-2">
             <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Product</span>
             <a href="#features" className="text-white/50 text-xs hover:text-white/70 transition-colors">Features</a>
             <a href="#how-it-works" className="text-white/50 text-xs hover:text-white/70 transition-colors">How It Works</a>
             <a href="#pricing" className="text-white/50 text-xs hover:text-white/70 transition-colors">Pricing</a>
+            <a href="#faq" className="text-white/50 text-xs hover:text-white/70 transition-colors">FAQ</a>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Company</span>
-            <span className="text-white/50 text-xs">Our Story</span>
-            <a href="mailto:onecommitapplication@gmail.com" className="text-white/50 text-xs hover:text-white/70 transition-colors">Contact</a>
+            <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Help</span>
+            <a href="/support" className="text-white/50 text-xs hover:text-white/70 transition-colors">Support</a>
+            <a href="mailto:admin@onecommit.us" className="text-white/50 text-xs hover:text-white/70 transition-colors">admin@onecommit.us</a>
+            <a href="mailto:admin@onecommit.us" className="text-white/50 text-xs hover:text-white/70 transition-colors">Contact us</a>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Legal</span>
@@ -71,6 +73,12 @@ export default function FooterSection() {
             <a href="/terms" className="text-white/50 text-xs hover:text-white/70 transition-colors">Terms of Service</a>
           </div>
         </div>
+      </div>
+
+      <div className="mt-10 pt-6 border-t border-white/[0.04] w-full max-w-4xl">
+        <p className="text-white/20 text-[10px] text-center">
+          © {new Date().getFullYear()} OneCommit LLC. All rights reserved.
+        </p>
       </div>
     </motion.footer>
   )

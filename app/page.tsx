@@ -17,6 +17,7 @@ const subtitles = [
   "Match to 40+ colleges that fit your times and GPA.",
   "Send outreach emails coaches actually read.",
   "See exactly who replied and who's interested.",
+  "Talk to a real recruiting advisor every month.",
 ]
 
 const steps = [
@@ -24,6 +25,7 @@ const steps = [
   { num: "2", title: "Get matched schools", desc: "See Reach, Target & Foundational tiers with match percentage breakdowns.", image: "/app-explore.png" },
   { num: "3", title: "Send outreach emails", desc: "Generate personalized emails and send them from your own inbox.", image: "/proof-email.png" },
   { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and follow up at the right time.", image: "/app-track-replies.png" },
+  { num: "5", title: "Meet your advisor", desc: "Pro members meet 1-on-1 with a OneCommit recruiting advisor each month to refine their pitch and plan next steps.", image: "/proof-engagement.png" },
 ]
 
 const problems = [

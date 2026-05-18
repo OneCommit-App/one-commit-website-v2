@@ -40,13 +40,13 @@ export default function PricingSection() {
       className="px-4 pb-16 flex justify-center"
     >
       <div className="w-full max-w-4xl">
-        <div className="text-center mb-8">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Beta Pricing</span>
+        <div id="pricing" className="text-center mb-8 scroll-mt-20">
+          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
           <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Why pay thousands for something you can do yourself?
+            A fraction of the cost. A real human in your corner.
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">
-            {"Traditional services charge $3,000\u2013$5,000+ for a passive profile. OneCommit puts you in control \u2014 for free."}
+            {"Traditional recruiting services charge $3,000\u2013$5,000+ upfront. OneCommit costs $7.99/month \u2014 and includes a real advisor."}
           </p>
         </div>
 
@@ -64,13 +64,13 @@ export default function PricingSection() {
             className="bg-white/[0.04] border border-[#4ade80]/20 rounded-xl p-6 flex flex-col justify-between"
           >
             <div>
-              <div className="text-[#4ade80] text-sm font-semibold mb-1">Beta Access</div>
-              <p className="text-white/40 text-sm mb-4">Full access to all features during the beta period. No credit card required.</p>
+              <div className="text-[#4ade80] text-sm font-semibold mb-1">Free Tier</div>
+              <p className="text-white/40 text-sm mb-4">Try OneCommit for free with a limited number of coach outreach actions per month. No credit card required.</p>
               <div className="text-white text-5xl font-bold mb-1">$0</div>
-              <div className="text-white/30 text-sm mb-1">free during beta</div>
-              <div className="text-white/20 text-xs mb-4">No credit card. No commitment. Just results.</div>
+              <div className="text-white/30 text-sm mb-1">forever free</div>
+              <div className="text-white/20 text-xs mb-4">Upgrade to Pro anytime for unlimited use + monthly coaching.</div>
               <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
-                Join the Track Beta
+                Get the app
               </button>
             </div>
             <motion.div
@@ -136,22 +136,20 @@ export default function PricingSection() {
             </motion.div>
           </motion.div>
 
-          {/* Pro Plan — Coming Soon */}
+          {/* Pro Plan — Active */}
           <motion.div
             variants={cardReveal}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-6 flex flex-col justify-between relative overflow-hidden"
+            className="bg-white/[0.04] border border-[#4ade80]/30 rounded-xl p-6 flex flex-col justify-between relative overflow-hidden"
           >
-            <div className="absolute top-4 right-4 px-2 py-0.5 bg-white/[0.06] border border-white/[0.08] rounded-full text-white/40 text-[10px] font-semibold uppercase tracking-wider">
-              Coming Soon
-            </div>
             <div>
-              <div className="text-white/60 text-sm font-semibold mb-1">Pro Plan</div>
-              <p className="text-white/30 text-sm mb-4">Everything in beta plus expanded features as OneCommit grows.</p>
-              <div className="text-white/40 text-5xl font-bold mb-1">—</div>
-              <div className="text-white/20 text-sm mb-5">beta users lock in early pricing</div>
-              <button onClick={openWaitlist} className="block w-full h-10 bg-white/[0.06] border border-white/[0.10] text-white/50 text-sm font-medium rounded-full flex items-center justify-center hover:bg-white/[0.08] hover:text-white/70 transition-colors">
-                Join beta to lock rate
+              <div className="text-[#4ade80] text-sm font-semibold mb-1">Pro Plan</div>
+              <p className="text-white/40 text-sm mb-4">Personal recruiting consultation, plus expanded access to the platform tools that make it productive.</p>
+              <div className="text-white text-5xl font-bold mb-1">$7.99</div>
+              <div className="text-white/30 text-sm mb-1">per month</div>
+              <div className="text-white/20 text-xs mb-4">Subscribe inside the OneCommit iOS app</div>
+              <button onClick={openWaitlist} className="block w-full h-10 bg-white/[0.06] border border-white/[0.10] text-white/70 text-sm font-medium rounded-full flex items-center justify-center hover:bg-white/[0.10] hover:text-white transition-colors">
+                Get the app
               </button>
             </div>
             <motion.div
@@ -162,17 +160,17 @@ export default function PricingSection() {
               className="mt-6 flex flex-col gap-2"
             >
               {[
-                "Everything in beta",
-                "Multi-sport support (roadmap)",
-                "Priority school matching",
-                "Advanced email analytics",
-                "Unlimited outreach",
-                "Dedicated onboarding",
+                "Monthly 1-on-1 video call with a OneCommit recruiting advisor",
+                "Personalized profile review and pitch coaching",
+                "Unlimited coach outreach emails",
+                "Unlimited school exploration",
+                "View all coach replies in real time",
+                "Priority recruiting pipeline tools",
                 "Early access to new features",
               ].map((f, i) => (
                 <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" /></svg>
-                  <span className="text-white/30 text-xs">{f}</span>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  <span className="text-white/70 text-xs">{f}</span>
                 </motion.div>
               ))}
             </motion.div>
