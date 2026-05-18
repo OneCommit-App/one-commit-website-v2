@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             { title: "Data Breach Notification", content: "If a breach occurs, we will investigate, notify affected users within 72 hours where required, disclose scope/impact, steps taken, and guidance for protection, and cooperate with authorities when applicable." },
             { title: "Your Rights and Choices", content: "Access & Portability -- view and request a copy of your data.\nCorrection -- update inaccuracies.\nDeletion -- request deletion (legal/legitimate retention may apply).\nEmail Access -- disconnect Gmail/Outlook at any time.\nCommunication Preferences -- manage notifications, opt out of non-essential comms.\nParental Rights -- review, correct, delete, or withdraw consent for users under 18.\n\nContact: privacy@onecommit.us. We'll respond within 30 days." },
             { title: "Data Retention", content: "Active accounts -- retained while subscription is active.\nAfter cancellation -- personal data deleted within 3 months (subject to legal retention).\nAnonymized data may be retained indefinitely for service improvement." },
-            { title: "Contact Us", content: "Privacy: privacy@onecommit.us\nSupport: support@onecommit.us\n\n\u00a9 2025 OneCommit LLC. All rights reserved." },
+            { title: "Contact Us", content: "Privacy: privacy@onecommit.us\nSupport: admin@onecommit.us\n\n\u00a9 2025 OneCommit LLC. All rights reserved." },
           ].map((section, i) => (
             <div key={i} className="mb-6">
               <h2 className="text-white text-lg font-semibold mb-2">{section.title}</h2>

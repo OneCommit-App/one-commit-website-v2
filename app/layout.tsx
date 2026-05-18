@@ -13,21 +13,21 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://onecommit.co"),
+  metadataBase: new URL("https://onecommit.us"),
   title: {
-    default: "OneCommit — Track & Field Recruiting Copilot",
+    default: "OneCommit — Personalized Track & Field Recruiting",
     template: "%s | OneCommit",
   },
   description:
-    "Get recruited faster for Track & Field. OneCommit matches you to colleges, writes personalized outreach emails, and tracks coach replies — free during beta.",
+    "Get recruited for Track & Field with a real advisor in your corner. Match to colleges, send outreach coaches actually read, track every reply — and meet 1-on-1 with a recruiting advisor each month. Free tier available.",
   icons: {
     icon: "/logo.ico",
   },
   openGraph: {
-    title: "OneCommit — Track & Field Recruiting Copilot",
+    title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send outreach emails coaches actually read, and track every reply. Free during beta.",
-    url: "https://onecommit.co",
+      "Match to colleges, send outreach coaches actually read, track replies, and meet monthly with a real recruiting advisor. From $7.99/mo.",
+    url: "https://onecommit.us",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",
@@ -36,19 +36,19 @@ export const metadata: Metadata = {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "OneCommit — Get recruited faster for Track & Field",
+        alt: "OneCommit — Personalized Track & Field Recruiting",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "OneCommit — Track & Field Recruiting Copilot",
+    title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send outreach emails coaches actually read, and track every reply. Free during beta.",
+      "Match to colleges, send outreach coaches read, track replies, meet monthly with a real recruiting advisor. From $7.99/mo.",
     images: ["/og-default.png"],
   },
   alternates: {
-    canonical: "https://onecommit.co",
+    canonical: "https://onecommit.us",
   },
 }
 
