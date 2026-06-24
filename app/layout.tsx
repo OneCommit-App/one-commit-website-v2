@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-default.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "OneCommit — Personalized Track & Field Recruiting",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
       "Match to colleges, send outreach coaches read, track replies, meet monthly with a real recruiting advisor. From $7.99/mo.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
   alternates: {
     canonical: "https://onecommit.us",
