@@ -1,10 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function DemoPage() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <div className="w-full min-h-screen bg-[#0f1a14]">
       {/* Nav */}
@@ -16,7 +18,7 @@ export default function DemoPage() {
       >
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
+            <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </Link>
           <Link
@@ -47,12 +49,15 @@ export default function DemoPage() {
 
         <div className="w-full max-w-4xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_0_80px_rgba(74,222,128,0.06)]">
           <video
-            autoPlay
-            loop
+            autoPlay={!shouldReduceMotion}
+            loop={!shouldReduceMotion}
             muted
             playsInline
             controls
-            className="w-full h-auto block"
+            poster="/demo-poster.png"
+            preload="metadata"
+            aria-label="OneCommit product demo video"
+            className="w-full aspect-square object-cover block"
           >
             <source src="/demo.mp4" type="video/mp4" />
             <track src="/demo.vtt" kind="captions" label="English" default />
@@ -60,10 +65,10 @@ export default function DemoPage() {
         </div>
 
         <Link
-          href="/"
+          href="/waitlist"
           className="mt-8 h-10 px-6 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
         >
-          Join the Beta
+          Join the Beta Waitlist
         </Link>
       </motion.section>
     </div>

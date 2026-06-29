@@ -1,7 +1,54 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { CheckCircle2, XCircle } from "lucide-react"
 import { useWaitlist } from "@/components/waitlist-dialog"
+
+const plans = [
+  {
+    name: "Free",
+    eyebrow: "Start here",
+    description: "Try the core recruiting workspace with limited monthly coach outreach actions.",
+    price: "$0",
+    cadence: "free tier",
+    note: "No credit card required.",
+    cta: "Join Free Beta",
+    variant: "standard",
+    features: [
+      "Smart school matching",
+      "Personalized email generation",
+      "Gmail and Outlook connection",
+      "Coach reply tracking",
+      "SmartAdd school search",
+    ],
+  },
+  {
+    name: "Pro",
+    eyebrow: "Best for active recruiting",
+    description: "Expanded workflow access plus strategy help from a OneCommit recruiting advisor when Pro opens.",
+    price: "Planned",
+    cadence: "pro beta",
+    note: "Pricing and availability shared before any paid plan starts.",
+    cta: "Join Pro Waitlist",
+    variant: "featured",
+    features: [
+      "Monthly 1-on-1 advisor call",
+      "Personalized profile review",
+      "Pitch and follow-up coaching",
+      "Unlimited coach outreach emails",
+      "Unlimited school exploration",
+      "Priority recruiting pipeline tools",
+    ],
+  },
+]
+
+const oldWay = [
+  "Generic public profile",
+  "Passive coach discovery",
+  "Third-party platform messages",
+  "Limited reply visibility",
+  "Large upfront payment",
+]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -10,7 +57,7 @@ const fadeUp = {
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
+  visible: { transition: { staggerChildren: 0.12 } },
 }
 
 const cardReveal = {
@@ -20,7 +67,7 @@ const cardReveal = {
 
 const featureListStagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } },
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.2 } },
 }
 
 const featureItem = {
@@ -40,13 +87,13 @@ export default function PricingSection() {
       className="px-4 pb-16 flex justify-center"
     >
       <div className="w-full max-w-4xl">
-        <div id="pricing" className="text-center mb-8 scroll-mt-20">
+        <div className="text-center mb-8 scroll-mt-20">
           <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
           <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            A fraction of the cost. A real human in your corner.
+            Start free. Upgrade when Pro access opens.
           </h2>
-          <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">
-            {"Traditional recruiting services charge $3,000\u2013$5,000+ upfront. OneCommit costs $7.99/month \u2014 and includes a real advisor."}
+          <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
+            OneCommit keeps the self-service tools accessible, then plans to add human strategy for athletes who need more help acting on replies.
           </p>
         </div>
 
@@ -55,125 +102,94 @@ export default function PricingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(250px,0.78fr)] gap-4"
         >
-          {/* Beta Free */}
-          <motion.div
-            variants={cardReveal}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/[0.04] border border-[#4ade80]/20 rounded-xl p-6 flex flex-col justify-between"
-          >
-            <div>
-              <div className="text-[#4ade80] text-sm font-semibold mb-1">Free Tier</div>
-              <p className="text-white/40 text-sm mb-4">Try OneCommit for free with a limited number of coach outreach actions per month. No credit card required.</p>
-              <div className="text-white text-5xl font-bold mb-1">$0</div>
-              <div className="text-white/30 text-sm mb-1">forever free</div>
-              <div className="text-white/20 text-xs mb-4">Upgrade to Pro anytime for unlimited use + monthly coaching.</div>
-              <button onClick={openWaitlist} className="block w-full h-10 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
-                Get the app
-              </button>
-            </div>
-            <motion.div
-              variants={featureListStagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              className="mt-6 flex flex-col gap-2"
-            >
-              {[
-                "Smart school matching (Reach/Target/Foundational)",
-                "Personalized email generation",
-                "Gmail & Outlook integration",
-                "Coach reply tracking",
-                "Outreach dashboard",
-                "Preferences interview",
-                "SmartAdd AI search",
-              ].map((f, i) => (
-                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  <span className="text-white/70 text-xs">{f}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+          {plans.map((plan) => {
+            const featured = plan.variant === "featured"
+            return (
+              <motion.div
+                key={plan.name}
+                variants={cardReveal}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className={`relative flex flex-col rounded-xl border p-6 ${
+                  featured
+                    ? "bg-white/[0.055] border-[#4ade80]/35 shadow-[0_0_45px_rgba(74,222,128,0.07)]"
+                    : "bg-white/[0.035] border-white/[0.08]"
+                }`}
+              >
+                <div className="flex min-h-5 flex-wrap items-start justify-between gap-2">
+                  <div className="text-[#86efac] text-xs font-semibold uppercase tracking-wider">{plan.eyebrow}</div>
+                  {featured && (
+                    <span className="rounded-full border border-[#4ade80]/25 bg-[#4ade80]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#86efac]">
+                      Most useful
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-2 text-white text-xl font-bold">{plan.name}</h3>
+                <p className="mt-2 min-h-16 text-white/50 text-sm leading-relaxed">{plan.description}</p>
 
-          {/* Legacy */}
-          <motion.div
-            variants={cardReveal}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-6 flex flex-col justify-between"
-          >
-            <div>
-              <div className="text-white/40 text-sm font-semibold mb-1">Legacy Recruiting Services</div>
-              <p className="text-white/30 text-sm mb-4">What the traditional services charge for profile-based recruiting.</p>
-              <div className="text-white/60 text-5xl font-bold mb-1">$3-5k</div>
-              <div className="text-white/20 text-sm mb-5">with no guarantee of results</div>
-              <div className="w-full h-10 bg-white/[0.04] border border-white/[0.06] text-white/30 text-sm font-medium rounded-full flex items-center justify-center cursor-default">
-                The old way
-              </div>
-            </div>
-            <motion.div
-              variants={featureListStagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              className="mt-6 flex flex-col gap-2"
-            >
-              {[
-                "Generic profile on a recruiting website",
-                "Coaches have to find you (passive)",
-                "Emails sent from a third-party platform",
-                "Limited visibility into who views your profile",
-                "No real-time engagement tracking",
-                "One-size-fits-all approach",
-                "You don't control the conversation",
-              ].map((f, i) => (
-                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" /></svg>
-                  <span className="text-white/30 text-xs">{f}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+                <div className="mt-5">
+                  <div className="flex items-end gap-2">
+                    <span className="text-white text-5xl font-bold tracking-tight">{plan.price}</span>
+                    <span className="pb-1 text-white/30 text-sm">{plan.cadence}</span>
+                  </div>
+                  <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
+                </div>
 
-          {/* Pro Plan — Active */}
+                <button
+                  onClick={openWaitlist}
+                  className={`mt-5 h-10 rounded-full text-sm font-semibold transition-colors ${
+                    featured
+                      ? "bg-white text-[#0f1a14] hover:bg-white/90"
+                      : "bg-white/[0.06] border border-white/[0.10] text-white/70 hover:bg-white/[0.10] hover:text-white"
+                  }`}
+                >
+                  {plan.cta}
+                </button>
+
+                <motion.div
+                  variants={featureListStagger}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  className="mt-6 flex flex-col gap-2"
+                >
+                  {plan.features.map((feature) => (
+                    <motion.div key={feature} variants={featureItem} className="flex items-start gap-2.5">
+                      <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#86efac]" />
+                      <span className="text-white/70 text-xs leading-relaxed">{feature}</span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )
+          })}
+
           <motion.div
             variants={cardReveal}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/[0.04] border border-[#4ade80]/30 rounded-xl p-6 flex flex-col justify-between relative overflow-hidden"
+            className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6"
           >
-            <div>
-              <div className="text-[#4ade80] text-sm font-semibold mb-1">Pro Plan</div>
-              <p className="text-white/40 text-sm mb-4">Personal recruiting consultation, plus expanded access to the platform tools that make it productive.</p>
-              <div className="text-white text-5xl font-bold mb-1">$7.99</div>
-              <div className="text-white/30 text-sm mb-1">per month</div>
-              <div className="text-white/20 text-xs mb-4">Subscribe inside the OneCommit iOS app</div>
-              <button onClick={openWaitlist} className="block w-full h-10 bg-white/[0.06] border border-white/[0.10] text-white/70 text-sm font-medium rounded-full flex items-center justify-center hover:bg-white/[0.10] hover:text-white transition-colors">
-                Get the app
-              </button>
+            <div className="text-white/30 text-xs font-semibold uppercase tracking-wider">Old way</div>
+            <h3 className="mt-2 text-white/60 text-xl font-bold">Legacy recruiting services</h3>
+            <p className="mt-2 text-white/30 text-sm leading-relaxed">
+              Often high upfront fees for a passive profile-based model.
+            </p>
+            <div className="mt-5 flex items-end gap-2">
+              <span className="text-white/60 text-4xl font-bold tracking-tight">Thousands</span>
+              <span className="pb-1 text-white/20 text-sm">upfront</span>
             </div>
-            <motion.div
-              variants={featureListStagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              className="mt-6 flex flex-col gap-2"
-            >
-              {[
-                "Monthly 1-on-1 video call with a OneCommit recruiting advisor",
-                "Personalized profile review and pitch coaching",
-                "Unlimited coach outreach emails",
-                "Unlimited school exploration",
-                "View all coach replies in real time",
-                "Priority recruiting pipeline tools",
-                "Early access to new features",
-              ].map((f, i) => (
-                <motion.div key={i} variants={featureItem} className="flex items-center gap-2.5">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  <span className="text-white/70 text-xs">{f}</span>
-                </motion.div>
+            <div className="mt-5 h-10 rounded-full border border-white/[0.06] bg-white/[0.035] text-white/30 text-sm font-medium flex items-center justify-center">
+              Compare the old way
+            </div>
+            <div className="mt-6 flex flex-col gap-2">
+              {oldWay.map((item) => (
+                <div key={item} className="flex items-start gap-2.5">
+                  <XCircle size={14} className="mt-0.5 shrink-0 text-white/25" />
+                  <span className="text-white/30 text-xs leading-relaxed">{item}</span>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

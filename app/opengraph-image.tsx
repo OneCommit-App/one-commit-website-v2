@@ -56,6 +56,10 @@ export default async function OGImage() {
         </div>
         <div
           style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "4px",
             color: "white",
             fontSize: "52px",
             fontWeight: 700,
@@ -64,7 +68,7 @@ export default async function OGImage() {
             lineHeight: 1.15,
           }}
         >
-          Get recruited faster for{" "}
+          <span>Build your recruiting process for</span>
           <span style={{ color: "#4ade80" }}>Track & Field</span>
         </div>
         <div
@@ -76,7 +80,7 @@ export default async function OGImage() {
             maxWidth: "600px",
           }}
         >
-          Match to colleges. Send outreach. Track replies. Free during beta.
+          Match to colleges. Send outreach. Track replies. Start free.
         </div>
         <div
           style={{

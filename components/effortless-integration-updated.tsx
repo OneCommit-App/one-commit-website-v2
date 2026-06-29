@@ -1,5 +1,7 @@
 import type React from "react"
 
+/* eslint-disable @next/next/no-img-element */
+
 interface EffortlessIntegrationProps {
   /** Fixed width from Figma: 482px */
   width?: number | string

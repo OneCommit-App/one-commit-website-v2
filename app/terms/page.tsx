@@ -1,8 +1,33 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 
-export const metadata = {
-  title: "Terms of Service | OneCommit",
+export const metadata: Metadata = {
+  title: "Terms of Service",
   description: "OneCommit terms of service governing your use of the platform.",
+  alternates: { canonical: "https://onecommit.us/terms" },
+  openGraph: {
+    title: "Terms of Service | OneCommit",
+    description: "Terms governing use of the OneCommit recruiting platform.",
+    url: "https://onecommit.us/terms",
+    siteName: "OneCommit",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "OneCommit terms of service",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | OneCommit",
+    description: "Terms governing use of the OneCommit recruiting platform.",
+    images: ["/opengraph-image"],
+  },
 }
 
 export default function TermsPage() {
@@ -10,7 +35,7 @@ export default function TermsPage() {
     <div className="min-h-screen bg-[#0f1a14]">
       <nav className="flex justify-center px-4 pt-6 pb-8">
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img src="/logo.ico" alt="OneCommit logo" className="w-6 h-6 rounded-full" />
+          <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
           <span className="text-white text-sm font-semibold">OneCommit</span>
         </Link>
       </nav>
@@ -20,13 +45,13 @@ export default function TermsPage() {
           <p className="text-white/40 text-sm mb-8">Effective Date: September 3, 2025 &middot; Last Updated: September 3, 2025</p>
 
           {[
-            { title: "1. Agreement to Terms", content: "These Terms of Service (\"Terms\") govern your access to and use of the OneCommit website, mobile application, and related services (collectively, the \"Service\") operated by OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy." },
+            { title: "1. Agreement to Terms", content: "These Terms of Service (\"Terms\") govern your access to and use of the OneCommit website and related services (collectively, the \"Service\") operated by OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy." },
             { title: "2. Eligibility; Accounts", content: "You must be at least 13 years old to use the Service. If you are 13-17, you represent that you have permission from a parent or legal guardian, who also agrees to these Terms on your behalf.\n\nYou agree to provide accurate, current, and complete information during registration and to keep it updated. You are responsible for safeguarding your login credentials and for all activity under your account." },
-            { title: "3. Description of Service", content: "OneCommit is an athlete-first recruiting copilot. Features may include: (a) school matching based on athletic/academic/profile inputs; (b) email drafting and sending through your connected email account (Gmail/Outlook); (c) engagement analytics (opens, replies); (d) organizing recruiting tasks and timelines; (e) dashboards and recommendations.\n\nWe may add, change, or remove features at any time, including during beta. We may throttle or limit usage (e.g., email volume) to protect deliverability and platform integrity." },
-            { title: "4. Connecting Email Accounts", content: "When you connect Gmail/Outlook, you authorize OneCommit to send recruiting emails on your behalf and to process limited metadata (send, open, reply) for analytics and follow-ups.\n\nWe do not store the full contents of your emails; see the Privacy Policy for details. You can disconnect at any time in settings or via your provider's security dashboard." },
+            { title: "3. Description of Service", content: "OneCommit is an athlete-first recruiting copilot. Features may include: (a) school matching based on athletic/academic/profile inputs; (b) email drafting and sending through your connected email account (Gmail/Outlook); (c) engagement analytics (opens, replies); (d) organizing recruiting tasks and timelines; (e) dashboards and recommendations; and (f) advisor strategy support for eligible plans.\n\nAdvisor support is strategic guidance, not legal, compliance, eligibility, financial, or admissions advice. Monthly calls or similar advisor benefits are subject to scheduling availability, account standing, and reasonable use policies.\n\nWe may add, change, or remove features at any time, including during beta. We may throttle or limit usage (e.g., email volume) to protect deliverability and platform integrity." },
+            { title: "4. Connecting Email Accounts", content: "When you connect Gmail/Outlook, you authorize OneCommit to send recruiting emails on your behalf and to process limited recruiting email data, including message metadata and relevant recruiting thread content when needed for analytics and follow-ups.\n\nWe do not store unrelated inbox content or full mailbox archives; see the Privacy Policy for details. You can disconnect at any time in settings or via your provider's security dashboard." },
             { title: "5. Student-Athlete Compliance", content: "You are solely responsible for understanding and complying with all applicable recruiting rules (e.g., NCAA/NAIA/NJCAA, high-school association rules, and institutional policies).\n\nOneCommit is not a legal advisor or compliance authority. We provide tools; we do not guarantee eligibility or outcomes." },
             { title: "6. Acceptable Use", content: "No unlawful, deceptive, harassing, hateful, or abusive content or conduct.\nNo spam or unsolicited mass outreach beyond reasonable recruiting purposes. Respect coach communication rules and quiet periods.\nNo attempts to breach security, probe systems, or disrupt the Service.\nNo scraping or reverse-engineering except as permitted by law.\nNo use that infringes third-party rights (IP, privacy, publicity, contract)." },
-            { title: "7. Subscriptions, Trials, and Billing", content: "Certain features may require a paid subscription. Prices, features, and tiers may change with notice.\n\nTrials/promotions may be offered; unless canceled before trial end, your plan may convert to a paid subscription.\n\nTaxes may apply. You authorize us and our payment processors to charge your payment method for fees due. Unless a separate refund policy applies, fees are non-refundable except where required by law." },
+            { title: "7. Subscriptions, Trials, and Billing", content: "Certain future features may require a paid subscription. Prices, features, and tiers may change with notice and will be presented before any paid plan starts.\n\nTrials/promotions may be offered; unless canceled before trial end, your plan may convert to a paid subscription only after you have accepted the applicable paid-plan terms.\n\nTaxes may apply. You authorize us and our payment processors to charge your payment method for fees due if you activate a paid plan. Refund requests submitted within 7 days of a charge will be reviewed, but fees are non-refundable except where we approve a discretionary refund or where required by law." },
             { title: "8. Coach Communications & Deliverability", content: "You understand email deliverability is influenced by many factors (sender reputation, content, recipient filters). We cannot guarantee delivery, opens, or replies.\n\nYou are responsible for the content of outreach and for honoring opt-out/\"do not contact\" requests." },
             { title: "9. Content; License to OneCommit", content: "You retain ownership of content you submit (metrics, profile, emails, preferences). You grant OneCommit a worldwide, non-exclusive, royalty-free license to use, reproduce, and display your content solely to provide and improve the Service.\n\nYou represent that you have all necessary rights to your content and that it does not violate law or third-party rights." },
             { title: "10. Intellectual Property", content: "The Service, including all software, designs, text, graphics, logos, and trademarks (excluding your content), are owned by or licensed to OneCommit and are protected by intellectual-property laws. No rights are granted except as expressly stated in these Terms." },

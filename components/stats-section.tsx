@@ -1,44 +1,24 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion, useInView, useAnimate } from "framer-motion"
+import { motion } from "framer-motion"
 
-const stats = [
-  { value: 500, suffix: "+", label: "Athletes Matched" },
-  { value: 40, suffix: "+", label: "Schools Per Athlete" },
-  { value: 200, suffix: "+", label: "Coach Replies Tracked" },
+const proofPoints = [
+  {
+    value: "40+",
+    label: "matched schools",
+    desc: "A balanced list across Reach, Target, and Foundational tiers.",
+  },
+  {
+    value: "Gmail + Outlook",
+    label: "own-inbox outreach",
+    desc: "Coach emails are sent from the athlete's real account.",
+  },
+  {
+    value: "Pro",
+    label: "advisor waitlist",
+    desc: "Strategy support planned for invited beta access waves.",
+  },
 ]
-
-function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
-  const [scope, animate] = useAnimate()
-  const inView = useInView(scope, { once: true, margin: "-80px" })
-
-  useEffect(() => {
-    if (!inView) return
-    let current = 0
-    const step = Math.max(1, Math.floor(target / 40))
-    const interval = setInterval(() => {
-      current += step
-      if (current >= target) {
-        current = target
-        clearInterval(interval)
-        if (scope.current) {
-          animate(scope.current, { scale: [1, 1.15, 1] }, { duration: 0.4, ease: "easeInOut" })
-        }
-      }
-      setCount(current)
-    }, 25)
-    return () => clearInterval(interval)
-  }, [inView, target, animate, scope])
-
-  return (
-    <span ref={scope}>
-      {count}
-      {suffix}
-    </span>
-  )
-}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -69,20 +49,21 @@ export default function StatsSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="w-full max-w-4xl grid grid-cols-3 gap-3"
+        className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-3"
       >
-        {stats.map((stat, i) => (
+        {proofPoints.map((stat) => (
           <motion.div
-            key={i}
+            key={stat.label}
             variants={fadeUpItem}
             whileHover={{ y: -4, boxShadow: "0 0 0 1px rgba(74,222,128,0.25), 0 0 24px rgba(74,222,128,0.06)" }}
             transition={{ duration: 0.2 }}
-            className="text-center py-6 px-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl"
+            className="min-h-[150px] rounded-xl border border-white/[0.06] bg-white/[0.025] p-5"
           >
-            <div className="text-[#4ade80] text-4xl sm:text-5xl font-bold tracking-tight">
-              <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+            <div className="text-[#4ade80] text-3xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+              {stat.value}
             </div>
-            <div className="text-white/40 text-xs sm:text-sm mt-2">{stat.label}</div>
+            <div className="mt-2 text-white text-sm font-semibold">{stat.label}</div>
+            <p className="mt-2 text-white/40 text-xs leading-relaxed">{stat.desc}</p>
           </motion.div>
         ))}
       </motion.div>

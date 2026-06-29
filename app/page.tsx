@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate, useInView } from "framer-motion"
 import Image from "next/image"
-import { Menu, X, ArrowRight } from "lucide-react"
-import TestimonialsSection from "@/components/testimonials-section"
+import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck } from "lucide-react"
+import WorkspaceSection from "@/components/workspace-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
 import CTASection from "@/components/cta-section"
@@ -12,12 +12,13 @@ import FooterSection from "@/components/footer-section"
 import StatsSection from "@/components/stats-section"
 import TiltCard from "@/components/tilt-card"
 import { WaitlistProvider, useWaitlist } from "@/components/waitlist-dialog"
+import JsonLd from "@/components/json-ld"
 
 const subtitles = [
-  "Match to 40+ colleges that fit your times and GPA.",
-  "Send outreach emails coaches actually read.",
-  "See exactly who replied and who's interested.",
-  "Talk to a real recruiting advisor every month.",
+  "Build a realistic college list from your PRs and grades.",
+  "Send personal coach outreach from your own inbox.",
+  "Track every reply, follow-up, and warm lead.",
+  "Join the waitlist for advisor strategy support.",
 ]
 
 const steps = [
@@ -25,13 +26,13 @@ const steps = [
   { num: "2", title: "Get matched schools", desc: "See Reach, Target & Foundational tiers with match percentage breakdowns.", image: "/app-explore.png" },
   { num: "3", title: "Send outreach emails", desc: "Generate personalized emails and send them from your own inbox.", image: "/proof-email.png" },
   { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and follow up at the right time.", image: "/app-track-replies.png" },
-  { num: "5", title: "Meet your advisor", desc: "Pro members meet 1-on-1 with a OneCommit recruiting advisor each month to refine their pitch and plan next steps.", image: "/proof-engagement.png" },
+  { num: "5", title: "Review next steps", desc: "When advisor support opens, use your reply history to refine your pitch and plan what to do next.", image: "/proof-engagement.png" },
 ]
 
 const problems = [
-  { p: "You\u2019re guessing which schools are realistic", s: "Smart matching shows exactly where you stand across hundreds of programs." },
-  { p: "Your emails disappear into a coach\u2019s inbox", s: "Emails come from YOUR inbox. Coaches see a real person and respond." },
-  { p: "You shouldn\u2019t need to pay $3,000 for a spreadsheet", s: "OneCommit is free during beta and will always be a fraction of the cost." },
+  { p: "You\u2019re guessing which schools are realistic", s: "Smart matching helps you understand where you may fit across hundreds of programs." },
+  { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
+  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit has a free tier and keeps Pro priced like software, not a consulting retainer." },
   { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You control the timeline, strategy, and conversation. No middleman." },
 ]
 
@@ -40,6 +41,19 @@ const features = [
   { title: "SmartAdd + Search", desc: "Type what you want and save matched schools to your dashboard.", img: "/app-smart-add.png" },
   { title: "Outreach Dashboard", desc: "Generate emails, track sent messages & replies, and manage all coach conversations.", img: "/proof-engagement.png" },
   { title: "Reply Tracking", desc: "See match details, communication history, and reply status for every school.", img: "/track.png" },
+]
+
+const heroProofs = [
+  { icon: Target, label: "40+ matched schools", detail: "Reach, Target, and Foundational tiers" },
+  { icon: Mail, label: "Own-inbox outreach", detail: "Gmail and Outlook messages from you" },
+  { icon: MessageSquare, label: "Reply tracking", detail: "Know who answered and when to follow up" },
+  { icon: CalendarCheck, label: "Pro advisor support", detail: "Waitlist for strategy review access" },
+]
+
+const productHighlights = [
+  "Fit score by school",
+  "Coach email workflow",
+  "Reply status at a glance",
 ]
 
 /* ── animation variants ── */
@@ -69,12 +83,12 @@ const fadeUpItem = {
 }
 
 const fadeInLeft = {
-  hidden: { opacity: 0, x: -40 },
+  hidden: { opacity: 0, x: -16 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 }
 
 const fadeInRight = {
-  hidden: { opacity: 0, x: 40 },
+  hidden: { opacity: 0, x: 16 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 }
 
@@ -161,6 +175,82 @@ function Magnetic({ children }: { children: React.ReactNode }) {
   )
 }
 
+/* ── Above-the-fold product proof ── */
+function HeroProductPreview() {
+  return (
+    <motion.div
+      variants={heroChildBlur}
+      className="mt-9 w-full max-w-5xl"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-4 items-stretch">
+        <div className="relative min-h-[280px] sm:min-h-[360px] overflow-hidden rounded-xl border border-white/[0.08] bg-[#13231a] shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
+          <Image
+            src="/proof-dashboard.png"
+            alt="OneCommit athlete dashboard showing recruiting profile details"
+            width={932}
+            height={1786}
+            priority
+            className="absolute left-1/2 top-8 w-[56%] max-w-[310px] -translate-x-[72%] rounded-[1.6rem] border border-white/[0.10] shadow-2xl"
+            sizes="(max-width: 1024px) 55vw, 310px"
+          />
+          <Image
+            src="/app-explore.png"
+            alt="OneCommit matched school explorer"
+            width={932}
+            height={1786}
+            priority
+            className="absolute left-1/2 top-4 w-[58%] max-w-[330px] -translate-x-[10%] rounded-[1.6rem] border border-white/[0.10] shadow-2xl"
+            sizes="(max-width: 1024px) 58vw, 330px"
+          />
+          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 text-left bg-gradient-to-t from-[#0f1a14] via-[#0f1a14]/90 to-transparent">
+            <div className="flex flex-wrap gap-2">
+              {productHighlights.map((highlight) => (
+                <span
+                  key={highlight}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.06] px-3 py-1 text-[11px] font-medium text-white/70"
+                >
+                  <CheckCircle2 size={12} className="text-[#86efac]" />
+                  {highlight}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+          {heroProofs.map(({ icon: Icon, label, detail }, i) => (
+            <motion.div
+              key={label}
+              variants={fadeUpItem}
+              className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-4 text-left"
+              whileHover={{ y: -3, borderColor: "rgba(134,239,172,0.24)" }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex items-start gap-3">
+                <span
+                  className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${
+                    i === 1
+                      ? "border-sky-300/20 bg-sky-300/10 text-sky-200"
+                      : i === 3
+                        ? "border-amber-300/20 bg-amber-300/10 text-amber-200"
+                        : "border-[#4ade80]/20 bg-[#4ade80]/10 text-[#86efac]"
+                  }`}
+                >
+                  <Icon size={17} />
+                </span>
+                <div>
+                  <div className="text-sm font-semibold text-white">{label}</div>
+                  <p className="mt-1 text-xs leading-relaxed text-white/40">{detail}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 /* ── Feature card with tilt + image parallax ── */
 function FeatureCard({ feat, wide = false }: { feat: typeof features[0]; wide?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -211,10 +301,10 @@ function FeatureCard({ feat, wide = false }: { feat: typeof features[0]; wide?: 
             <Image
               src={feat.img}
               alt={feat.title}
-              width={600}
-              height={400}
+              width={932}
+              height={1786}
               className={`w-full block ${wide ? "h-auto md:h-full md:object-cover md:object-left-top" : "h-auto"}`}
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 440px"
             />
           </motion.div>
         </div>
@@ -226,6 +316,7 @@ function FeatureCard({ feat, wide = false }: { feat: typeof features[0]; wide?: 
 export default function LandingPage() {
   return (
     <WaitlistProvider>
+      <JsonLd />
       <LandingPageContent />
     </WaitlistProvider>
   )
@@ -243,12 +334,6 @@ function LandingPageContent() {
   /* ── scroll progress ── */
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
-
-  /* ── mouse parallax (blob) ── */
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const blobX = useTransform(mouseX, [0, 1440], [-30, 30])
-  const blobY = useTransform(mouseY, [0, 900], [-20, 20])
 
   /* ── cursor spotlight ── */
   const cursorX = useMotionValue(-1000)
@@ -319,7 +404,7 @@ function LandingPageContent() {
   useEffect(() => {
     if (!mounted) return
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 4)
+      setActiveStep((prev) => (prev + 1) % steps.length)
       setAnimKey((prev) => prev + 1)
     }, 5000)
     return () => clearInterval(interval)
@@ -335,8 +420,6 @@ function LandingPageContent() {
       className="w-full min-h-screen bg-[#0f1a14] relative"
       onMouseMove={(e) => {
         if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return
-        mouseX.set(e.clientX)
-        mouseY.set(e.clientY)
         cursorX.set(e.clientX)
         cursorY.set(e.clientY)
       }}
@@ -353,13 +436,10 @@ function LandingPageContent() {
         className="fixed top-0 left-0 right-0 h-[2px] bg-[#4ade80] z-[60] pointer-events-none"
       />
 
-      {/* Hero background: dot grid + blob */}
+      {/* Hero background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 hero-dot-grid" />
-        <motion.div
-          style={{ x: blobX, y: blobY }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-[#4ade80] blur-[200px] animate-hero-pulse"
-        />
+        <div className="absolute inset-0 hero-dot-grid opacity-70" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(74,222,128,0.06),transparent_32%,rgba(125,211,252,0.04)_72%,transparent)]" />
       </div>
 
       {/* Nav */}
@@ -371,7 +451,7 @@ function LandingPageContent() {
       >
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
+            <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
               {[
@@ -404,7 +484,9 @@ function LandingPageContent() {
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
               className="flex sm:hidden w-8 h-8 items-center justify-center text-white/50 hover:text-white/80 transition-colors"
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
@@ -424,6 +506,7 @@ function LandingPageContent() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
+              id="mobile-navigation"
               className="w-full max-w-2xl mt-2 bg-[#0f1a14]/95 backdrop-blur-xl border border-white/[0.08] rounded-2xl overflow-hidden sm:hidden"
             >
               <div className="py-2 flex flex-col">
@@ -453,7 +536,7 @@ function LandingPageContent() {
         variants={heroStagger}
         initial="hidden"
         animate="visible"
-        className="pt-28 sm:pt-32 pb-4 px-4 flex flex-col items-center text-center"
+        className="pt-28 sm:pt-32 pb-8 px-4 flex flex-col items-center text-center relative z-10"
       >
         {/* Badge with live pulse dot + gradient text */}
         <motion.div variants={heroChild} className="px-3 py-1 mb-5 bg-white/[0.06] border border-white/[0.08] rounded-full flex items-center gap-2">
@@ -466,12 +549,13 @@ function LandingPageContent() {
         </motion.div>
 
         <motion.h1
+          aria-label="Personalized track recruiting without the guesswork"
           variants={wordStagger}
           className="text-white text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight max-w-3xl text-balance"
         >
-          {["Stop", "waiting", "for", "coaches"].map((word, i) => (
+          {["Personalized", "track", "recruiting"].map((word, i) => (
             <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
-              {word}
+              {word}{" "}
             </motion.span>
           ))}
           <motion.span
@@ -485,40 +569,42 @@ function LandingPageContent() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
             className="text-[#4ade80]"
           >
-            {["to", "find", "you"].map((word, i) => (
+            {["without", "the", "guesswork"].map((word, i) => (
               <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
-                {word}
+                {word}{" "}
               </motion.span>
             ))}
           </motion.span>
         </motion.h1>
 
         {/* Typewriter subtitle */}
-        <motion.div variants={heroChild} className="h-7 mt-2 flex items-center justify-center">
-          <span className="text-white/50 text-sm font-medium whitespace-nowrap">
+        <motion.div variants={heroChild} className="mt-3 flex min-h-10 items-center justify-center px-2">
+          <span className="max-w-[34rem] text-balance text-sm font-medium leading-relaxed text-white/60 sm:text-base">
             {displayText}
             <span className="inline-block w-[2px] h-[14px] bg-[#4ade80]/70 ml-0.5 align-middle animate-pulse" />
           </span>
         </motion.div>
 
-        <motion.p variants={heroChildBlur} className="mt-3 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-          {"OneCommit analyzes your PRs, GPA, and preferences to surface matched schools \u2014 then helps you send personalized emails and track every reply. Free during beta."}
+        <motion.p variants={heroChildBlur} className="mt-2 text-white/60 text-sm sm:text-base max-w-2xl leading-relaxed font-medium text-pretty">
+          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: matched schools, personal coach emails, reply tracking, and planned advisor support for invited beta users."}
         </motion.p>
 
-        <motion.div variants={heroChild} className="flex items-center gap-3 mt-8">
+        <motion.div variants={heroChild} className="flex flex-col sm:flex-row items-center gap-3 mt-8 w-full justify-center">
           <Magnetic>
-            <button onClick={openWaitlist} className="h-10 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group">
-              <span className="relative z-10">Get Early Access &mdash; It&apos;s Free</span>
+            <button onClick={openWaitlist} className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group whitespace-nowrap">
+              <span className="relative z-10">Get Early Access</span>
               <ArrowRight size={14} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="absolute inset-0 animate-shimmer" />
             </button>
           </Magnetic>
           <Magnetic>
-            <a href="/demo" className="h-10 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors">
+            <a href="/demo" className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap">
               Watch the 2-min demo
             </a>
           </Magnetic>
         </motion.div>
+
+        <HeroProductPreview />
       </motion.section>
 
       {/* Video */}
@@ -526,7 +612,7 @@ function LandingPageContent() {
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.6 }}
-        className="px-4 pb-8 pt-4 flex justify-center"
+        className="px-4 pb-8 pt-4 flex flex-col items-center"
       >
         <motion.div
           animate={{
@@ -540,36 +626,33 @@ function LandingPageContent() {
           className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 relative group"
         >
           <video
-            autoPlay
-            loop
             muted
             playsInline
+            controls
+            poster="/demo-poster.png"
             preload="none"
-            className="w-full h-auto block"
+            aria-label="OneCommit product demo preview"
+            className="w-full aspect-square object-cover block bg-[#101714]"
           >
             <source src="/demo.mp4" type="video/mp4" />
+            <track src="/demo.vtt" kind="captions" label="English" default />
           </video>
-          <a
-            href="/demo"
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full text-white/60 text-xs font-medium hover:text-white hover:bg-black/70 transition-all whitespace-nowrap"
-          >
-            <div className="relative flex-shrink-0 w-3 h-3 flex items-center justify-center">
-              <motion.div
-                animate={{ scale: [1, 1.9], opacity: [0.6, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                className="absolute inset-0 rounded-full bg-[#4ade80]/50"
-              />
-              <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" className="relative z-10"><path d="M0 0l8 5-8 5V0z"/></svg>
-            </div>
-            Watch full demo
-          </a>
         </motion.div>
+        <a
+          href="/demo"
+          className="mt-3 flex items-center gap-1.5 px-4 py-2 bg-white/[0.04] border border-white/10 rounded-full text-white/60 text-xs font-medium hover:text-white hover:bg-white/[0.07] transition-all whitespace-nowrap"
+        >
+          <div className="relative flex-shrink-0 w-3 h-3 flex items-center justify-center">
+            <motion.div
+              animate={{ scale: [1, 1.9], opacity: [0.6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+              className="absolute inset-0 rounded-full bg-[#4ade80]/50"
+            />
+            <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" className="relative z-10"><path d="M0 0l8 5-8 5V0z"/></svg>
+          </div>
+          Watch full demo
+        </a>
       </motion.section>
-
-      {/* Floating connector orb */}
-      <div className="relative h-px flex justify-center overflow-visible pointer-events-none">
-        <div className="absolute w-[200px] h-[200px] rounded-full bg-[#4ade80] blur-[80px] opacity-[0.025] animate-float" style={{ top: "-100px" }} />
-      </div>
 
       {/* Problem + Solution */}
       <motion.section
@@ -657,13 +740,13 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
             >
-              {["Everything", "you", "need", "to", "get"].map((word, i) => (
+              {["Everything", "you", "need", "to", "run"].map((word, i) => (
                 <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                   {word}
                 </motion.span>
               ))}
               <motion.span variants={wordChild} className="inline-block mr-[0.25em]">
-                <UnderlineText delay={0.4}>recruited</UnderlineText>
+                <UnderlineText delay={0.4}>outreach</UnderlineText>
               </motion.span>
             </motion.h2>
           </div>
@@ -684,7 +767,7 @@ function LandingPageContent() {
       {/* Divider */}
       <SectionDivider />
 
-      {/* How It Works - 4 steps */}
+      {/* How It Works */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -703,7 +786,7 @@ function LandingPageContent() {
               viewport={viewportOnce}
               className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance"
             >
-              {["Four", "steps.", "You\u2019re", "in"].map((word, i) => (
+              {["Five", "steps.", "You\u2019re", "in"].map((word, i) => (
                 <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                   {word}
                 </motion.span>
@@ -712,7 +795,7 @@ function LandingPageContent() {
                 <UnderlineText delay={0.4}>{"control."}</UnderlineText>
               </motion.span>
             </motion.h2>
-            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, discover matched schools, send outreach, and track replies."}</p>
+            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, discover matched schools, send outreach, track replies, and review the next moves your data suggests."}</p>
           </div>
           <div className="flex flex-col md:flex-row gap-4 items-stretch">
             {/* Step cards */}
@@ -789,16 +872,23 @@ function LandingPageContent() {
                 className="touch-pan-y cursor-grab active:cursor-grabbing w-full max-w-[320px] bg-[#f5f5f5] rounded-[2rem] overflow-hidden border-[3px] border-white/[0.10] shadow-[0_0_60px_rgba(74,222,128,0.06)] relative"
               >
                 <AnimatePresence mode="wait">
-                  <motion.img
+                  <motion.div
                     key={activeStep}
-                    src={steps[activeStep].image}
-                    alt={steps[activeStep].title}
                     initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.03 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="w-full h-auto block pointer-events-none"
-                  />
+                    className="pointer-events-none"
+                  >
+                    <Image
+                      src={steps[activeStep].image}
+                      alt={steps[activeStep].title}
+                      width={932}
+                      height={1786}
+                      sizes="320px"
+                      className="h-auto w-full block"
+                    />
+                  </motion.div>
                 </AnimatePresence>
               </motion.div>
             </motion.div>
@@ -831,10 +921,10 @@ function LandingPageContent() {
                   {"I spent weeks manually Googling coach emails, copy-pasting the same intro letter over and over, and sending messages into the void. Most never got a reply. I had no system for tracking who I\u2019d contacted, what they said, or when to follow up."}
                 </p>
                 <p>
-                  {"So I built one. What started as a quick script to automate my own outreach turned into a full matching and email system. Within weeks, coaches were actually writing back. I realized the problem wasn\u2019t my ability \u2014 it was the process."}
+                  {"So I built one. What started as a quick script to organize my own outreach turned into a matching and email workflow that made the process clearer. I realized the problem wasn\u2019t my ability \u2014 it was the system I was trying to navigate."}
                 </p>
                 <p>
-                  {"The recruiting system is designed for the top 1%. Everyone else gets left to figure it out alone, or pay thousands for a service that posts a passive profile and waits. OneCommit exists to fix that."}
+                  {"The recruiting system is built around the athletes who already have visibility. Everyone else gets left to figure it out alone, or pay for a service that posts a passive profile and waits. OneCommit exists to fix that."}
                 </p>
               </div>
               <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-3">
@@ -851,8 +941,8 @@ function LandingPageContent() {
         </div>
       </motion.section>
 
-      {/* Testimonials */}
-      <TestimonialsSection />
+      {/* Workspace */}
+      <WorkspaceSection />
 
       {/* Pricing */}
       <div id="pricing">
@@ -878,7 +968,7 @@ function LandingPageContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
-            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free during beta</span>
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free tier available</span>
             <Magnetic>
               <button
                 onClick={openWaitlist}

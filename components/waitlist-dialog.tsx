@@ -99,7 +99,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
         >
           {success ? (
             /* ── success state ── */
-            <div className="relative flex flex-col items-center py-6 text-center overflow-hidden">
+            <div className="relative flex flex-col items-center py-6 text-center overflow-hidden" role="status" aria-live="polite">
               <ConfettiBurst />
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
@@ -108,22 +108,12 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
               >
                 <CheckCircle className="h-14 w-14 text-[#4ade80] mb-4" />
               </motion.div>
-              <motion.h3
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.35 }}
-                className="text-2xl font-bold text-white mb-2"
-              >
+              <DialogTitle className="text-2xl font-bold text-white mb-2">
                 You&apos;re in.
-              </motion.h3>
-              <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, duration: 0.35 }}
-                className="text-white/50 text-sm"
-              >
+              </DialogTitle>
+              <DialogDescription className="text-white/50 text-sm">
                 We&apos;ll email you when your wave opens.
-              </motion.p>
+              </DialogDescription>
             </div>
           ) : (
             /* ── form ── */

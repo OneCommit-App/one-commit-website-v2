@@ -15,12 +15,12 @@ export default function FooterSection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-40px" }}
-      className="px-4 pt-8 pb-12 flex flex-col items-center border-t border-white/[0.06]"
+      className="px-4 pt-8 pb-28 sm:pb-24 flex flex-col items-center border-t border-white/[0.06]"
     >
       <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start gap-8">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2">
-            <Image src="/logo.ico" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
+            <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </div>
           <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">The first self-service recruiting copilot built for the overlooked.</p>
