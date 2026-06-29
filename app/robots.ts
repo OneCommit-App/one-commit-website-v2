@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://onecommit.us/sitemap.xml",
+    sitemap: "https://www.onecommit.us/sitemap.xml",
   }
 }

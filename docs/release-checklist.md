@@ -52,7 +52,7 @@ pnpm audit --prod
 pnpm build
 ```
 
-Current local note: the active dev shell is using Node `v25.9.0`, while `package.json` declares Node `24.x`.
+Use Node `24.x` per `package.json`; verify with `node -v` before running release checks.
 
 ## Staging and commit readiness
 

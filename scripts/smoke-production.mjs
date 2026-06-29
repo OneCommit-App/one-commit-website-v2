@@ -102,6 +102,13 @@ async function findSupabaseConfig(scriptUrls) {
   const urlPattern = /https:\/\/[a-z0-9]+\.supabase\.co/g
   const publishablePattern = /sb_publishable_[A-Za-z0-9_-]+/g
   const jwtPattern = /eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g
+  const config = {
+    supabaseUrl: null,
+    key: null,
+    keyKind: null,
+    urlScriptUrl: null,
+    keyScriptUrl: null,
+  }
 
   for (const scriptUrl of scriptUrls) {
     const { response, text } = await fetchText(scriptUrl)
@@ -114,17 +121,23 @@ async function findSupabaseConfig(scriptUrls) {
     const jwtKeys = [...text.matchAll(jwtPattern)].map((match) => match[0])
     const keys = [...publishableKeys, ...jwtKeys]
 
-    if (supabaseUrls.length > 0 || keys.length > 0) {
-      return {
-        scriptUrl,
-        supabaseUrl: supabaseUrls[0],
-        key: keys[0],
-        keyKind: publishableKeys.length > 0 ? "publishable" : "jwt",
-      }
+    if (!config.supabaseUrl && supabaseUrls.length > 0) {
+      config.supabaseUrl = supabaseUrls[0]
+      config.urlScriptUrl = scriptUrl
+    }
+
+    if (!config.key && keys.length > 0) {
+      config.key = keys[0]
+      config.keyKind = publishableKeys.length > 0 ? "publishable" : "jwt"
+      config.keyScriptUrl = scriptUrl
+    }
+
+    if (config.supabaseUrl && config.key) {
+      return config
     }
   }
 
-  return null
+  return config.supabaseUrl || config.key ? config : null
 }
 
 async function checkSupabaseConfig() {
@@ -139,7 +152,7 @@ async function checkSupabaseConfig() {
   if (!config?.key) {
     fail("No Supabase public key found in the production waitlist bundle", {
       supabaseUrl: config.supabaseUrl,
-      scriptUrl: config.scriptUrl,
+      urlScriptUrl: config.urlScriptUrl,
     })
   }
 

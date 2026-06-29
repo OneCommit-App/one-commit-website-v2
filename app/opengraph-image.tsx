@@ -80,7 +80,7 @@ export default async function OGImage() {
             maxWidth: "600px",
           }}
         >
-          Match to colleges. Send outreach. Track replies. Start free.
+          Match to colleges. Send outreach. Track replies. Join the beta waitlist.
         </div>
         <div
           style={{

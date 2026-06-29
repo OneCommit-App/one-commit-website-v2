@@ -14,13 +14,13 @@ const dmSans = DM_Sans({
 const isVercelDeploy = process.env.VERCEL === "1"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://onecommit.us"),
+  metadataBase: new URL("https://www.onecommit.us"),
   title: {
     default: "OneCommit — Personalized Track & Field Recruiting",
     template: "%s | OneCommit",
   },
   description:
-    "Build your Track & Field recruiting process with matched colleges, own-inbox outreach, reply tracking, and planned advisor strategy support. Free tier available.",
+    "Build your Track & Field recruiting process with matched colleges, own-inbox outreach, reply tracking, and planned advisor strategy support. Free beta waitlist open.",
   icons: {
     icon: [
       {
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free tier available.",
-    url: "https://onecommit.us",
+      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free beta waitlist open.",
+    url: "https://www.onecommit.us",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",
@@ -51,11 +51,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free tier available.",
+      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free beta waitlist open.",
     images: ["/opengraph-image"],
   },
   alternates: {
-    canonical: "https://onecommit.us",
+    canonical: "https://www.onecommit.us",
   },
 }
 

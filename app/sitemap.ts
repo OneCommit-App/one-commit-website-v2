@@ -6,37 +6,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: "https://onecommit.us",
+      url: "https://www.onecommit.us",
       lastModified: launchModified,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://onecommit.us/demo",
+      url: "https://www.onecommit.us/demo",
       lastModified: launchModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://onecommit.us/waitlist",
+      url: "https://www.onecommit.us/waitlist",
       lastModified: launchModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://onecommit.us/support",
+      url: "https://www.onecommit.us/support",
       lastModified: launchModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
-      url: "https://onecommit.us/privacy",
+      url: "https://www.onecommit.us/privacy",
       lastModified: policyModified,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://onecommit.us/terms",
+      url: "https://www.onecommit.us/terms",
       lastModified: policyModified,
       changeFrequency: "yearly",
       priority: 0.3,

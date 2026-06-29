@@ -2,17 +2,17 @@
 
 Use this when `pnpm smoke:production` reaches the waitlist checks and fails on Supabase DNS, auth, RLS, or duplicate handling.
 
-## Current blocker signature
+## DNS blocker signature
 
-As of 2026-06-29, production route and media checks pass, but the waitlist smoke fails with:
+If production route and media checks pass but the waitlist smoke fails with DNS resolution, the output looks like:
 
 ```text
 release smoke failed: Supabase project host did not resolve
-hostname: fjfrkgvgwhhwbaauxayb.supabase.co
+hostname: <project-ref>.supabase.co
 code: ENOTFOUND
 ```
 
-That means the deployed client bundle contains a Supabase project URL, but the project hostname does not resolve publicly. The likely fixes are to correct the Vercel production environment variables, restore the Supabase project, or point production at the intended active project.
+That means the deployed client bundle contains a Supabase project URL, but the project hostname does not resolve publicly. The likely fixes are to correct the Vercel production environment variables, restore the Supabase project, or point production at the intended active project. The 2026-06-29 production failure is tracked in issue #10: https://github.com/OneCommit-App/one-commit-website-v2/issues/10
 
 ## Required production values
 
