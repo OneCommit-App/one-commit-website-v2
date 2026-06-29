@@ -11,6 +11,8 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 })
 
+const isVercelDeploy = process.env.VERCEL === "1"
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://onecommit.us"),
   title: {
@@ -71,7 +73,7 @@ export default function RootLayout({
       <head />
       <body className="font-sans antialiased overflow-x-hidden">
         {children}
-        <Analytics />
+        {isVercelDeploy && <Analytics />}
       </body>
     </html>
   )
