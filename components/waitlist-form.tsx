@@ -277,6 +277,7 @@ export default function WaitlistForm({
         >
           <SelectTrigger
             id={`${idPrefix}-grad_year`}
+            aria-label="Graduation year"
             aria-invalid={gradYearError}
             aria-describedby={gradYearError ? errorId : undefined}
             className={`w-full ${inputClass} data-[placeholder]:text-white/30`}
