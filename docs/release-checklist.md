@@ -61,3 +61,21 @@ Current local note: the active dev shell is using Node `v25.9.0`, while `package
 - [ ] Submit the same email again and verify the duplicate handling.
 - [x] Confirm `public/demo.mp4` is production-sized for staging smoke.
 - [ ] Re-run local verification on a clean checkout before merging.
+
+## Production smoke
+
+Run the non-mutating production smoke before launch handoff:
+
+```bash
+pnpm smoke:production
+```
+
+The smoke checks the apex redirect, public routes, media assets, and whether the deployed waitlist bundle contains a resolvable Supabase project URL plus a public key.
+
+After the Supabase project and Vercel environment variables are confirmed, run the mutating waitlist smoke with a generated `codex-smoke-...@example.com` address:
+
+```bash
+pnpm smoke:production -- --insert
+```
+
+The insert smoke verifies anon insert and duplicate-email rejection. Do not run it against production until test-row policy is acceptable.
