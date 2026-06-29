@@ -23,6 +23,18 @@ To check a local env file without exporting variables first:
 pnpm env:check -- --env-file=.env.local
 ```
 
+After the values pass format validation, check the actual Supabase project DNS and REST gateway:
+
+```bash
+pnpm waitlist:check
+```
+
+To test a local env file:
+
+```bash
+pnpm waitlist:check -- --env-file=.env.local
+```
+
 ## Supabase waitlist checks
 
 Apply the migration in `supabase/migrations/20260629000000_create_waitlist.sql` to the target Supabase project.
@@ -92,3 +104,11 @@ pnpm smoke:production -- --insert
 ```
 
 The insert smoke verifies anon insert and duplicate-email rejection. Do not run it against production until test-row policy is acceptable.
+
+If you need to verify the Supabase project directly before a Vercel rebuild, run:
+
+```bash
+pnpm waitlist:check -- --insert
+```
+
+This uses the configured public Supabase URL/key directly and verifies anon insert plus duplicate-email rejection without reading the deployed website bundle.

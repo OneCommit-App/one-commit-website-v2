@@ -35,6 +35,18 @@ or, when checking a local env file:
 pnpm env:check -- --env-file=.env.local
 ```
 
+Then verify the target Supabase project is reachable with the public key:
+
+```bash
+pnpm waitlist:check
+```
+
+For local env-file verification:
+
+```bash
+pnpm waitlist:check -- --env-file=.env.local
+```
+
 ## Supabase setup
 
 1. Open the target Supabase project and confirm its project URL matches `NEXT_PUBLIC_SUPABASE_URL`.
@@ -79,10 +91,19 @@ Expected mutating result:
 - A generated `codex-smoke-...@example.com` row inserts through the anon key.
 - Reusing the same generated email is rejected as a duplicate.
 
+To test the Supabase project directly before a Vercel rebuild, use:
+
+```bash
+pnpm waitlist:check -- --insert
+```
+
+This runs the same anon insert and duplicate-email rejection checks against the configured Supabase project URL/key instead of the deployed website bundle.
+
 ## Failure map
 
 - `No Supabase project URL found`: production env vars were missing at build time or the waitlist bundle did not include the Supabase client path.
 - `No Supabase public key found`: `NEXT_PUBLIC_SUPABASE_ANON_KEY` was missing at build time.
 - `Supabase project host did not resolve`: the configured project ref is wrong, inactive, deleted, or not publicly resolvable.
+- `Supabase REST gateway check failed`: the project host resolves, but the public key is invalid for that project or the REST gateway is unavailable.
 - `Waitlist smoke insert failed`: inspect the returned status/body for RLS, key mismatch, missing table, invalid payload, or migration drift.
 - `Waitlist duplicate smoke did not reject`: the unique index or duplicate handling is missing or not applied in the active project.
