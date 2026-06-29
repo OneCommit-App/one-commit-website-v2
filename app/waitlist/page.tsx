@@ -20,7 +20,7 @@ export default function WaitlistPage() {
         className="mb-8"
       >
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <Image src="/logo.ico" alt="OneCommit logo" width={28} height={28} className="w-7 h-7 rounded-full" />
+          <Image src="/logo.png" alt="OneCommit logo" width={28} height={28} className="w-7 h-7 rounded-full" />
           <span className="text-white text-base font-semibold">OneCommit</span>
         </Link>
       </motion.div>

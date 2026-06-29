@@ -5,8 +5,32 @@ import Image from "next/image"
 export const metadata: Metadata = {
   title: "Support",
   description:
-    "Get help with OneCommit — contact our team, find answers to common questions, or learn how to manage your subscription.",
+    "Get help with OneCommit — contact our team, find answers to common questions, or manage beta access and account requests.",
   alternates: { canonical: "https://onecommit.us/support" },
+  openGraph: {
+    title: "Support | OneCommit",
+    description:
+      "Contact OneCommit support, find answers to common questions, and get help with beta access or account requests.",
+    url: "https://onecommit.us/support",
+    siteName: "OneCommit",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "OneCommit support",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Support | OneCommit",
+    description:
+      "Contact OneCommit support, find answers to common questions, and get help with beta access or account requests.",
+    images: ["/opengraph-image"],
+  },
 }
 
 const supportSections = [
@@ -15,7 +39,7 @@ const supportSections = [
     body: (
       <>
         <p className="text-white/60 text-sm leading-relaxed mb-3">
-          The fastest way to reach us is email. We typically respond within 24 hours, Monday through Friday.
+          The fastest way to reach us is email. Send the issue, account email, and any useful screenshots.
         </p>
         <a
           href="mailto:admin@onecommit.us"
@@ -30,20 +54,24 @@ const supportSections = [
     ),
   },
   {
-    heading: "Account & billing",
+    heading: "Beta access & account help",
     body: (
       <ul className="text-white/60 text-sm leading-relaxed space-y-2 list-disc pl-4">
         <li>
-          <strong className="text-white/80">Cancel your subscription:</strong> Tap your profile in the OneCommit iOS app, then "Manage Subscription," then "Cancel." You'll keep Pro access through the end of your current billing period.
+          <strong className="text-white/80">Pro availability:</strong>{" "}
+          {"Join the beta waitlist for Pro availability updates before any paid plan starts."}
         </li>
         <li>
-          <strong className="text-white/80">Update payment method:</strong> Use the "Manage Subscription" link in the app to access your secure billing portal.
+          <strong className="text-white/80">Account changes:</strong>{" "}
+          {"Email support if you need to update waitlist details or change the email tied to your invite."}
         </li>
         <li>
-          <strong className="text-white/80">Refunds:</strong> Email <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">admin@onecommit.us</a> within 7 days of a charge and we'll review your request.
+          <strong className="text-white/80">Future refunds:</strong> If a paid plan becomes available, email <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">admin@onecommit.us</a>{" "}
+          {"within 7 days of a charge and we'll review your request. Refunds are discretionary unless required by law."}
         </li>
         <li>
-          <strong className="text-white/80">Delete your account:</strong> Email us and we'll permanently remove your profile, outreach history, and personal data within 30 days.
+          <strong className="text-white/80">Delete your account:</strong>{" "}
+          {"Email us to request deletion. We remove personal data subject to legal, security, and operational retention requirements described in the Privacy Policy."}
         </li>
       </ul>
     ),
@@ -52,11 +80,11 @@ const supportSections = [
     heading: "Getting started",
     body: (
       <ol className="text-white/60 text-sm leading-relaxed space-y-2 list-decimal pl-4">
-        <li>Download OneCommit from the App Store and create an account.</li>
+        <li>Join the beta waitlist and watch for your access invite.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
         <li>Review your matched schools and start reaching out to coaches.</li>
-        <li>Upgrade to Pro for unlimited outreach and a monthly 1-on-1 with a recruiting advisor.</li>
+        <li>Watch for Pro availability updates if you want expanded outreach and strategy support.</li>
       </ol>
     ),
   },
@@ -68,11 +96,11 @@ const supportSections = [
         <Link href="/#faq" className="text-[#4ade80] hover:underline">
           FAQ
         </Link>
-        . If you can't find what you're looking for, email us at{" "}
+        {". If you can't find what you're looking for, email us at "}
         <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">
           admin@onecommit.us
-        </a>{" "}
-        and we'll get back to you.
+        </a>
+        {" and we'll get back to you."}
       </p>
     ),
   },
@@ -80,11 +108,11 @@ const supportSections = [
     heading: "Report a bug or request a feature",
     body: (
       <p className="text-white/60 text-sm leading-relaxed">
-        We're a small team and we listen. Email{" "}
+        {"We're a small team and we listen. Email "}
         <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">
           admin@onecommit.us
         </a>{" "}
-        with a description and (if relevant) a screenshot. Bug reports get triaged within one business day.
+        with a description and (if relevant) a screenshot.
       </p>
     ),
   },
@@ -92,8 +120,7 @@ const supportSections = [
     heading: "Privacy & data",
     body: (
       <p className="text-white/60 text-sm leading-relaxed">
-        We take privacy seriously. We don't share your profile, outreach, or coach replies with third parties.
-        Read our full{" "}
+        {"We take privacy seriously. We don't sell or rent your profile, outreach, or coach replies. Read our full "}
         <Link href="/privacy" className="text-[#4ade80] hover:underline">
           Privacy Policy
         </Link>{" "}
@@ -109,7 +136,7 @@ export default function SupportPage() {
       <header className="px-4 pt-6 pb-4 border-b border-white/[0.06]">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.ico" alt="OneCommit" width={24} height={24} className="w-6 h-6 rounded-full" />
+            <Image src="/logo.png" alt="OneCommit" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </Link>
           <Link href="/" className="text-white/60 text-sm hover:text-white transition-colors">
@@ -125,8 +152,7 @@ export default function SupportPage() {
             How can we help?
           </h1>
           <p className="mt-3 text-white/50 text-sm leading-relaxed max-w-xl">
-            We're a small team building OneCommit for student-athletes. If you need help with the app, billing, or
-            anything else — we're here.
+            {"We're a small team building OneCommit for student-athletes. If you need help with beta access, your account, or anything else — we're here."}
           </p>
         </div>
       </section>

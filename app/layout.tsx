@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
-import JsonLd from "@/components/json-ld"
 import "./globals.css"
 
 const dmSans = DM_Sans({
@@ -12,6 +11,8 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 })
 
+const isVercelDeploy = process.env.VERCEL === "1"
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://onecommit.us"),
   title: {
@@ -19,21 +20,27 @@ export const metadata: Metadata = {
     template: "%s | OneCommit",
   },
   description:
-    "Get recruited for Track & Field with a real advisor in your corner. Match to colleges, send outreach coaches actually read, track every reply — and meet 1-on-1 with a recruiting advisor each month. Free tier available.",
+    "Build your Track & Field recruiting process with matched colleges, own-inbox outreach, reply tracking, and planned advisor strategy support. Free tier available.",
   icons: {
-    icon: "/logo.ico",
+    icon: [
+      {
+        url: "/logo.png",
+        type: "image/png",
+        sizes: "1024x1024",
+      },
+    ],
   },
   openGraph: {
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send outreach coaches actually read, track replies, and meet monthly with a real recruiting advisor. From $7.99/mo.",
+      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free tier available.",
     url: "https://onecommit.us",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/og-default.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "OneCommit — Personalized Track & Field Recruiting",
@@ -44,8 +51,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send outreach coaches read, track replies, meet monthly with a real recruiting advisor. From $7.99/mo.",
-    images: ["/og-default.png"],
+      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free tier available.",
+    images: ["/opengraph-image"],
   },
   alternates: {
     canonical: "https://onecommit.us",
@@ -63,12 +70,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} antialiased`}>
-      <head>
-        <JsonLd />
-      </head>
+      <head />
       <body className="font-sans antialiased overflow-x-hidden">
         {children}
-        <Analytics />
+        {isVercelDeploy && <Analytics />}
       </body>
     </html>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { CheckCircle } from "lucide-react"
 import { track } from "@vercel/analytics"
 import { supabase } from "@/lib/supabase"
@@ -14,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const graduationYears = ["2025", "2026", "2027", "2028", "2029", "2030", "2031"]
+const graduationYears = ["2027", "2028", "2029", "2030"]
 
 interface WaitlistFormProps {
   /** Called after a successful submission */
@@ -44,10 +45,18 @@ export default function WaitlistForm({
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
+  const errorId = `${idPrefix}-error`
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.website_guard) return
+
+    const gradYear = String(formData.grad_year || "").trim()
+    if (!gradYear) {
+      setError("Please select a graduation year.")
+      track("waitlist_submit_error", { reason: "missing_grad_year" })
+      return
+    }
 
     setSubmitting(true)
     setError("")
@@ -58,7 +67,7 @@ export default function WaitlistForm({
         last_name: (formData.last_name || "").trim(),
         email: (formData.email || "").trim().toLowerCase(),
         sport: "Track & Field",
-        grad_year: String(formData.grad_year || ""),
+        grad_year: gradYear,
         phone: (formData.phone || "").trim() || null,
       }
 
@@ -87,16 +96,25 @@ export default function WaitlistForm({
             ? String((err as { message?: string }).message)
             : String(err ?? "")
 
+      const normalizedMessage = message.toLowerCase()
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Waitlist submit failed", { message })
+      }
+      track("waitlist_submit_error", {
+        reason:
+          normalizedMessage.includes("duplicate") || normalizedMessage.includes("unique")
+            ? "duplicate"
+            : normalizedMessage.includes("jwt") || normalizedMessage.includes("invalid")
+              ? "config"
+              : normalizedMessage.includes("rls") || normalizedMessage.includes("policy")
+                ? "policy"
+                : "unknown",
+      })
+
       if (message.includes("duplicate") || message.includes("unique")) {
         setError("This email is already on the waitlist.")
-      } else if (message.includes("JWT") || message.includes("invalid")) {
-        setError("Invalid API key. Check your Supabase environment variables.")
-      } else if (message.includes("RLS") || message.includes("policy")) {
-        setError("Database policy blocked the request. Check Supabase RLS settings.")
-      } else if (message) {
-        setError(`Something went wrong: ${message}`)
       } else {
-        setError("Something went wrong — please try again.")
+        setError("Something went wrong. Please try again, or email admin@onecommit.us and we'll help.")
       }
     } finally {
       setSubmitting(false)
@@ -115,11 +133,13 @@ export default function WaitlistForm({
 
   const inputClass =
     "bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/30 focus-visible:border-[#4ade80]/60 focus-visible:ring-[#4ade80]/15 focus-visible:shadow-[0_0_0_3px_rgba(74,222,128,0.08),0_0_14px_rgba(74,222,128,0.07)] transition-all duration-200"
+  const emailError = error === "This email is already on the waitlist."
+  const gradYearError = error === "Please select a graduation year."
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* honeypot */}
-      <div className="absolute -left-[9999px]" aria-hidden="true" tabIndex={-1}>
+      <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor={`${idPrefix}-website_guard`}>Leave blank</label>
         <input
           id={`${idPrefix}-website_guard`}
@@ -128,6 +148,7 @@ export default function WaitlistForm({
           value={formData.website_guard}
           onChange={(e) => setFormData({ ...formData, website_guard: e.target.value })}
           autoComplete="off"
+          tabIndex={-1}
         />
       </div>
 
@@ -208,6 +229,8 @@ export default function WaitlistForm({
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
+          aria-invalid={emailError}
+          aria-describedby={emailError ? errorId : undefined}
           className={inputClass}
         />
       </div>
@@ -243,13 +266,22 @@ export default function WaitlistForm({
       {/* grad year */}
       <div className="space-y-1.5">
         <Label htmlFor={`${idPrefix}-grad_year`} className="text-white/70 text-sm">
-          Grad year
+          Grad year <span className="text-[#4ade80]">*</span>
         </Label>
         <Select
           value={formData.grad_year}
-          onValueChange={(v) => setFormData({ ...formData, grad_year: v })}
+          onValueChange={(v) => {
+            setFormData({ ...formData, grad_year: v })
+            if (gradYearError) setError("")
+          }}
         >
-          <SelectTrigger className={`w-full ${inputClass} data-[placeholder]:text-white/30`}>
+          <SelectTrigger
+            id={`${idPrefix}-grad_year`}
+            aria-label="Graduation year"
+            aria-invalid={gradYearError}
+            aria-describedby={gradYearError ? errorId : undefined}
+            className={`w-full ${inputClass} data-[placeholder]:text-white/30`}
+          >
             <SelectValue placeholder="Select grade / grad year" />
           </SelectTrigger>
           <SelectContent className="bg-[#162a1e] border-white/[0.08]">
@@ -268,7 +300,7 @@ export default function WaitlistForm({
 
       {/* error */}
       {error && (
-        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+        <div id={errorId} role="alert" aria-live="polite" className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
           <p className="text-red-400 text-sm">{error}</p>
         </div>
       )}
@@ -292,6 +324,17 @@ export default function WaitlistForm({
           <span className="relative z-10">Join Beta Waitlist</span>
         )}
       </button>
+      <p className="text-center text-[11px] leading-relaxed text-white/35">
+        By joining, you agree to the{" "}
+        <Link href="/terms" className="text-white/55 underline-offset-2 hover:text-white hover:underline">
+          Terms
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="text-white/55 underline-offset-2 hover:text-white hover:underline">
+          Privacy Policy
+        </Link>
+        . If you are under 18, use OneCommit with parent or guardian permission.
+      </p>
     </form>
   )
 }
