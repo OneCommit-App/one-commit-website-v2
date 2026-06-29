@@ -12,6 +12,8 @@ const getArgValue = (name, fallback) => {
 const baseUrl = getArgValue("--base", process.env.WEBSITE_SMOKE_BASE_URL || "https://www.onecommit.us")
 const apexUrl = getArgValue("--apex", process.env.WEBSITE_SMOKE_APEX_URL || "https://onecommit.us")
 const shouldInsert = args.has("--insert") || process.env.WAITLIST_SMOKE_INSERT === "1"
+const waitlistRunbook = "docs/waitlist-production-runbook.md"
+const waitlistIssue = "https://github.com/OneCommit-App/one-commit-website-v2/issues/10"
 
 const routeChecks = [
   { path: "/", typeIncludes: "text/html" },
@@ -194,14 +196,22 @@ async function checkSupabaseConfig() {
     records = await dns.lookup(hostname, { all: true })
   } catch (error) {
     fail("Supabase project host did not resolve", {
+      supabaseUrl: config.supabaseUrl,
       hostname,
       code: error.code,
       message: error.message,
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
     })
   }
 
   if (records.length === 0) {
-    fail("Supabase project host did not resolve", { hostname })
+    fail("Supabase project host did not resolve", {
+      supabaseUrl: config.supabaseUrl,
+      hostname,
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
+    })
   }
 
   console.log(`ok supabase config: ${hostname}, ${config.keyKind} key present, ${records.length} DNS record(s)`)
