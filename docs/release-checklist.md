@@ -11,6 +11,18 @@ Required for local, staging, and production waitlist submissions:
 
 Use the public anon key only. Never expose a Supabase service-role key in this Next.js app.
 
+Before building or redeploying a configured environment, validate the public Supabase settings:
+
+```bash
+pnpm env:check
+```
+
+To check a local env file without exporting variables first:
+
+```bash
+pnpm env:check -- --env-file=.env.local
+```
+
 ## Supabase waitlist checks
 
 Apply the migration in `supabase/migrations/20260629000000_create_waitlist.sql` to the target Supabase project.

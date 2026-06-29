@@ -23,6 +23,18 @@ Set these in the Vercel production environment for the website project:
 
 Use only the anon key in this app. Never set or expose a Supabase service-role key in `NEXT_PUBLIC_*` variables.
 
+Validate the values before redeploying:
+
+```bash
+pnpm env:check
+```
+
+or, when checking a local env file:
+
+```bash
+pnpm env:check -- --env-file=.env.local
+```
+
 ## Supabase setup
 
 1. Open the target Supabase project and confirm its project URL matches `NEXT_PUBLIC_SUPABASE_URL`.
