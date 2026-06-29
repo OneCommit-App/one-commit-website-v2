@@ -28,6 +28,8 @@ const routeChecks = [
   { path: "/logo.png", typeIncludes: "image/png" },
 ]
 
+const canonicalPaths = ["/", "/demo", "/waitlist", "/support", "/privacy", "/terms"]
+
 const fail = (message, details = {}) => {
   const error = new Error(message)
   error.details = details
@@ -84,6 +86,36 @@ async function checkRoutes() {
 
     console.log(`ok route ${check.path}: ${response.status}, ${contentType}, ${bytes} bytes, ${Date.now() - started}ms`)
   }
+}
+
+async function checkCanonicalArtifacts() {
+  const expectedOrigin = new URL(baseUrl).origin
+  const apexOrigin = new URL(apexUrl).origin
+  const expectedSitemap = `${expectedOrigin}/sitemap.xml`
+  const { text: robots } = await fetchText(asUrl("/robots.txt", baseUrl), { redirect: "follow" })
+  const { text: sitemap } = await fetchText(asUrl("/sitemap.xml", baseUrl), { redirect: "follow" })
+
+  if (!robots.includes(`Sitemap: ${expectedSitemap}`)) {
+    fail("Robots sitemap points at the wrong canonical host", {
+      expected: expectedSitemap,
+    })
+  }
+
+  for (const path of canonicalPaths) {
+    const expectedUrl = path === "/" ? expectedOrigin : `${expectedOrigin}${path}`
+    if (!sitemap.includes(`<loc>${expectedUrl}</loc>`)) {
+      fail("Sitemap is missing canonical URL", { expectedUrl })
+    }
+  }
+
+  if (apexOrigin !== expectedOrigin && sitemap.includes(`<loc>${apexOrigin}`)) {
+    fail("Sitemap still advertises apex canonical URLs", {
+      apexOrigin,
+      expectedOrigin,
+    })
+  }
+
+  console.log(`ok canonical artifacts: robots and sitemap advertise ${expectedOrigin}`)
 }
 
 async function getWaitlistHtml() {
@@ -227,6 +259,7 @@ async function main() {
   console.log(`smoke base: ${baseUrl}`)
   await checkApexRedirect()
   await checkRoutes()
+  await checkCanonicalArtifacts()
   const supabaseConfig = await checkSupabaseConfig()
   await checkWaitlistInsert(supabaseConfig)
 }
