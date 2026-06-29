@@ -59,6 +59,12 @@ Before release, confirm in Supabase:
 - [ ] `grad_year` is required and accepted only for the currently supported high-school classes: 2027-2030.
 - [ ] A staging form submission reaches the table and duplicate submissions show the existing duplicate-email error.
 
+Before applying the migration or handing off release checks, verify that the checked-in SQL still matches the browser waitlist payload and least-privilege policy contract:
+
+```bash
+pnpm waitlist:migration:check
+```
+
 ## Demo media
 
 - [x] Compressed `public/demo.mp4` from 15 MB to 2.1 MB for the production landing page.
@@ -70,6 +76,7 @@ Run before handing off for staging:
 
 ```bash
 pnpm install --frozen-lockfile
+pnpm waitlist:migration:check
 pnpm lint
 pnpm typecheck
 pnpm audit --prod

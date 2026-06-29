@@ -50,11 +50,17 @@ pnpm waitlist:check -- --env-file=.env.local
 ## Supabase setup
 
 1. Open the target Supabase project and confirm its project URL matches `NEXT_PUBLIC_SUPABASE_URL`.
-2. Apply `supabase/migrations/20260629000000_create_waitlist.sql`.
-3. Confirm `public.waitlist` exists.
-4. Confirm row level security is enabled.
-5. Confirm the anon role has insert access only.
-6. Confirm duplicate emails are rejected by `waitlist_email_unique_idx`.
+2. Verify the checked-in migration still matches the browser waitlist payload and least-privilege policy contract:
+
+```bash
+pnpm waitlist:migration:check
+```
+
+3. Apply `supabase/migrations/20260629000000_create_waitlist.sql`.
+4. Confirm `public.waitlist` exists.
+5. Confirm row level security is enabled.
+6. Confirm the anon role has insert access only.
+7. Confirm duplicate emails are rejected by `waitlist_email_unique_idx`.
 
 ## Deployment verification
 
