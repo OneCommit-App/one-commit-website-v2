@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Support",
   description:
     "Get help with OneCommit — contact our team, find answers to common questions, or manage beta access and account requests.",
-  alternates: { canonical: "https://onecommit.us/support" },
+  alternates: { canonical: "https://www.onecommit.us/support" },
   openGraph: {
     title: "Support | OneCommit",
     description:
       "Contact OneCommit support, find answers to common questions, and get help with beta access or account requests.",
-    url: "https://onecommit.us/support",
+    url: "https://www.onecommit.us/support",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",

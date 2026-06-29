@@ -6,13 +6,13 @@ import { useWaitlist } from "@/components/waitlist-dialog"
 
 const plans = [
   {
-    name: "Free",
-    eyebrow: "Start here",
-    description: "Try the core recruiting workspace with limited monthly coach outreach actions.",
-    price: "$0",
-    cadence: "free tier",
-    note: "No credit card required.",
-    cta: "Join Free Beta",
+    name: "Beta",
+    eyebrow: "Waitlist open",
+    description: "Join the waitlist for core recruiting workspace access as beta waves open.",
+    price: "Free",
+    cadence: "beta",
+    note: "No credit card required to join the waitlist.",
+    cta: "Join Beta Waitlist",
     variant: "standard",
     features: [
       "Smart school matching",
@@ -90,7 +90,7 @@ export default function PricingSection() {
         <div className="text-center mb-8 scroll-mt-20">
           <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
           <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Start free. Upgrade when Pro access opens.
+            Join the beta. Upgrade when Pro access opens.
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
             OneCommit keeps the self-service tools accessible, then plans to add human strategy for athletes who need more help acting on replies.

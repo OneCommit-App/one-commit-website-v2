@@ -5,11 +5,11 @@ import Image from "next/image"
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "OneCommit terms of service governing your use of the platform.",
-  alternates: { canonical: "https://onecommit.us/terms" },
+  alternates: { canonical: "https://www.onecommit.us/terms" },
   openGraph: {
     title: "Terms of Service | OneCommit",
     description: "Terms governing use of the OneCommit recruiting platform.",
-    url: "https://onecommit.us/terms",
+    url: "https://www.onecommit.us/terms",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",

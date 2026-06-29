@@ -42,7 +42,7 @@ export default function CTASection() {
                 className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group relative overflow-hidden whitespace-nowrap"
               >
                 <span className="absolute inset-0 animate-shimmer" />
-                <span className="relative z-10">Join Free Beta</span>
+                <span className="relative z-10">Join Beta Waitlist</span>
                 <ArrowRight size={15} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </motion.button>
               <a
@@ -56,7 +56,7 @@ export default function CTASection() {
 
           <div className="grid gap-2">
             {[
-              "Free tier available",
+              "Free beta waitlist open",
               "Gmail and Outlook outreach",
               "Pro advisor support planned",
             ].map((item) => (

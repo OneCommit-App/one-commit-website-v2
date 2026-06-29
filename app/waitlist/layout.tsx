@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Join the Beta Waitlist",
   description:
     "Join the OneCommit beta waitlist for early access to Track & Field recruiting tools.",
-  alternates: { canonical: "https://onecommit.us/waitlist" },
+  alternates: { canonical: "https://www.onecommit.us/waitlist" },
   openGraph: {
     title: "Join the OneCommit Beta Waitlist",
     description:
       "Get early access to OneCommit for Track & Field recruiting: matched schools, own-inbox outreach, and reply tracking.",
-    url: "https://onecommit.us/waitlist",
+    url: "https://www.onecommit.us/waitlist",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",

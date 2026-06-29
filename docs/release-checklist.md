@@ -14,6 +14,7 @@ Use the public anon key only. Never expose a Supabase service-role key in this N
 ## Supabase waitlist checks
 
 Apply the migration in `supabase/migrations/20260629000000_create_waitlist.sql` to the target Supabase project.
+For production setup and smoke failure triage, use `docs/waitlist-production-runbook.md`.
 
 The client inserts into the `waitlist` table with these fields:
 
@@ -51,7 +52,7 @@ pnpm audit --prod
 pnpm build
 ```
 
-Current local note: the active dev shell is using Node `v25.9.0`, while `package.json` declares Node `24.x`.
+Use Node `24.x` per `package.json`; verify with `node -v` before running release checks.
 
 ## Staging and commit readiness
 

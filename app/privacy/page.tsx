@@ -5,11 +5,11 @@ import Image from "next/image"
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "OneCommit privacy policy -- how we collect, use, and protect your information.",
-  alternates: { canonical: "https://onecommit.us/privacy" },
+  alternates: { canonical: "https://www.onecommit.us/privacy" },
   openGraph: {
     title: "Privacy Policy | OneCommit",
     description: "How OneCommit collects, uses, and protects student-athlete information.",
-    url: "https://onecommit.us/privacy",
+    url: "https://www.onecommit.us/privacy",
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",

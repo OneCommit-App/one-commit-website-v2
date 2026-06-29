@@ -32,7 +32,7 @@ const steps = [
 const problems = [
   { p: "You\u2019re guessing which schools are realistic", s: "Smart matching helps you understand where you may fit across hundreds of programs." },
   { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
-  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit has a free tier and keeps Pro priced like software, not a consulting retainer." },
+  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit is opening with a free beta waitlist and plans to keep Pro priced like software, not a consulting retainer." },
   { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You control the timeline, strategy, and conversation. No middleman." },
 ]
 
@@ -492,7 +492,7 @@ function LandingPageContent() {
             </button>
             <Magnetic>
               <button onClick={openWaitlist} className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
-                Join Free Beta
+                Join Beta Waitlist
               </button>
             </Magnetic>
           </div>
@@ -968,7 +968,7 @@ function LandingPageContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
-            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free tier available</span>
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free beta waitlist open</span>
             <Magnetic>
               <button
                 onClick={openWaitlist}
