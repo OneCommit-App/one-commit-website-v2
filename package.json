@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "smoke:production": "node scripts/smoke-production.mjs",
     "start": "next start",
-    "typecheck": "tsc --noEmit --incremental false"
+    "typecheck": "tsc --noEmit --incremental false",
+    "waitlist:check": "node scripts/check-waitlist-supabase.mjs"
   },
   "engines": {
     "node": "24.x"
