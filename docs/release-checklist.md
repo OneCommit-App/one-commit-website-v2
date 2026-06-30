@@ -102,7 +102,7 @@ Run the non-mutating production smoke before launch handoff:
 pnpm smoke:production
 ```
 
-The smoke checks the apex redirect, public routes, media assets, and whether the deployed waitlist bundle contains a resolvable Supabase project URL plus a public key.
+The smoke checks the apex redirect, public routes, media assets, and whether the deployed waitlist bundle contains a resolvable Supabase project URL plus a public key that can authenticate to the Supabase REST gateway.
 
 After the Supabase project and Vercel environment variables are confirmed, run the mutating waitlist smoke with a generated `codex-smoke-...@example.com` address:
 

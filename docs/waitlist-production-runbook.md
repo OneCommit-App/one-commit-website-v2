@@ -78,6 +78,7 @@ Expected result before insert testing:
 - Core routes and media return 200.
 - Supabase config is found in the deployed waitlist bundle.
 - Supabase project host resolves in DNS.
+- Supabase REST gateway accepts the deployed public key.
 - Waitlist insert smoke is skipped unless explicitly enabled.
 
 After the test-row policy is approved, run the mutating smoke:

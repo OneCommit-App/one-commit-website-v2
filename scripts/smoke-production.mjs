@@ -40,6 +40,54 @@ const fail = (message, details = {}) => {
 
 const asUrl = (path, base) => new URL(path, base).href
 
+function base64UrlDecode(value) {
+  const normalized = value.replace(/-/g, "+").replace(/_/g, "/")
+  const padded = normalized.padEnd(normalized.length + ((4 - (normalized.length % 4)) % 4), "=")
+  return Buffer.from(padded, "base64").toString("utf8")
+}
+
+function readJwtPayload(token) {
+  const parts = token.split(".")
+  if (parts.length !== 3) return null
+
+  try {
+    return JSON.parse(base64UrlDecode(parts[1]))
+  } catch {
+    return null
+  }
+}
+
+function getPublicKeyKind(key) {
+  if (key.startsWith("sb_secret_")) {
+    fail("Production waitlist bundle contains a secret Supabase key", {
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
+    })
+  }
+
+  if (key.startsWith("sb_publishable_")) {
+    return "publishable"
+  }
+
+  const payload = readJwtPayload(key)
+  if (!payload) {
+    fail("Production waitlist bundle contains an unrecognized Supabase public key format", {
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
+    })
+  }
+
+  if (payload.role !== "anon") {
+    fail("Production waitlist bundle Supabase JWT must use the anon role", {
+      role: payload.role || null,
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
+    })
+  }
+
+  return "anon jwt"
+}
+
 async function fetchText(url, options = {}) {
   const response = await fetch(url, options)
   const text = await response.text()
@@ -135,6 +183,7 @@ async function getScriptUrls(html) {
 async function findSupabaseConfig(scriptUrls) {
   const urlPattern = /https:\/\/[a-z0-9]+\.supabase\.co/g
   const publishablePattern = /sb_publishable_[A-Za-z0-9_-]+/g
+  const secretPattern = /sb_secret_[A-Za-z0-9_-]+/g
   const jwtPattern = /eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g
   const config = {
     supabaseUrl: null,
@@ -152,8 +201,17 @@ async function findSupabaseConfig(scriptUrls) {
 
     const supabaseUrls = [...text.matchAll(urlPattern)].map((match) => match[0])
     const publishableKeys = [...text.matchAll(publishablePattern)].map((match) => match[0])
+    const secretKeys = [...text.matchAll(secretPattern)].map((match) => match[0])
     const jwtKeys = [...text.matchAll(jwtPattern)].map((match) => match[0])
     const keys = [...publishableKeys, ...jwtKeys]
+
+    if (secretKeys.length > 0) {
+      fail("Production waitlist bundle contains a secret Supabase key", {
+        scriptUrl,
+        runbook: waitlistRunbook,
+        issue: waitlistIssue,
+      })
+    }
 
     if (!config.supabaseUrl && supabaseUrls.length > 0) {
       config.supabaseUrl = supabaseUrls[0]
@@ -162,7 +220,7 @@ async function findSupabaseConfig(scriptUrls) {
 
     if (!config.key && keys.length > 0) {
       config.key = keys[0]
-      config.keyKind = publishableKeys.length > 0 ? "publishable" : "jwt"
+      config.keyKind = getPublicKeyKind(keys[0])
       config.keyScriptUrl = scriptUrl
     }
 
@@ -218,6 +276,27 @@ async function checkSupabaseConfig() {
   return config
 }
 
+async function checkRestGateway(config) {
+  const { response, text } = await fetchText(`${config.supabaseUrl}/rest/v1/`, {
+    headers: {
+      apikey: config.key,
+      Authorization: `Bearer ${config.key}`,
+      accept: "application/openapi+json, application/json",
+    },
+  })
+
+  if (!response.ok) {
+    fail("Supabase REST gateway check failed", {
+      status: response.status,
+      body: text.slice(0, 500),
+      runbook: waitlistRunbook,
+      issue: waitlistIssue,
+    })
+  }
+
+  console.log(`ok supabase rest gateway: ${response.status}, ${config.keyKind} key`)
+}
+
 async function checkWaitlistInsert(config) {
   if (!shouldInsert) {
     console.log("skip waitlist insert smoke: pass --insert or WAITLIST_SMOKE_INSERT=1 after confirming test-row policy")
@@ -271,6 +350,7 @@ async function main() {
   await checkRoutes()
   await checkCanonicalArtifacts()
   const supabaseConfig = await checkSupabaseConfig()
+  await checkRestGateway(supabaseConfig)
   await checkWaitlistInsert(supabaseConfig)
 }
 
