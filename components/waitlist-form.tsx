@@ -154,7 +154,7 @@ export default function WaitlistForm({
 
       {/* name fields */}
       {layout === "page" ? (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="space-y-1.5">
             <Label htmlFor={`${idPrefix}-first_name`} className="text-white/70 text-sm">
               First name <span className="text-[#4ade80]">*</span>
