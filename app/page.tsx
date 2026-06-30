@@ -330,6 +330,8 @@ function LandingPageContent() {
   const [mounted, setMounted] = useState(false)
   const [showStickyCTA, setShowStickyCTA] = useState(false)
   const [activeSection, setActiveSection] = useState("")
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const reduceStepMotion = prefersReducedMotion
 
   /* ── scroll progress ── */
   const { scrollYProgress } = useScroll()
@@ -347,6 +349,15 @@ function LandingPageContent() {
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const updatePreference = () => setPrefersReducedMotion(media.matches)
+
+    updatePreference()
+    media.addEventListener("change", updatePreference)
+    return () => media.removeEventListener("change", updatePreference)
   }, [])
 
   /* ── sticky CTA on scroll ── */
@@ -402,13 +413,13 @@ function LandingPageContent() {
   }, [mounted, displayText, isDeleting, typeIndex])
 
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted || reduceStepMotion) return
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % steps.length)
       setAnimKey((prev) => prev + 1)
     }, 5000)
     return () => clearInterval(interval)
-  }, [mounted])
+  }, [mounted, reduceStepMotion])
 
   const handleStepClick = useCallback((i: number) => {
     setActiveStep(i)
@@ -728,7 +739,7 @@ function LandingPageContent() {
         viewport={viewportOnce}
         variants={fadeUp}
         id="features"
-        className="px-4 pb-14 flex justify-center"
+        className="scroll-mt-24 px-4 pb-14 flex justify-center"
       >
         <div className="w-full max-w-4xl">
           <div className="text-center mb-6">
@@ -774,7 +785,7 @@ function LandingPageContent() {
         viewport={viewportOnce}
         variants={fadeUp}
         id="how-it-works"
-        className="px-4 pb-14 flex justify-center"
+        className="scroll-mt-24 px-4 pb-14 flex justify-center"
       >
         <div className="w-full max-w-4xl">
           <div className="text-center mb-6">
@@ -812,6 +823,7 @@ function LandingPageContent() {
                   <motion.button
                     key={i}
                     onClick={() => handleStepClick(i)}
+                    aria-pressed={isActive}
                     whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                     whileTap={{ scale: 0.98 }}
                     className={`w-full flex-1 text-left rounded-xl overflow-hidden transition-all duration-300 flex flex-col ${
@@ -825,7 +837,7 @@ function LandingPageContent() {
                         <div
                           key={animKey}
                           className="h-full bg-[#4ade80]"
-                          style={{ animation: "progressBar 5s linear forwards" }}
+                          style={reduceStepMotion ? undefined : { animation: "progressBar 5s linear forwards" }}
                         />
                       </div>
                     )}
@@ -945,7 +957,7 @@ function LandingPageContent() {
       <WorkspaceSection />
 
       {/* Pricing */}
-      <div id="pricing">
+      <div id="pricing" className="scroll-mt-24">
         <PricingSection />
       </div>
 
