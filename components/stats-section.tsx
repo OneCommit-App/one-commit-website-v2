@@ -14,9 +14,9 @@ const proofPoints = [
     desc: "Coach emails are sent from the athlete's real account.",
   },
   {
-    value: "Pro",
-    label: "advisor waitlist",
-    desc: "Strategy support planned for invited beta access waves.",
+    value: "Free",
+    label: "beta app access",
+    desc: "Start the recruiting workspace without an upfront consulting fee.",
   },
 ]
 

@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
-import { useWaitlist } from "@/components/waitlist-dialog"
+import DownloadLink from "@/components/download-link"
+import TrackedLink from "@/components/tracked-link"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -10,8 +11,6 @@ const fadeUp = {
 }
 
 export default function CTASection() {
-  const { openWaitlist } = useWaitlist()
-
   return (
     <motion.section
       variants={fadeUp}
@@ -32,33 +31,38 @@ export default function CTASection() {
               Start with the right college list. Then run the outreach.
             </h2>
             <p className="mt-3 text-white/50 text-sm sm:text-base max-w-xl leading-relaxed">
-              Join the beta to build your matched school list, draft personal coach emails, and track replies from one recruiting workspace.
+              Get OneCommit access to build your matched school list, draft personal coach emails, and track replies from one recruiting workspace.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <motion.button
-                onClick={openWaitlist}
+              <motion.div
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group relative overflow-hidden whitespace-nowrap"
               >
-                <span className="absolute inset-0 animate-shimmer" />
-                <span className="relative z-10">Join Beta Waitlist</span>
-                <ArrowRight size={15} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              </motion.button>
-              <a
+                <DownloadLink
+                  analyticsSource="home_final_cta"
+                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group relative overflow-hidden whitespace-nowrap"
+                >
+                  <span className="absolute inset-0 animate-shimmer" />
+                  <span className="relative z-10">Download the App</span>
+                  <ArrowRight size={15} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                </DownloadLink>
+              </motion.div>
+              <TrackedLink
                 href="/demo"
+                eventName="demo_click"
+                eventSource="home_final_cta"
                 className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full inline-flex items-center justify-center hover:bg-white/[0.04] transition-colors whitespace-nowrap"
               >
                 Watch demo
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
           <div className="grid gap-2">
             {[
-              "Free beta waitlist open",
+              "Get access and create a profile",
               "Gmail and Outlook outreach",
-              "Pro advisor support planned",
+              "Track replies in one workspace",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/70">
                 <CheckCircle2 size={15} className="shrink-0 text-[#86efac]" />

@@ -1,16 +1,17 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
+import TrackedLink from "@/components/tracked-link"
 
 export const metadata: Metadata = {
   title: "Support",
   description:
-    "Get help with OneCommit — contact our team, find answers to common questions, or manage beta access and account requests.",
+    "Get help with OneCommit — contact our team, find answers to common questions, or manage app access and account requests.",
   alternates: { canonical: "https://www.onecommit.us/support" },
   openGraph: {
     title: "Support | OneCommit",
     description:
-      "Contact OneCommit support, find answers to common questions, and get help with beta access or account requests.",
+      "Contact OneCommit support, find answers to common questions, and get help with app access or account requests.",
     url: "https://www.onecommit.us/support",
     siteName: "OneCommit",
     locale: "en_US",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Support | OneCommit",
     description:
-      "Contact OneCommit support, find answers to common questions, and get help with beta access or account requests.",
+      "Contact OneCommit support, find answers to common questions, and get help with app access or account requests.",
     images: ["/opengraph-image"],
   },
 }
@@ -41,32 +42,34 @@ const supportSections = [
         <p className="text-white/60 text-sm leading-relaxed mb-3">
           The fastest way to reach us is email. Send the issue, account email, and any useful screenshots.
         </p>
-        <a
+        <TrackedLink
           href="mailto:admin@onecommit.us"
+          eventName="support_click"
+          eventSource="support_contact"
           className="inline-flex items-center gap-2 text-[#4ade80] text-sm font-semibold hover:underline"
         >
           admin@onecommit.us
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M7 17L17 7M17 7H8M17 7v9" />
           </svg>
-        </a>
+        </TrackedLink>
       </>
     ),
   },
   {
-    heading: "Beta access & account help",
+    heading: "App access & account help",
     body: (
       <ul className="text-white/60 text-sm leading-relaxed space-y-2 list-disc pl-4">
         <li>
           <strong className="text-white/80">Pro availability:</strong>{" "}
-          {"Join the beta waitlist for Pro availability updates before any paid plan starts."}
+          {"Get app access for the free beta. Pro availability details will appear before any paid plan starts."}
         </li>
         <li>
           <strong className="text-white/80">Account changes:</strong>{" "}
-          {"Email support if you need to update waitlist details or change the email tied to your invite."}
+          {"Email support if you need to change the email tied to your account."}
         </li>
         <li>
-          <strong className="text-white/80">Future refunds:</strong> If a paid plan becomes available, email <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">admin@onecommit.us</a>{" "}
+          <strong className="text-white/80">Future refunds:</strong> If a paid plan becomes available, email <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_refunds" className="text-[#4ade80] hover:underline">admin@onecommit.us</TrackedLink>{" "}
           {"within 7 days of a charge and we'll review your request. Refunds are discretionary unless required by law."}
         </li>
         <li>
@@ -80,7 +83,7 @@ const supportSections = [
     heading: "Getting started",
     body: (
       <ol className="text-white/60 text-sm leading-relaxed space-y-2 list-decimal pl-4">
-        <li>Join the beta waitlist and watch for your access invite.</li>
+        <li>Get OneCommit access and create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
         <li>Review your matched schools and start reaching out to coaches.</li>
@@ -97,9 +100,9 @@ const supportSections = [
           FAQ
         </Link>
         {". If you can't find what you're looking for, email us at "}
-        <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">
+        <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_common_questions" className="text-[#4ade80] hover:underline">
           admin@onecommit.us
-        </a>
+        </TrackedLink>
         {" and we'll get back to you."}
       </p>
     ),
@@ -109,9 +112,9 @@ const supportSections = [
     body: (
       <p className="text-white/60 text-sm leading-relaxed">
         {"We're a small team and we listen. Email "}
-        <a href="mailto:admin@onecommit.us" className="text-[#4ade80] hover:underline">
+        <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_bug_report" className="text-[#4ade80] hover:underline">
           admin@onecommit.us
-        </a>{" "}
+        </TrackedLink>{" "}
         with a description and (if relevant) a screenshot.
       </p>
     ),
@@ -152,7 +155,7 @@ export default function SupportPage() {
             How can we help?
           </h1>
           <p className="mt-3 text-white/50 text-sm leading-relaxed max-w-xl">
-            {"We're a small team building OneCommit for student-athletes. If you need help with beta access, your account, or anything else — we're here."}
+            {"We're a small team building OneCommit for student-athletes. If you need help with app access, your account, or anything else — we're here."}
           </p>
         </div>
       </section>

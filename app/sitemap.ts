@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: "https://www.onecommit.us/waitlist",
+      url: "https://www.onecommit.us/download",
       lastModified: launchModified,
       changeFrequency: "monthly",
       priority: 0.7,

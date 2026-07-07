@@ -6,14 +6,14 @@ export default function JsonLd() {
     "@type": "SoftwareApplication",
     name: "OneCommit",
     applicationCategory: "EducationalApplication",
-    operatingSystem: "Web",
+    operatingSystem: "iOS, Web",
     description:
       "Self-service recruiting copilot for high school Track & Field athletes. Match to colleges, generate outreach emails, and track coach replies.",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free beta waitlist; Pro availability details shared with invited users.",
+      description: "Free beta app access; Pro availability details shared before billing starts.",
     },
   }
 

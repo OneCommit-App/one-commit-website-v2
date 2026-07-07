@@ -2,17 +2,17 @@
 
 import { motion } from "framer-motion"
 import { CheckCircle2, XCircle } from "lucide-react"
-import { useWaitlist } from "@/components/waitlist-dialog"
+import DownloadLink from "@/components/download-link"
 
 const plans = [
   {
     name: "Beta",
-    eyebrow: "Waitlist open",
-    description: "Join the waitlist for core recruiting workspace access as beta waves open.",
+    eyebrow: "App access",
+    description: "Get OneCommit access for the core recruiting workspace during beta.",
     price: "Free",
     cadence: "beta",
-    note: "No credit card required to join the waitlist.",
-    cta: "Join Beta Waitlist",
+    note: "No credit card required to create a beta account.",
+    cta: "Download App",
     variant: "standard",
     features: [
       "Smart school matching",
@@ -29,7 +29,7 @@ const plans = [
     price: "Planned",
     cadence: "pro beta",
     note: "Pricing and availability shared before any paid plan starts.",
-    cta: "Join Pro Waitlist",
+    cta: "Get App Access",
     variant: "featured",
     features: [
       "Monthly 1-on-1 advisor call",
@@ -76,8 +76,6 @@ const featureItem = {
 }
 
 export default function PricingSection() {
-  const { openWaitlist } = useWaitlist()
-
   return (
     <motion.section
       variants={fadeUp}
@@ -90,7 +88,7 @@ export default function PricingSection() {
         <div className="text-center mb-8 scroll-mt-20">
           <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
           <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Join the beta. Upgrade when Pro access opens.
+            Start free. Upgrade only when Pro opens.
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
             OneCommit keeps the self-service tools accessible, then plans to add human strategy for athletes who need more help acting on replies.
@@ -136,16 +134,16 @@ export default function PricingSection() {
                   <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
                 </div>
 
-                <button
-                  onClick={openWaitlist}
-                  className={`mt-5 h-10 rounded-full text-sm font-semibold transition-colors ${
+                <DownloadLink
+                  analyticsSource={`pricing_${plan.name.toLowerCase()}`}
+                  className={`mt-5 h-10 rounded-full text-sm font-semibold transition-colors inline-flex items-center justify-center ${
                     featured
                       ? "bg-white text-[#0f1a14] hover:bg-white/90"
                       : "bg-white/[0.06] border border-white/[0.10] text-white/70 hover:bg-white/[0.10] hover:text-white"
                   }`}
                 >
                   {plan.cta}
-                </button>
+                </DownloadLink>
 
                 <motion.div
                   variants={featureListStagger}
