@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 
 import fs from "node:fs"
+import {
+  appStoreIdKey,
+  assertValidAppStoreId,
+  assertValidDownloadUrl,
+  downloadKeys,
+} from "./download-url-rules.mjs"
 
 const args = process.argv.slice(2)
 const envFileArg = args.find((arg) => arg.startsWith("--env-file="))
 const envFile = envFileArg ? envFileArg.slice("--env-file=".length) : null
-
-const requiredKeys = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"]
+const allowsMissingDownloadUrl = Boolean(envFile && /(^|[/\\])\.env\.example$/.test(envFile))
 
 function parseEnvFile(path) {
   const values = {}
@@ -34,23 +39,6 @@ function parseEnvFile(path) {
   return values
 }
 
-function base64UrlDecode(value) {
-  const normalized = value.replace(/-/g, "+").replace(/_/g, "/")
-  const padded = normalized.padEnd(normalized.length + ((4 - (normalized.length % 4)) % 4), "=")
-  return Buffer.from(padded, "base64").toString("utf8")
-}
-
-function readJwtPayload(token) {
-  const parts = token.split(".")
-  if (parts.length !== 3) return null
-
-  try {
-    return JSON.parse(base64UrlDecode(parts[1]))
-  } catch {
-    return null
-  }
-}
-
 function fail(message, details = {}) {
   const error = new Error(message)
   error.details = details
@@ -62,77 +50,37 @@ const envValues = {
   ...(envFile ? parseEnvFile(envFile) : {}),
 }
 
-function checkRequired() {
-  for (const key of requiredKeys) {
-    if (!envValues[key]?.trim()) {
-      fail("Missing required website environment variable", { key })
-    }
-  }
+function readConfiguredDownloadUrls() {
+  return downloadKeys
+    .map((key) => ({ key, value: envValues[key]?.trim() || "" }))
+    .filter((entry) => entry.value)
 }
 
-function checkSupabaseUrl() {
-  const value = envValues.NEXT_PUBLIC_SUPABASE_URL.trim()
-  let url
+function checkAppStoreId() {
+  const value = envValues[appStoreIdKey]?.trim()
+  if (!value) return null
 
-  try {
-    url = new URL(value)
-  } catch {
-    fail("NEXT_PUBLIC_SUPABASE_URL is not a valid URL", { value })
-  }
-
-  if (url.protocol !== "https:") {
-    fail("NEXT_PUBLIC_SUPABASE_URL must use https", { value })
-  }
-
-  if (!url.hostname.endsWith(".supabase.co")) {
-    fail("NEXT_PUBLIC_SUPABASE_URL must point at a Supabase project host", {
-      hostname: url.hostname,
-    })
-  }
-
-  if (url.hostname.includes("your-project-ref")) {
-    fail("NEXT_PUBLIC_SUPABASE_URL still contains the placeholder project ref", {
-      hostname: url.hostname,
-    })
-  }
-
-  return url.hostname
-}
-
-function checkSupabaseKey() {
-  const key = envValues.NEXT_PUBLIC_SUPABASE_ANON_KEY.trim()
-
-  if (key === "your-supabase-anon-key") {
-    fail("NEXT_PUBLIC_SUPABASE_ANON_KEY still contains the placeholder key")
-  }
-
-  if (key.startsWith("sb_secret_")) {
-    fail("NEXT_PUBLIC_SUPABASE_ANON_KEY contains a secret key; use the public anon/publishable key")
-  }
-
-  if (key.startsWith("sb_publishable_")) {
-    return "publishable"
-  }
-
-  const payload = readJwtPayload(key)
-  if (!payload) {
-    fail("NEXT_PUBLIC_SUPABASE_ANON_KEY is not a recognized Supabase public key format")
-  }
-
-  if (payload.role !== "anon") {
-    fail("NEXT_PUBLIC_SUPABASE_ANON_KEY must be an anon key", {
-      role: payload.role || null,
-    })
-  }
-
-  return "anon jwt"
+  return assertValidAppStoreId(value)
 }
 
 try {
-  checkRequired()
-  const hostname = checkSupabaseUrl()
-  const keyKind = checkSupabaseKey()
-  console.log(`ok website env: ${hostname}, ${keyKind} key`)
+  const configured = readConfiguredDownloadUrls()
+  if (configured.length === 0) {
+    if (allowsMissingDownloadUrl) {
+      checkAppStoreId()
+      console.log("ok website env: example file leaves app download URLs empty")
+      process.exit(0)
+    }
+
+    fail("Missing public app download URL", {
+      acceptedKeys: downloadKeys,
+    })
+  }
+
+  const hosts = configured.map((entry) => assertValidDownloadUrl(entry).hostname)
+  const appStoreId = checkAppStoreId()
+  const appStoreSuffix = appStoreId ? `, app-store-id ${appStoreId}` : ""
+  console.log(`ok website env: ${hosts.join(", ")}${appStoreSuffix}`)
 } catch (error) {
   console.error(`website env check failed: ${error.message}`)
   if (error.details && Object.keys(error.details).length > 0) {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate, useInView } from "framer-motion"
 import Image from "next/image"
-import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck } from "lucide-react"
+import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck, ShieldCheck } from "lucide-react"
 import WorkspaceSection from "@/components/workspace-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
@@ -11,14 +11,15 @@ import CTASection from "@/components/cta-section"
 import FooterSection from "@/components/footer-section"
 import StatsSection from "@/components/stats-section"
 import TiltCard from "@/components/tilt-card"
-import { WaitlistProvider, useWaitlist } from "@/components/waitlist-dialog"
 import JsonLd from "@/components/json-ld"
+import DownloadLink from "@/components/download-link"
+import TrackedLink from "@/components/tracked-link"
 
 const subtitles = [
   "Build a realistic college list from your PRs and grades.",
   "Send personal coach outreach from your own inbox.",
   "Track every reply, follow-up, and warm lead.",
-  "Join the waitlist for advisor strategy support.",
+  "Get app access and start building today.",
 ]
 
 const steps = [
@@ -26,13 +27,13 @@ const steps = [
   { num: "2", title: "Get matched schools", desc: "See Reach, Target & Foundational tiers with match percentage breakdowns.", image: "/app-explore.png" },
   { num: "3", title: "Send outreach emails", desc: "Generate personalized emails and send them from your own inbox.", image: "/proof-email.png" },
   { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and follow up at the right time.", image: "/app-track-replies.png" },
-  { num: "5", title: "Review next steps", desc: "When advisor support opens, use your reply history to refine your pitch and plan what to do next.", image: "/proof-engagement.png" },
+  { num: "5", title: "Keep improving", desc: "Use reply history and follow-up reminders to make your next move clearer.", image: "/proof-engagement.png" },
 ]
 
 const problems = [
   { p: "You\u2019re guessing which schools are realistic", s: "Smart matching helps you understand where you may fit across hundreds of programs." },
   { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
-  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit is opening with a free beta waitlist and plans to keep Pro priced like software, not a consulting retainer." },
+  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit starts with free app access and keeps the process organized like software, not a consulting retainer." },
   { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You control the timeline, strategy, and conversation. No middleman." },
 ]
 
@@ -47,13 +48,31 @@ const heroProofs = [
   { icon: Target, label: "40+ matched schools", detail: "Reach, Target, and Foundational tiers" },
   { icon: Mail, label: "Own-inbox outreach", detail: "Gmail and Outlook messages from you" },
   { icon: MessageSquare, label: "Reply tracking", detail: "Know who answered and when to follow up" },
-  { icon: CalendarCheck, label: "Pro advisor support", detail: "Waitlist for strategy review access" },
+  { icon: CalendarCheck, label: "Free app access", detail: "Get access, create a profile, and start building" },
 ]
 
 const productHighlights = [
   "Fit score by school",
   "Coach email workflow",
   "Reply status at a glance",
+]
+
+const trustItems = [
+  {
+    icon: Mail,
+    title: "Coach outreach stays from you",
+    body: "Emails send from the athlete's connected Gmail or Outlook account, so coaches see a real student-athlete message and replies return to that inbox.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No fake coach marketplace",
+    body: "OneCommit helps identify programs and prepare outreach. It does not claim coach endorsements, guaranteed interest, or admissions outcomes.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Release safeguards",
+    body: "The app release path includes age-gate checks, privacy-first profile handling, and direct support for access or account questions.",
+  },
 ]
 
 /* ── animation variants ── */
@@ -138,6 +157,38 @@ function SectionDivider() {
       className="w-full max-w-4xl mx-auto h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-14"
       style={{ originX: 0.5 }}
     />
+  )
+}
+
+function TrustSection() {
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      variants={fadeUp}
+      className="px-4 pb-14 flex justify-center"
+    >
+      <div className="w-full max-w-4xl rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 sm:p-6">
+        <div className="grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start">
+          <div>
+            <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Trust</span>
+            <h2 className="mt-2 text-white text-xl sm:text-2xl font-bold tracking-tight">
+              Built for legitimate athlete-led outreach.
+            </h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {trustItems.map(({ icon: Icon, title, body }) => (
+              <div key={title} className="rounded-lg border border-white/[0.07] bg-[#0f1a14]/40 p-4">
+                <Icon size={17} className="text-[#86efac]" />
+                <h3 className="mt-3 text-sm font-semibold text-white">{title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-white/45">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
   )
 }
 
@@ -315,15 +366,14 @@ function FeatureCard({ feat, wide = false }: { feat: typeof features[0]; wide?: 
 
 export default function LandingPage() {
   return (
-    <WaitlistProvider>
+    <>
       <JsonLd />
       <LandingPageContent />
-    </WaitlistProvider>
+    </>
   )
 }
 
 function LandingPageContent() {
-  const { openWaitlist } = useWaitlist()
   const [activeStep, setActiveStep] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [animKey, setAnimKey] = useState(0)
@@ -502,9 +552,12 @@ function LandingPageContent() {
               {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
             <Magnetic>
-              <button onClick={openWaitlist} className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors">
-                Join Beta Waitlist
-              </button>
+              <DownloadLink
+                analyticsSource="home_nav"
+                className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+              >
+                Download App
+              </DownloadLink>
             </Magnetic>
           </div>
         </div>
@@ -556,7 +609,7 @@ function LandingPageContent() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
           />
-          <span className="text-gradient-sweep text-xs font-medium">{"Track & Field Beta \u2014 Free Early Access"}</span>
+          <span className="text-gradient-sweep text-xs font-medium">{"Track & Field Beta \u2014 Free App Access"}</span>
         </motion.div>
 
         <motion.h1
@@ -597,21 +650,29 @@ function LandingPageContent() {
         </motion.div>
 
         <motion.p variants={heroChildBlur} className="mt-2 text-white/60 text-sm sm:text-base max-w-2xl leading-relaxed font-medium text-pretty">
-          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: matched schools, personal coach emails, reply tracking, and planned advisor support for invited beta users."}
+          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: matched schools, personal coach emails, reply tracking, and follow-up planning in one app."}
         </motion.p>
 
         <motion.div variants={heroChild} className="flex flex-col sm:flex-row items-center gap-3 mt-8 w-full justify-center">
           <Magnetic>
-            <button onClick={openWaitlist} className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group whitespace-nowrap">
-              <span className="relative z-10">Get Early Access</span>
+            <DownloadLink
+              analyticsSource="home_hero"
+              className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group whitespace-nowrap"
+            >
+              <span className="relative z-10">Download the App</span>
               <ArrowRight size={14} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="absolute inset-0 animate-shimmer" />
-            </button>
+            </DownloadLink>
           </Magnetic>
           <Magnetic>
-            <a href="/demo" className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap">
+            <TrackedLink
+              href="/demo"
+              eventName="demo_click"
+              eventSource="home_hero"
+              className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap"
+            >
               Watch the 2-min demo
-            </a>
+            </TrackedLink>
           </Magnetic>
         </motion.div>
 
@@ -649,8 +710,10 @@ function LandingPageContent() {
             <track src="/demo.vtt" kind="captions" label="English" default />
           </video>
         </motion.div>
-        <a
+        <TrackedLink
           href="/demo"
+          eventName="demo_click"
+          eventSource="home_video"
           className="mt-3 flex items-center gap-1.5 px-4 py-2 bg-white/[0.04] border border-white/10 rounded-full text-white/60 text-xs font-medium hover:text-white hover:bg-white/[0.07] transition-all whitespace-nowrap"
         >
           <div className="relative flex-shrink-0 w-3 h-3 flex items-center justify-center">
@@ -662,7 +725,7 @@ function LandingPageContent() {
             <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" className="relative z-10"><path d="M0 0l8 5-8 5V0z"/></svg>
           </div>
           Watch full demo
-        </a>
+        </TrackedLink>
       </motion.section>
 
       {/* Problem + Solution */}
@@ -953,6 +1016,8 @@ function LandingPageContent() {
         </div>
       </motion.section>
 
+      <TrustSection />
+
       {/* Workspace */}
       <WorkspaceSection />
 
@@ -980,15 +1045,15 @@ function LandingPageContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
-            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free beta waitlist open</span>
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free beta app access</span>
             <Magnetic>
-              <button
-                onClick={openWaitlist}
+              <DownloadLink
+                analyticsSource="home_sticky"
                 className="h-8 px-5 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center gap-1.5 hover:bg-white/90 transition-colors group"
               >
-                Get Early Access
+                Download App
                 <ArrowRight size={12} className="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
+              </DownloadLink>
             </Magnetic>
           </motion.div>
         )}

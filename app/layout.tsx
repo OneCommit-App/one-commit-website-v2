@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
+import { appStoreId } from "@/lib/download"
 import "./globals.css"
 
 const dmSans = DM_Sans({
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | OneCommit",
   },
   description:
-    "Build your Track & Field recruiting process with matched colleges, own-inbox outreach, reply tracking, and planned advisor strategy support. Free beta waitlist open.",
+    "Download OneCommit to build your Track & Field recruiting process with matched colleges, own-inbox outreach, and reply tracking. Free beta app access.",
   icons: {
     icon: [
       {
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free beta waitlist open.",
+      "Match to colleges, send stronger outreach, track replies, and download the OneCommit beta app.",
     url: "https://www.onecommit.us",
     siteName: "OneCommit",
     locale: "en_US",
@@ -51,12 +52,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OneCommit — Personalized Track & Field Recruiting",
     description:
-      "Match to colleges, send stronger outreach, track replies, and join the waitlist for planned advisor strategy support. Free beta waitlist open.",
+      "Match to colleges, send stronger outreach, track replies, and download the OneCommit beta app.",
     images: ["/opengraph-image"],
   },
   alternates: {
     canonical: "https://www.onecommit.us",
   },
+  ...(appStoreId
+    ? {
+        itunes: {
+          appId: appStoreId,
+        },
+      }
+    : {}),
 }
 
 export const viewport: Viewport = {
@@ -70,7 +78,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} antialiased`}>
-      <head />
       <body className="font-sans antialiased overflow-x-hidden">
         {children}
         {isVercelDeploy && <Analytics />}

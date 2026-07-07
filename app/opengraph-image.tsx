@@ -80,7 +80,7 @@ export default async function OGImage() {
             maxWidth: "600px",
           }}
         >
-          Match to colleges. Send outreach. Track replies. Join the beta waitlist.
+          Match to colleges. Send outreach. Track replies. Download the beta app.
         </div>
         <div
           style={{
@@ -96,7 +96,7 @@ export default async function OGImage() {
             borderRadius: "9999px",
           }}
         >
-          Join the Track Beta
+          Download OneCommit
         </div>
       </div>
     ),

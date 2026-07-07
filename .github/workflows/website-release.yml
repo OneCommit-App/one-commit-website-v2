@@ -5,6 +5,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Production base URL to smoke test
+        required: true
+        default: https://www.onecommit.us
+      apex_url:
+        description: Apex URL expected to redirect to the base URL
+        required: true
+        default: https://onecommit.us
 
 permissions:
   contents: read
@@ -34,8 +44,24 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm waitlist:migration:check
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm audit --prod
       - run: pnpm build
+
+  production-smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: release-gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      WEBSITE_SMOKE_BASE_URL: ${{ inputs.base_url }}
+      WEBSITE_SMOKE_APEX_URL: ${{ inputs.apex_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - run: node scripts/smoke-production.mjs

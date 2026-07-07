@@ -1,17 +1,21 @@
 # Website release checklist
 
-This checklist is for release readiness only. Do not commit real `.env*` files, Supabase service-role keys, or deployment credentials.
+This checklist is for release readiness only. Do not commit real `.env*` files, app-store credentials, or deployment secrets.
 
 ## Environment variables
 
-Required for local, staging, and production waitlist submissions:
+Required for production launch:
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- Set at least one public app-download URL:
+  - `NEXT_PUBLIC_APP_DOWNLOAD_URL`
+  - `NEXT_PUBLIC_IOS_DOWNLOAD_URL`
+  - `NEXT_PUBLIC_ANDROID_DOWNLOAD_URL`
+- Optional App Store smart-banner support:
+  - `NEXT_PUBLIC_APP_STORE_ID`
 
-Use the public anon key only. Never expose a Supabase service-role key in this Next.js app.
+Use a real App Store, TestFlight, Google Play, Branch/App Link, OneLink, or owned `*.onecommit.us` deep-link URL. Do not use copied placeholder links or the unrelated App Store listing `id6759487696`; that is a different OneCommit habit app.
 
-Before building or redeploying a configured environment, validate the public Supabase settings:
+Before building or redeploying a configured environment, validate the public download settings:
 
 ```bash
 pnpm env:check
@@ -21,48 +25,6 @@ To check a local env file without exporting variables first:
 
 ```bash
 pnpm env:check -- --env-file=.env.local
-```
-
-After the values pass format validation, check the actual Supabase project DNS and REST gateway:
-
-```bash
-pnpm waitlist:check
-```
-
-To test a local env file:
-
-```bash
-pnpm waitlist:check -- --env-file=.env.local
-```
-
-## Supabase waitlist checks
-
-Apply the migration in `supabase/migrations/20260629000000_create_waitlist.sql` to the target Supabase project.
-For production setup and smoke failure triage, use `docs/waitlist-production-runbook.md`.
-
-The client inserts into the `waitlist` table with these fields:
-
-- `first_name`
-- `last_name`
-- `email`
-- `sport`
-- `grad_year`
-- `phone`
-
-Before release, confirm in Supabase:
-
-- [ ] `waitlist` exists in the target project.
-- [ ] The anon role can insert rows into `waitlist`.
-- [ ] Row Level Security is enabled with an insert policy for the anon role.
-- [ ] No client-side select/update/delete policies are broader than intended.
-- [ ] `email` has the expected uniqueness constraint if duplicate signups should be rejected.
-- [ ] `grad_year` is required and accepted only for the currently supported high-school classes: 2027-2030.
-- [ ] A staging form submission reaches the table and duplicate submissions show the existing duplicate-email error.
-
-Before applying the migration or handing off release checks, verify that the checked-in SQL still matches the browser waitlist payload and least-privilege policy contract:
-
-```bash
-pnpm waitlist:migration:check
 ```
 
 ## Demo media
@@ -76,7 +38,6 @@ Run before handing off for staging:
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm waitlist:migration:check
 pnpm lint
 pnpm typecheck
 pnpm audit --prod
@@ -87,10 +48,10 @@ Use Node `24.x` per `package.json`; verify with `node -v` before running release
 
 ## Staging and commit readiness
 
-- [ ] Set the required Supabase env vars in the staging host.
-- [ ] Open the staging homepage, `/demo`, and `/waitlist`.
-- [ ] Submit the waitlist form once on staging and verify the Supabase row.
-- [ ] Submit the same email again and verify the duplicate handling.
+- [ ] Set the required download URL env var in the staging host.
+- [ ] Open the staging homepage, `/demo`, `/download`, `/support`, `/privacy`, and `/terms`.
+- [ ] Confirm every primary CTA opens the intended app download destination.
+- [ ] Confirm `/waitlist` redirects to `/download`.
 - [x] Confirm `public/demo.mp4` is production-sized for staging smoke.
 - [ ] Re-run local verification on a clean checkout before merging.
 
@@ -102,20 +63,8 @@ Run the non-mutating production smoke before launch handoff:
 pnpm smoke:production
 ```
 
-The smoke checks the apex redirect, public routes, media assets, and whether the deployed waitlist bundle contains a resolvable Supabase project URL plus a public key that can authenticate to the Supabase REST gateway.
+The smoke checks the apex redirect, public routes, media assets, `/waitlist` legacy redirect, canonical sitemap artifacts, absence of waitlist-era public copy, and whether deployed `/`, `/demo`, and `/download` expose at least one concrete, non-placeholder HTTPS app-download URL whose host resolves.
 
-After the Supabase project and Vercel environment variables are confirmed, run the mutating waitlist smoke with a generated `codex-smoke-...@example.com` address:
+You can also run the same production smoke from GitHub Actions by manually dispatching the `Website Release Gates` workflow. The manual path runs the local release gates first, then smokes the live site with `base_url=https://www.onecommit.us` and `apex_url=https://onecommit.us` by default.
 
-```bash
-pnpm smoke:production -- --insert
-```
-
-The insert smoke verifies anon insert and duplicate-email rejection. Do not run it against production until test-row policy is acceptable.
-
-If you need to verify the Supabase project directly before a Vercel rebuild, run:
-
-```bash
-pnpm waitlist:check -- --insert
-```
-
-This uses the configured public Supabase URL/key directly and verifies anon insert plus duplicate-email rejection without reading the deployed website bundle.
+Current blocker, verified 2026-07-06: production is deployed with the download-first website, but Vercel does not yet have a real external app-download URL configured. After setting the real app download URL in Vercel and redeploying, rerun `pnpm smoke:production`.

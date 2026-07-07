@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 import dns from "node:dns/promises"
+import {
+  assertValidDownloadUrl,
+  isAllowedDownloadHost,
+} from "./download-url-rules.mjs"
 
 const args = new Set(process.argv.slice(2))
 const getArgValue = (name, fallback) => {
@@ -11,14 +15,17 @@ const getArgValue = (name, fallback) => {
 
 const baseUrl = getArgValue("--base", process.env.WEBSITE_SMOKE_BASE_URL || "https://www.onecommit.us")
 const apexUrl = getArgValue("--apex", process.env.WEBSITE_SMOKE_APEX_URL || "https://onecommit.us")
-const shouldInsert = args.has("--insert") || process.env.WAITLIST_SMOKE_INSERT === "1"
-const waitlistRunbook = "docs/waitlist-production-runbook.md"
-const waitlistIssue = "https://github.com/OneCommit-App/one-commit-website-v2/issues/10"
+const canonicalOrigin = getArgValue(
+  "--canonical-origin",
+  process.env.WEBSITE_SMOKE_CANONICAL_ORIGIN || new URL(baseUrl).origin
+).replace(/\/+$/, "")
+const skipApex = args.has("--skip-apex") || process.env.WEBSITE_SMOKE_SKIP_APEX === "1"
+const downloadRunbook = "docs/download-production-runbook.md"
 
 const routeChecks = [
   { path: "/", typeIncludes: "text/html" },
   { path: "/demo", typeIncludes: "text/html" },
-  { path: "/waitlist", typeIncludes: "text/html" },
+  { path: "/download", typeIncludes: "text/html" },
   { path: "/support", typeIncludes: "text/html" },
   { path: "/privacy", typeIncludes: "text/html" },
   { path: "/terms", typeIncludes: "text/html" },
@@ -30,7 +37,8 @@ const routeChecks = [
   { path: "/logo.png", typeIncludes: "image/png" },
 ]
 
-const canonicalPaths = ["/", "/demo", "/waitlist", "/support", "/privacy", "/terms"]
+const canonicalPaths = ["/", "/demo", "/download", "/support", "/privacy", "/terms"]
+const publicPages = ["/", "/demo", "/download", "/support", "/privacy", "/terms"]
 
 const fail = (message, details = {}) => {
   const error = new Error(message)
@@ -38,55 +46,7 @@ const fail = (message, details = {}) => {
   throw error
 }
 
-const asUrl = (path, base) => new URL(path, base).href
-
-function base64UrlDecode(value) {
-  const normalized = value.replace(/-/g, "+").replace(/_/g, "/")
-  const padded = normalized.padEnd(normalized.length + ((4 - (normalized.length % 4)) % 4), "=")
-  return Buffer.from(padded, "base64").toString("utf8")
-}
-
-function readJwtPayload(token) {
-  const parts = token.split(".")
-  if (parts.length !== 3) return null
-
-  try {
-    return JSON.parse(base64UrlDecode(parts[1]))
-  } catch {
-    return null
-  }
-}
-
-function getPublicKeyKind(key) {
-  if (key.startsWith("sb_secret_")) {
-    fail("Production waitlist bundle contains a secret Supabase key", {
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  if (key.startsWith("sb_publishable_")) {
-    return "publishable"
-  }
-
-  const payload = readJwtPayload(key)
-  if (!payload) {
-    fail("Production waitlist bundle contains an unrecognized Supabase public key format", {
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  if (payload.role !== "anon") {
-    fail("Production waitlist bundle Supabase JWT must use the anon role", {
-      role: payload.role || null,
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  return "anon jwt"
-}
+const asUrl = (path, base = baseUrl) => new URL(path, base).href
 
 async function fetchText(url, options = {}) {
   const response = await fetch(url, options)
@@ -112,7 +72,7 @@ async function checkApexRedirect() {
 
 async function checkRoutes() {
   for (const check of routeChecks) {
-    const url = asUrl(check.path, baseUrl)
+    const url = asUrl(check.path)
     const started = Date.now()
     const response = await fetch(url, { redirect: "follow" })
     const bytes = Buffer.byteLength(await response.arrayBuffer())
@@ -138,12 +98,35 @@ async function checkRoutes() {
   }
 }
 
+async function checkLegacyWaitlistRedirect() {
+  const response = await fetch(asUrl("/waitlist"), { redirect: "manual" })
+  const location = response.headers.get("location")
+
+  if (![301, 302, 307, 308].includes(response.status)) {
+    fail("Legacy waitlist route did not redirect", {
+      status: response.status,
+      location,
+      runbook: downloadRunbook,
+    })
+  }
+
+  if (!location || new URL(location, baseUrl).pathname !== "/download") {
+    fail("Legacy waitlist route does not point at /download", {
+      status: response.status,
+      location,
+      runbook: downloadRunbook,
+    })
+  }
+
+  console.log(`ok legacy redirect: /waitlist -> ${location}`)
+}
+
 async function checkCanonicalArtifacts() {
-  const expectedOrigin = new URL(baseUrl).origin
+  const expectedOrigin = canonicalOrigin
   const apexOrigin = new URL(apexUrl).origin
   const expectedSitemap = `${expectedOrigin}/sitemap.xml`
-  const { text: robots } = await fetchText(asUrl("/robots.txt", baseUrl), { redirect: "follow" })
-  const { text: sitemap } = await fetchText(asUrl("/sitemap.xml", baseUrl), { redirect: "follow" })
+  const { text: robots } = await fetchText(asUrl("/robots.txt"), { redirect: "follow" })
+  const { text: sitemap } = await fetchText(asUrl("/sitemap.xml"), { redirect: "follow" })
 
   if (!robots.includes(`Sitemap: ${expectedSitemap}`)) {
     fail("Robots sitemap points at the wrong canonical host", {
@@ -158,6 +141,12 @@ async function checkCanonicalArtifacts() {
     }
   }
 
+  if (sitemap.includes("<loc>https://www.onecommit.us/waitlist</loc>")) {
+    fail("Sitemap still advertises the legacy waitlist URL", {
+      runbook: downloadRunbook,
+    })
+  }
+
   if (apexOrigin !== expectedOrigin && sitemap.includes(`<loc>${apexOrigin}`)) {
     fail("Sitemap still advertises apex canonical URLs", {
       apexOrigin,
@@ -168,190 +157,119 @@ async function checkCanonicalArtifacts() {
   console.log(`ok canonical artifacts: robots and sitemap advertise ${expectedOrigin}`)
 }
 
-async function getWaitlistHtml() {
-  const { response, text } = await fetchText(asUrl("/waitlist", baseUrl), { redirect: "follow" })
-  if (response.status !== 200) {
-    fail("Waitlist page returned non-200", { status: response.status, url: response.url })
-  }
-  return text
+function extractHrefValues(html) {
+  return [...html.matchAll(/\shref="([^"]+)"/g)].map((match) => match[1])
 }
 
-async function getScriptUrls(html) {
-  return [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => asUrl(match[1], baseUrl))
+function normalizeHref(href) {
+  try {
+    return new URL(href, baseUrl)
+  } catch {
+    return null
+  }
 }
 
-async function findSupabaseConfig(scriptUrls) {
-  const urlPattern = /https:\/\/[a-z0-9]+\.supabase\.co/g
-  const publishablePattern = /sb_publishable_[A-Za-z0-9_-]+/g
-  const secretPattern = /sb_secret_[A-Za-z0-9_-]+/g
-  const jwtPattern = /eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g
-  const config = {
-    supabaseUrl: null,
-    key: null,
-    keyKind: null,
-    urlScriptUrl: null,
-    keyScriptUrl: null,
+function validateExternalDownloadUrl(url) {
+  if (!url || url.protocol !== "https:") return false
+
+  const marketingHosts = new Set(["www.onecommit.us", "onecommit.us"])
+  if (marketingHosts.has(url.hostname)) return false
+
+  if (!isAllowedDownloadHost(url.hostname)) {
+    return false
   }
 
-  for (const scriptUrl of scriptUrls) {
-    const { response, text } = await fetchText(scriptUrl)
+  try {
+    return assertValidDownloadUrl({ key: "download CTA href", value: url.href })
+  } catch (error) {
+    error.details = {
+      ...(error.details || {}),
+      runbook: downloadRunbook,
+    }
+    throw error
+  }
+}
+
+async function checkDownloadLinks() {
+  const discovered = new Map()
+
+  for (const path of ["/", "/demo", "/download"]) {
+    const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
-      fail("Client chunk returned non-200", { scriptUrl, status: response.status })
+      fail("Download CTA page returned non-200", { path, status: response.status })
     }
 
-    const supabaseUrls = [...text.matchAll(urlPattern)].map((match) => match[0])
-    const publishableKeys = [...text.matchAll(publishablePattern)].map((match) => match[0])
-    const secretKeys = [...text.matchAll(secretPattern)].map((match) => match[0])
-    const jwtKeys = [...text.matchAll(jwtPattern)].map((match) => match[0])
-    const keys = [...publishableKeys, ...jwtKeys]
+    for (const href of extractHrefValues(text)) {
+      const url = normalizeHref(href)
+      const downloadUrl = validateExternalDownloadUrl(url)
+      if (!downloadUrl) continue
+      discovered.set(downloadUrl.href, { path, hostname: downloadUrl.hostname })
+    }
+  }
 
-    if (secretKeys.length > 0) {
-      fail("Production waitlist bundle contains a secret Supabase key", {
-        scriptUrl,
-        runbook: waitlistRunbook,
-        issue: waitlistIssue,
+  if (discovered.size === 0) {
+    fail("No external app download URL found on production pages", {
+      checkedPages: ["/", "/demo", "/download"],
+      runbook: downloadRunbook,
+    })
+  }
+
+  for (const [href, details] of discovered) {
+    try {
+      await dns.lookup(details.hostname)
+    } catch (error) {
+      fail("App download host did not resolve", {
+        url: href,
+        hostname: details.hostname,
+        page: details.path,
+        code: error.code,
+        message: error.message,
+        runbook: downloadRunbook,
       })
     }
-
-    if (!config.supabaseUrl && supabaseUrls.length > 0) {
-      config.supabaseUrl = supabaseUrls[0]
-      config.urlScriptUrl = scriptUrl
-    }
-
-    if (!config.key && keys.length > 0) {
-      config.key = keys[0]
-      config.keyKind = getPublicKeyKind(keys[0])
-      config.keyScriptUrl = scriptUrl
-    }
-
-    if (config.supabaseUrl && config.key) {
-      return config
-    }
   }
 
-  return config.supabaseUrl || config.key ? config : null
+  console.log(`ok download links: ${[...discovered.keys()].join(", ")}`)
 }
 
-async function checkSupabaseConfig() {
-  const html = await getWaitlistHtml()
-  const scriptUrls = await getScriptUrls(html)
-  const config = await findSupabaseConfig(scriptUrls)
+async function checkNoPublicWaitlistCopy() {
+  const blockedFragments = [
+    "join beta waitlist",
+    "join the beta waitlist",
+    "waitlist_submit",
+    "supabase.co",
+  ]
 
-  if (!config?.supabaseUrl) {
-    fail("No Supabase project URL found in the production waitlist bundle")
+  for (const path of publicPages) {
+    const { text } = await fetchText(asUrl(path), { redirect: "follow" })
+    const lower = text.toLowerCase()
+
+    for (const fragment of blockedFragments) {
+      if (lower.includes(fragment)) {
+        fail("Public page still contains waitlist-era copy or config", {
+          path,
+          fragment,
+          runbook: downloadRunbook,
+        })
+      }
+    }
   }
 
-  if (!config?.key) {
-    fail("No Supabase public key found in the production waitlist bundle", {
-      supabaseUrl: config.supabaseUrl,
-      urlScriptUrl: config.urlScriptUrl,
-    })
-  }
-
-  const hostname = new URL(config.supabaseUrl).hostname
-  let records
-  try {
-    records = await dns.lookup(hostname, { all: true })
-  } catch (error) {
-    fail("Supabase project host did not resolve", {
-      supabaseUrl: config.supabaseUrl,
-      hostname,
-      code: error.code,
-      message: error.message,
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  if (records.length === 0) {
-    fail("Supabase project host did not resolve", {
-      supabaseUrl: config.supabaseUrl,
-      hostname,
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  console.log(`ok supabase config: ${hostname}, ${config.keyKind} key present, ${records.length} DNS record(s)`)
-  return config
-}
-
-async function checkRestGateway(config) {
-  const { response, text } = await fetchText(`${config.supabaseUrl}/rest/v1/`, {
-    headers: {
-      apikey: config.key,
-      Authorization: `Bearer ${config.key}`,
-      accept: "application/openapi+json, application/json",
-    },
-  })
-
-  if (!response.ok) {
-    fail("Supabase REST gateway check failed", {
-      status: response.status,
-      body: text.slice(0, 500),
-      runbook: waitlistRunbook,
-      issue: waitlistIssue,
-    })
-  }
-
-  console.log(`ok supabase rest gateway: ${response.status}, ${config.keyKind} key`)
-}
-
-async function checkWaitlistInsert(config) {
-  if (!shouldInsert) {
-    console.log("skip waitlist insert smoke: pass --insert or WAITLIST_SMOKE_INSERT=1 after confirming test-row policy")
-    return
-  }
-
-  const email = `codex-smoke-${new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14)}@example.com`
-  const payload = {
-    first_name: "Codex",
-    last_name: "SmokeTest",
-    email,
-    sport: "Track & Field",
-    grad_year: "2027",
-    phone: null,
-  }
-
-  const insert = async () => {
-    const response = await fetch(`${config.supabaseUrl}/rest/v1/waitlist`, {
-      method: "POST",
-      headers: {
-        apikey: config.key,
-        Authorization: `Bearer ${config.key}`,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal",
-      },
-      body: JSON.stringify(payload),
-    })
-    return { response, text: await response.text() }
-  }
-
-  const first = await insert()
-  if (![200, 201, 204].includes(first.response.status)) {
-    fail("Waitlist smoke insert failed", { status: first.response.status, body: first.text })
-  }
-  console.log(`ok waitlist insert: ${email}`)
-
-  const duplicate = await insert()
-  const duplicateBody = duplicate.text.toLowerCase()
-  if (duplicate.response.ok || !(duplicateBody.includes("duplicate") || duplicateBody.includes("unique"))) {
-    fail("Waitlist duplicate smoke did not reject as expected", {
-      status: duplicate.response.status,
-      body: duplicate.text,
-    })
-  }
-  console.log(`ok waitlist duplicate rejection: ${duplicate.response.status}`)
+  console.log("ok public copy: no waitlist CTA or Supabase config fragments")
 }
 
 async function main() {
   console.log(`smoke base: ${baseUrl}`)
-  await checkApexRedirect()
+  if (skipApex) {
+    console.log("skip apex redirect: --skip-apex")
+  } else {
+    await checkApexRedirect()
+  }
   await checkRoutes()
+  await checkLegacyWaitlistRedirect()
   await checkCanonicalArtifacts()
-  const supabaseConfig = await checkSupabaseConfig()
-  await checkRestGateway(supabaseConfig)
-  await checkWaitlistInsert(supabaseConfig)
+  await checkNoPublicWaitlistCopy()
+  await checkDownloadLinks()
 }
 
 main().catch((error) => {

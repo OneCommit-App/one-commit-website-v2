@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import DownloadLink from "@/components/download-link"
 
 export default function DemoPage() {
   const shouldReduceMotion = useReducedMotion()
@@ -64,12 +65,12 @@ export default function DemoPage() {
           </video>
         </div>
 
-        <Link
-          href="/waitlist"
+        <DownloadLink
+          analyticsSource="demo_page"
           className="mt-8 h-10 px-6 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
         >
-          Join the Beta Waitlist
-        </Link>
+          Download the App
+        </DownloadLink>
       </motion.section>
     </div>
   )

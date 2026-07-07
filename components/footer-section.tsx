@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import TrackedLink from "@/components/tracked-link"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -24,7 +25,14 @@ export default function FooterSection() {
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </div>
           <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">The first self-service recruiting copilot built for the overlooked.</p>
-          <a href="mailto:admin@onecommit.us" className="text-[#4ade80] text-xs font-medium hover:underline">admin@onecommit.us</a>
+          <TrackedLink
+            href="mailto:admin@onecommit.us"
+            eventName="support_click"
+            eventSource="footer_email_primary"
+            className="text-[#4ade80] text-xs font-medium hover:underline"
+          >
+            admin@onecommit.us
+          </TrackedLink>
           <div className="flex items-center gap-3 mt-1">
             <motion.a
               href="https://x.com/onecommit"
@@ -63,9 +71,9 @@ export default function FooterSection() {
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Help</span>
-            <a href="/support" className="text-white/50 text-xs hover:text-white/70 transition-colors">Support</a>
-            <a href="mailto:admin@onecommit.us" className="text-white/50 text-xs hover:text-white/70 transition-colors">admin@onecommit.us</a>
-            <a href="mailto:admin@onecommit.us" className="text-white/50 text-xs hover:text-white/70 transition-colors">Contact us</a>
+            <TrackedLink href="/support" eventName="support_click" eventSource="footer_support" className="text-white/50 text-xs hover:text-white/70 transition-colors">Support</TrackedLink>
+            <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="footer_email" className="text-white/50 text-xs hover:text-white/70 transition-colors">admin@onecommit.us</TrackedLink>
+            <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="footer_contact" className="text-white/50 text-xs hover:text-white/70 transition-colors">Contact us</TrackedLink>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-white/20 text-xs font-semibold uppercase tracking-wider">Legal</span>
