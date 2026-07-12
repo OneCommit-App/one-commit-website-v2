@@ -3,12 +3,12 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Demo",
   description:
-    "Watch OneCommit in action — see how we match you to colleges, generate outreach emails, and track coach replies.",
+    "Watch OneCommit in action — see D3-focused OneScore matching, own-inbox outreach drafting, and coach-reply tracking.",
   alternates: { canonical: "https://www.onecommit.us/demo" },
   openGraph: {
     title: "OneCommit Demo — See It in Action",
     description:
-      "Watch how OneCommit matches you to colleges, writes outreach emails, and tracks coach replies.",
+      "Watch D3-focused OneScore matching, own-inbox outreach drafting, and coach-reply tracking in OneCommit.",
     url: "https://www.onecommit.us/demo",
     siteName: "OneCommit",
     locale: "en_US",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OneCommit Demo — See It in Action",
     description:
-      "Watch how OneCommit matches you to colleges, writes outreach emails, and tracks coach replies.",
+      "Watch D3-focused OneScore matching, own-inbox outreach drafting, and coach-reply tracking in OneCommit.",
     images: ["/opengraph-image"],
   },
 }

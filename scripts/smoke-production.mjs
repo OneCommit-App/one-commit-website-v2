@@ -76,7 +76,7 @@ async function checkRoutes() {
   for (const check of routeChecks) {
     const url = asUrl(check.path)
     const started = Date.now()
-    const response = await fetch(url, { redirect: "follow" })
+    const response = await fetch(url, { redirect: "manual" })
     const bytes = Buffer.byteLength(await response.arrayBuffer())
     const contentType = response.headers.get("content-type") || ""
 
@@ -97,6 +97,29 @@ async function checkRoutes() {
     }
 
     console.log(`ok route ${check.path}: ${response.status}, ${contentType}, ${bytes} bytes, ${Date.now() - started}ms`)
+  }
+}
+
+function htmlAttribute(tag, name) {
+  const match = tag.match(
+    new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i")
+  )
+  return match?.[1] ?? match?.[2] ?? match?.[3] ?? ""
+}
+
+function extractPageMetadata(html) {
+  const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || ""
+  const canonicalTag = (head.match(/<link\b[^>]*>/gi) || []).find((tag) => (
+    htmlAttribute(tag, "rel").toLowerCase().split(/\s+/).includes("canonical")
+  ))
+  const descriptionTag = (head.match(/<meta\b[^>]*>/gi) || []).find((tag) => (
+    htmlAttribute(tag, "name").toLowerCase() === "description"
+  ))
+
+  return {
+    canonical: canonicalTag ? htmlAttribute(canonicalTag, "href") : "",
+    description: descriptionTag ? htmlAttribute(descriptionTag, "content") : "",
+    title: head.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || "",
   }
 }
 
@@ -140,6 +163,36 @@ async function checkCanonicalArtifacts() {
     const expectedUrl = path === "/" ? expectedOrigin : `${expectedOrigin}${path}`
     if (!sitemap.includes(`<loc>${expectedUrl}</loc>`)) {
       fail("Sitemap is missing canonical URL", { expectedUrl })
+    }
+
+    const { response, text } = await fetchText(asUrl(path), { redirect: "manual" })
+    if (response.status !== 200) {
+      fail("Canonical page did not return a direct 200", {
+        path,
+        status: response.status,
+        location: response.headers.get("location"),
+      })
+    }
+
+    const metadata = extractPageMetadata(text)
+    if (metadata.canonical !== expectedUrl) {
+      fail("Page canonical tag points at the wrong URL", {
+        path,
+        actual: metadata.canonical,
+        expected: expectedUrl,
+      })
+    }
+    if (!metadata.title || !metadata.description) {
+      fail("Page is missing required title or description metadata", {
+        path,
+        hasTitle: Boolean(metadata.title),
+        hasDescription: Boolean(metadata.description),
+      })
+    }
+    if (path === "/demo" && !metadata.description.toLowerCase().includes("d3-focused")) {
+      fail("Demo metadata does not disclose D3-focused matching", {
+        description: metadata.description,
+      })
     }
   }
 

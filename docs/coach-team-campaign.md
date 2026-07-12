@@ -38,7 +38,7 @@ Supporting proof:
 - current OneScore matching is D3-focused and track-specific; confidence should be disclosed when data is thin
 - outreach sends from the athlete's Gmail or Outlook account
 - communication history stays organized by school
-- beta access is free while timing and refinement recommendations are validated
+- beta access is free while the current athlete workflow and coach-team rollout are tested
 
 Do not market automatic timing intelligence, a coach portal, unlimited sends, equal all-division coverage, or guaranteed recruiting outcomes.
 

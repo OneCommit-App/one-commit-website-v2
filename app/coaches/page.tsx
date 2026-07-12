@@ -240,7 +240,7 @@ export default function CoachesPage() {
       <section className="bg-[#235d48] px-4 py-16">
         <div className="mx-auto flex w-full max-w-4xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase text-white/65">Free team beta</p>
+            <p className="text-xs font-semibold uppercase text-white/70">Free team beta</p>
             <h2 className="mt-2 max-w-2xl text-3xl font-bold">
               Start with a small athlete group and one weekly check-in.
             </h2>
@@ -262,7 +262,7 @@ export default function CoachesPage() {
       </section>
 
       <footer className="border-t border-white/[0.08] px-4 py-8">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <span>OneCommit LLC</span>
           <div className="flex gap-5">
             <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
