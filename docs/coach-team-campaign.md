@@ -54,7 +54,7 @@ Do not market automatic timing intelligence, a coach portal, unlimited sends, eq
 
 - Invite 3 coaches to start with 5-15 athletes each.
 - Give each coach the same kickoff outline and athlete checklist.
-- Track coach-page visits, `coach_interest_click`, replies, athletes who receive access, profiles completed, and first school saved.
+- Track `coach_page_click` entries, coach-page visits, `coach_interest_click` conversions, replies, athletes who receive access, profiles completed, and first school saved.
 
 ### Week 3: Activation review
 
@@ -100,7 +100,7 @@ Hugh
 
 Use this funnel:
 
-1. coach page view
+1. coach page visit (`coach_page_click` for tracked on-site entry)
 2. `coach_interest_click`
 3. coach reply
 4. beta access delivered

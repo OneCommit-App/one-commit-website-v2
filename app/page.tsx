@@ -1040,7 +1040,7 @@ function LandingPageContent() {
           </div>
           <TrackedLink
             href="/coaches"
-            eventName="coach_interest_click"
+            eventName="coach_page_click"
             eventSource="home_coach_band"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
           >

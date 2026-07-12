@@ -26,6 +26,7 @@ export default function DemoPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/"
+              aria-label="Back to home"
               className="h-7 px-3 border border-white/15 text-white text-xs font-medium rounded-full flex items-center gap-1.5 hover:bg-white/[0.04] transition-colors"
             >
               <ArrowLeft size={12} />

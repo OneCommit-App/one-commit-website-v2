@@ -269,11 +269,21 @@ async function checkHonestMarketingClaims() {
   const checks = [
     {
       path: "/",
-      required: ["onescore", "riley", "d3-focused", "coach_interest_click"],
+      required: ["onescore", "riley", "d3-focused", "coach_page_click"],
+    },
+    {
+      path: "/demo",
+      required: ['aria-label="back to home"'],
     },
     {
       path: "/coaches",
-      required: ["d3-focused onescore", "athlete-owned accounts", "mailto:admin@onecommit.us", "coach_interest_click"],
+      required: [
+        "d3-focused onescore",
+        "athlete-owned accounts",
+        "mailto:admin@onecommit.us",
+        "coach_interest_click",
+        'aria-label="back to athlete site"',
+      ],
     },
   ]
 
@@ -294,7 +304,7 @@ async function checkHonestMarketingClaims() {
     }
   }
 
-  console.log("ok marketing claims: OneScore, Riley onboarding, D3 scope, and coach tracking are present")
+  console.log("ok marketing claims: OneScore, Riley onboarding, D3 scope, coach-page tracking, and coach conversion tracking are present")
 }
 
 async function main() {

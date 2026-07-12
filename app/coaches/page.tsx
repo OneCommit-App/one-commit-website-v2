@@ -78,6 +78,7 @@ export default function CoachesPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/"
+              aria-label="Back to athlete site"
               className="inline-flex h-8 items-center gap-1.5 px-2 text-xs font-medium text-white/60 transition-colors hover:text-white"
             >
               <ArrowLeft size={13} />
