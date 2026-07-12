@@ -9,7 +9,7 @@ export const faqData = [
   },
   {
     q: "Who is Riley?",
-    a: "Riley is the optional voice guide in athlete onboarding. Riley helps capture marks, academics, and college preferences; athletes can review the result or use typed setup instead.",
+    a: "Riley is the voice guide in athlete onboarding. Riley helps capture marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
   },
   {
     q: "Do the emails come from my own inbox?",

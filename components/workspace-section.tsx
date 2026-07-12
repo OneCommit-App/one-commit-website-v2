@@ -25,8 +25,8 @@ const useCases = [
   {
     badge: "Onboarding",
     title: "Talk it through with Riley",
-    body: "Use the Riley voice conversation to build an athlete profile, or choose typed setup instead.",
-    checks: ["Optional voice setup", "Athlete-confirmed details", "Typed path available"],
+    body: "Use the Riley voice conversation to build an athlete profile, then review the captured details before moving on.",
+    checks: ["Voice-guided setup", "Athlete-confirmed details", "Profile review before outreach"],
   },
 ]
 

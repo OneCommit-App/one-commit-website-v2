@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react"
 import DownloadLink from "@/components/download-link"
+import CoachCampaignAttribution from "@/components/coach-campaign-attribution"
 import TrackedLink from "@/components/tracked-link"
 
 export const metadata: Metadata = {
@@ -52,7 +53,7 @@ const weeklySteps = [
   {
     icon: Users,
     title: "Athletes build their profile",
-    body: "Each athlete uses Riley voice onboarding or typed setup to add events, marks, academics, and college preferences.",
+    body: "Each invited athlete uses Riley-guided voice onboarding to add events, marks, academics, and college preferences, then reviews the profile details.",
   },
   {
     icon: ClipboardCheck,
@@ -69,6 +70,7 @@ const weeklySteps = [
 export default function CoachesPage() {
   return (
     <main className="min-h-screen bg-[#0f1a14] text-white">
+      <CoachCampaignAttribution />
       <header className="absolute inset-x-0 top-0 z-20 px-4 pt-5">
         <nav className="mx-auto flex h-11 w-full max-w-6xl items-center justify-between border-b border-white/[0.10]">
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold text-white">
@@ -86,7 +88,7 @@ export default function CoachesPage() {
             </Link>
             <DownloadLink
               analyticsSource="coaches_header"
-              fallbackLabel="Get Access"
+              fallbackLabel="Request Access"
               className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white px-4 text-xs font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
             >
               Download App
@@ -127,7 +129,7 @@ export default function CoachesPage() {
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
               >
                 <Mail size={15} />
-                Bring OneCommit to my team
+                Request a team beta invitation
               </TrackedLink>
               <TrackedLink
                 href="/demo"
@@ -140,7 +142,7 @@ export default function CoachesPage() {
               </TrackedLink>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/55">
-              {["Free beta access", "D3-focused OneScore", "Athlete-owned accounts"].map((item) => (
+              {["Free beta invitations", "D3-focused OneScore", "Athlete-owned accounts"].map((item) => (
                 <span key={item} className="flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-[#86efac]" />
                   {item}
@@ -213,9 +215,9 @@ export default function CoachesPage() {
       <section className="bg-white px-4 py-16 text-[#15231d]">
         <div className="mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-bold">What coaches can use today</h2>
+            <h2 className="text-2xl font-bold">What invited teams can test</h2>
             <ul className="mt-6 grid gap-4 text-sm text-[#15231d]/70">
-              {["A free athlete beta rollout", "D3-focused OneScore matching", "A consistent profile and school-list checklist", "A weekly review of outreach and replies"].map((item) => (
+              {["A free, capacity-limited athlete beta", "D3-focused OneScore matching", "A consistent profile and school-list checklist", "A weekly review of outreach and replies"].map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
                   <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[#235d48]" />
                   {item}
@@ -240,12 +242,15 @@ export default function CoachesPage() {
       <section className="bg-[#235d48] px-4 py-16">
         <div className="mx-auto flex w-full max-w-4xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase text-white/70">Free team beta</p>
+            <p className="text-xs font-semibold uppercase text-white/70">Free team beta invitations</p>
             <h2 className="mt-2 max-w-2xl text-3xl font-bold">
-              Start with a small athlete group and one weekly check-in.
+              Request an invitation for a small athlete group.
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70">
-              Tell us your school and team size. We will send access instructions and a simple kickoff outline.
+              Tell us your school and team size. We will follow up if beta capacity and a supported app-access path are available.
+            </p>
+            <p className="mt-3 max-w-xl text-xs leading-relaxed text-white/60">
+              Athletes ages 13-17 need permission from a parent or guardian before creating an account. A coach invitation does not replace that permission.
             </p>
           </div>
           <TrackedLink
@@ -256,7 +261,7 @@ export default function CoachesPage() {
             className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
           >
             <Mail size={15} />
-            Start a team beta
+            Request a beta invitation
           </TrackedLink>
         </div>
       </section>

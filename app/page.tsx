@@ -19,11 +19,11 @@ const subtitles = [
   "Build a D3-focused college list from your PRs and grades.",
   "Send personal coach outreach from your own inbox.",
   "Keep coach replies and follow-up history together.",
-  "Get app access and start building today.",
+  "Request beta access and start when invited.",
 ]
 
 const steps = [
-  { num: "1", title: "Build your athlete profile", desc: "Talk through your marks, academics, and preferences with Riley, or enter them yourself.", image: "/match.png" },
+  { num: "1", title: "Build your athlete profile", desc: "Talk through your marks, academics, and preferences with Riley, then review the profile details.", image: "/match.png" },
   { num: "2", title: "Review OneScore matches", desc: "Compare D3 programs using your marks, academics, and college preferences.", image: "/app-explore.png" },
   { num: "3", title: "Send outreach emails", desc: "Generate personalized emails and send them from your own inbox.", image: "/proof-email.png" },
   { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and plan the next follow-up from your outreach history.", image: "/app-track-replies.png" },
@@ -38,7 +38,7 @@ const problems = [
 ]
 
 const features = [
-  { title: "Riley or typed onboarding", desc: "Use Riley's voice conversation or manual entry to capture marks, academics, and college preferences.", img: "/proof-dashboard.png" },
+  { title: "Riley-guided voice onboarding", desc: "Use Riley's voice conversation to capture marks, academics, and college preferences, then review the profile details.", img: "/proof-dashboard.png" },
   { title: "SmartAdd + Search", desc: "Search the current D3 beta dataset and save schools to your working list.", img: "/app-smart-add.png" },
   { title: "Outreach Dashboard", desc: "Draft emails and organize connected recruiting messages and replies by school.", img: "/proof-engagement.png" },
   { title: "Reply Tracking", desc: "See match details, communication history, and reply status for each saved school.", img: "/track.png" },
@@ -48,7 +48,7 @@ const heroProofs = [
   { icon: Target, label: "D3-focused OneScore", detail: "School-by-school fit guidance from beta data" },
   { icon: Mail, label: "Own-inbox outreach", detail: "Gmail and Outlook messages from you" },
   { icon: MessageSquare, label: "Reply tracking", detail: "See sent and received activity by school" },
-  { icon: CalendarCheck, label: "Free app access", detail: "Get access, create a profile, and start building" },
+  { icon: CalendarCheck, label: "Free beta invitations", detail: "Request access and start when an invitation is available" },
 ]
 
 const productHighlights = [
