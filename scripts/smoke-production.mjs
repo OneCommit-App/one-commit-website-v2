@@ -26,6 +26,7 @@ const routeChecks = [
   { path: "/", typeIncludes: "text/html" },
   { path: "/demo", typeIncludes: "text/html" },
   { path: "/download", typeIncludes: "text/html" },
+  { path: "/coaches", typeIncludes: "text/html" },
   { path: "/support", typeIncludes: "text/html" },
   { path: "/privacy", typeIncludes: "text/html" },
   { path: "/terms", typeIncludes: "text/html" },
@@ -37,8 +38,8 @@ const routeChecks = [
   { path: "/logo.png", typeIncludes: "image/png" },
 ]
 
-const canonicalPaths = ["/", "/demo", "/download", "/support", "/privacy", "/terms"]
-const publicPages = ["/", "/demo", "/download", "/support", "/privacy", "/terms"]
+const canonicalPaths = ["/", "/demo", "/download", "/coaches", "/support", "/privacy", "/terms"]
+const publicPages = ["/", "/demo", "/download", "/coaches", "/support", "/privacy", "/terms"]
 
 const fail = (message, details = {}) => {
   const error = new Error(message)
@@ -193,7 +194,7 @@ function validateExternalDownloadUrl(url) {
 async function checkDownloadLinks() {
   const discovered = new Map()
 
-  for (const path of ["/", "/demo", "/download"]) {
+  for (const path of ["/", "/demo", "/download", "/coaches"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
       fail("Download CTA page returned non-200", { path, status: response.status })
@@ -209,7 +210,7 @@ async function checkDownloadLinks() {
 
   if (discovered.size === 0) {
     fail("No external app download URL found on production pages", {
-      checkedPages: ["/", "/demo", "/download"],
+      checkedPages: ["/", "/demo", "/download", "/coaches"],
       runbook: downloadRunbook,
     })
   }

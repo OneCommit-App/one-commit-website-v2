@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
-import { appStoreId } from "@/lib/download"
+import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
 import "./globals.css"
 
 const dmSans = DM_Sans({
@@ -13,6 +13,9 @@ const dmSans = DM_Sans({
 })
 
 const isVercelDeploy = process.env.VERCEL === "1"
+const appAccessDescription = hasConfiguredDownloadUrl
+  ? "Download OneCommit to build your Track & Field recruiting process with D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+  : "Get OneCommit beta app access to build your Track & Field recruiting process with D3-focused OneScore matches, own-inbox outreach, and reply tracking."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.onecommit.us"),
@@ -20,8 +23,7 @@ export const metadata: Metadata = {
     default: "OneCommit — Personalized Track & Field Recruiting",
     template: "%s | OneCommit",
   },
-  description:
-    "Download OneCommit to build your Track & Field recruiting process with matched colleges, own-inbox outreach, and reply tracking. Free beta app access.",
+  description: appAccessDescription,
   icons: {
     icon: [
       {
@@ -33,8 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "OneCommit — Personalized Track & Field Recruiting",
-    description:
-      "Match to colleges, send stronger outreach, track replies, and download the OneCommit beta app.",
+    description: appAccessDescription,
     url: "https://www.onecommit.us",
     siteName: "OneCommit",
     locale: "en_US",
@@ -51,8 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "OneCommit — Personalized Track & Field Recruiting",
-    description:
-      "Match to colleges, send stronger outreach, track replies, and download the OneCommit beta app.",
+    description: appAccessDescription,
     images: ["/opengraph-image"],
   },
   alternates: {

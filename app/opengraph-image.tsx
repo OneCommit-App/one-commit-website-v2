@@ -1,9 +1,13 @@
 import { ImageResponse } from "next/og"
+import { hasConfiguredDownloadUrl } from "@/lib/download"
 
 export const runtime = "edge"
 export const alt = "OneCommit — Track & Field Recruiting Copilot"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
+
+const accessAction = hasConfiguredDownloadUrl ? "Download the beta app" : "Get beta app access"
+const accessButton = hasConfiguredDownloadUrl ? "Download OneCommit" : "Get App Access"
 
 export default async function OGImage() {
   return new ImageResponse(
@@ -80,7 +84,7 @@ export default async function OGImage() {
             maxWidth: "600px",
           }}
         >
-          Match to colleges. Send outreach. Track replies. Download the beta app.
+          {`Compare D3 fits. Send outreach. Track replies. ${accessAction}.`}
         </div>
         <div
           style={{
@@ -96,7 +100,7 @@ export default async function OGImage() {
             borderRadius: "9999px",
           }}
         >
-          Download OneCommit
+          {accessButton}
         </div>
       </div>
     ),

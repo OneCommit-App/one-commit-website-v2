@@ -1,8 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle2, XCircle } from "lucide-react"
+import { CheckCircle2, Mail, XCircle } from "lucide-react"
 import DownloadLink from "@/components/download-link"
+import TrackedLink from "@/components/tracked-link"
 
 const plans = [
   {
@@ -13,9 +14,9 @@ const plans = [
     cadence: "beta",
     note: "No credit card required to create a beta account.",
     cta: "Download App",
-    variant: "standard",
+    ctaType: "download",
     features: [
-      "Smart school matching",
+      "D3-focused OneScore matching",
       "Personalized email generation",
       "Gmail and Outlook connection",
       "Coach reply tracking",
@@ -24,20 +25,20 @@ const plans = [
   },
   {
     name: "Pro",
-    eyebrow: "Best for active recruiting",
-    description: "Expanded workflow access plus strategy help from a OneCommit recruiting advisor when Pro opens.",
+    eyebrow: "Planned support",
+    description: "Human review and recruiting strategy support are being tested separately from the free athlete workspace.",
     price: "Planned",
     cadence: "pro beta",
     note: "Pricing and availability shared before any paid plan starts.",
-    cta: "Get App Access",
-    variant: "featured",
+    cta: "Ask about Pro beta",
+    ctaType: "interest",
     features: [
-      "Monthly 1-on-1 advisor call",
+      "Human strategy support under evaluation",
       "Personalized profile review",
       "Pitch and follow-up coaching",
-      "Unlimited coach outreach emails",
-      "Unlimited school exploration",
-      "Priority recruiting pipeline tools",
+      "School-list strategy review",
+      "Outreach and reply planning",
+      "Priority workflow support",
     ],
   },
 ]
@@ -103,25 +104,15 @@ export default function PricingSection() {
           className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(250px,0.78fr)] gap-4"
         >
           {plans.map((plan) => {
-            const featured = plan.variant === "featured"
             return (
               <motion.div
                 key={plan.name}
                 variants={cardReveal}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`relative flex flex-col rounded-xl border p-6 ${
-                  featured
-                    ? "bg-white/[0.055] border-[#4ade80]/35 shadow-[0_0_45px_rgba(74,222,128,0.07)]"
-                    : "bg-white/[0.035] border-white/[0.08]"
-                }`}
+                className="relative flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.035] p-6"
               >
                 <div className="flex min-h-5 flex-wrap items-start justify-between gap-2">
                   <div className="text-[#86efac] text-xs font-semibold uppercase tracking-wider">{plan.eyebrow}</div>
-                  {featured && (
-                    <span className="rounded-full border border-[#4ade80]/25 bg-[#4ade80]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#86efac]">
-                      Most useful
-                    </span>
-                  )}
                 </div>
                 <h3 className="mt-2 text-white text-xl font-bold">{plan.name}</h3>
                 <p className="mt-2 min-h-16 text-white/50 text-sm leading-relaxed">{plan.description}</p>
@@ -134,16 +125,25 @@ export default function PricingSection() {
                   <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
                 </div>
 
-                <DownloadLink
-                  analyticsSource={`pricing_${plan.name.toLowerCase()}`}
-                  className={`mt-5 h-10 rounded-full text-sm font-semibold transition-colors inline-flex items-center justify-center ${
-                    featured
-                      ? "bg-white text-[#0f1a14] hover:bg-white/90"
-                      : "bg-white/[0.06] border border-white/[0.10] text-white/70 hover:bg-white/[0.10] hover:text-white"
-                  }`}
-                >
-                  {plan.cta}
-                </DownloadLink>
+                {plan.ctaType === "download" ? (
+                  <DownloadLink
+                    analyticsSource="pricing_beta"
+                    className="mt-5 h-10 rounded-full border border-white/[0.10] bg-white/[0.06] text-sm font-semibold text-white/70 transition-colors inline-flex items-center justify-center hover:bg-white/[0.10] hover:text-white"
+                  >
+                    {plan.cta}
+                  </DownloadLink>
+                ) : (
+                  <TrackedLink
+                    href="mailto:admin@onecommit.us?subject=OneCommit%20Pro%20beta"
+                    eventName="pro_interest_click"
+                    eventSource="pricing_pro"
+                    eventDestination="support_email"
+                    className="mt-5 h-10 rounded-full border border-white/[0.10] bg-white/[0.04] text-sm font-semibold text-white/60 transition-colors inline-flex items-center justify-center gap-2 hover:bg-white/[0.08] hover:text-white"
+                  >
+                    <Mail size={14} />
+                    {plan.cta}
+                  </TrackedLink>
+                )}
 
                 <motion.div
                   variants={featureListStagger}
@@ -174,12 +174,10 @@ export default function PricingSection() {
               Often high upfront fees for a passive profile-based model.
             </p>
             <div className="mt-5 flex items-end gap-2">
-              <span className="text-white/60 text-4xl font-bold tracking-tight">Thousands</span>
+              <span className="text-white/60 text-4xl font-bold tracking-tight">High fees</span>
               <span className="pb-1 text-white/20 text-sm">upfront</span>
             </div>
-            <div className="mt-5 h-10 rounded-full border border-white/[0.06] bg-white/[0.035] text-white/30 text-sm font-medium flex items-center justify-center">
-              Compare the old way
-            </div>
+            <p className="mt-5 text-xs font-semibold uppercase text-white/25">Typical legacy model</p>
             <div className="mt-6 flex flex-col gap-2">
               {oldWay.map((item) => (
                 <div key={item} className="flex items-start gap-2.5">

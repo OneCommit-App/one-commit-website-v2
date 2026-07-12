@@ -31,7 +31,7 @@ export default function CTASection() {
               Start with the right college list. Then run the outreach.
             </h2>
             <p className="mt-3 text-white/50 text-sm sm:text-base max-w-xl leading-relaxed">
-              Get OneCommit access to build your matched school list, draft personal coach emails, and track replies from one recruiting workspace.
+              Get OneCommit access to build a D3-focused OneScore list, draft personal coach emails, and track replies from one recruiting workspace.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <motion.div

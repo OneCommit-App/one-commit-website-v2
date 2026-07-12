@@ -86,8 +86,8 @@ const supportSections = [
         <li>Get OneCommit access and create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
-        <li>Review your matched schools and start reaching out to coaches.</li>
-        <li>Watch for Pro availability updates if you want expanded outreach and strategy support.</li>
+        <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>
+        <li>Watch for Pro updates if you want to join the optional strategy-support pilot.</li>
       </ol>
     ),
   },

@@ -3,7 +3,12 @@
 import type React from "react"
 import { track } from "@vercel/analytics"
 
-type FunnelEventName = "download_click" | "demo_click" | "support_click"
+type FunnelEventName =
+  | "download_click"
+  | "demo_click"
+  | "support_click"
+  | "coach_interest_click"
+  | "pro_interest_click"
 
 type TrackedLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   eventName: FunnelEventName

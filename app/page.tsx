@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate, useInView } from "framer-motion"
 import Image from "next/image"
-import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck, ShieldCheck } from "lucide-react"
+import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck, ShieldCheck, Users } from "lucide-react"
 import WorkspaceSection from "@/components/workspace-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
@@ -16,43 +16,43 @@ import DownloadLink from "@/components/download-link"
 import TrackedLink from "@/components/tracked-link"
 
 const subtitles = [
-  "Build a realistic college list from your PRs and grades.",
+  "Build a D3-focused college list from your PRs and grades.",
   "Send personal coach outreach from your own inbox.",
-  "Track every reply, follow-up, and warm lead.",
+  "Keep coach replies and follow-up history together.",
   "Get app access and start building today.",
 ]
 
 const steps = [
-  { num: "1", title: "Create your profile", desc: "Add your times, GPA/SAT, and what matters to you in a college experience.", image: "/match.png" },
-  { num: "2", title: "Get matched schools", desc: "See Reach, Target & Foundational tiers with match percentage breakdowns.", image: "/app-explore.png" },
+  { num: "1", title: "Build your athlete profile", desc: "Talk through your marks, academics, and preferences with Riley, or enter them yourself.", image: "/match.png" },
+  { num: "2", title: "Review OneScore matches", desc: "Compare D3 programs using your marks, academics, and college preferences.", image: "/app-explore.png" },
   { num: "3", title: "Send outreach emails", desc: "Generate personalized emails and send them from your own inbox.", image: "/proof-email.png" },
-  { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and follow up at the right time.", image: "/app-track-replies.png" },
+  { num: "4", title: "Track coach replies", desc: "See who replied, manage threads, and plan the next follow-up from your outreach history.", image: "/app-track-replies.png" },
   { num: "5", title: "Keep improving", desc: "Use reply history and follow-up reminders to make your next move clearer.", image: "/proof-engagement.png" },
 ]
 
 const problems = [
-  { p: "You\u2019re guessing which schools are realistic", s: "Smart matching helps you understand where you may fit across hundreds of programs." },
+  { p: "You\u2019re guessing which schools are realistic", s: "OneScore helps you compare fit across the current D3 beta dataset." },
   { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
-  { p: "You shouldn\u2019t need to pay thousands for a spreadsheet", s: "OneCommit starts with free app access and keeps the process organized like software, not a consulting retainer." },
-  { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You control the timeline, strategy, and conversation. No middleman." },
+  { p: "You shouldn\u2019t need a large upfront package", s: "OneCommit starts with free app access and keeps the process organized like software, not a consulting retainer." },
+  { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You choose who to contact and review every message before it sends." },
 ]
 
 const features = [
-  { title: "Profile Builder", desc: "Height/weight, PRs, GPA/SAT, links, notable results. Everything a coach needs.", img: "/proof-dashboard.png" },
-  { title: "SmartAdd + Search", desc: "Type what you want and save matched schools to your dashboard.", img: "/app-smart-add.png" },
-  { title: "Outreach Dashboard", desc: "Generate emails, track sent messages & replies, and manage all coach conversations.", img: "/proof-engagement.png" },
+  { title: "Riley or typed onboarding", desc: "Use Riley's voice conversation or manual entry to capture marks, academics, and college preferences.", img: "/proof-dashboard.png" },
+  { title: "SmartAdd + Search", desc: "Search the current D3 beta dataset and save schools to your working list.", img: "/app-smart-add.png" },
+  { title: "Outreach Dashboard", desc: "Draft emails and organize connected recruiting messages and replies by school.", img: "/proof-engagement.png" },
   { title: "Reply Tracking", desc: "See match details, communication history, and reply status for every school.", img: "/track.png" },
 ]
 
 const heroProofs = [
-  { icon: Target, label: "40+ matched schools", detail: "Reach, Target, and Foundational tiers" },
+  { icon: Target, label: "D3-focused OneScore", detail: "School-by-school fit guidance from beta data" },
   { icon: Mail, label: "Own-inbox outreach", detail: "Gmail and Outlook messages from you" },
-  { icon: MessageSquare, label: "Reply tracking", detail: "Know who answered and when to follow up" },
+  { icon: MessageSquare, label: "Reply tracking", detail: "See sent and received activity by school" },
   { icon: CalendarCheck, label: "Free app access", detail: "Get access, create a profile, and start building" },
 ]
 
 const productHighlights = [
-  "Fit score by school",
+  "OneScore by school",
   "Coach email workflow",
   "Reply status at a glance",
 ]
@@ -517,6 +517,7 @@ function LandingPageContent() {
             <div className="pl-4 hidden sm:flex gap-4">
               {[
                 { label: "Demo", href: "/demo", id: "" },
+                { label: "Coaches", href: "/coaches", id: "" },
                 { label: "Features", href: "#features", id: "features" },
                 { label: "How It Works", href: "#how-it-works", id: "how-it-works" },
                 { label: "Pricing", href: "#pricing", id: "pricing" },
@@ -576,6 +577,7 @@ function LandingPageContent() {
               <div className="py-2 flex flex-col">
                 {[
                   { label: "Demo", href: "/demo" },
+                  { label: "Coaches", href: "/coaches" },
                   { label: "Features", href: "#features" },
                   { label: "How It Works", href: "#how-it-works" },
                   { label: "Pricing", href: "#pricing" },
@@ -609,7 +611,7 @@ function LandingPageContent() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
           />
-          <span className="text-gradient-sweep text-xs font-medium">{"Track & Field Beta \u2014 Free App Access"}</span>
+          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Free App Access"}</span>
         </motion.div>
 
         <motion.h1
@@ -650,7 +652,7 @@ function LandingPageContent() {
         </motion.div>
 
         <motion.p variants={heroChildBlur} className="mt-2 text-white/60 text-sm sm:text-base max-w-2xl leading-relaxed font-medium text-pretty">
-          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: matched schools, personal coach emails, reply tracking, and follow-up planning in one app."}
+          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: D3-focused OneScore matches, personal coach emails, reply tracking, and follow-up planning in one app."}
         </motion.p>
 
         <motion.div variants={heroChild} className="flex flex-col sm:flex-row items-center gap-3 mt-8 w-full justify-center">
@@ -671,7 +673,7 @@ function LandingPageContent() {
               eventSource="home_hero"
               className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap"
             >
-              Watch the 2-min demo
+              Watch the 1-minute demo
             </TrackedLink>
           </Magnetic>
         </motion.div>
@@ -869,7 +871,7 @@ function LandingPageContent() {
                 <UnderlineText delay={0.4}>{"control."}</UnderlineText>
               </motion.span>
             </motion.h2>
-            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, discover matched schools, send outreach, track replies, and review the next moves your data suggests."}</p>
+            <p className="mt-2 text-white/50 text-sm max-w-md mx-auto">{"Create your profile, review D3-focused OneScore matches, send outreach, and track replies from one workspace."}</p>
           </div>
           <div className="flex flex-col md:flex-row gap-4 items-stretch">
             {/* Step cards */}
@@ -1020,6 +1022,33 @@ function LandingPageContent() {
 
       {/* Workspace */}
       <WorkspaceSection />
+
+      {/* Coach campaign */}
+      <section className="border-y border-white/[0.07] bg-[#17251e] px-4 py-14">
+        <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+          <div>
+            <div className="flex items-center gap-2 text-[#86efac] text-xs font-semibold uppercase">
+              <Users size={15} />
+              High school coaches
+            </div>
+            <h2 className="mt-3 max-w-2xl text-2xl sm:text-3xl font-bold text-white">
+              Give every athlete a recruiting plan without becoming their agent.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/55">
+              OneCommit gives track athletes a structured school list, an outreach workspace, and a clear weekly check-in they can own. No coach portal or recruiting-service handoff required.
+            </p>
+          </div>
+          <TrackedLink
+            href="/coaches"
+            eventName="coach_interest_click"
+            eventSource="home_coach_band"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
+          >
+            Coach team rollout
+            <ArrowRight size={15} />
+          </TrackedLink>
+        </div>
+      </section>
 
       {/* Pricing */}
       <div id="pricing" className="scroll-mt-24">

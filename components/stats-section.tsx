@@ -4,9 +4,9 @@ import { motion } from "framer-motion"
 
 const proofPoints = [
   {
-    value: "40+",
-    label: "matched schools",
-    desc: "A balanced list across Reach, Target, and Foundational tiers.",
+    value: "OneScore",
+    label: "D3-focused fit guidance",
+    desc: "Compare each school using marks, academics, and college preferences from the current beta dataset.",
   },
   {
     value: "Gmail + Outlook",
