@@ -7,6 +7,8 @@ Status: draft assets only. Nothing in this plan has been sent or published outsi
 Give a high school track or cross-country coach a free OneCommit team kickoff:
 
 - athlete-owned beta accounts
+- Riley voice onboarding or typed profile setup
+- D3-focused OneScore guidance
 - a one-page profile and school-list checklist
 - one 20-minute coach kickoff
 - a weekly athlete check-in rhythm
@@ -32,7 +34,8 @@ Primary line:
 Supporting proof:
 
 - athletes build and own their profiles
-- current beta matching is D3-focused and track-specific; confidence should be disclosed when data is thin
+- Riley is the optional onboarding voice guide; post-onboarding assistant surfaces stay parked
+- current OneScore matching is D3-focused and track-specific; confidence should be disclosed when data is thin
 - outreach sends from the athlete's Gmail or Outlook account
 - communication history stays organized by school
 - beta access is free while timing and refinement recommendations are validated
@@ -71,7 +74,7 @@ Subject: A simpler recruiting check-in for your track athletes
 
 Coach [Last Name],
 
-I am building OneCommit, a track-specific recruiting workspace that helps athletes organize matched schools, prepare personal outreach, and track replies from their own inbox.
+I am building OneCommit, a track-specific recruiting workspace that helps athletes use D3-focused OneScore guidance, prepare personal outreach, and track replies from their own inbox.
 
 The goal is not to give coaches another portal. It is to give each athlete enough structure that a weekly recruiting check-in can focus on decisions instead of rebuilding the same spreadsheet.
 

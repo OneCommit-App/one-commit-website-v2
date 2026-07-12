@@ -8,7 +8,6 @@ type FunnelEventName =
   | "demo_click"
   | "support_click"
   | "coach_interest_click"
-  | "pro_interest_click"
 
 type TrackedLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   eventName: FunnelEventName

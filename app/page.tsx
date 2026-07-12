@@ -41,7 +41,7 @@ const features = [
   { title: "Riley or typed onboarding", desc: "Use Riley's voice conversation or manual entry to capture marks, academics, and college preferences.", img: "/proof-dashboard.png" },
   { title: "SmartAdd + Search", desc: "Search the current D3 beta dataset and save schools to your working list.", img: "/app-smart-add.png" },
   { title: "Outreach Dashboard", desc: "Draft emails and organize connected recruiting messages and replies by school.", img: "/proof-engagement.png" },
-  { title: "Reply Tracking", desc: "See match details, communication history, and reply status for every school.", img: "/track.png" },
+  { title: "Reply Tracking", desc: "See match details, communication history, and reply status for each saved school.", img: "/track.png" },
 ]
 
 const heroProofs = [

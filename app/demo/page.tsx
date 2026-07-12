@@ -67,7 +67,7 @@ export default function DemoPage() {
           </DownloadLink>
         </div>
 
-        <div className="w-full max-w-3xl rounded-xl overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_18px_70px_rgba(0,0,0,0.28)]">
+        <div className="w-full max-w-3xl rounded-lg overflow-hidden border border-white/[0.08] bg-black/20 shadow-[0_18px_70px_rgba(0,0,0,0.28)]">
           <video
             autoPlay={!shouldReduceMotion}
             loop={!shouldReduceMotion}

@@ -52,12 +52,12 @@ const weeklySteps = [
   {
     icon: Users,
     title: "Athletes build their profile",
-    body: "Each athlete adds events, marks, academics, and college preferences in their own account.",
+    body: "Each athlete uses Riley voice onboarding or typed setup to add events, marks, academics, and college preferences.",
   },
   {
     icon: ClipboardCheck,
-    title: "They build a balanced school list",
-    body: "OneCommit organizes the current D3 beta dataset so the weekly conversation starts with real options, not a blank spreadsheet.",
+    title: "They compare D3 OneScore fits",
+    body: "OneCommit organizes the current D3 beta dataset so the weekly conversation starts with school-by-school context, not a blank spreadsheet.",
   },
   {
     icon: MessageSquareText,
@@ -112,7 +112,7 @@ export default function CoachesPage() {
               For high school track and field coaches
             </p>
             <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-              A recruiting plan for every athlete on your roster.
+              A free recruiting workspace for your track athletes.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
               OneCommit gives athletes a structured place to build school lists, prepare coach outreach, and track replies. You guide the weekly conversation without running every inbox.
@@ -139,7 +139,7 @@ export default function CoachesPage() {
               </TrackedLink>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/55">
-              {["Free beta access", "D3-focused matching", "Athlete-owned accounts"].map((item) => (
+              {["Free beta access", "D3-focused OneScore", "Athlete-owned accounts"].map((item) => (
                 <span key={item} className="flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-[#86efac]" />
                   {item}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import TrackedLink from "@/components/tracked-link"
 
 export const metadata: Metadata = {
@@ -49,9 +50,7 @@ const supportSections = [
           className="inline-flex items-center gap-2 text-[#4ade80] text-sm font-semibold hover:underline"
         >
           admin@onecommit.us
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 17L17 7M17 7H8M17 7v9" />
-          </svg>
+          <ArrowUpRight size={14} />
         </TrackedLink>
       </>
     ),
@@ -61,8 +60,8 @@ const supportSections = [
     body: (
       <ul className="text-white/60 text-sm leading-relaxed space-y-2 list-disc pl-4">
         <li>
-          <strong className="text-white/80">Pro availability:</strong>{" "}
-          {"Get app access for the free beta. Pro availability details will appear before any paid plan starts."}
+          <strong className="text-white/80">Paid plans:</strong>{" "}
+          {"None are active today. Core app access is free during the beta, and future terms would appear before billing can start."}
         </li>
         <li>
           <strong className="text-white/80">Account changes:</strong>{" "}
@@ -87,7 +86,7 @@ const supportSections = [
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
         <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>
-        <li>Watch for Pro updates if you want to join the optional strategy-support pilot.</li>
+        <li>Use in-app help or email support if access, profile, or inbox setup gets stuck.</li>
       </ol>
     ),
   },
@@ -142,16 +141,17 @@ export default function SupportPage() {
             <Image src="/logo.png" alt="OneCommit" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </Link>
-          <Link href="/" className="text-white/60 text-sm hover:text-white transition-colors">
-            ← Back to home
+          <Link href="/" className="inline-flex items-center gap-1.5 text-white/60 text-sm hover:text-white transition-colors">
+            <ArrowLeft size={14} />
+            Back to home
           </Link>
         </div>
       </header>
 
       <section className="px-4 pt-12 pb-8 flex justify-center">
         <div className="w-full max-w-3xl">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Help & Support</span>
-          <h1 className="mt-2 text-white text-3xl sm:text-4xl font-bold tracking-tight">
+          <span className="text-[#4ade80] text-xs font-semibold uppercase">Help & Support</span>
+          <h1 className="mt-2 text-white text-3xl sm:text-4xl font-bold">
             How can we help?
           </h1>
           <p className="mt-3 text-white/50 text-sm leading-relaxed max-w-xl">
@@ -165,7 +165,7 @@ export default function SupportPage() {
           {supportSections.map((s, i) => (
             <div
               key={i}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6"
+              className="bg-white/[0.03] border border-white/[0.06] rounded-lg p-6"
             >
               <h2 className="text-white text-base font-semibold mb-3">{s.heading}</h2>
               {s.body}

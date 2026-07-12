@@ -1,9 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle2, Mail, XCircle } from "lucide-react"
+import { CheckCircle2, XCircle } from "lucide-react"
 import DownloadLink from "@/components/download-link"
-import TrackedLink from "@/components/tracked-link"
 
 const plans = [
   {
@@ -11,34 +10,32 @@ const plans = [
     eyebrow: "App access",
     description: "Get OneCommit access for the core recruiting workspace during beta.",
     price: "Free",
-    cadence: "beta",
+    cadence: "during beta",
     note: "No credit card required to create a beta account.",
-    cta: "Download App",
+    cta: "Get App Access",
     ctaType: "download",
     features: [
       "D3-focused OneScore matching",
+      "Riley voice or typed onboarding",
       "Personalized email generation",
       "Gmail and Outlook connection",
       "Coach reply tracking",
-      "SmartAdd school search",
     ],
   },
   {
-    name: "Pro",
-    eyebrow: "Planned support",
-    description: "Human review and recruiting strategy support are being tested separately from the free athlete workspace.",
-    price: "Planned",
-    cadence: "pro beta",
-    note: "Pricing and availability shared before any paid plan starts.",
-    cta: "Ask about Pro beta",
-    ctaType: "interest",
+    name: "Paid plans",
+    eyebrow: "Not live",
+    description: "There is no paid tier, advisor subscription, or recurring call package available today.",
+    price: "TBD",
+    cadence: "after validation",
+    note: "Any future price and terms will be shown before billing can start.",
+    cta: "",
+    ctaType: "none",
     features: [
-      "Human strategy support under evaluation",
-      "Personalized profile review",
-      "Pitch and follow-up coaching",
-      "School-list strategy review",
-      "Outreach and reply planning",
-      "Priority workflow support",
+      "No checkout in the current beta",
+      "No public paid price yet",
+      "Beta outcomes will shape future plans",
+      "Terms shown before any purchase",
     ],
   },
 ]
@@ -87,12 +84,12 @@ export default function PricingSection() {
     >
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8 scroll-mt-20">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
-          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Start free. Upgrade only when Pro opens.
+          <span className="text-[#4ade80] text-xs font-semibold uppercase">Beta access</span>
+          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold text-balance">
+            Free during beta. No paid plan is live.
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
-            OneCommit keeps the self-service tools accessible, then plans to add human strategy for athletes who need more help acting on replies.
+            We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
           </p>
         </div>
 
@@ -109,17 +106,17 @@ export default function PricingSection() {
                 key={plan.name}
                 variants={cardReveal}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="relative flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.035] p-6"
+                className="relative flex flex-col rounded-lg border border-white/[0.08] bg-white/[0.035] p-6"
               >
                 <div className="flex min-h-5 flex-wrap items-start justify-between gap-2">
-                  <div className="text-[#86efac] text-xs font-semibold uppercase tracking-wider">{plan.eyebrow}</div>
+                  <div className="text-[#86efac] text-xs font-semibold uppercase">{plan.eyebrow}</div>
                 </div>
                 <h3 className="mt-2 text-white text-xl font-bold">{plan.name}</h3>
                 <p className="mt-2 min-h-16 text-white/50 text-sm leading-relaxed">{plan.description}</p>
 
                 <div className="mt-5">
                   <div className="flex items-end gap-2">
-                    <span className="text-white text-5xl font-bold tracking-tight">{plan.price}</span>
+                    <span className="text-white text-5xl font-bold">{plan.price}</span>
                     <span className="pb-1 text-white/30 text-sm">{plan.cadence}</span>
                   </div>
                   <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
@@ -132,18 +129,7 @@ export default function PricingSection() {
                   >
                     {plan.cta}
                   </DownloadLink>
-                ) : (
-                  <TrackedLink
-                    href="mailto:admin@onecommit.us?subject=OneCommit%20Pro%20beta"
-                    eventName="pro_interest_click"
-                    eventSource="pricing_pro"
-                    eventDestination="support_email"
-                    className="mt-5 h-10 rounded-full border border-white/[0.10] bg-white/[0.04] text-sm font-semibold text-white/60 transition-colors inline-flex items-center justify-center gap-2 hover:bg-white/[0.08] hover:text-white"
-                  >
-                    <Mail size={14} />
-                    {plan.cta}
-                  </TrackedLink>
-                )}
+                ) : null}
 
                 <motion.div
                   variants={featureListStagger}
@@ -166,15 +152,15 @@ export default function PricingSection() {
           <motion.div
             variants={cardReveal}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6"
+            className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-6"
           >
-            <div className="text-white/30 text-xs font-semibold uppercase tracking-wider">Old way</div>
+            <div className="text-white/30 text-xs font-semibold uppercase">Old way</div>
             <h3 className="mt-2 text-white/60 text-xl font-bold">Legacy recruiting services</h3>
             <p className="mt-2 text-white/30 text-sm leading-relaxed">
               Often high upfront fees for a passive profile-based model.
             </p>
             <div className="mt-5 flex items-end gap-2">
-              <span className="text-white/60 text-4xl font-bold tracking-tight">High fees</span>
+              <span className="text-white/60 text-4xl font-bold">High fees</span>
               <span className="pb-1 text-white/20 text-sm">upfront</span>
             </div>
             <p className="mt-5 text-xs font-semibold uppercase text-white/25">Typical legacy model</p>

@@ -20,6 +20,7 @@ const canonicalOrigin = getArgValue(
   process.env.WEBSITE_SMOKE_CANONICAL_ORIGIN || new URL(baseUrl).origin
 ).replace(/\/+$/, "")
 const skipApex = args.has("--skip-apex") || process.env.WEBSITE_SMOKE_SKIP_APEX === "1"
+const skipDownload = args.has("--skip-download") || process.env.WEBSITE_SMOKE_SKIP_DOWNLOAD === "1"
 const downloadRunbook = "docs/download-production-runbook.md"
 
 const routeChecks = [
@@ -239,6 +240,11 @@ async function checkNoPublicWaitlistCopy() {
     "join the beta waitlist",
     "waitlist_submit",
     "supabase.co",
+    "400+ d3 programs",
+    "monthly 1-on-1 advisor call",
+    "monthly pro call",
+    "unlimited coach outreach",
+    "follow up at the right time",
   ]
 
   for (const path of publicPages) {
@@ -256,7 +262,39 @@ async function checkNoPublicWaitlistCopy() {
     }
   }
 
-  console.log("ok public copy: no waitlist CTA or Supabase config fragments")
+  console.log("ok public copy: no waitlist, stale advisor, timing, or unverified coverage claims")
+}
+
+async function checkHonestMarketingClaims() {
+  const checks = [
+    {
+      path: "/",
+      required: ["onescore", "riley", "d3-focused", "coach_interest_click"],
+    },
+    {
+      path: "/coaches",
+      required: ["d3-focused onescore", "athlete-owned accounts", "mailto:admin@onecommit.us", "coach_interest_click"],
+    },
+  ]
+
+  for (const check of checks) {
+    const { response, text } = await fetchText(asUrl(check.path), { redirect: "follow" })
+    if (response.status !== 200) {
+      fail("Marketing claim page returned non-200", { path: check.path, status: response.status })
+    }
+
+    const lower = text.toLowerCase()
+    for (const fragment of check.required) {
+      if (!lower.includes(fragment)) {
+        fail("Marketing claim page is missing required honest copy or tracking", {
+          path: check.path,
+          fragment,
+        })
+      }
+    }
+  }
+
+  console.log("ok marketing claims: OneScore, Riley onboarding, D3 scope, and coach tracking are present")
 }
 
 async function main() {
@@ -270,7 +308,16 @@ async function main() {
   await checkLegacyWaitlistRedirect()
   await checkCanonicalArtifacts()
   await checkNoPublicWaitlistCopy()
-  await checkDownloadLinks()
+  await checkHonestMarketingClaims()
+  if (skipDownload) {
+    const hostname = new URL(baseUrl).hostname
+    if (hostname === "onecommit.us" || hostname === "www.onecommit.us") {
+      fail("Download-link gate cannot be skipped on the production host", { baseUrl })
+    }
+    console.log("skip download-link gate: --skip-download on non-production host")
+  } else {
+    await checkDownloadLinks()
+  }
 }
 
 main().catch((error) => {
