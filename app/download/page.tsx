@@ -10,15 +10,18 @@ import {
   iosDownloadUrl,
 } from "@/lib/download"
 
+const accessTitle = hasConfiguredDownloadUrl ? "Download" : "App Access"
+const accessDescription = hasConfiguredDownloadUrl
+  ? "Download OneCommit for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+  : "Get OneCommit beta app access for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+
 export const metadata: Metadata = {
-  title: "Download",
-  description:
-    "Download OneCommit for Track & Field recruiting: matched schools, own-inbox outreach, and reply tracking.",
+  title: accessTitle,
+  description: accessDescription,
   alternates: { canonical: "https://www.onecommit.us/download" },
   openGraph: {
-    title: "Download OneCommit",
-    description:
-      "Get the OneCommit beta app for Track & Field recruiting: matched schools, own-inbox outreach, and reply tracking.",
+    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
+    description: accessDescription,
     url: "https://www.onecommit.us/download",
     siteName: "OneCommit",
     locale: "en_US",
@@ -28,15 +31,14 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Download OneCommit",
+        alt: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Download OneCommit",
-    description:
-      "Get the OneCommit beta app for Track & Field recruiting: matched schools, own-inbox outreach, and reply tracking.",
+    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
+    description: accessDescription,
     images: ["/opengraph-image"],
   },
 }
@@ -73,10 +75,12 @@ export default function DownloadPage() {
               OneCommit Beta
             </span>
             <h1 className="mt-3 text-white text-3xl sm:text-5xl font-bold tracking-tight text-balance">
-              Download the recruiting app built for overlooked track athletes.
+              {hasConfiguredDownloadUrl
+                ? "Download the recruiting app built for overlooked track athletes."
+                : "Get app access to start your track recruiting process."}
             </h1>
             <p className="mt-4 text-white/55 text-sm sm:text-base leading-relaxed max-w-2xl">
-              Build a realistic college list, generate coach outreach from your own inbox, and track replies without paying for a passive recruiting profile.
+              Build a D3-focused college list, generate coach outreach from your own inbox, and track replies without paying for a passive recruiting profile.
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
@@ -106,7 +110,7 @@ export default function DownloadPage() {
                 eventSource="download_page_secondary"
                 className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full inline-flex items-center justify-center hover:bg-white/[0.04] transition-colors"
               >
-                Watch the 2-min demo
+                Watch the 1-minute demo
               </TrackedLink>
             </div>
 
@@ -139,7 +143,7 @@ export default function DownloadPage() {
                 "Free beta account",
                 "Athlete age gate in the app",
                 "Gmail and Outlook outreach",
-                "Matched school workspace",
+                "D3-focused OneScore workspace",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/70">
                   <CheckCircle2 size={15} className="shrink-0 text-[#86efac]" />

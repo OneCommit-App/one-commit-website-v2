@@ -8,12 +8,12 @@ export default function JsonLd() {
     applicationCategory: "EducationalApplication",
     operatingSystem: "iOS, Web",
     description:
-      "Self-service recruiting copilot for high school Track & Field athletes. Match to colleges, generate outreach emails, and track coach replies.",
+      "Self-service recruiting copilot for high school Track & Field athletes. Review D3-focused OneScore matches, generate outreach emails, and track coach replies.",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free beta app access; Pro availability details shared before billing starts.",
+      description: "Free beta app access; no paid plan is currently active.",
     },
   }
 

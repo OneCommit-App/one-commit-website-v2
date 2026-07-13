@@ -8,7 +8,7 @@ const useCases = [
     badge: "Athletes",
     title: "Build a list you can defend",
     body: "Turn PRs, grades, location, and school preferences into a school list that explains why each program belongs there.",
-    checks: ["Reach / Target / Foundational tiers", "Academic and athletic context", "Fast shortlist building"],
+    checks: ["OneScore by school", "Academic and athletic context", "D3-focused beta dataset"],
   },
   {
     badge: "Parents",
@@ -23,19 +23,19 @@ const useCases = [
     checks: ["Own-inbox delivery", "Personal context", "No passive profile waiting"],
   },
   {
-    badge: "Pro",
-    title: "Bring a human into the hard calls",
-    body: "When advisor support opens, review replies, refine the pitch, and decide where to follow up next.",
-    checks: ["Profile review", "Pitch coaching", "Next-step planning"],
+    badge: "Onboarding",
+    title: "Talk it through with Riley",
+    body: "Use the Riley voice conversation to build an athlete profile, then review the captured details before moving on.",
+    checks: ["Voice-guided setup", "Athlete-confirmed details", "Profile review before outreach"],
   },
 ]
 
 const workflow = [
   "Profile",
-  "Matches",
+  "OneScore",
   "Outreach",
   "Replies",
-  "Strategy",
+  "Review",
 ]
 
 const fadeUp = {
@@ -73,7 +73,7 @@ export default function WorkspaceSection() {
           </p>
         </div>
 
-        <div className="mb-4 overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.025] p-3">
+        <div className="mb-4 overflow-hidden rounded-lg border border-white/[0.06] bg-white/[0.025] p-3">
           <div className="grid grid-cols-5 gap-2">
             {workflow.map((step, i) => (
               <div key={step} className="relative flex min-h-16 items-center justify-center rounded-lg bg-white/[0.035] px-2 text-center">
@@ -108,7 +108,7 @@ export default function WorkspaceSection() {
                 boxShadow: "0 0 28px rgba(74,222,128,0.07)",
                 transition: { duration: 0.22 },
               }}
-              className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-5"
+              className="rounded-lg border border-white/[0.06] bg-white/[0.03] p-5"
             >
               <span className="inline-flex rounded-full border border-[#4ade80]/20 bg-[#4ade80]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#86efac]">
                 {item.badge}

@@ -8,36 +8,34 @@ const plans = [
   {
     name: "Beta",
     eyebrow: "App access",
-    description: "Get OneCommit access for the core recruiting workspace during beta.",
+    description: "Request a free invitation to the core recruiting workspace during beta.",
     price: "Free",
-    cadence: "beta",
-    note: "No credit card required to create a beta account.",
-    cta: "Download App",
-    variant: "standard",
+    cadence: "during beta",
+    note: "No credit card is required if you receive a beta invitation.",
+    cta: "Request Beta Access",
+    ctaType: "download",
     features: [
-      "Smart school matching",
+      "D3-focused OneScore matching",
+      "Riley-guided voice onboarding",
       "Personalized email generation",
       "Gmail and Outlook connection",
       "Coach reply tracking",
-      "SmartAdd school search",
     ],
   },
   {
-    name: "Pro",
-    eyebrow: "Best for active recruiting",
-    description: "Expanded workflow access plus strategy help from a OneCommit recruiting advisor when Pro opens.",
-    price: "Planned",
-    cadence: "pro beta",
-    note: "Pricing and availability shared before any paid plan starts.",
-    cta: "Get App Access",
-    variant: "featured",
+    name: "Paid plans",
+    eyebrow: "Not live",
+    description: "There is no paid tier, advisor subscription, or recurring call package available today.",
+    price: "TBD",
+    cadence: "after validation",
+    note: "Any future price and terms will be shown before billing can start.",
+    cta: "",
+    ctaType: "none",
     features: [
-      "Monthly 1-on-1 advisor call",
-      "Personalized profile review",
-      "Pitch and follow-up coaching",
-      "Unlimited coach outreach emails",
-      "Unlimited school exploration",
-      "Priority recruiting pipeline tools",
+      "No checkout in the current beta",
+      "No public paid price yet",
+      "Beta outcomes will shape future plans",
+      "Terms shown before any purchase",
     ],
   },
 ]
@@ -86,12 +84,12 @@ export default function PricingSection() {
     >
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8 scroll-mt-20">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Pricing</span>
-          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Start free. Upgrade only when Pro opens.
+          <span className="text-[#4ade80] text-xs font-semibold uppercase">Beta access</span>
+          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold text-balance">
+            Free during beta. No paid plan is live.
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
-            OneCommit keeps the self-service tools accessible, then plans to add human strategy for athletes who need more help acting on replies.
+            We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
           </p>
         </div>
 
@@ -103,47 +101,35 @@ export default function PricingSection() {
           className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(250px,0.78fr)] gap-4"
         >
           {plans.map((plan) => {
-            const featured = plan.variant === "featured"
             return (
               <motion.div
                 key={plan.name}
                 variants={cardReveal}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`relative flex flex-col rounded-xl border p-6 ${
-                  featured
-                    ? "bg-white/[0.055] border-[#4ade80]/35 shadow-[0_0_45px_rgba(74,222,128,0.07)]"
-                    : "bg-white/[0.035] border-white/[0.08]"
-                }`}
+                className="relative flex flex-col rounded-lg border border-white/[0.08] bg-white/[0.035] p-6"
               >
                 <div className="flex min-h-5 flex-wrap items-start justify-between gap-2">
-                  <div className="text-[#86efac] text-xs font-semibold uppercase tracking-wider">{plan.eyebrow}</div>
-                  {featured && (
-                    <span className="rounded-full border border-[#4ade80]/25 bg-[#4ade80]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#86efac]">
-                      Most useful
-                    </span>
-                  )}
+                  <div className="text-[#86efac] text-xs font-semibold uppercase">{plan.eyebrow}</div>
                 </div>
                 <h3 className="mt-2 text-white text-xl font-bold">{plan.name}</h3>
                 <p className="mt-2 min-h-16 text-white/50 text-sm leading-relaxed">{plan.description}</p>
 
                 <div className="mt-5">
                   <div className="flex items-end gap-2">
-                    <span className="text-white text-5xl font-bold tracking-tight">{plan.price}</span>
+                    <span className="text-white text-5xl font-bold">{plan.price}</span>
                     <span className="pb-1 text-white/30 text-sm">{plan.cadence}</span>
                   </div>
                   <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
                 </div>
 
-                <DownloadLink
-                  analyticsSource={`pricing_${plan.name.toLowerCase()}`}
-                  className={`mt-5 h-10 rounded-full text-sm font-semibold transition-colors inline-flex items-center justify-center ${
-                    featured
-                      ? "bg-white text-[#0f1a14] hover:bg-white/90"
-                      : "bg-white/[0.06] border border-white/[0.10] text-white/70 hover:bg-white/[0.10] hover:text-white"
-                  }`}
-                >
-                  {plan.cta}
-                </DownloadLink>
+                {plan.ctaType === "download" ? (
+                  <DownloadLink
+                    analyticsSource="pricing_beta"
+                    className="mt-5 h-10 rounded-full border border-white/[0.10] bg-white/[0.06] text-sm font-semibold text-white/70 transition-colors inline-flex items-center justify-center hover:bg-white/[0.10] hover:text-white"
+                  >
+                    {plan.cta}
+                  </DownloadLink>
+                ) : null}
 
                 <motion.div
                   variants={featureListStagger}
@@ -166,20 +152,18 @@ export default function PricingSection() {
           <motion.div
             variants={cardReveal}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6"
+            className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-6"
           >
-            <div className="text-white/30 text-xs font-semibold uppercase tracking-wider">Old way</div>
+            <div className="text-white/30 text-xs font-semibold uppercase">Old way</div>
             <h3 className="mt-2 text-white/60 text-xl font-bold">Legacy recruiting services</h3>
             <p className="mt-2 text-white/30 text-sm leading-relaxed">
               Often high upfront fees for a passive profile-based model.
             </p>
             <div className="mt-5 flex items-end gap-2">
-              <span className="text-white/60 text-4xl font-bold tracking-tight">Thousands</span>
+              <span className="text-white/60 text-4xl font-bold">High fees</span>
               <span className="pb-1 text-white/20 text-sm">upfront</span>
             </div>
-            <div className="mt-5 h-10 rounded-full border border-white/[0.06] bg-white/[0.035] text-white/30 text-sm font-medium flex items-center justify-center">
-              Compare the old way
-            </div>
+            <p className="mt-5 text-xs font-semibold uppercase text-white/25">Typical legacy model</p>
             <div className="mt-6 flex flex-col gap-2">
               {oldWay.map((item) => (
                 <div key={item} className="flex items-start gap-2.5">
