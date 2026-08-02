@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "env:check": "node scripts/check-env.mjs",
+    "test:download-states": "node scripts/download-states.test.mjs",
     "lint": "eslint .",
     "smoke:production": "node scripts/smoke-production.mjs",
     "start": "next start",

@@ -53,6 +53,7 @@ jobs:
       - run: node scripts/canonical-host.test.mjs
       - run: node scripts/public-shell.test.mjs
       - run: node scripts/home-ssr.test.mjs
+      - run: node scripts/download-states.test.mjs
 
   production-smoke:
     if: ${{ github.event_name == 'workflow_dispatch' }}

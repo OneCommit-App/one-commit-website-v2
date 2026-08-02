@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
 import { ArrowRight, CheckCircle2, Mail, Smartphone } from "lucide-react"
 import DownloadLink from "@/components/download-link"
+import FooterSection from "@/components/footer-section"
+import PublicHeader from "@/components/public-header"
 import TrackedLink from "@/components/tracked-link"
 import {
   androidDownloadUrl,
@@ -50,36 +50,21 @@ const platformLinks = [
 
 export default function DownloadPage() {
   return (
-    <main className="min-h-screen bg-[#0f1a14] text-white">
-      <header className="px-4 pt-6 pb-4 border-b border-white/[0.06]">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Image src="/logo.png" alt="OneCommit logo" width={28} height={28} className="w-7 h-7 rounded-full" />
-            <span className="text-white text-base font-semibold">OneCommit</span>
-          </Link>
-          <TrackedLink
-            href="/demo"
-            eventName="demo_click"
-            eventSource="download_header"
-            className="text-white/60 text-sm hover:text-white transition-colors"
-          >
-            Watch demo
-          </TrackedLink>
-        </div>
-      </header>
-
-      <section className="px-4 pt-16 pb-16 flex justify-center">
+    <div className="min-h-screen bg-[#0f1a14] text-white">
+      <PublicHeader accessSource="download_header" />
+      <main id="main-content" tabIndex={-1}>
+      <section aria-labelledby="access-heading" className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
         <div className="w-full max-w-4xl grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">
               OneCommit Beta
             </span>
-            <h1 className="mt-3 text-white text-3xl sm:text-5xl font-bold tracking-tight text-balance">
+            <h1 id="access-heading" className="mt-3 text-white text-3xl sm:text-5xl font-bold tracking-tight text-balance">
               {hasConfiguredDownloadUrl
                 ? "Download the recruiting app built for overlooked track athletes."
                 : "Request beta access to start your track recruiting process."}
             </h1>
-            <p className="mt-4 text-white/55 text-sm sm:text-base leading-relaxed max-w-2xl">
+            <p className="mt-4 text-white/65 text-sm sm:text-base leading-relaxed max-w-2xl">
               Build a D3-focused college list, generate coach outreach from your own inbox, and track replies without paying for a passive recruiting profile.
             </p>
 
@@ -87,10 +72,10 @@ export default function DownloadPage() {
               {hasConfiguredDownloadUrl ? (
                 <DownloadLink
                   analyticsSource="download_page_primary"
-                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group"
+                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
                 >
                   Open App Download
-                  <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+                  <ArrowRight aria-hidden="true" size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
                 </DownloadLink>
               ) : (
                 <TrackedLink
@@ -98,32 +83,32 @@ export default function DownloadPage() {
                   eventName="download_click"
                   eventSource="download_page_fallback_email"
                   eventDestination="support_email"
-                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors"
+                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
                 >
                   Request Beta Access
-                  <Mail size={15} />
+                  <Mail aria-hidden="true" size={15} />
                 </TrackedLink>
               )}
               <TrackedLink
                 href="/demo"
                 eventName="demo_click"
                 eventSource="download_page_secondary"
-                className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full inline-flex items-center justify-center hover:bg-white/[0.04] transition-colors"
+                className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full inline-flex items-center justify-center hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
               >
                 Watch the 1-minute demo
               </TrackedLink>
             </div>
 
-            {platformLinks.length > 1 && (
+            {platformLinks.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {platformLinks.map((link) => (
                   <DownloadLink
                     key={link.label}
                     href={link.href}
                     analyticsSource={`download_page_${link.label.includes("iPhone") ? "ios" : "android"}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-white/70 hover:bg-white/[0.07] hover:text-white"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 text-xs font-semibold text-white/80 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
                   >
-                    <Smartphone size={14} />
+                    <Smartphone aria-hidden="true" size={14} />
                     {link.label}
                   </DownloadLink>
                 ))}
@@ -131,29 +116,34 @@ export default function DownloadPage() {
             )}
 
             {!hasConfiguredDownloadUrl && (
-              <p className="mt-4 max-w-xl text-xs leading-relaxed text-amber-100/70">
+              <p className="mt-4 max-w-xl text-xs leading-relaxed text-amber-100/80">
                 Public download links are not available yet. Email support to ask about current beta availability; invitations depend on capacity and a supported app-access path.
               </p>
             )}
           </div>
 
-          <div className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-5">
-            <div className="grid gap-3">
+          <section aria-labelledby="beta-includes-heading" className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-5">
+            <h2 id="beta-includes-heading" className="mb-4 text-sm font-semibold text-white">Current beta includes</h2>
+            <ul className="grid gap-3">
               {[
                 "Free account for invited beta users",
                 "Athlete age gate in the app",
-                "Outlook/Microsoft 365 inbox connection",
                 "D3-focused OneScore workspace",
               ].map((item) => (
-                <div key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/70">
-                  <CheckCircle2 size={15} className="shrink-0 text-[#86efac]" />
+                <li key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/80">
+                  <CheckCircle2 aria-hidden="true" size={15} className="shrink-0 text-[#86efac]" />
                   <span>{item}</span>
-                </div>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+            <p className="mt-4 text-xs leading-relaxed text-white/65">
+              Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available.
+            </p>
+          </section>
         </div>
       </section>
-    </main>
+      </main>
+      <FooterSection />
+    </div>
   )
 }
