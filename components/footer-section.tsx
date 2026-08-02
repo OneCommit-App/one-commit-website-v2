@@ -68,6 +68,8 @@ export default function FooterSection() {
             <a href="#how-it-works" className="text-white/50 text-xs hover:text-white/70 transition-colors">How It Works</a>
             <a href="#pricing" className="text-white/50 text-xs hover:text-white/70 transition-colors">Pricing</a>
             <TrackedLink href="/coaches" eventName="coach_page_click" eventSource="footer_coaches" className="text-white/50 text-xs hover:text-white/70 transition-colors">For Coaches</TrackedLink>
+            <TrackedLink href="/schools" eventName="audience_page_click" eventSource="footer_schools" className="text-white/50 text-xs hover:text-white/70 transition-colors">For Schools</TrackedLink>
+            <TrackedLink href="/athletic-programs" eventName="audience_page_click" eventSource="footer_athletic_programs" className="text-white/50 text-xs hover:text-white/70 transition-colors">For Athletic Programs</TrackedLink>
             <a href="#faq" className="text-white/50 text-xs hover:text-white/70 transition-colors">FAQ</a>
           </div>
           <div className="flex flex-col gap-2">

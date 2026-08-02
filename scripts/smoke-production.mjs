@@ -31,6 +31,8 @@ const routeChecks = [
   { path: "/demo", typeIncludes: "text/html" },
   { path: "/download", typeIncludes: "text/html" },
   { path: "/coaches", typeIncludes: "text/html" },
+  { path: "/schools", typeIncludes: "text/html" },
+  { path: "/athletic-programs", typeIncludes: "text/html" },
   { path: "/support", typeIncludes: "text/html" },
   { path: "/privacy", typeIncludes: "text/html" },
   { path: "/terms", typeIncludes: "text/html" },
@@ -42,8 +44,18 @@ const routeChecks = [
   { path: "/logo.png", typeIncludes: "image/png" },
 ]
 
-const canonicalPaths = ["/", "/demo", "/download", "/coaches", "/support", "/privacy", "/terms"]
-const publicPages = ["/", "/demo", "/download", "/coaches", "/support", "/privacy", "/terms"]
+const canonicalPaths = [
+  "/",
+  "/demo",
+  "/download",
+  "/coaches",
+  "/schools",
+  "/athletic-programs",
+  "/support",
+  "/privacy",
+  "/terms",
+]
+const publicPages = canonicalPaths
 
 const fail = (message, details = {}) => {
   const error = new Error(message)
@@ -269,7 +281,7 @@ async function checkDownloadLinks() {
   const renderedPages = new Map()
   const renderedPageMarkup = new Map()
 
-  for (const path of ["/", "/demo", "/download", "/coaches"]) {
+  for (const path of ["/", "/demo", "/download", "/coaches", "/schools", "/athletic-programs"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
       fail("Download CTA page returned non-200", { path, status: response.status })
@@ -356,7 +368,7 @@ async function checkDownloadLinks() {
     console.log("ok no-download fallback: CTAs request access and copy discloses invitation capacity")
 
     fail("No external app download URL found on production pages", {
-      checkedPages: ["/", "/demo", "/download", "/coaches"],
+      checkedPages: ["/", "/demo", "/download", "/coaches", "/schools", "/athletic-programs"],
       runbook: downloadRunbook,
     })
   }
@@ -419,7 +431,9 @@ async function checkHonestMarketingClaims() {
         "riley-guided voice onboarding",
         "d3-focused",
         "coach_page_click",
+        "audience_page_click",
         "free beta invitations",
+        "one athlete-owned workflow. three ways to support it.",
       ],
       forbidden: ["typed onboarding", "typed setup", "manual entry", "enter them yourself"],
     },
@@ -435,16 +449,57 @@ async function checkHonestMarketingClaims() {
         "mailto:admin@onecommit.us",
         "coach_interest_click",
         'data-campaign-attribution="coach_outreach_email"',
+        "supported connected inbox",
+        "no coach or administrator dashboard",
+        "no roster monitoring or team reporting",
         "parent or guardian before creating an account",
         "a coach invitation does not replace that permission",
         'aria-label="back to athlete site"',
+        'href="#main-content"',
+        'id="main-content"',
       ],
       forbidden: [
         "what coaches can use today",
         "we will send access instructions",
         "start a team beta",
         "typed setup",
+        "gmail",
+        "free forever",
       ],
+    },
+    {
+      path: "/schools",
+      required: [
+        "d3-focused onescore",
+        "athlete-owned accounts",
+        "mailto:admin@onecommit.us?subject=onecommit%20school%20pilot",
+        "pilot_interest_click",
+        "supported connected inbox",
+        "no school administrator dashboard",
+        "no roster import, surveillance, or reporting",
+        "an adult pilot conversation does not replace that permission",
+        'aria-label="back to athlete site"',
+        'href="#main-content"',
+        'id="main-content"',
+      ],
+      forbidden: ["gmail", "free forever", "school dashboard available", "guaranteed outcomes"],
+    },
+    {
+      path: "/athletic-programs",
+      required: [
+        "d3-focused onescore",
+        "athlete-owned accounts",
+        "mailto:admin@onecommit.us?subject=onecommit%20athletic%20program%20pilot",
+        "pilot_interest_click",
+        "supported connected inbox",
+        "no program dashboard or staff accounts",
+        "no roster management or team analytics",
+        "an adult pilot conversation does not replace that permission",
+        'aria-label="back to athlete site"',
+        'href="#main-content"',
+        'id="main-content"',
+      ],
+      forbidden: ["gmail", "free forever", "program dashboard available"],
     },
   ]
 
@@ -455,8 +510,15 @@ async function checkHonestMarketingClaims() {
     }
 
     const lower = text.toLowerCase()
+    const visibleText = text
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/\s+/g, " ")
+      .toLowerCase()
+    const searchable = `${lower}\n${visibleText}`
     for (const fragment of check.required) {
-      if (!lower.includes(fragment)) {
+      if (!searchable.includes(fragment)) {
         fail("Marketing claim page is missing required honest copy or tracking", {
           path: check.path,
           fragment,
@@ -474,7 +536,30 @@ async function checkHonestMarketingClaims() {
     }
   }
 
-  console.log("ok marketing claims: Riley onboarding, invitation-only access, guardian permission, D3 scope, and coach tracking are honest")
+  console.log("ok marketing claims: adult-support pages preserve athlete ownership, D3 scope, capacity, inbox, and product boundaries")
+}
+
+async function checkAudiencePageSemantics() {
+  for (const path of ["/coaches", "/schools", "/athletic-programs"]) {
+    const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
+    if (response.status !== 200) {
+      fail("Audience page returned non-200 during semantic check", { path, status: response.status })
+    }
+
+    const h1Count = (text.match(/<h1\b/gi) || []).length
+    if (h1Count !== 1) {
+      fail("Audience page must render exactly one h1", { path, h1Count })
+    }
+
+    const lower = text.toLowerCase()
+    for (const fragment of ["min-h-11", "focus-visible:ring-2", 'aria-label="audience pages"']) {
+      if (!lower.includes(fragment)) {
+        fail("Audience page is missing a keyboard or touch-target contract", { path, fragment })
+      }
+    }
+  }
+
+  console.log("ok audience semantics: one h1, skip target, labeled navigation, focus rings, and 44px controls")
 }
 
 async function checkCoachCampaignContract() {
@@ -566,6 +651,7 @@ async function main() {
   await checkCoachCampaignContract()
   await checkNoPublicWaitlistCopy()
   await checkHonestMarketingClaims()
+  await checkAudiencePageSemantics()
   if (skipDownload) {
     const hostname = new URL(baseUrl).hostname
     if (hostname === "onecommit.us" || hostname === "www.onecommit.us") {

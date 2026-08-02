@@ -30,6 +30,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: "https://www.onecommit.us/schools",
+      lastModified: launchModified,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: "https://www.onecommit.us/athletic-programs",
+      lastModified: launchModified,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
       url: "https://www.onecommit.us/support",
       lastModified: launchModified,
       changeFrequency: "monthly",
