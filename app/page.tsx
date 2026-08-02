@@ -33,7 +33,7 @@ const steps = [
 const problems = [
   { p: "You\u2019re guessing which schools are realistic", s: "OneScore helps you compare fit across the current D3 beta dataset." },
   { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
-  { p: "You shouldn\u2019t need a large upfront package", s: "OneCommit starts with free app access and keeps the process organized like software, not a consulting retainer." },
+  { p: "You shouldn\u2019t need a large upfront package", s: "OneCommit starts with a free beta invitation when capacity and a supported app-access path are available." },
   { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You choose who to contact and review every message before it sends." },
 ]
 
@@ -1074,7 +1074,7 @@ function LandingPageContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
-            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free beta app access</span>
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free, capacity-limited beta</span>
             <Magnetic>
               <DownloadLink
                 analyticsSource="home_sticky"

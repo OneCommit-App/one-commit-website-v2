@@ -13,7 +13,7 @@ export default function JsonLd() {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free beta app access; no paid plan is currently active.",
+      description: "Free, capacity-limited beta invitations; no paid plan is currently active.",
     },
   }
 

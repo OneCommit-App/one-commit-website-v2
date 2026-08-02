@@ -34,7 +34,7 @@ export default function DemoPage() {
             </Link>
             <DownloadLink
               analyticsSource="demo_nav"
-              fallbackLabel="Get Access"
+              fallbackLabel="Request Access"
               className="h-7 px-3 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center gap-1.5 hover:bg-white/90 transition-colors"
             >
               Download

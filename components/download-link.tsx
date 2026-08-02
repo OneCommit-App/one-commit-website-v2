@@ -27,7 +27,7 @@ function getDestination(href: string, isFallback: boolean) {
 
 export default function DownloadLink({
   href = primaryDownloadUrl,
-  fallbackLabel = "Get App Access",
+  fallbackLabel = "Request Beta Access",
   analyticsSource = "download_link",
   children,
   onClick,

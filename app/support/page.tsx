@@ -82,7 +82,7 @@ const supportSections = [
     heading: "Getting started",
     body: (
       <ol className="text-white/60 text-sm leading-relaxed space-y-2 list-decimal pl-4">
-        <li>Get OneCommit access and create your beta account.</li>
+        <li>After receiving an invitation, create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
         <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>

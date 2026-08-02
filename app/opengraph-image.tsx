@@ -6,8 +6,8 @@ export const alt = "OneCommit — Track & Field Recruiting Copilot"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
-const accessAction = hasConfiguredDownloadUrl ? "Download the beta app" : "Get beta app access"
-const accessButton = hasConfiguredDownloadUrl ? "Download OneCommit" : "Get App Access"
+const accessAction = hasConfiguredDownloadUrl ? "Download the beta app" : "Request a beta invitation"
+const accessButton = hasConfiguredDownloadUrl ? "Download OneCommit" : "Request Beta Access"
 
 export default async function OGImage() {
   return new ImageResponse(
