@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform, useMotionTemplate, useInView } from "framer-motion"
 import Image from "next/image"
-import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck, ShieldCheck, Users } from "lucide-react"
+import { Menu, X, ArrowRight, CheckCircle2, Mail, MessageSquare, Target, CalendarCheck, ShieldCheck } from "lucide-react"
 import WorkspaceSection from "@/components/workspace-section"
 import FAQSection from "@/components/faq-section"
 import PricingSection from "@/components/pricing-section"
@@ -14,6 +14,7 @@ import TiltCard from "@/components/tilt-card"
 import JsonLd from "@/components/json-ld"
 import DownloadLink from "@/components/download-link"
 import TrackedLink from "@/components/tracked-link"
+import AudienceChooser from "@/components/b2b/audience-chooser"
 
 const subtitles = [
   "Build a D3-focused college list from your PRs and grades.",
@@ -46,7 +47,7 @@ const features = [
 
 const heroProofs = [
   { icon: Target, label: "D3-focused OneScore", detail: "School-by-school fit guidance from beta data" },
-  { icon: Mail, label: "Own-inbox outreach", detail: "Gmail and Outlook messages from you" },
+  { icon: Mail, label: "Supported connected inbox", detail: "Personal messages from your own address" },
   { icon: MessageSquare, label: "Reply tracking", detail: "See sent and received activity by school" },
   { icon: CalendarCheck, label: "Free beta invitations", detail: "Request access and start when an invitation is available" },
 ]
@@ -61,7 +62,7 @@ const trustItems = [
   {
     icon: Mail,
     title: "Coach outreach stays from you",
-    body: "Emails send from the athlete's connected Gmail or Outlook account, so coaches see a real student-athlete message and replies return to that inbox.",
+    body: "Emails send from a supported connected inbox, so coaches see a real student-athlete message and replies return to that address.",
   },
   {
     icon: ShieldCheck,
@@ -1024,32 +1025,7 @@ function LandingPageContent() {
       {/* Workspace */}
       <WorkspaceSection />
 
-      {/* Coach campaign */}
-      <section className="border-y border-white/[0.07] bg-[#17251e] px-4 py-14">
-        <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-          <div>
-            <div className="flex items-center gap-2 text-[#86efac] text-xs font-semibold uppercase">
-              <Users size={15} />
-              High school coaches
-            </div>
-            <h2 className="mt-3 max-w-2xl text-2xl sm:text-3xl font-bold text-white">
-              Give every athlete a recruiting plan without becoming their agent.
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/55">
-              OneCommit gives track athletes a structured school list, an outreach workspace, and a clear weekly check-in they can own. No coach portal or recruiting-service handoff required.
-            </p>
-          </div>
-          <TrackedLink
-            href="/coaches"
-            eventName="coach_page_click"
-            eventSource="home_coach_band"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90"
-          >
-            Coach team rollout
-            <ArrowRight size={15} />
-          </TrackedLink>
-        </div>
-      </section>
+      <AudienceChooser />
 
       {/* Pricing */}
       <div id="pricing" className="scroll-mt-24">

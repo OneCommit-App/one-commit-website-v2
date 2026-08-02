@@ -47,6 +47,7 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: node --test scripts/security-headers.test.mjs
+      - run: node --test scripts/b2b-claims.test.mjs
       - run: pnpm audit --prod
       - run: pnpm build
 
