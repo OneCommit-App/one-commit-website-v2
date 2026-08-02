@@ -50,6 +50,7 @@ jobs:
       - run: node --test scripts/b2b-claims.test.mjs
       - run: pnpm audit --prod
       - run: pnpm build
+      - run: node scripts/home-ssr.test.mjs
 
   production-smoke:
     if: ${{ github.event_name == 'workflow_dispatch' }}

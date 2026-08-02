@@ -24,7 +24,7 @@ export default function FooterSection() {
             <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="text-white text-sm font-semibold">OneCommit</span>
           </div>
-          <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">The first self-service recruiting copilot built for the overlooked.</p>
+          <p className="text-white/30 text-xs max-w-[200px] leading-relaxed">A self-service recruiting copilot built for overlooked track &amp; field athletes.</p>
           <TrackedLink
             href="mailto:admin@onecommit.us"
             eventName="support_click"
