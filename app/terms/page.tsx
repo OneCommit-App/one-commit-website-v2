@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
+import FooterSection from "@/components/footer-section"
+import PublicHeader from "@/components/public-header"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -32,17 +33,15 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#0f1a14]">
-      <nav className="flex justify-center px-4 pt-6 pb-8">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
-          <span className="text-white text-sm font-semibold">OneCommit</span>
-        </Link>
-      </nav>
-      <main className="px-4 pb-16 flex justify-center">
-        <article className="w-full max-w-2xl prose-sm">
-          <h1 className="text-white text-3xl font-bold mb-2">Terms of Service</h1>
-          <p className="text-white/40 text-sm mb-8">Effective Date: September 3, 2025 &middot; Last Updated: July 11, 2026</p>
+    <div className="min-h-screen bg-[#0f1a14] text-white">
+      <PublicHeader accessSource="terms_header" />
+      <main id="main-content" tabIndex={-1} className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
+        <article className="w-full max-w-3xl">
+          <div className="mb-10 border-b border-white/[0.07] pb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#f3d28d]">Legal</p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Terms of Service</h1>
+            <p className="mt-3 text-sm text-white/55">Effective September 3, 2025 &middot; Last updated July 11, 2026</p>
+          </div>
 
           {[
             { title: "1. Agreement to Terms", content: "These Terms of Service (\"Terms\") govern your access to and use of the OneCommit website and related services (collectively, the \"Service\") operated by OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy." },
@@ -68,17 +67,18 @@ export default function TermsPage() {
             { title: "21. Severability; Assignment; Entire Agreement", content: "If any provision is held unenforceable, the remainder will remain in effect. You may not assign or transfer these Terms without our consent; we may assign them as part of a merger, acquisition, or sale of assets. These Terms, together with policies referenced herein, are the entire agreement between you and OneCommit regarding the Service." },
             { title: "22. Contact", content: "Questions about these Terms? Email admin@onecommit.us." },
           ].map((section, i) => (
-            <div key={i} className="mb-6">
-              <h2 className="text-white text-lg font-semibold mb-2">{section.title}</h2>
-              <p className="text-white/50 text-sm leading-relaxed whitespace-pre-line">{section.content}</p>
-            </div>
+            <section key={section.title} aria-labelledby={`terms-section-${i}`} className="mb-8 scroll-mt-24">
+              <h2 id={`terms-section-${i}`} className="mb-3 text-xl font-semibold tracking-tight text-white">{section.title}</h2>
+              <p className="whitespace-pre-line text-[0.9375rem] leading-7 text-white/70">{section.content}</p>
+            </section>
           ))}
 
-          <div className="mt-10 pt-6 border-t border-white/[0.06]">
-            <Link href="/" className="text-[#4ade80] text-sm font-medium hover:underline">&larr; Back to home</Link>
+          <div className="mt-12 border-t border-white/[0.07] pt-6">
+            <Link href="/" className="-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]">&larr; Back to home</Link>
           </div>
         </article>
       </main>
+      <FooterSection />
     </div>
   )
 }

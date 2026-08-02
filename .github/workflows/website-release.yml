@@ -51,6 +51,7 @@ jobs:
       - run: pnpm audit --prod
       - run: pnpm build
       - run: node scripts/canonical-host.test.mjs
+      - run: node scripts/public-shell.test.mjs
       - run: node scripts/home-ssr.test.mjs
 
   production-smoke:
