@@ -16,13 +16,6 @@ import DownloadLink from "@/components/download-link"
 import TrackedLink from "@/components/tracked-link"
 import AudienceChooser from "@/components/b2b/audience-chooser"
 
-const subtitles = [
-  "Build a D3-focused college list from your PRs and grades.",
-  "Send personal coach outreach from your own inbox.",
-  "Keep coach replies and follow-up history together.",
-  "Request beta access and start when invited.",
-]
-
 const steps = [
   { num: "1", title: "Build your athlete profile", desc: "Talk through your marks, academics, and preferences with Riley, then review the profile details.", image: "/match.png" },
   { num: "2", title: "Review OneScore matches", desc: "Compare D3 programs using your marks, academics, and college preferences.", image: "/app-explore.png" },
@@ -231,6 +224,7 @@ function Magnetic({ children }: { children: React.ReactNode }) {
 function HeroProductPreview() {
   return (
     <motion.div
+      data-home-product-proof="true"
       variants={heroChildBlur}
       className="mt-9 w-full max-w-5xl"
     >
@@ -393,11 +387,6 @@ function LandingPageContent() {
   const cursorY = useMotionValue(-1000)
   const spotlightBg = useMotionTemplate`radial-gradient(circle 600px at ${cursorX}px ${cursorY}px, rgba(74,222,128,0.04), transparent 80%)`
 
-  /* ── typewriter state ── */
-  const [typeIndex, setTypeIndex] = useState(0)
-  const [displayText, setDisplayText] = useState("")
-  const [isDeleting, setIsDeleting] = useState(false)
-
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -435,34 +424,6 @@ function LandingPageContent() {
     return () => observers.forEach((o) => o?.disconnect())
   }, [mounted])
 
-  /* ── typewriter effect ── */
-  useEffect(() => {
-    if (!mounted) return
-    const current = subtitles[typeIndex]
-    let timeout: ReturnType<typeof setTimeout>
-
-    if (!isDeleting) {
-      if (displayText.length < current.length) {
-        timeout = setTimeout(() => {
-          setDisplayText(current.slice(0, displayText.length + 1))
-        }, 45)
-      } else {
-        timeout = setTimeout(() => setIsDeleting(true), 2000)
-      }
-    } else {
-      if (displayText.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplayText(current.slice(0, displayText.length - 1))
-        }, 25)
-      } else {
-        setIsDeleting(false)
-        setTypeIndex((prev) => (prev + 1) % subtitles.length)
-      }
-    }
-
-    return () => clearTimeout(timeout)
-  }, [mounted, displayText, isDeleting, typeIndex])
-
   useEffect(() => {
     if (!mounted || reduceStepMotion) return
     const interval = setInterval(() => {
@@ -479,6 +440,7 @@ function LandingPageContent() {
 
   return (
     <div
+      id="onecommit-home"
       className="w-full min-h-screen bg-[#0f1a14] relative"
       onMouseMove={(e) => {
         if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return
@@ -486,6 +448,13 @@ function LandingPageContent() {
         cursorY.set(e.clientY)
       }}
     >
+      <a
+        href="#main-content"
+        className="sr-only fixed left-4 top-4 z-[80] rounded-full bg-white px-4 py-3 text-sm font-semibold text-[#0f1a14] shadow-xl focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-[#e6b85c] focus:ring-offset-2 focus:ring-offset-[#0f1a14]"
+      >
+        Skip to main content
+      </a>
+
       {/* Cursor spotlight */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-0"
@@ -506,27 +475,29 @@ function LandingPageContent() {
 
       {/* Nav */}
       <motion.nav
-        initial={{ opacity: 0, y: -20 }}
+        data-home-nav="true"
+        aria-label="Primary navigation"
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center px-4 pt-4"
       >
-        <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
+        <div className="w-full max-w-5xl h-12 px-4 pr-2 bg-[#102219]/90 backdrop-blur-xl border border-[#d4a94e]/15 rounded-full flex items-center justify-between shadow-[0_14px_50px_rgba(0,0,0,0.22)]">
           <div className="flex items-center gap-2">
             <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
             <span className="hidden min-[360px]:inline text-white text-sm font-semibold">OneCommit</span>
-            <div className="pl-4 hidden sm:flex gap-4">
+            <div className="pl-4 hidden md:flex gap-4">
               {[
                 { label: "Demo", href: "/demo", id: "" },
                 { label: "Coaches", href: "/coaches", id: "" },
-                { label: "Features", href: "#features", id: "features" },
+                { label: "Schools", href: "/schools", id: "" },
+                { label: "Programs", href: "/athletic-programs", id: "" },
                 { label: "How It Works", href: "#how-it-works", id: "how-it-works" },
-                { label: "Pricing", href: "#pricing", id: "pricing" },
               ].map(({ label, href, id }) => (
                 <motion.a
                   key={label}
                   href={href}
-                  className={`relative text-xs font-medium transition-colors ${
+                  className={`relative rounded-sm text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-4 focus-visible:ring-offset-[#102219] ${
                     activeSection === id && id ? "text-white" : "text-white/50 hover:text-white/80"
                   }`}
                   whileHover="hover"
@@ -546,7 +517,7 @@ function LandingPageContent() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex sm:hidden w-8 h-8 items-center justify-center text-white/50 hover:text-white/80 transition-colors"
+              className="flex md:hidden w-11 h-11 items-center justify-center rounded-full text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
@@ -557,7 +528,7 @@ function LandingPageContent() {
               <DownloadLink
                 analyticsSource="home_nav"
                 fallbackLabel="Request Access"
-                className="h-7 whitespace-nowrap px-2 min-[360px]:px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+                className="h-11 whitespace-nowrap px-3 min-[360px]:px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#102219]"
               >
                 Download App
               </DownloadLink>
@@ -574,12 +545,14 @@ function LandingPageContent() {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
               id="mobile-navigation"
-              className="w-full max-w-2xl mt-2 bg-[#0f1a14]/95 backdrop-blur-xl border border-white/[0.08] rounded-2xl overflow-hidden sm:hidden"
+              className="w-full max-w-5xl mt-2 bg-[#102219]/98 backdrop-blur-xl border border-[#d4a94e]/15 rounded-2xl overflow-hidden md:hidden"
             >
               <div className="py-2 flex flex-col">
                 {[
                   { label: "Demo", href: "/demo" },
                   { label: "Coaches", href: "/coaches" },
+                  { label: "Schools", href: "/schools" },
+                  { label: "Athletic Programs", href: "/athletic-programs" },
                   { label: "Features", href: "#features" },
                   { label: "How It Works", href: "#how-it-works" },
                   { label: "Pricing", href: "#pricing" },
@@ -588,7 +561,7 @@ function LandingPageContent() {
                     key={label}
                     href={href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-5 py-3 text-white/60 text-sm font-medium hover:text-white hover:bg-white/[0.04] transition-colors"
+                    className="mx-2 rounded-lg px-3 py-3 text-white/60 text-sm font-medium hover:text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
                   >
                     {label}
                   </a>
@@ -599,10 +572,12 @@ function LandingPageContent() {
         </AnimatePresence>
       </motion.nav>
 
+      <main id="main-content" tabIndex={-1}>
       {/* Hero */}
       <motion.section
+        data-home-hero="true"
         variants={heroStagger}
-        initial="hidden"
+        initial={false}
         animate="visible"
         className="pt-28 sm:pt-32 pb-8 px-4 flex flex-col items-center text-center relative z-10"
       >
@@ -611,17 +586,17 @@ function LandingPageContent() {
           <motion.span
             animate={{ scale: [1, 1.5, 1], opacity: [1, 0.35, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
+            className="w-1.5 h-1.5 rounded-full bg-[#e6b85c] flex-shrink-0"
           />
-          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Invitations Limited"}</span>
+          <span className="text-[#f3d28d] text-xs font-semibold uppercase tracking-[0.12em]">Athlete-owned · D3-focused beta</span>
         </motion.div>
 
         <motion.h1
-          aria-label="Personalized track recruiting without the guesswork"
+          aria-label="A recruiting system built around the athlete"
           variants={wordStagger}
           className="text-white text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight max-w-3xl text-balance"
         >
-          {["Personalized", "track", "recruiting"].map((word, i) => (
+          {["A", "recruiting", "system"].map((word, i) => (
             <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
               {word}{" "}
             </motion.span>
@@ -637,7 +612,7 @@ function LandingPageContent() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
             className="text-[#4ade80]"
           >
-            {["without", "the", "guesswork"].map((word, i) => (
+            {["built", "around", "the", "athlete"].map((word, i) => (
               <motion.span key={i} variants={wordChild} className="inline-block mr-[0.25em]">
                 {word}{" "}
               </motion.span>
@@ -645,23 +620,19 @@ function LandingPageContent() {
           </motion.span>
         </motion.h1>
 
-        {/* Typewriter subtitle */}
-        <motion.div variants={heroChild} className="mt-3 flex min-h-10 items-center justify-center px-2">
-          <span className="max-w-[34rem] text-balance text-sm font-medium leading-relaxed text-white/60 sm:text-base">
-            {displayText}
-            <span className="inline-block w-[2px] h-[14px] bg-[#4ade80]/70 ml-0.5 align-middle animate-pulse" />
-          </span>
-        </motion.div>
-
-        <motion.p variants={heroChildBlur} className="mt-2 text-white/60 text-sm sm:text-base max-w-2xl leading-relaxed font-medium text-pretty">
-          {"OneCommit turns your times, marks, GPA, and college preferences into a recruiting workspace: D3-focused OneScore matches, personal coach emails, reply tracking, and follow-up planning in one app."}
+        <motion.p
+          data-home-value-proposition="true"
+          variants={heroChildBlur}
+          className="mt-5 text-white/70 text-base sm:text-lg max-w-2xl leading-relaxed font-medium text-pretty"
+        >
+          Turn your marks, grades, and college preferences into a focused list. Draft personal coach outreach from your own inbox, review every message, and keep replies organized in one place.
         </motion.p>
 
         <motion.div variants={heroChild} className="flex flex-col sm:flex-row items-center gap-3 mt-8 w-full justify-center">
           <Magnetic>
             <DownloadLink
               analyticsSource="home_hero"
-              className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group whitespace-nowrap"
+              className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors relative overflow-hidden group whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
             >
               <span className="relative z-10">Download the App</span>
               <ArrowRight size={14} className="relative z-10 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
@@ -673,19 +644,24 @@ function LandingPageContent() {
               href="/demo"
               eventName="demo_click"
               eventSource="home_hero"
-              className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap"
+              className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full flex items-center hover:bg-white/[0.04] transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
             >
               Watch the 1-minute demo
             </TrackedLink>
           </Magnetic>
         </motion.div>
 
+        <motion.p variants={heroChild} className="mt-4 flex items-center gap-2 text-xs font-medium text-[#f3d28d]/80">
+          <ShieldCheck size={14} aria-hidden="true" />
+          Nothing sends without your approval.
+        </motion.p>
+
         <HeroProductPreview />
       </motion.section>
 
       {/* Video */}
       <motion.section
-        initial={{ opacity: 0, scale: 0.97 }}
+        initial={false}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.6 }}
         className="px-4 pb-8 pt-4 flex flex-col items-center"
@@ -1040,6 +1016,7 @@ function LandingPageContent() {
 
       {/* Footer */}
       <FooterSection />
+      </main>
 
       {/* Sticky CTA bar */}
       <AnimatePresence>
@@ -1064,6 +1041,21 @@ function LandingPageContent() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <noscript>
+        <style>{`
+          #onecommit-home [style*="opacity:0"],
+          #onecommit-home [style*="opacity: 0"] {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+          #onecommit-home * {
+            animation: none !important;
+            transition: none !important;
+          }
+        `}</style>
+      </noscript>
     </div>
   )
 }
