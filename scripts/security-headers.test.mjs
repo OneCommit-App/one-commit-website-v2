@@ -1,5 +1,9 @@
-/** @type {import('next').NextConfig} */
-const securityHeaders = [
+import assert from "node:assert/strict"
+import test from "node:test"
+
+import nextConfig from "../next.config.mjs"
+
+const expectedHeaders = [
   {
     key: "Content-Security-Policy",
     value: "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
@@ -22,15 +26,12 @@ const securityHeaders = [
   },
 ]
 
-const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: securityHeaders,
-      },
-    ]
-  },
-}
-
-export default nextConfig
+test("security headers cover every website route", async () => {
+  assert.equal(typeof nextConfig.headers, "function")
+  assert.deepEqual(await nextConfig.headers(), [
+    {
+      source: "/:path*",
+      headers: expectedHeaders,
+    },
+  ])
+})
