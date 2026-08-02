@@ -129,6 +129,37 @@ try {
     "no-JavaScript fallback does not reveal the mobile route links",
   );
 
+  const noJavaScriptMobileCssStart = homeSource.indexOf("@media (max-width: 767px)");
+  const noJavaScriptMobileCssEnd = homeSource.indexOf("`}</style>", noJavaScriptMobileCssStart);
+  assert(
+    noJavaScriptMobileCssStart >= 0 && noJavaScriptMobileCssEnd > noJavaScriptMobileCssStart,
+    "homepage source is missing its mobile no-JavaScript CSS block",
+  );
+  const noJavaScriptMobileCss = homeSource.slice(
+    noJavaScriptMobileCssStart,
+    noJavaScriptMobileCssEnd,
+  );
+  assert.match(
+    noJavaScriptMobileCss,
+    /\[data-mobile-menu-toggle="true"\]\s*\{\s*display:\s*none !important;/,
+    "no-JavaScript mobile CSS must hide the inert toggle",
+  );
+  assert.match(
+    noJavaScriptMobileCss,
+    /#onecommit-home #mobile-navigation\s*\{[\s\S]*?display:\s*block !important;/,
+    "no-JavaScript mobile CSS must reveal the route rail",
+  );
+  assert.match(
+    noJavaScriptMobileCss,
+    /\[data-mobile-navigation-links="true"\]\s*\{[\s\S]*?flex-direction:\s*row !important;[\s\S]*?overflow-x:\s*auto !important;/,
+    "no-JavaScript mobile links must use a compact horizontal rail",
+  );
+  assert.match(
+    noJavaScriptMobileCss,
+    /\[data-home-hero="true"\]\s*\{\s*padding-top:\s*9\.5rem !important;/,
+    "no-JavaScript mobile hero must clear the fixed navigation rail",
+  );
+
   const mainStart = html.indexOf('<main id="main-content"');
   const mainEnd = html.indexOf("</main>", mainStart);
   const footerStart = html.indexOf("<footer", mainStart);
@@ -149,6 +180,16 @@ try {
     (homeSource.match(/transition=\{prefersReducedMotion \? undefined :/g) || []).length,
     4,
     "all four infinite Motion transitions must stop for reduced-motion users",
+  );
+  assert.match(
+    homeSource,
+    /window\.matchMedia\("\(prefers-reduced-motion: reduce\)"\)/,
+    "reduced-motion detection must query the correct media preference",
+  );
+  assert.match(
+    homeSource,
+    /const updatePreference = \(\) => setPrefersReducedMotion\(media\.matches\)/,
+    "reduced-motion state must preserve, not invert, the media preference",
   );
 
   for (const selector of [

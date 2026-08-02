@@ -545,7 +545,7 @@ function LandingPageContent() {
           id="mobile-navigation"
           className={`${mobileMenuOpen ? "block" : "hidden"} w-full max-w-5xl mt-2 bg-[#102219]/98 backdrop-blur-xl border border-[#d4a94e]/15 rounded-2xl overflow-hidden md:hidden`}
         >
-          <div className="py-2 flex flex-col">
+          <div data-mobile-navigation-links="true" className="py-2 flex flex-col">
             {[
               { label: "Demo", href: "/demo" },
               { label: "Coaches", href: "/coaches" },
@@ -1059,6 +1059,22 @@ function LandingPageContent() {
               display: block !important;
               opacity: 1 !important;
               transform: none !important;
+            }
+            #onecommit-home [data-mobile-navigation-links="true"] {
+              flex-direction: row !important;
+              overflow-x: auto !important;
+              overscroll-behavior-x: contain;
+              padding: 0.5rem !important;
+            }
+            #onecommit-home [data-mobile-navigation-links="true"] a {
+              align-items: center;
+              display: flex;
+              flex: 0 0 auto;
+              min-height: 44px;
+              padding: 0.5rem 0.75rem !important;
+            }
+            #onecommit-home [data-home-hero="true"] {
+              padding-top: 9.5rem !important;
             }
           }
         `}</style>
