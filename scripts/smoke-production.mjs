@@ -219,6 +219,22 @@ function extractHrefValues(html) {
   return [...html.matchAll(/\shref="([^"]+)"/g)].map((match) => match[1])
 }
 
+function anchorTextByFunnelSource(html, source) {
+  const anchor = (html.match(/<a\b[^>]*>[\s\S]*?<\/a>/gi) || []).find(
+    (tag) => htmlAttribute(tag, "data-funnel-source") === source
+  )
+  if (!anchor) return ""
+
+  return anchor
+    .replace(/^<a\b[^>]*>/i, "")
+    .replace(/<\/a>$/i, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
 function normalizeHref(href) {
   try {
     return new URL(href, baseUrl)
@@ -251,6 +267,7 @@ function validateExternalDownloadUrl(url) {
 async function checkDownloadLinks() {
   const discovered = new Map()
   const renderedPages = new Map()
+  const renderedPageMarkup = new Map()
 
   for (const path of ["/", "/demo", "/download", "/coaches"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
@@ -259,6 +276,7 @@ async function checkDownloadLinks() {
     }
 
     renderedPages.set(path, text.toLowerCase())
+    renderedPageMarkup.set(path, text)
 
     for (const href of extractHrefValues(text)) {
       const url = normalizeHref(href)
@@ -273,6 +291,7 @@ async function checkDownloadLinks() {
       {
         path: "/",
         required: [
+          "request access",
           "invitations limited",
           "capacity-limited beta invitations",
           "supported app-access path",
@@ -321,6 +340,17 @@ async function checkDownloadLinks() {
           })
         }
       }
+    }
+
+    const homeNavLabel = anchorTextByFunnelSource(renderedPageMarkup.get("/") || "", "home_nav")
+    if (homeNavLabel !== "Request Access") {
+      fail("No-download home nav CTA has the wrong fallback label", {
+        path: "/",
+        source: "home_nav",
+        expected: "Request Access",
+        actual: homeNavLabel,
+        runbook: downloadRunbook,
+      })
     }
 
     console.log("ok no-download fallback: CTAs request access and copy discloses invitation capacity")

@@ -513,7 +513,7 @@ function LandingPageContent() {
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
-            <span className="text-white text-sm font-semibold">OneCommit</span>
+            <span className="hidden min-[360px]:inline text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
               {[
                 { label: "Demo", href: "/demo", id: "" },
@@ -555,7 +555,8 @@ function LandingPageContent() {
             <Magnetic>
               <DownloadLink
                 analyticsSource="home_nav"
-                className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+                fallbackLabel="Request Access"
+                className="h-7 whitespace-nowrap px-2 min-[360px]:px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
               >
                 Download App
               </DownloadLink>
