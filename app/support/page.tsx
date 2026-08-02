@@ -61,7 +61,7 @@ const supportSections = [
       <ul className="text-white/60 text-sm leading-relaxed space-y-2 list-disc pl-4">
         <li>
           <strong className="text-white/80">Paid plans:</strong>{" "}
-          {"None are active today. Core app access is free during the beta, and future terms would appear before billing can start."}
+          {"None are active today. Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. Future terms would appear before billing can start."}
         </li>
         <li>
           <strong className="text-white/80">Account changes:</strong>{" "}

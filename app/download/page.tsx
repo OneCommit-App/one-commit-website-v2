@@ -140,7 +140,7 @@ export default function DownloadPage() {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-5">
             <div className="grid gap-3">
               {[
-                "Free beta account",
+                "Free account for invited beta users",
                 "Athlete age gate in the app",
                 "Gmail and Outlook outreach",
                 "D3-focused OneScore workspace",

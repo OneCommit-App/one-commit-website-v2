@@ -611,7 +611,7 @@ function LandingPageContent() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
           />
-          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Free App Access"}</span>
+          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Invitations Limited"}</span>
         </motion.div>
 
         <motion.h1

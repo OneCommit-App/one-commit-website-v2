@@ -15,8 +15,8 @@ const proofPoints = [
   },
   {
     value: "Free",
-    label: "beta app access",
-    desc: "Start the recruiting workspace without an upfront consulting fee.",
+    label: "capacity-limited beta invitations",
+    desc: "Request access; start when capacity and a supported app-access path are available.",
   },
 ]
 
