@@ -13,7 +13,7 @@ export const faqData = [
   },
   {
     q: "Do the emails come from my own inbox?",
-    a: "Yes. OneCommit integrates with your Gmail or Outlook account. Emails go out from your real email address, so coaches see a genuine person reaching out - not a third-party platform.",
+    a: "Yes. When you connect Outlook/Microsoft 365, the inbox provider currently offered in the beta app, emails go out from your real email address, so coaches see a genuine person reaching out - not a third-party platform.",
   },
   {
     q: "Do I have to send the generated email as-is?",
@@ -41,7 +41,7 @@ export const faqData = [
   },
   {
     q: "What email providers are supported?",
-    a: "Gmail and Outlook/Microsoft 365 are supported in the current beta.",
+    a: "Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available. Provider availability can change during beta; contact support before planning outreach if Outlook/Microsoft 365 does not work for you.",
   },
   {
     q: "How much does OneCommit cost?",

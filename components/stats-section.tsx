@@ -9,9 +9,9 @@ const proofPoints = [
     desc: "Compare each school using marks, academics, and college preferences from the current beta dataset.",
   },
   {
-    value: "Gmail + Outlook",
-    label: "own-inbox outreach",
-    desc: "Coach emails are sent from the athlete's real account.",
+    value: "Outlook",
+    label: "Microsoft 365 inbox support",
+    desc: "Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available.",
   },
   {
     value: "Free",

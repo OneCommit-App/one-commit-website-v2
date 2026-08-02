@@ -142,7 +142,7 @@ export default function DownloadPage() {
               {[
                 "Free account for invited beta users",
                 "Athlete age gate in the app",
-                "Gmail and Outlook outreach",
+                "Outlook/Microsoft 365 inbox connection",
                 "D3-focused OneScore workspace",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/70">

@@ -18,7 +18,7 @@ const plans = [
       "D3-focused OneScore matching",
       "Riley-guided voice onboarding",
       "Personalized email generation",
-      "Gmail and Outlook connection",
+      "Outlook/Microsoft 365 inbox connection",
       "Coach reply tracking",
     ],
   },

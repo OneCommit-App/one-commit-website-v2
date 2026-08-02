@@ -58,7 +58,7 @@ export default function CTASection() {
           <div className="grid gap-2">
             {[
               "Request an invitation, then create a profile",
-              "Gmail and Outlook outreach",
+              "Outlook/Microsoft 365 outreach",
               "Track replies in one workspace",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2.5 py-1 text-sm text-white/70">

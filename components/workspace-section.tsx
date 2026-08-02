@@ -19,7 +19,7 @@ const useCases = [
   {
     badge: "Outreach",
     title: "Send emails that sound like a real athlete",
-    body: "Draft personalized messages from the athlete's own profile, then send them from Gmail or Outlook.",
+    body: "Draft personalized messages from the athlete's own profile, then send them through Outlook/Microsoft 365, the inbox provider currently offered in the beta app.",
     checks: ["Own-inbox delivery", "Personal context", "No passive profile waiting"],
   },
   {
