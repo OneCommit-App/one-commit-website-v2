@@ -45,7 +45,7 @@ export const faqData = [
   },
   {
     q: "How much does OneCommit cost?",
-    a: "Core app access is free during the beta. No paid plan, advisor subscription, or recurring call package is active today. Any future price and terms will be shown before billing can start.",
+    a: "Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. No paid plan, advisor subscription, or recurring call package is active today. Any future price and terms will be shown before billing can start.",
   },
   {
     q: "How is this different from NCSA or CaptainU?",

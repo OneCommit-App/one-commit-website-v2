@@ -28,7 +28,7 @@ export default function CTASection() {
               Build your college list. Then run the outreach.
             </h2>
             <p className="mt-3 text-white/50 text-sm sm:text-base max-w-xl leading-relaxed">
-              Get OneCommit access to build a D3-focused OneScore list, draft personal coach emails, and track replies from one recruiting workspace.
+              Request a OneCommit beta invitation to build a D3-focused OneScore list, draft personal coach emails, and track replies from one recruiting workspace.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <motion.div
@@ -57,7 +57,7 @@ export default function CTASection() {
 
           <div className="grid gap-2">
             {[
-              "Get access and create a profile",
+              "Request an invitation, then create a profile",
               "Gmail and Outlook outreach",
               "Track replies in one workspace",
             ].map((item) => (

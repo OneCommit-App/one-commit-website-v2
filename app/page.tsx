@@ -33,7 +33,7 @@ const steps = [
 const problems = [
   { p: "You\u2019re guessing which schools are realistic", s: "OneScore helps you compare fit across the current D3 beta dataset." },
   { p: "Your outreach is scattered across drafts and inboxes", s: "Emails go from your own inbox, while OneCommit helps you keep the process organized." },
-  { p: "You shouldn\u2019t need a large upfront package", s: "OneCommit starts with free app access and keeps the process organized like software, not a consulting retainer." },
+  { p: "You shouldn\u2019t need a large upfront package", s: "OneCommit starts with a free beta invitation when capacity and a supported app-access path are available." },
   { p: "Waiting on coaches to notice you isn\u2019t a strategy", s: "You choose who to contact and review every message before it sends." },
 ]
 
@@ -513,7 +513,7 @@ function LandingPageContent() {
         <div className="w-full max-w-2xl h-11 px-4 pr-2 bg-[#0f1a14]/80 backdrop-blur-xl border border-white/[0.08] rounded-full flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
-            <span className="text-white text-sm font-semibold">OneCommit</span>
+            <span className="hidden min-[360px]:inline text-white text-sm font-semibold">OneCommit</span>
             <div className="pl-4 hidden sm:flex gap-4">
               {[
                 { label: "Demo", href: "/demo", id: "" },
@@ -555,7 +555,8 @@ function LandingPageContent() {
             <Magnetic>
               <DownloadLink
                 analyticsSource="home_nav"
-                className="h-7 px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
+                fallbackLabel="Request Access"
+                className="h-7 whitespace-nowrap px-2 min-[360px]:px-4 bg-white text-[#0f1a14] text-xs font-semibold rounded-full flex items-center hover:bg-white/90 transition-colors"
               >
                 Download App
               </DownloadLink>
@@ -611,7 +612,7 @@ function LandingPageContent() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-1.5 h-1.5 rounded-full bg-[#4ade80] flex-shrink-0"
           />
-          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Free App Access"}</span>
+          <span className="text-gradient-sweep text-xs font-medium">{"D3 Track & Field Beta \u2014 Invitations Limited"}</span>
         </motion.div>
 
         <motion.h1
@@ -1074,7 +1075,7 @@ function LandingPageContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-2 pl-4 py-2 bg-[#0f1a14]/90 backdrop-blur-xl border border-white/[0.10] rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
-            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free beta app access</span>
+            <span className="text-white/50 text-xs font-medium hidden sm:inline">Free, capacity-limited beta</span>
             <Magnetic>
               <DownloadLink
                 analyticsSource="home_sticky"

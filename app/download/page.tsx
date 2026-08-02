@@ -10,17 +10,17 @@ import {
   iosDownloadUrl,
 } from "@/lib/download"
 
-const accessTitle = hasConfiguredDownloadUrl ? "Download" : "App Access"
+const accessTitle = hasConfiguredDownloadUrl ? "Download" : "Request Beta Access"
 const accessDescription = hasConfiguredDownloadUrl
   ? "Download OneCommit for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
-  : "Get OneCommit beta app access for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+  : "Request a OneCommit beta invitation for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
 
 export const metadata: Metadata = {
   title: accessTitle,
   description: accessDescription,
   alternates: { canonical: "https://www.onecommit.us/download" },
   openGraph: {
-    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
+    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
     description: accessDescription,
     url: "https://www.onecommit.us/download",
     siteName: "OneCommit",
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
+        alt: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Get OneCommit App Access",
+    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
     description: accessDescription,
     images: ["/opengraph-image"],
   },
@@ -77,7 +77,7 @@ export default function DownloadPage() {
             <h1 className="mt-3 text-white text-3xl sm:text-5xl font-bold tracking-tight text-balance">
               {hasConfiguredDownloadUrl
                 ? "Download the recruiting app built for overlooked track athletes."
-                : "Get app access to start your track recruiting process."}
+                : "Request beta access to start your track recruiting process."}
             </h1>
             <p className="mt-4 text-white/55 text-sm sm:text-base leading-relaxed max-w-2xl">
               Build a D3-focused college list, generate coach outreach from your own inbox, and track replies without paying for a passive recruiting profile.
@@ -100,7 +100,7 @@ export default function DownloadPage() {
                   eventDestination="support_email"
                   className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors"
                 >
-                  Get App Access
+                  Request Beta Access
                   <Mail size={15} />
                 </TrackedLink>
               )}
@@ -132,7 +132,7 @@ export default function DownloadPage() {
 
             {!hasConfiguredDownloadUrl && (
               <p className="mt-4 max-w-xl text-xs leading-relaxed text-amber-100/70">
-                Public store links are being finalized. Email support and we will help you get access.
+                Public download links are not available yet. Email support to ask about current beta availability; invitations depend on capacity and a supported app-access path.
               </p>
             )}
           </div>
@@ -140,7 +140,7 @@ export default function DownloadPage() {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-5">
             <div className="grid gap-3">
               {[
-                "Free beta account",
+                "Free account for invited beta users",
                 "Athlete age gate in the app",
                 "Gmail and Outlook outreach",
                 "D3-focused OneScore workspace",

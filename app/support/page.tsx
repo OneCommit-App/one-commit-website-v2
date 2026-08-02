@@ -61,7 +61,7 @@ const supportSections = [
       <ul className="text-white/60 text-sm leading-relaxed space-y-2 list-disc pl-4">
         <li>
           <strong className="text-white/80">Paid plans:</strong>{" "}
-          {"None are active today. Core app access is free during the beta, and future terms would appear before billing can start."}
+          {"None are active today. Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. Future terms would appear before billing can start."}
         </li>
         <li>
           <strong className="text-white/80">Account changes:</strong>{" "}
@@ -82,7 +82,7 @@ const supportSections = [
     heading: "Getting started",
     body: (
       <ol className="text-white/60 text-sm leading-relaxed space-y-2 list-decimal pl-4">
-        <li>Get OneCommit access and create your beta account.</li>
+        <li>After receiving an invitation, create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
         <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>

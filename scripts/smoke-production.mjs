@@ -219,6 +219,22 @@ function extractHrefValues(html) {
   return [...html.matchAll(/\shref="([^"]+)"/g)].map((match) => match[1])
 }
 
+function anchorTextByFunnelSource(html, source) {
+  const anchor = (html.match(/<a\b[^>]*>[\s\S]*?<\/a>/gi) || []).find(
+    (tag) => htmlAttribute(tag, "data-funnel-source") === source
+  )
+  if (!anchor) return ""
+
+  return anchor
+    .replace(/^<a\b[^>]*>/i, "")
+    .replace(/<\/a>$/i, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
 function normalizeHref(href) {
   try {
     return new URL(href, baseUrl)
@@ -250,12 +266,17 @@ function validateExternalDownloadUrl(url) {
 
 async function checkDownloadLinks() {
   const discovered = new Map()
+  const renderedPages = new Map()
+  const renderedPageMarkup = new Map()
 
   for (const path of ["/", "/demo", "/download", "/coaches"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
       fail("Download CTA page returned non-200", { path, status: response.status })
     }
+
+    renderedPages.set(path, text.toLowerCase())
+    renderedPageMarkup.set(path, text)
 
     for (const href of extractHrefValues(text)) {
       const url = normalizeHref(href)
@@ -266,6 +287,74 @@ async function checkDownloadLinks() {
   }
 
   if (discovered.size === 0) {
+    const fallbackChecks = [
+      {
+        path: "/",
+        required: [
+          "request access",
+          "invitations limited",
+          "capacity-limited beta invitations",
+          "supported app-access path",
+        ],
+        forbidden: ["free app access", "beta app access", "start the recruiting workspace"],
+      },
+      {
+        path: "/demo",
+        required: ["request access", "request beta access"],
+        forbidden: ["get access", "get app access"],
+      },
+      {
+        path: "/download",
+        required: [
+          "request beta access",
+          "public download links are not available yet",
+          "invitations depend on capacity and a supported app-access path",
+        ],
+        forbidden: [
+          "get app access",
+          "public store links are being finalized",
+          "we will help you get access",
+        ],
+      },
+    ]
+
+    for (const check of fallbackChecks) {
+      const html = renderedPages.get(check.path) || ""
+
+      for (const fragment of check.required) {
+        if (!html.includes(fragment)) {
+          fail("No-download fallback is missing required invitation or capacity copy", {
+            path: check.path,
+            fragment,
+            runbook: downloadRunbook,
+          })
+        }
+      }
+
+      for (const fragment of check.forbidden) {
+        if (html.includes(fragment)) {
+          fail("No-download fallback still promises unavailable app access", {
+            path: check.path,
+            fragment,
+            runbook: downloadRunbook,
+          })
+        }
+      }
+    }
+
+    const homeNavLabel = anchorTextByFunnelSource(renderedPageMarkup.get("/") || "", "home_nav")
+    if (homeNavLabel !== "Request Access") {
+      fail("No-download home nav CTA has the wrong fallback label", {
+        path: "/",
+        source: "home_nav",
+        expected: "Request Access",
+        actual: homeNavLabel,
+        runbook: downloadRunbook,
+      })
+    }
+
+    console.log("ok no-download fallback: CTAs request access and copy discloses invitation capacity")
+
     fail("No external app download URL found on production pages", {
       checkedPages: ["/", "/demo", "/download", "/coaches"],
       runbook: downloadRunbook,
