@@ -84,7 +84,7 @@ const supportSections = [
       <ol className="text-white/60 text-sm leading-relaxed space-y-2 list-decimal pl-4">
         <li>After receiving an invitation, create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
-        <li>Connect your Gmail or Outlook account so emails go from your own inbox.</li>
+        <li>Connect an Outlook/Microsoft 365 inbox — the provider currently offered in the beta app — so emails go from your own account.</li>
         <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>
         <li>Use in-app help or email support if access, profile, or inbox setup gets stuck.</li>
       </ol>

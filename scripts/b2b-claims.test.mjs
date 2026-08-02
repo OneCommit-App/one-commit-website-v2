@@ -1,8 +1,33 @@
 import assert from "node:assert/strict"
-import { readFile } from "node:fs/promises"
+import { readdir, readFile } from "node:fs/promises"
 import test from "node:test"
 
-const source = async (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8")
+const sourceRoot = new URL("../", import.meta.url)
+const source = async (path) => readFile(new URL(path, sourceRoot), "utf8")
+
+const walk = async (directory) => {
+  const entries = await readdir(new URL(`${directory}/`, sourceRoot), { withFileTypes: true })
+  const nested = await Promise.all(
+    entries.map((entry) => {
+      const path = `${directory}/${entry.name}`
+      return entry.isDirectory() ? walk(path) : [path]
+    }),
+  )
+  return nested.flat()
+}
+
+const publicProductSourcePaths = async () => {
+  const files = (await Promise.all(["app", "components", "lib"].map(walk))).flat()
+  return [
+    ...files.filter(
+      (path) =>
+        /\.(?:js|jsx|mjs|ts|tsx)$/.test(path) &&
+        !path.startsWith("app/privacy/") &&
+        !path.startsWith("app/terms/"),
+    ),
+    "public/demo.vtt",
+  ].sort()
+}
 
 test("B2B audience data stays limited to the truthful athlete-owned pilot", async () => {
   const data = await source("lib/b2b-audiences.ts")
@@ -108,4 +133,54 @@ test("homepage, footer, sitemap, and smoke gate make every audience route discov
   ]) {
     assert.ok(`${chooser}\n${smoke}`.includes(fragment), `missing discoverability gate: ${fragment}`)
   }
+})
+
+test("public product surfaces do not promise inbox providers the app does not currently offer", async () => {
+  const paths = await publicProductSourcePaths()
+  const productCopy = (await Promise.all(paths.map(source))).join("\n")
+
+  for (const path of [
+    "app/page.tsx",
+    "app/demo/page.tsx",
+    "app/download/page.tsx",
+    "app/support/page.tsx",
+    "app/coaches/page.tsx",
+    "app/schools/page.tsx",
+    "app/athletic-programs/page.tsx",
+    "components/faq-data.ts",
+    "lib/b2b-audiences.ts",
+    "public/demo.vtt",
+  ]) {
+    assert.ok(paths.includes(path), `provider-claim scan is missing public product source: ${path}`)
+  }
+
+  for (const legalPath of ["app/privacy/page.tsx", "app/terms/page.tsx"]) {
+    assert.ok(!paths.includes(legalPath), `legal policy text must stay outside the current-capability scan: ${legalPath}`)
+  }
+
+  assert.match(
+    productCopy,
+    /Outlook\/Microsoft 365 is currently the only inbox option offered in the beta app/i,
+    "public product copy must identify the inbox provider currently offered",
+  )
+  assert.match(
+    productCopy,
+    /Gmail is not currently available/i,
+    "public product copy must disclose that Gmail is unavailable",
+  )
+
+  const copyWithoutApprovedGmailBoundary = productCopy.replace(/Gmail is not currently available/gi, "")
+  assert.doesNotMatch(
+    copyWithoutApprovedGmailBoundary,
+    /\bgmail\b/i,
+    "Gmail may appear in public product copy only as the explicit unavailability boundary",
+  )
+  assert.doesNotMatch(
+    productCopy,
+    /\bgmail\s*(?:\+|and|or|\/)\s*(?:outlook|microsoft(?:\s*365)?)/i,
+    "public product copy must not present Gmail and Outlook/Microsoft 365 as jointly available",
+  )
+
+  const faq = await source("components/faq-data.ts")
+  assert.doesNotMatch(faq, /currently supported for your account|if no option appears/i)
 })
