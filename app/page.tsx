@@ -516,6 +516,7 @@ function LandingPageContent() {
           </div>
           <div className="flex items-center gap-2">
             <button
+              data-mobile-menu-toggle="true"
               onClick={() => setMobileMenuOpen((v) => !v)}
               className="flex md:hidden w-11 h-11 items-center justify-center rounded-full text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -537,39 +538,34 @@ function LandingPageContent() {
         </div>
 
         {/* Mobile dropdown */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              id="mobile-navigation"
-              className="w-full max-w-5xl mt-2 bg-[#102219]/98 backdrop-blur-xl border border-[#d4a94e]/15 rounded-2xl overflow-hidden md:hidden"
-            >
-              <div className="py-2 flex flex-col">
-                {[
-                  { label: "Demo", href: "/demo" },
-                  { label: "Coaches", href: "/coaches" },
-                  { label: "Schools", href: "/schools" },
-                  { label: "Athletic Programs", href: "/athletic-programs" },
-                  { label: "Features", href: "#features" },
-                  { label: "How It Works", href: "#how-it-works" },
-                  { label: "Pricing", href: "#pricing" },
-                ].map(({ label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="mx-2 rounded-lg px-3 py-3 text-white/60 text-sm font-medium hover:text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          initial={false}
+          animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.18, ease: "easeOut" }}
+          id="mobile-navigation"
+          className={`${mobileMenuOpen ? "block" : "hidden"} w-full max-w-5xl mt-2 bg-[#102219]/98 backdrop-blur-xl border border-[#d4a94e]/15 rounded-2xl overflow-hidden md:hidden`}
+        >
+          <div className="py-2 flex flex-col">
+            {[
+              { label: "Demo", href: "/demo" },
+              { label: "Coaches", href: "/coaches" },
+              { label: "Schools", href: "/schools" },
+              { label: "Athletic Programs", href: "/athletic-programs" },
+              { label: "Features", href: "#features" },
+              { label: "How It Works", href: "#how-it-works" },
+              { label: "Pricing", href: "#pricing" },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="mx-2 rounded-lg px-3 py-3 text-white/60 text-sm font-medium hover:text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
       </motion.nav>
 
       <main id="main-content" tabIndex={-1}>
@@ -584,8 +580,8 @@ function LandingPageContent() {
         {/* Badge with live pulse dot + gradient text */}
         <motion.div variants={heroChild} className="px-3 py-1 mb-5 bg-white/[0.06] border border-white/[0.08] rounded-full flex items-center gap-2">
           <motion.span
-            animate={{ scale: [1, 1.5, 1], opacity: [1, 0.35, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            animate={prefersReducedMotion ? undefined : { scale: [1, 1.5, 1], opacity: [1, 0.35, 1] }}
+            transition={prefersReducedMotion ? undefined : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-1.5 h-1.5 rounded-full bg-[#e6b85c] flex-shrink-0"
           />
           <span className="text-[#f3d28d] text-xs font-semibold uppercase tracking-[0.12em]">Athlete-owned · D3-focused beta</span>
@@ -602,14 +598,14 @@ function LandingPageContent() {
             </motion.span>
           ))}
           <motion.span
-            animate={{
+            animate={prefersReducedMotion ? undefined : {
               textShadow: [
                 "0 0 0px rgba(74,222,128,0)",
                 "0 0 30px rgba(74,222,128,0.7), 0 0 60px rgba(74,222,128,0.2)",
                 "0 0 0px rgba(74,222,128,0)",
               ],
             }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+            transition={prefersReducedMotion ? undefined : { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
             className="text-[#4ade80]"
           >
             {["built", "around", "the", "athlete"].map((word, i) => (
@@ -667,14 +663,14 @@ function LandingPageContent() {
         className="px-4 pb-8 pt-4 flex flex-col items-center"
       >
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? undefined : {
             boxShadow: [
               "0 0 40px rgba(74,222,128,0.04)",
               "0 0 80px rgba(74,222,128,0.10)",
               "0 0 40px rgba(74,222,128,0.04)",
             ],
           }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          transition={prefersReducedMotion ? undefined : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="w-full max-w-3xl rounded-2xl overflow-hidden border border-white/[0.08] bg-black/20 relative group"
         >
           <video
@@ -698,8 +694,8 @@ function LandingPageContent() {
         >
           <div className="relative flex-shrink-0 w-3 h-3 flex items-center justify-center">
             <motion.div
-              animate={{ scale: [1, 1.9], opacity: [0.6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+              animate={prefersReducedMotion ? undefined : { scale: [1, 1.9], opacity: [0.6, 0] }}
+              transition={prefersReducedMotion ? undefined : { duration: 1.5, repeat: Infinity, ease: "easeOut" }}
               className="absolute inset-0 rounded-full bg-[#4ade80]/50"
             />
             <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor" className="relative z-10"><path d="M0 0l8 5-8 5V0z"/></svg>
@@ -1014,9 +1010,10 @@ function LandingPageContent() {
       {/* CTA */}
       <CTASection />
 
+      </main>
+
       {/* Footer */}
       <FooterSection />
-      </main>
 
       {/* Sticky CTA bar */}
       <AnimatePresence>
@@ -1053,6 +1050,16 @@ function LandingPageContent() {
           #onecommit-home * {
             animation: none !important;
             transition: none !important;
+          }
+          @media (max-width: 767px) {
+            #onecommit-home [data-mobile-menu-toggle="true"] {
+              display: none !important;
+            }
+            #onecommit-home #mobile-navigation {
+              display: block !important;
+              opacity: 1 !important;
+              transform: none !important;
+            }
           }
         `}</style>
       </noscript>

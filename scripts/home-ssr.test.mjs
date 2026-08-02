@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import net from "node:net";
 import path from "node:path";
@@ -8,6 +9,7 @@ import path from "node:path";
 const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const nextBin = path.join(repoRoot, "node_modules", "next", "dist", "bin", "next");
 const host = "127.0.0.1";
+const homeSource = await readFile(path.join(repoRoot, "app", "page.tsx"), "utf8");
 
 async function reservePort() {
   const probe = net.createServer();
@@ -108,6 +110,46 @@ try {
   }
   assert.match(html, /<a[^>]*href="#main-content"[^>]*>/, "server HTML is missing the skip link");
   assert.match(html, /<main[^>]*id="main-content"[^>]*>/, "server HTML is missing its main landmark");
+
+  const mobileNavigationStart = html.indexOf('id="mobile-navigation"');
+  assert(mobileNavigationStart >= 0, "server HTML is missing the mobile navigation target");
+  const mobileNavigationHtml = html.slice(mobileNavigationStart, heroStart);
+  for (const href of ["/demo", "/coaches", "/schools", "/athletic-programs"]) {
+    assert(
+      mobileNavigationHtml.includes(`href="${href}"`),
+      `server mobile navigation is missing ${href}`,
+    );
+  }
+  assert(
+    html.includes('[data-mobile-menu-toggle="true"]'),
+    "no-JavaScript fallback does not hide the inert menu toggle",
+  );
+  assert(
+    html.includes("#onecommit-home #mobile-navigation"),
+    "no-JavaScript fallback does not reveal the mobile route links",
+  );
+
+  const mainStart = html.indexOf('<main id="main-content"');
+  const mainEnd = html.indexOf("</main>", mainStart);
+  const footerStart = html.indexOf("<footer", mainStart);
+  assert(mainStart >= 0 && mainEnd > mainStart, "server HTML has an invalid main landmark");
+  assert(footerStart > mainEnd, "global footer must follow, not be nested inside, the main landmark");
+  assert.doesNotMatch(
+    html,
+    /The first self-service recruiting copilot/i,
+    "homepage footer must not publish an unsupported market superlative",
+  );
+
+  assert.equal(
+    (homeSource.match(/animate=\{prefersReducedMotion \? undefined :/g) || []).length,
+    4,
+    "all four infinite Motion loops must stop for reduced-motion users",
+  );
+  assert.equal(
+    (homeSource.match(/transition=\{prefersReducedMotion \? undefined :/g) || []).length,
+    4,
+    "all four infinite Motion transitions must stop for reduced-motion users",
+  );
 
   for (const selector of [
     '#onecommit-home [style*="opacity:0"]',
