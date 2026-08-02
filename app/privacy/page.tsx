@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
+import FooterSection from "@/components/footer-section"
+import PublicHeader from "@/components/public-header"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -32,17 +33,15 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#0f1a14]">
-      <nav className="flex justify-center px-4 pt-6 pb-8">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <Image src="/logo.png" alt="OneCommit logo" width={24} height={24} className="w-6 h-6 rounded-full" />
-          <span className="text-white text-sm font-semibold">OneCommit</span>
-        </Link>
-      </nav>
-      <main className="px-4 pb-16 flex justify-center">
-        <article className="w-full max-w-2xl prose-sm">
-          <h1 className="text-white text-3xl font-bold mb-2">Privacy Policy</h1>
-          <p className="text-white/40 text-sm mb-8">Effective Date: September 3, 2025 &middot; Last Updated: September 3, 2025</p>
+    <div className="min-h-screen bg-[#0f1a14] text-white">
+      <PublicHeader accessSource="privacy_header" />
+      <main id="main-content" tabIndex={-1} className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
+        <article className="w-full max-w-3xl">
+          <div className="mb-10 border-b border-white/[0.07] pb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#f3d28d]">Legal</p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Privacy Policy</h1>
+            <p className="mt-3 text-sm text-white/55">Effective September 3, 2025 &middot; Last updated September 3, 2025</p>
+          </div>
 
           {[
             { title: "Introduction", content: "Welcome to OneCommit! We understand that privacy is important to you and your family, especially when it comes to the college recruiting process. This Privacy Policy explains how OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\") collects, uses, and protects your personal information when you use our website and related services (collectively, the \"Service\").\n\nSince our app is designed for high school Track & Field and Cross Country student-athletes, we've written this policy to be clear and understandable for both students and parents. We take the privacy of young users seriously and have implemented special protections for users under 18.\n\nBy using OneCommit, you agree to this Privacy Policy. If you do not agree with this policy, please do not use our Service." },
@@ -58,17 +57,18 @@ export default function PrivacyPage() {
             { title: "Data Retention", content: "Active accounts -- retained while subscription is active.\nAfter cancellation -- personal data deleted within 3 months (subject to legal retention).\nAnonymized data may be retained indefinitely for service improvement." },
             { title: "Contact Us", content: "Privacy: privacy@onecommit.us\nSupport: admin@onecommit.us\n\n\u00a9 2026 OneCommit LLC. All rights reserved." },
           ].map((section, i) => (
-            <div key={i} className="mb-6">
-              <h2 className="text-white text-lg font-semibold mb-2">{section.title}</h2>
-              <p className="text-white/50 text-sm leading-relaxed whitespace-pre-line">{section.content}</p>
-            </div>
+            <section key={section.title} aria-labelledby={`privacy-section-${i}`} className="mb-8 scroll-mt-24">
+              <h2 id={`privacy-section-${i}`} className="mb-3 text-xl font-semibold tracking-tight text-white">{section.title}</h2>
+              <p className="whitespace-pre-line text-[0.9375rem] leading-7 text-white/70">{section.content}</p>
+            </section>
           ))}
 
-          <div className="mt-10 pt-6 border-t border-white/[0.06]">
-            <Link href="/" className="text-[#4ade80] text-sm font-medium hover:underline">&larr; Back to home</Link>
+          <div className="mt-12 border-t border-white/[0.07] pt-6">
+            <Link href="/" className="-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]">&larr; Back to home</Link>
           </div>
         </article>
       </main>
+      <FooterSection />
     </div>
   )
 }
