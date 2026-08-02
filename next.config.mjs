@@ -22,7 +22,22 @@ const securityHeaders = [
   },
 ]
 
+const legacyMarketingHosts = ["onecommit\\.org\\.?", "www\\.onecommit\\.org\\.?"]
+
 const nextConfig = {
+  async redirects() {
+    return legacyMarketingHosts.map((host) => ({
+      source: "/:path*",
+      has: [
+        {
+          type: "host",
+          value: host,
+        },
+      ],
+      destination: "https://www.onecommit.us/:path*",
+      permanent: true,
+    }))
+  },
   async headers() {
     return [
       {
