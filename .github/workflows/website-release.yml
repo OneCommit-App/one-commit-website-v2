@@ -46,6 +46,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
+      - run: pnpm test:asset-host
       - run: node --test scripts/security-headers.test.mjs
       - run: node --test scripts/b2b-claims.test.mjs
       - run: pnpm audit --prod
