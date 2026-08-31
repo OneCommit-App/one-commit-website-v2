@@ -304,7 +304,6 @@ async function checkDownloadLinks() {
         path: "/",
         required: [
           "request access",
-          "invitations limited",
           "capacity-limited beta invitations",
           "supported app-access path",
         ],
@@ -439,7 +438,13 @@ async function checkHonestMarketingClaims() {
     },
     {
       path: "/demo",
-      required: ['aria-label="back to home"'],
+      required: [
+        'aria-label="primary navigation"',
+        'aria-label="onecommit home"',
+        'href="#main-content"',
+        'id="main-content"',
+        'aria-label="onecommit product demo video"',
+      ],
     },
     {
       path: "/coaches",
