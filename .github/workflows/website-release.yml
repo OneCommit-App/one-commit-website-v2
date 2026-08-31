@@ -48,6 +48,7 @@ jobs:
       - run: pnpm typecheck
       - run: node --test scripts/security-headers.test.mjs
       - run: node --test scripts/b2b-claims.test.mjs
+      - run: node --test scripts/privacy-disclosures.test.mjs
       - run: pnpm audit --prod
       - run: pnpm build
       - run: node scripts/canonical-host.test.mjs
