@@ -10,12 +10,13 @@ const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const nextBin = path.join(repoRoot, "node_modules", "next", "dist", "bin", "next");
 const host = "127.0.0.1";
 
-const [footerSource, headerSource, demoSource, downloadSource, supportSource, notFoundSource] = await Promise.all([
+const [footerSource, headerSource, demoSource, downloadSource, supportSource, aboutSource, notFoundSource] = await Promise.all([
   readFile(path.join(repoRoot, "components", "footer-section.tsx"), "utf8"),
   readFile(path.join(repoRoot, "components", "public-header.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "demo", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "download", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "support", "page.tsx"), "utf8"),
+  readFile(path.join(repoRoot, "app", "about", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "not-found.tsx"), "utf8"),
 ]);
 
@@ -74,6 +75,7 @@ for (const anchor of ["features", "how-it-works", "pricing", "faq"]) {
     `footer ${anchor} link must work away from the homepage`,
   );
 }
+assert.match(footerSource, /href="\/about"[^>]*>About<\/Link>/, "footer must make the About route discoverable");
 assert.doesNotMatch(footerSource, /x\.com\/onecommit|instagram\.com\/onecommit/i, "footer must not publish unverified social accounts");
 assert.doesNotMatch(footerSource, /initial=["{]|whileInView|opacity:\s*0/, "footer must be visible without JavaScript or scrolling");
 assert.match(
@@ -130,6 +132,7 @@ assert.match(demoSource, /kind="captions"/, "demo video must retain captions");
 for (const [name, source] of [
   ["download", downloadSource],
   ["support", supportSource],
+  ["about", aboutSource],
   ["not-found", notFoundSource],
 ]) {
   assert.match(source, /<PublicHeader\b/, `${name} must use the shared public header`);
@@ -140,6 +143,19 @@ for (const [name, source] of [
     `${name} must not use sub-AA low-emphasis white text on the verified dark shell`,
   );
 }
+for (const fragment of [
+  "A recruiting workflow built around the athlete.",
+  "Evidence before certainty",
+  "Beta access is capacity-dependent",
+  "Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available.",
+  "Public app download links are not configured yet.",
+  "Use the Get the app action for the currently configured download path.",
+  'eventSource="about_contact"',
+]) {
+  assert.ok(aboutSource.includes(fragment), `about route is missing trust boundary: ${fragment}`);
+}
+assert.match(aboutSource, /title:\s*"About"/, "about route must avoid duplicating the site name in title metadata");
+assert.doesNotMatch(aboutSource, /customer|testimonial|guaranteed placement|free forever|\$\s*\d/i, "about route must not invent traction, outcomes, or pricing");
 const providerBoundary = /Outlook\/Microsoft 365 is currently the only inbox option offered in the beta app\. Gmail is not currently available\./;
 assert.match(downloadSource, providerBoundary, "download must disclose the exact current inbox boundary");
 assert.match(supportSource, providerBoundary, "support must disclose the exact current inbox boundary");
@@ -217,6 +233,7 @@ try {
     { route: "/demo", status: 200, response: readyResponse },
     { route: "/download", status: 200 },
     { route: "/support", status: 200 },
+    { route: "/about", status: 200 },
     { route: "/privacy", status: 200 },
     { route: "/terms", status: 200 },
     { route: "/this-page-does-not-exist", status: 404 },
@@ -249,6 +266,7 @@ try {
     for (const href of ["/#features", "/#how-it-works", "/#pricing", "/#faq"]) {
       assert(html.includes(`href="${href}"`), `${route} footer is missing ${href}`);
     }
+    assert(html.includes('href="/about"'), `${route} footer is missing /about`);
     assert.doesNotMatch(html, /x\.com\/onecommit|instagram\.com\/onecommit/i, `${route} must not expose unverified social links`);
 
     if (route === "/download") {
@@ -272,6 +290,24 @@ try {
       assert.match(html, providerBoundary, "/support must render the current inbox boundary");
     }
 
+    if (route === "/about") {
+      assert.match(html, /<title>About \| OneCommit<\/title>/, "/about must render nonduplicated title metadata");
+      assert.match(html, /<link[^>]*rel="canonical"[^>]*href="https:\/\/www\.onecommit\.us\/about"/, "/about must render its canonical URL");
+      assert.match(html, /A recruiting workflow built around the athlete\./, "/about must render its purpose");
+      assert.match(html, /Beta access is capacity-dependent/, "/about must render current beta status");
+      assert.match(html, providerBoundary, "/about must render the current inbox boundary");
+      assert.match(html, /Public app download links are not configured yet\./, "/about must render the no-link boundary in the default build");
+      assert.doesNotMatch(html, /currently configured download path/, "/about must not render configured-link copy in the default build");
+
+      const accountabilityAnchors = mainAnchors(html).filter((anchor) =>
+        ["mailto:admin@onecommit.us", "/support", "/privacy", "/terms"].includes(tagAttribute(anchor, "href")),
+      );
+      assert.equal(accountabilityAnchors.length, 4, "/about must expose contact, support, privacy, and terms paths");
+      for (const anchor of accountabilityAnchors) {
+        assertMinimumTarget(anchor, "min-h-11", "/about accountability links must each be at least 44px tall");
+      }
+    }
+
     if (status === 404) {
       assert.match(html, /<meta[^>]*name="robots"[^>]*content="noindex"/, "404 must remain noindex");
       const recoveryAnchors = mainAnchors(html);
@@ -287,7 +323,7 @@ try {
     }
   }
 
-  console.log("public-shell smoke ok: six utility and recovery routes share visible accessible landmarks");
+  console.log("public-shell smoke ok: seven utility and recovery routes share visible accessible landmarks");
 } finally {
   await stopServer(server);
 }

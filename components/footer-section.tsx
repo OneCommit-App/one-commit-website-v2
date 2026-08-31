@@ -47,6 +47,7 @@ export default function FooterSection() {
           </div>
           <div className="flex flex-col">
             <span className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/60">Company</span>
+            <Link href="/about" className={footerLinkClass}>About</Link>
             <TrackedLink href="/support" eventName="support_click" eventSource="footer_support" className={footerLinkClass}>Support</TrackedLink>
             <Link href="/privacy" className={footerLinkClass}>Privacy</Link>
             <Link href="/terms" className={footerLinkClass}>Terms</Link>

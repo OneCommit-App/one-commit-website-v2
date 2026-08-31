@@ -21,6 +21,10 @@ const androidUrl = "https://play.google.com/store/apps/details?id=com.onecommit"
 const primaryUrl = "https://testflight.apple.com/join/OneCommit"
 const fallbackDisclosure =
   "Public download links are not available yet. Email support to ask about current beta availability; invitations depend on capacity and a supported app-access path."
+const aboutFallbackDisclosure =
+  "Public app download links are not configured yet. Request access or email support to ask about current beta availability."
+const aboutConfiguredDisclosure =
+  "Use the Get the app action for the currently configured download path. Platform availability can vary."
 
 const cases = [
   {
@@ -186,10 +190,14 @@ for (const state of cases) {
     }
     assert(response?.ok, `${state.name} /download did not become ready:\n${serverOutput}`)
     const html = await response.text()
+    const aboutResponse = await fetch(`http://${host}:${port}/about`, { cache: "no-store" })
+    assert(aboutResponse.ok, `${state.name} /about status`)
+    const aboutHtml = await aboutResponse.text()
 
     const fallback = anchorBlock(html, "download_page_fallback_email")
     const primary = anchorBlock(html, "download_page_primary")
     const secondary = anchorBlock(html, "download_page_secondary")
+    const aboutAccess = anchorBlock(aboutHtml, "about_header")
     const platformBlocks = [
       anchorBlock(html, "download_page_ios"),
       anchorBlock(html, "download_page_android"),
@@ -199,6 +207,12 @@ for (const state of cases) {
     assert.equal(Boolean(primary), Boolean(state.primary), `${state.name} primary action visibility`)
     assert.equal(platformBlocks.length, state.platforms.length, `${state.name} platform-link count`)
     assert.equal(html.includes(fallbackDisclosure), state.disclosure, `${state.name} fallback disclosure visibility`)
+    assert.equal(aboutHtml.includes(aboutFallbackDisclosure), state.disclosure, `${state.name} about fallback disclosure visibility`)
+    assert.equal(aboutHtml.includes(aboutConfiguredDisclosure), !state.disclosure, `${state.name} about configured disclosure visibility`)
+    assert(aboutAccess, `${state.name} about access action visibility`)
+    assert.equal(label(aboutAccess), state.primary ? "Get the app" : "Request Access", `${state.name} about access label`)
+    assert.equal(href(aboutAccess), state.primary || "/download", `${state.name} about access href`)
+    assertDownloadTarget(aboutAccess, "min-h-11", `${state.name} about access action`)
     assert(secondary, `${state.name} demo action visibility`)
     assert.equal(href(secondary), "/demo", `${state.name} demo href`)
     assertDownloadTarget(secondary, "h-11", `${state.name} demo action`)
@@ -213,6 +227,7 @@ for (const state of cases) {
       assert.equal(href(primary), state.primary, `${state.name} primary href`)
       assertDownloadTarget(primary, "h-11", `${state.name} primary action`)
       assertExternalSafety(primary, `${state.name} primary action`)
+      assertExternalSafety(aboutAccess, `${state.name} about access action`)
     }
     for (const [source, expectedLabel, expectedHref] of state.platforms) {
       const block = anchorBlock(html, source)

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const launchModified = new Date("2026-07-11")
+  const aboutModified = new Date("2026-08-31")
   const policyModified = new Date("2025-09-03")
 
   return [
@@ -44,6 +45,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://www.onecommit.us/support",
       lastModified: launchModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: "https://www.onecommit.us/about",
+      lastModified: aboutModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
