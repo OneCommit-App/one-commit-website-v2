@@ -34,6 +34,7 @@ const routeChecks = [
   { path: "/schools", typeIncludes: "text/html" },
   { path: "/athletic-programs", typeIncludes: "text/html" },
   { path: "/support", typeIncludes: "text/html" },
+  { path: "/about", typeIncludes: "text/html" },
   { path: "/privacy", typeIncludes: "text/html" },
   { path: "/terms", typeIncludes: "text/html" },
   { path: "/robots.txt", typeIncludes: "text/plain" },
@@ -52,6 +53,7 @@ const canonicalPaths = [
   "/schools",
   "/athletic-programs",
   "/support",
+  "/about",
   "/privacy",
   "/terms",
 ]
@@ -281,7 +283,7 @@ async function checkDownloadLinks() {
   const renderedPages = new Map()
   const renderedPageMarkup = new Map()
 
-  for (const path of ["/", "/demo", "/download", "/coaches", "/schools", "/athletic-programs"]) {
+  for (const path of ["/", "/demo", "/download", "/about", "/coaches", "/schools", "/athletic-programs"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
       fail("Download CTA page returned non-200", { path, status: response.status })
@@ -304,7 +306,6 @@ async function checkDownloadLinks() {
         path: "/",
         required: [
           "request access",
-          "invitations limited",
           "capacity-limited beta invitations",
           "supported app-access path",
         ],
@@ -327,6 +328,15 @@ async function checkDownloadLinks() {
           "public store links are being finalized",
           "we will help you get access",
         ],
+      },
+      {
+        path: "/about",
+        required: [
+          "request access",
+          "public app download links are not configured yet",
+          "ask about current beta availability",
+        ],
+        forbidden: ["currently configured download path"],
       },
     ]
 
@@ -368,9 +378,17 @@ async function checkDownloadLinks() {
     console.log("ok no-download fallback: CTAs request access and copy discloses invitation capacity")
 
     fail("No external app download URL found on production pages", {
-      checkedPages: ["/", "/demo", "/download", "/coaches", "/schools", "/athletic-programs"],
+      checkedPages: ["/", "/demo", "/download", "/about", "/coaches", "/schools", "/athletic-programs"],
       runbook: downloadRunbook,
     })
+  }
+
+  const configuredAbout = renderedPages.get("/about") || ""
+  if (
+    !configuredAbout.includes("use the get the app action for the currently configured download path") ||
+    configuredAbout.includes("public app download links are not configured yet")
+  ) {
+    fail("About page does not reflect the configured download state", { path: "/about" })
   }
 
   for (const [href, details] of discovered) {
@@ -439,7 +457,24 @@ async function checkHonestMarketingClaims() {
     },
     {
       path: "/demo",
-      required: ['aria-label="back to home"'],
+      required: [
+        'aria-label="primary navigation"',
+        'aria-label="onecommit home"',
+        'href="#main-content"',
+        'id="main-content"',
+        'aria-label="onecommit product demo video"',
+      ],
+    },
+    {
+      path: "/about",
+      required: [
+        "a recruiting workflow built around the athlete",
+        "evidence before certainty",
+        "beta access is capacity-dependent",
+        "outlook/microsoft 365 is currently the only inbox option offered in the beta app",
+        "data-funnel-source=\"about_contact\"",
+      ],
+      forbidden: ["customer", "testimonial", "guaranteed placement", "free forever"],
     },
     {
       path: "/coaches",
