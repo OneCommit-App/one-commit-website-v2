@@ -53,6 +53,19 @@ test("voice disclosure makes no unsupported promises", async () => {
   }
 })
 
+test("sitemap reports privacy and terms revisions independently", async () => {
+  const sitemap = await source("app/sitemap.ts")
+
+  for (const fragment of [
+    'const privacyModified = new Date("2026-08-31")',
+    'url: "https://www.onecommit.us/privacy",\n      lastModified: privacyModified,',
+    'const termsModified = new Date("2025-09-03")',
+    'url: "https://www.onecommit.us/terms",\n      lastModified: termsModified,',
+  ]) {
+    assert.ok(sitemap.includes(fragment), `sitemap missing independent policy timestamp: ${fragment}`)
+  }
+})
+
 test("release workflow runs the privacy disclosure gate", async () => {
   const workflow = await source(".github/workflows/website-release.yml")
   assert.ok(
