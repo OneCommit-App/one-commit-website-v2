@@ -3,20 +3,20 @@ import Link from "next/link"
 import TrackedLink from "@/components/tracked-link"
 
 const footerLinkClass =
-  "-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm text-white/65 transition-colors hover:bg-white/[0.04] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+  "-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm text-white/65 transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
 
 export default function FooterSection() {
   return (
-    <footer className="flex flex-col items-center border-t border-white/[0.07] px-4 pb-10 pt-10 sm:pb-12">
-      <div className="flex w-full max-w-4xl flex-col items-start justify-between gap-10 sm:flex-row">
+    <footer className="flex flex-col items-center border-t border-white/[0.08] bg-shell-deep px-4 pb-10 pt-14 text-white sm:px-6 sm:pb-12">
+      <div className="flex w-full max-w-6xl flex-col items-start justify-between gap-10 sm:flex-row">
         <div className="flex max-w-xs flex-col gap-3">
           <Link
             href="/"
             aria-label="OneCommit home"
-            className="-mx-2 flex min-h-11 w-fit items-center gap-2 rounded-lg px-2 text-white transition-colors hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+            className="-mx-2 flex min-h-11 w-fit items-center gap-2 rounded-lg px-2 text-white transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
           >
             <Image src="/logo.png" alt="" width={28} height={28} className="h-7 w-7 rounded-full" />
-            <span className="text-sm font-semibold">OneCommit</span>
+            <span className="text-[15px] font-semibold tracking-[-0.01em]">OneCommit</span>
           </Link>
           <p className="text-sm leading-relaxed text-white/60">
             An athlete-owned recruiting workflow for track &amp; field.
@@ -25,7 +25,7 @@ export default function FooterSection() {
             href="mailto:admin@onecommit.us"
             eventName="support_click"
             eventSource="footer_email_primary"
-            className="-mx-3 inline-flex min-h-11 w-fit items-center rounded-lg px-3 text-sm font-medium text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+            className="-mx-3 inline-flex min-h-11 w-fit items-center rounded-lg px-3 text-sm font-medium text-mint transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
           >
             admin@onecommit.us
           </TrackedLink>
@@ -55,7 +55,7 @@ export default function FooterSection() {
         </div>
       </div>
 
-      <div className="mt-10 w-full max-w-4xl border-t border-white/[0.06] pt-6">
+      <div className="mt-12 w-full max-w-6xl border-t border-white/[0.08] pt-6">
         <p className="text-center text-xs text-white/60">
           © {new Date().getFullYear()} OneCommit LLC. All rights reserved.
         </p>

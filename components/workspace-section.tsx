@@ -1,7 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { CheckCircle2 } from "lucide-react"
+import { Fragment } from "react"
+import { CheckCircle2, ChevronRight } from "lucide-react"
+import { container, eyebrow, h2, lede, section } from "@/components/home/tokens"
+import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const useCases = [
   {
@@ -30,103 +32,57 @@ const useCases = [
   },
 ]
 
-const workflow = [
-  "Profile",
-  "OneScore",
-  "Outreach",
-  "Replies",
-  "Review",
-]
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-}
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-}
-
-const fadeUpItem = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
-}
+const workflow = ["Profile", "OneScore", "Outreach", "Replies", "Review"]
 
 export default function WorkspaceSection() {
   return (
-    <motion.section
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className="px-4 pb-14 flex justify-center"
-    >
-      <div className="w-full max-w-4xl">
-        <div className="mb-6 text-center">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">Recruiting Workspace</span>
-          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            Built for the messy middle of recruiting
+    <section aria-labelledby="workspace-heading" className={section}>
+      <div className={container}>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className={eyebrow}>Recruiting workspace</p>
+          <h2 id="workspace-heading" className={`mt-4 ${h2}`}>
+            Built for the messy middle of recruiting.
           </h2>
-          <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
-            OneCommit keeps the parts families usually scatter across notes, spreadsheets, inboxes, and memory in one focused workflow.
+          <p className={`mt-4 ${lede}`}>
+            OneCommit keeps the parts families usually scatter across notes, spreadsheets, inboxes, and memory in one
+            focused workflow.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mb-4 overflow-hidden rounded-lg border border-white/[0.06] bg-white/[0.025] p-3">
-          <div className="grid grid-cols-5 gap-2">
-            {workflow.map((step, i) => (
-              <div key={step} className="relative flex min-h-16 items-center justify-center rounded-lg bg-white/[0.035] px-2 text-center">
-                {i < workflow.length - 1 && (
-                  <span className="absolute -right-2 top-1/2 z-10 hidden h-px w-2 bg-[#4ade80]/30 sm:block" />
-                )}
-                <div>
-                  <div className="mx-auto mb-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#4ade80]/10 text-[10px] font-bold text-[#86efac]">
-                    {i + 1}
-                  </div>
-                  <div className="text-[11px] font-semibold text-white/70">{step}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Reveal delay={0.05} className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          {workflow.map((step, index) => (
+            <Fragment key={step}>
+              {index > 0 && <ChevronRight size={14} aria-hidden="true" className="text-ink/30" />}
+              <span className="inline-flex h-9 items-center gap-2 rounded-full bg-card pl-1.5 pr-3.5 text-[13px] font-semibold text-ink ring-1 ring-line">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-soft text-[11px] font-bold text-green">
+                  {index + 1}
+                </span>
+                {step}
+              </span>
+            </Fragment>
+          ))}
+        </Reveal>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
+        <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {useCases.map((item) => (
-            <motion.div
-              key={item.title}
-              variants={fadeUpItem}
-              whileHover={{
-                y: -5,
-                borderColor: "rgba(74,222,128,0.24)",
-                boxShadow: "0 0 28px rgba(74,222,128,0.07)",
-                transition: { duration: 0.22 },
-              }}
-              className="rounded-lg border border-white/[0.06] bg-white/[0.03] p-5"
-            >
-              <span className="inline-flex rounded-full border border-[#4ade80]/20 bg-[#4ade80]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#86efac]">
+            <RevealItem key={item.title} className="flex h-full flex-col rounded-card bg-card p-7 shadow-soft ring-1 ring-line">
+              <span className="inline-flex w-fit rounded-full bg-green-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-green">
                 {item.badge}
               </span>
-              <h3 className="mt-3 text-base font-semibold text-white">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/50">{item.body}</p>
-              <div className="mt-4 grid gap-2">
+              <h3 className="mt-4 text-[19px] font-semibold tracking-[-0.01em] text-ink">{item.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">{item.body}</p>
+              <ul className="mt-5 flex flex-col gap-2.5 border-t border-line pt-5">
                 {item.checks.map((check) => (
-                  <div key={check} className="flex items-center gap-2.5 text-xs text-white/70">
-                    <CheckCircle2 size={14} className="shrink-0 text-[#86efac]" />
+                  <li key={check} className="flex items-center gap-2.5 text-[14px] text-ink">
+                    <CheckCircle2 size={15} aria-hidden="true" className="shrink-0 text-green-mid" />
                     <span>{check}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+            </RevealItem>
           ))}
-        </motion.div>
+        </RevealGroup>
       </div>
-    </motion.section>
+    </section>
   )
 }

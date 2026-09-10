@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/react"
 import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
 import "./globals.css"
 
+// The site renders in the system stack first (SF Pro on Apple devices, Inter where
+// installed). DM Sans stays loaded as the web fallback for platforms without either.
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0f1a14",
+  themeColor: "#f7f8f5",
 }
 
 export default function RootLayout({
@@ -78,7 +80,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} antialiased`}>
-      <body className="font-sans antialiased overflow-x-hidden">
+      <body className="overflow-x-hidden bg-background font-sans text-foreground antialiased">
         {children}
         {isVercelDeploy && <Analytics />}
       </body>

@@ -4,32 +4,55 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #0f1a14;
-  --foreground: #f0f5f2;
-  --card: rgba(255,255,255,0.05);
-  --card-foreground: #f0f5f2;
-  --popover: #162a1e;
-  --popover-foreground: #f0f5f2;
-  --primary: #4ade80;
-  --primary-foreground: #0f1a14;
-  --secondary: rgba(255,255,255,0.06);
-  --secondary-foreground: #d1e8d9;
-  --muted: rgba(255,255,255,0.04);
-  --muted-foreground: #8aad9d;
-  --accent: #235d48;
-  --accent-foreground: #e8f0ed;
+  /* OneCommit app palette — mirrors the shipped app's src/styles/ocTokens.ts */
+  --oc-bg: #f7f8f5;
+  --oc-bg-subtle: #eff1ed;
+  --oc-card: #ffffff;
+  --oc-mist: #ecf1ee;
+  --oc-ink: #0b1f18;
+  --oc-ink-soft: rgba(11, 31, 24, 0.62);
+  --oc-ink-faint: rgba(11, 31, 24, 0.4);
+  --oc-line: rgba(11, 31, 24, 0.08);
+  --oc-green: #0b4a38;
+  --oc-green-mid: #1f7a56;
+  --oc-shell: #0b2a1f;
+  --oc-shell-deep: #071a14;
+  --oc-mint: #9cd8b5;
+  --oc-green-soft: #e8f1ec;
+  --oc-green-tint: #f2f7f3;
+  --oc-amber: #e89248;
+  --oc-orange-soft: #fbe3c9;
+  --oc-clay: #8a4c10;
+  --oc-amber-ink: #a6611e;
+
+  /* shadcn-compatible aliases mapped onto the app palette (light canvas) */
+  --background: var(--oc-bg);
+  --foreground: var(--oc-ink);
+  --card: var(--oc-card);
+  --card-foreground: var(--oc-ink);
+  --popover: var(--oc-card);
+  --popover-foreground: var(--oc-ink);
+  --primary: var(--oc-green);
+  --primary-foreground: #ffffff;
+  --secondary: var(--oc-green-soft);
+  --secondary-foreground: var(--oc-green);
+  --muted: var(--oc-bg-subtle);
+  --muted-foreground: var(--oc-ink-soft);
+  --accent: var(--oc-green-tint);
+  --accent-foreground: var(--oc-green);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: rgba(255,255,255,0.08);
-  --input: rgba(255,255,255,0.08);
-  --ring: #4ade80;
-  --radius: 0.625rem;
+  --destructive-foreground: #ffffff;
+  --border: var(--oc-line);
+  --input: var(--oc-line);
+  --ring: var(--oc-green-mid);
+  --radius: 0.875rem;
 }
 
 @theme inline {
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, var(--font-dm-sans), "Segoe UI", sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -49,40 +72,137 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* App palette utilities: bg-canvas, text-ink, bg-shell, text-mint, ... */
+  --color-canvas: var(--oc-bg);
+  --color-canvas-subtle: var(--oc-bg-subtle);
+  --color-mist: var(--oc-mist);
+  --color-ink: var(--oc-ink);
+  --color-ink-soft: var(--oc-ink-soft);
+  --color-ink-faint: var(--oc-ink-faint);
+  --color-line: var(--oc-line);
+  --color-green: var(--oc-green);
+  --color-green-mid: var(--oc-green-mid);
+  --color-shell: var(--oc-shell);
+  --color-shell-deep: var(--oc-shell-deep);
+  --color-mint: var(--oc-mint);
+  --color-green-soft: var(--oc-green-soft);
+  --color-green-tint: var(--oc-green-tint);
+  --color-amber: var(--oc-amber);
+  --color-orange-soft: var(--oc-orange-soft);
+  --color-clay: var(--oc-clay);
+  --color-amber-ink: var(--oc-amber-ink);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-input: 14px;
+  --radius-card: 22px;
+  --radius-hero: 26px;
+
+  --shadow-soft: 0 6px 24px rgba(11, 31, 24, 0.06);
+  --shadow-lift: 0 18px 48px -12px rgba(11, 31, 24, 0.14), 0 6px 16px -8px rgba(11, 31, 24, 0.08);
+  --shadow-cta: 0 8px 20px rgba(11, 74, 56, 0.22);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--oc-mint);
+    color: var(--oc-ink);
   }
 }
 
-.text-balance {
-  text-wrap: balance;
+/* ── CSS-drawn iPhone frame (components/device-frame.tsx) ── */
+.oc-device {
+  position: relative;
+  width: 100%;
+  padding: 0 1.3%;
 }
 
-.text-pretty {
-  text-wrap: pretty;
+.oc-device-body {
+  position: relative;
+  aspect-ratio: 0.474;
+  border-radius: 13.5% / 6.4%;
+  background: linear-gradient(160deg, #3b403e 0%, #1a1e1c 38%, #2a2f2d 70%, #141816 100%);
+  box-shadow:
+    0 32px 64px -24px rgba(11, 31, 24, 0.32),
+    0 12px 24px -12px rgba(11, 31, 24, 0.2);
 }
 
-@keyframes progressBar {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0%); }
+.oc-device-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  pointer-events: none;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+.oc-device-bezel {
+  position: absolute;
+  left: 1.1%;
+  right: 1.1%;
+  top: 0.52%;
+  bottom: 0.52%;
+  border-radius: 12.7% / 5.94%;
+  background: #06080a;
 }
 
-/* School marquee */
+.oc-device-screen {
+  position: absolute;
+  left: 2.8%;
+  right: 2.8%;
+  top: 1.33%;
+  bottom: 1.33%;
+  overflow: hidden;
+  border-radius: 11.3% / 5.2%;
+  background: #0b0d0c;
+  transform: translateZ(0);
+}
+
+.oc-device-island {
+  position: absolute;
+  left: 50%;
+  top: 2.55%;
+  width: 29%;
+  height: 4.05%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #06080a;
+}
+
+.oc-device-btn {
+  position: absolute;
+  width: 1.3%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #3d423f, #1f2422);
+}
+
+.oc-device-btn.is-left {
+  left: 0;
+}
+
+.oc-device-btn.is-right {
+  right: 0;
+}
+
+/* School marquee (components/school-marquee.tsx) */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -92,30 +212,7 @@
   animation: marquee 30s linear infinite;
 }
 
-/* CTA button shimmer */
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.08) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 4s ease-in-out infinite;
-}
-
-/* Progress bar shimmer overlay */
-@keyframes progressShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-/* Hero dot grid */
+/* Dot grid used by the audience (B2B) hero */
 .hero-dot-grid {
   background-image: radial-gradient(circle, rgba(74,222,128,0.14) 1px, transparent 1px);
   background-size: 36px 36px;
@@ -123,23 +220,11 @@
   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 75%);
 }
 
-/* Animated gradient sweep for text */
-@keyframes gradientSweep {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-.text-gradient-sweep {
-  background: linear-gradient(90deg, #4ade80, #86efac, #4ade80);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientSweep 3s linear infinite;
-}
-
 /* Accessibility: respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
