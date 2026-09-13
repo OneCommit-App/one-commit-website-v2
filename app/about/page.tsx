@@ -5,6 +5,7 @@ import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
 import TrackedLink from "@/components/tracked-link"
 import { hasConfiguredDownloadUrl } from "@/lib/download"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 export const metadata: Metadata = {
   title: "About",
@@ -65,6 +66,8 @@ const betaFacts = [
 
 const actionLinkClass =
   "-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+
+export const viewport = darkShellViewport
 
 export default function AboutPage() {
   return (

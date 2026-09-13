@@ -9,6 +9,7 @@ import {
   hasConfiguredDownloadUrl,
   iosDownloadUrl,
 } from "@/lib/download"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 const accessTitle = hasConfiguredDownloadUrl ? "Download" : "Request Beta Access"
 const accessDescription = hasConfiguredDownloadUrl
@@ -47,6 +48,8 @@ const platformLinks = [
   { label: "Download for iPhone", href: iosDownloadUrl },
   { label: "Download for Android", href: androidDownloadUrl },
 ].filter((item) => item.href && item.href !== "/download")
+
+export const viewport = darkShellViewport
 
 export default function DownloadPage() {
   return (

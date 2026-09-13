@@ -35,7 +35,7 @@ export default function FounderStory() {
           </span>
           <div>
             <div className="text-[15px] font-semibold text-ink">Hugh Kopittke</div>
-            <div className="text-[13px] text-ink-faint">OneCommit Founder &middot; Student-Athlete</div>
+            <div className="text-[13px] text-ink-soft">OneCommit Founder &middot; Student-Athlete</div>
           </div>
         </Reveal>
       </div>

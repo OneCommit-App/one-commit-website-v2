@@ -10,8 +10,8 @@ const features = [
   {
     title: "Riley-guided voice onboarding",
     desc: "Use Riley's voice conversation to capture marks, academics, and college preferences, then review the profile details.",
-    image: "/app/riley.png",
-    alt: "OneCommit home screen with Riley's Desk summarizing the athlete's school ranking",
+    image: "/app/profile.png",
+    alt: "OneCommit profile screen with a 200m mark, GPA and target prompts, a Riley's Take card, and the OneScore readiness meter",
   },
   {
     title: "SmartAdd + Search",
@@ -28,8 +28,8 @@ const features = [
   {
     title: "Reply Tracking",
     desc: "See match details, communication history, and reply status for each saved school.",
-    image: "/app/home.png",
-    alt: "OneCommit home screen with the queue of matches, sent messages, and replies",
+    image: "/app/riley.png",
+    alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
   },
 ]
 

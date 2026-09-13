@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { motion, useMotionValueEvent, useScroll } from "framer-motion"
 import DeviceFrame from "@/components/device-frame"
@@ -29,8 +29,8 @@ const steps = [
   {
     title: "Track coach replies",
     desc: "See who replied, manage threads, and plan the next follow-up from your outreach history.",
-    image: "/app/home.png",
-    alt: "OneCommit home screen with the queue of matches, sent messages, and replies",
+    image: "/app/riley.png",
+    alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
   },
   {
     title: "Keep improving",
@@ -49,7 +49,8 @@ const stepTravel = "min(80svh, 40rem)"
 /**
  * Sticky scrollytelling: the panel pins for one viewport per step while the phone
  * screen crossfades through the five steps and the matching copy highlights.
- * Reduced motion: nothing pins; steps are plain buttons that swap the screen.
+ * Reduced motion: nothing pins, scroll position never drives the step, and the
+ * steps are plain buttons that swap the screen.
  */
 export default function HowItWorks() {
   const still = useStill()
@@ -58,10 +59,18 @@ export default function HowItWorks() {
 
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] })
 
+  // Scroll only drives the step when the panel actually pins. With reduced motion the
+  // wrapper is height:auto, progress reads 1, and this would park the section on step 5.
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (still) return
     const next = Math.min(steps.length - 1, Math.max(0, Math.floor(progress * steps.length)))
     setActive((current) => (current === next ? current : next))
   })
+
+  // Reduced motion starts on step 1 regardless of where the page loaded.
+  useEffect(() => {
+    if (still) setActive(0)
+  }, [still])
 
   const goTo = useCallback(
     (index: number) => {
@@ -78,6 +87,15 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-20 overflow-x-clip bg-canvas px-4 sm:px-6">
+      {/* Small screens: the heading scrolls away before the panel pins, so the pinned
+          panel only has to fit the phone, the step copy, and the dots. */}
+      <div className="mx-auto w-full max-w-6xl pt-20 lg:hidden">
+        <p className={eyebrow}>How it works</p>
+        <h2 id="how-heading-compact" className={`mt-4 ${h2}`}>
+          Five steps. You&rsquo;re in control.
+        </h2>
+      </div>
+
       <div
         ref={wrapRef}
         style={{ height: still ? "auto" : `calc(${panelHeight} + ${steps.length} * ${stepTravel})` }}
@@ -85,25 +103,32 @@ export default function HowItWorks() {
       >
         <div
           style={still ? undefined : { top: `calc((100svh - ${panelHeight}) / 2)`, height: panelHeight }}
-          className={still ? "py-24 lg:py-32" : "sticky flex flex-col justify-start pb-8 pt-20 lg:justify-center lg:py-16"}
+          className={
+            still
+              ? "pb-16 pt-8 lg:py-32"
+              : "sticky flex flex-col justify-start pb-6 pt-[4.5rem] lg:justify-center lg:py-16"
+          }
         >
           <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            {/* Copy: heading plus the desktop step list */}
-            <div>
+            {/* Large screens: heading plus the step list, pinned beside the phone */}
+            <div className="hidden lg:block">
               <p className={eyebrow}>How it works</p>
               <h2 id="how-heading" className={`mt-4 ${h2}`}>
                 Five steps. You&rsquo;re in control.
               </h2>
 
-              <ol className="relative mt-8 hidden lg:block">
+              <ol className="relative mt-8">
                 <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-px bg-line" />
                 <motion.span
                   aria-hidden="true"
-                  style={{ scaleY: still ? 1 : scrollYProgress }}
+                  style={{ scaleY: still ? (active + 1) / steps.length : scrollYProgress }}
                   className="absolute bottom-3 left-[15px] top-3 w-px origin-top bg-green"
                 />
                 {steps.map((step, index) => {
                   const isActive = index === active
+                  // Inactive steps dim only while scroll drives them; with reduced motion
+                  // every step stays fully readable and the badge marks the current one.
+                  const dimmed = !isActive && !still
                   return (
                     <li key={step.title}>
                       <button
@@ -116,7 +141,7 @@ export default function HowItWorks() {
                           className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold transition-colors duration-300 ${
                             isActive
                               ? "bg-green text-white"
-                              : "bg-canvas text-ink/40 ring-1 ring-line group-hover:text-ink"
+                              : "bg-canvas text-ink/70 ring-1 ring-line group-hover:text-ink"
                           }`}
                         >
                           {index + 1}
@@ -124,14 +149,14 @@ export default function HowItWorks() {
                         <span className="pt-1">
                           <span
                             className={`block text-[17px] font-semibold tracking-[-0.01em] transition-colors duration-300 ${
-                              isActive ? "text-ink" : "text-ink/40 group-hover:text-ink/70"
+                              dimmed ? "text-ink/70 group-hover:text-ink" : "text-ink"
                             }`}
                           >
                             {step.title}
                           </span>
                           <span
                             className={`mt-1 block max-w-sm text-[14px] leading-relaxed transition-colors duration-300 ${
-                              isActive ? "text-ink-soft" : "text-ink/35"
+                              dimmed ? "text-ink-soft" : "text-ink/80"
                             }`}
                           >
                             {step.desc}
@@ -144,13 +169,15 @@ export default function HowItWorks() {
               </ol>
             </div>
 
-            {/* Phone: base screen plus stacked overlays that fade in as steps advance */}
+            {/* Phone: base screen plus stacked overlays that fade in as steps advance.
+                Small screens size it from the viewport height (never below 150px) so the
+                phone, copy, and dots all fit inside the pinned panel on SE-class devices. */}
             <div className="relative mx-auto w-full">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-[6%] bottom-[12%] top-[12%] -z-10 rounded-full bg-green-soft blur-3xl"
               />
-              <div className="mx-auto w-[min(190px,calc((100svh-27rem)/2.11))] lg:w-[min(340px,calc((100svh-12rem)/2.11))]">
+              <div className="mx-auto w-[clamp(150px,calc((100svh-21rem)/2.11),190px)] lg:w-[min(340px,calc((100svh-12rem)/2.11))]">
                 <DeviceFrame src={steps[0].image} alt={steps[active].alt} sizes={phoneSizes}>
                   {steps.slice(1).map((step, offset) => {
                     const index = offset + 1
@@ -182,7 +209,7 @@ export default function HowItWorks() {
 
             {/* Compact copy for small screens: the active step crossfades, dots jump between steps */}
             <div className="lg:hidden">
-              <div className="relative min-h-[7.5rem]">
+              <div className="relative min-h-[8.5rem]">
                 {steps.map((step, index) => {
                   const isActive = index === active
                   return (

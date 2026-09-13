@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -30,6 +31,8 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
 }
+
+export const viewport = darkShellViewport
 
 export default function TermsPage() {
   return (

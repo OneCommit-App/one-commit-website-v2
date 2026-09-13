@@ -86,9 +86,9 @@ export default function PricingSection() {
                 <div className="mt-6">
                   <div className="flex items-end gap-2">
                     <span className="text-[52px] font-bold leading-none tracking-[-0.03em] text-ink">{plan.price}</span>
-                    <span className="pb-1 text-[14px] text-ink-faint">{plan.cadence}</span>
+                    <span className="pb-1 text-[14px] text-ink-soft">{plan.cadence}</span>
                   </div>
-                  <p className="mt-3 text-[13px] leading-relaxed text-ink-faint">{plan.note}</p>
+                  <p className="mt-3 text-[13px] leading-relaxed text-ink-soft">{plan.note}</p>
                 </div>
 
                 {isBeta ? (
@@ -114,14 +114,14 @@ export default function PricingSection() {
               Old way
             </span>
             <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink-soft">Legacy recruiting services</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-ink-faint">
+            <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
               Often high upfront fees for a passive profile-based model.
             </p>
             <div className="mt-6 flex items-end gap-2">
               <span className="text-[40px] font-bold leading-none tracking-[-0.03em] text-ink-soft">High fees</span>
-              <span className="pb-1 text-[14px] text-ink-faint">upfront</span>
+              <span className="pb-1 text-[14px] text-ink-soft">upfront</span>
             </div>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">Typical legacy model</p>
+            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>
             <ul className="mt-4 flex flex-col gap-3">
               {oldWay.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink-soft">

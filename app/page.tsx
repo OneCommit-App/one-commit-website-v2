@@ -161,7 +161,9 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
   )
 }
 
-/* ── One-minute demo in a rounded well with a play affordance ── */
+/* ── One-minute demo in a rounded well with a play affordance ──
+   The recording predates the current app screens shown elsewhere on the page, so the
+   well stays compact and the caption dates it instead of presenting it as product proof. */
 function DemoSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [started, setStarted] = useState(false)
@@ -189,8 +191,8 @@ function DemoSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mx-auto mt-12 w-full max-w-[720px]">
-          <div className="relative overflow-hidden rounded-hero bg-shell shadow-lift ring-1 ring-ink/10">
+        <Reveal delay={0.1} className="mx-auto mt-12 w-full max-w-[560px]">
+          <div className="relative overflow-hidden rounded-hero bg-shell shadow-soft ring-1 ring-ink/10">
             <video
               ref={videoRef}
               muted
@@ -224,9 +226,12 @@ function DemoSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }
               </button>
             )}
           </div>
+          <p className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
+            1-minute walkthrough, recorded on an earlier beta build.
+          </p>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-6 text-center">
+        <Reveal delay={0.15} className="mt-4 text-center">
           <TrackedLink
             href="/demo"
             eventName="demo_click"

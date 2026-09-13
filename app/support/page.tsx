@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
 import TrackedLink from "@/components/tracked-link"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 export const metadata: Metadata = {
   title: "Support",
@@ -135,6 +136,8 @@ const supportSections = [
     ),
   },
 ]
+
+export const viewport = darkShellViewport
 
 export default function SupportPage() {
   return (

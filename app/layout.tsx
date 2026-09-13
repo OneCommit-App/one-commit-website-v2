@@ -69,6 +69,8 @@ export const metadata: Metadata = {
     : {}),
 }
 
+// Light homepage canvas. Routes that still render the dark shell override this with
+// lib/dark-shell-viewport.ts so mobile browser chrome matches each page.
 export const viewport: Viewport = {
   themeColor: "#f7f8f5",
 }

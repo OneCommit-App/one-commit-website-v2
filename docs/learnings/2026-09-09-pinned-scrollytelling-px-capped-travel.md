@@ -20,6 +20,9 @@ a 1440x6000 capture viewport and pushed every later section out of the deliverab
    step buttons `scrollTo(top + travel * (i + 0.5) / steps)`.
 4. Reduced motion: `useStill()` (mounted-gated `useReducedMotion`) switches the wrapper to `height:auto`
    and the panel to a static block; the same buttons swap the screen without scrolling.
+   Not sufficient on its own: the `"change"` listener must also be gated, see
+   [[2026-09-13-reduced-motion-scroll-progress-parks-on-last-step]]; the mobile panel budget is in
+   [[2026-09-13-pinned-panel-budget-on-se-class-viewports]].
 5. Mobile panel: `justify-start pt-20` (nav clearance) instead of `items-center`; centered content that
    is taller than the panel overflows equally top and bottom and tucks under a fixed nav.
 

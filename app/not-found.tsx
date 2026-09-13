@@ -2,6 +2,9 @@ import Link from "next/link"
 import { ArrowRight, Compass, LifeBuoy } from "lucide-react"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
+
+export const viewport = darkShellViewport
 
 export default function NotFound() {
   return (

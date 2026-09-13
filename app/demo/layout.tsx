@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 export const metadata: Metadata = {
   title: "Demo",
@@ -30,6 +31,8 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
 }
+
+export const viewport = darkShellViewport
 
 export default function DemoLayout({
   children,
