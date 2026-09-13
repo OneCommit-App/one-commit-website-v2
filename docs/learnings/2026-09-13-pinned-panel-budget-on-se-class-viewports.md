@@ -17,7 +17,8 @@ the phone, the step copy, and the dots, and the only elastic item was the phone.
 1. Render the eyebrow + h2 twice: a `lg:hidden` block above the sticky wrapper (scrolls away before
    the pin) and the original `hidden lg:block` column inside the panel; keep `aria-labelledby` on the
    desktop id (a directly referenced hidden node still supplies the accessible name).
-2. Measure the fixed budget in the pinned panel: `pt-[4.5rem]` (nav) + 2 x `gap-6` + copy
+2. Measure the fixed budget in the pinned panel: 4.5rem of nav clearance (since
+   [[2026-09-13-pinned-panel-nav-budget-and-height-tiers]]: sticky `top: 3.5rem` + `pt-4`) + 2 x `gap-6` + copy
    `min-h-[8.5rem]` (tallest 3-line description) + dots `h-11` + `mt-2` + `pb-6` = ~21rem.
 3. Phone width `clamp(150px, calc((100svh - 21rem) / 2.11), 190px)`: the budget sets it, the floor
    keeps it readable, the cap keeps it from dominating tall phones.

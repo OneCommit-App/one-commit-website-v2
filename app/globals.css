@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Viewport-height tiers for the pinned How-it-works panel (components/home/how-it-works.tsx).
+   The fixed nav takes 3.5rem, the panel pads 4rem top and bottom, and the full desktop copy
+   column is about 42rem tall, so anything under 53.5rem (856px) tightens the column and
+   anything under 48rem (768px) also collapses the descriptions of inactive steps. */
+@custom-variant short (@media (max-height: 53.4375rem));
+@custom-variant shorter (@media (max-height: 47.9375rem));
+
 :root {
   /* OneCommit app palette — mirrors the shipped app's src/styles/ocTokens.ts */
   --oc-bg: #f7f8f5;

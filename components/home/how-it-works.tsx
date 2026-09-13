@@ -42,8 +42,13 @@ const steps = [
 
 const phoneSizes = "(max-width: 1024px) 200px, 340px"
 
-/* The pinned panel fills the viewport up to 56rem; each step scrolls for at most 40rem. */
-const panelHeight = "min(100svh, 56rem)"
+/* The fixed nav (components/home/site-nav.tsx, h-14) covers the top 3.5rem of the viewport,
+   so the pinned panel starts below it and fills the rest, up to 56rem; each step scrolls for
+   at most 40rem. The panel centers in the space under the nav, which puts its top exactly at
+   the nav edge whenever it fills that space. */
+const navHeight = "3.5rem"
+const panelHeight = `min(100svh - ${navHeight}, 56rem)`
+const panelTop = `calc(${navHeight} + (100svh - ${navHeight} - ${panelHeight}) / 2)`
 const stepTravel = "min(80svh, 40rem)"
 
 /**
@@ -51,6 +56,11 @@ const stepTravel = "min(80svh, 40rem)"
  * screen crossfades through the five steps and the matching copy highlights.
  * Reduced motion: nothing pins, scroll position never drives the step, and the
  * steps are plain buttons that swap the screen.
+ *
+ * Desktop viewports too short for the full copy column step down through the
+ * `short` and `shorter` tiers (app/globals.css): tighter spacing and a smaller
+ * heading first, then inactive descriptions collapse so the heading, all five
+ * steps, and the phone stay inside the pinned panel down to about 490px tall.
  */
 export default function HowItWorks() {
   const still = useStill()
@@ -85,6 +95,17 @@ export default function HowItWorks() {
     [still],
   )
 
+  // The tiers only matter while the panel pins; with reduced motion it scrolls normally.
+  const tier = still
+    ? { panel: "", heading: "", list: "", step: "", collapsed: "" }
+    : {
+        panel: "lg:short:py-8 lg:shorter:py-6",
+        heading: "lg:short:text-[2.75rem] lg:shorter:text-[2.25rem]",
+        list: "lg:short:mt-6 lg:shorter:mt-4",
+        step: "lg:short:py-2 lg:shorter:py-1.5",
+        collapsed: "lg:shorter:grid-rows-[0fr]",
+      }
+
   return (
     <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-20 overflow-x-clip bg-canvas px-4 sm:px-6">
       {/* Small screens: the heading scrolls away before the panel pins, so the pinned
@@ -102,22 +123,22 @@ export default function HowItWorks() {
         className="relative mx-auto w-full max-w-6xl"
       >
         <div
-          style={still ? undefined : { top: `calc((100svh - ${panelHeight}) / 2)`, height: panelHeight }}
+          style={still ? undefined : { top: panelTop, height: panelHeight }}
           className={
             still
               ? "pb-16 pt-8 lg:py-32"
-              : "sticky flex flex-col justify-start pb-6 pt-[4.5rem] lg:justify-center lg:py-16"
+              : `sticky flex flex-col justify-start pb-6 pt-4 lg:justify-center lg:py-16 ${tier.panel}`
           }
         >
           <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             {/* Large screens: heading plus the step list, pinned beside the phone */}
             <div className="hidden lg:block">
               <p className={eyebrow}>How it works</p>
-              <h2 id="how-heading" className={`mt-4 ${h2}`}>
+              <h2 id="how-heading" className={`mt-4 ${h2} ${tier.heading}`}>
                 Five steps. You&rsquo;re in control.
               </h2>
 
-              <ol className="relative mt-8">
+              <ol className={`relative mt-8 ${tier.list}`}>
                 <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-px bg-line" />
                 <motion.span
                   aria-hidden="true"
@@ -135,7 +156,7 @@ export default function HowItWorks() {
                         type="button"
                         onClick={() => goTo(index)}
                         aria-current={isActive ? "step" : undefined}
-                        className={`group flex w-full gap-5 rounded-input py-2.5 text-left ${focusRing}`}
+                        className={`group flex w-full gap-5 rounded-input py-2.5 text-left ${tier.step} ${focusRing}`}
                       >
                         <span
                           className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold transition-colors duration-300 ${
@@ -154,12 +175,21 @@ export default function HowItWorks() {
                           >
                             {step.title}
                           </span>
+                          {/* Shorter desktop viewports fold inactive descriptions away (1fr -> 0fr). */}
                           <span
-                            className={`mt-1 block max-w-sm text-[14px] leading-relaxed transition-colors duration-300 ${
-                              dimmed ? "text-ink-soft" : "text-ink/80"
+                            className={`grid grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out-quint ${
+                              dimmed ? tier.collapsed : ""
                             }`}
                           >
-                            {step.desc}
+                            <span className="min-h-0 overflow-hidden">
+                              <span
+                                className={`mt-1 block max-w-sm text-[14px] leading-relaxed transition-colors duration-300 ${
+                                  dimmed ? "text-ink-soft" : "text-ink/80"
+                                }`}
+                              >
+                                {step.desc}
+                              </span>
+                            </span>
                           </span>
                         </span>
                       </button>
