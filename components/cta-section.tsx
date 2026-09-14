@@ -48,8 +48,17 @@ export default function CTASection() {
           </ul>
         </Reveal>
 
-        <Reveal delay={0.1} className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
-          <div className="relative h-[360px] overflow-hidden sm:h-[420px] lg:h-[500px]">
+        {/*
+          The phone rises out of the band's bottom edge, the way Apple product bands crop a
+          device: the column pulls itself down by the section's own bottom padding (-mb matches
+          py) so its box ends exactly on the band's edge, and the section's overflow-hidden does
+          the crop there. The wrapper height is the visible slice, not a clip box.
+        */}
+        <Reveal
+          delay={0.1}
+          className="relative -mb-24 w-full max-w-[420px] self-end justify-self-center lg:-mb-32 lg:max-w-none"
+        >
+          <div className="relative h-[380px] sm:h-[420px] lg:h-[492px]">
             <div className="absolute left-1/2 top-0 w-[min(300px,80%)] -translate-x-1/2 lg:w-[340px]">
               <DeviceFrame src="/app/welcome.png" alt="OneCommit welcome screen" sizes="(max-width: 1024px) 300px, 340px" />
             </div>
