@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
-import { darkShellViewport } from "@/lib/dark-shell-viewport"
+import LegalArticle, { type LegalSection } from "@/components/routes/legal-article"
+import RouteShell from "@/components/routes/route-shell"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -32,21 +32,8 @@ export const metadata: Metadata = {
   },
 }
 
-export const viewport = darkShellViewport
-
-export default function TermsPage() {
-  return (
-    <div className="min-h-screen bg-[#0f1a14] text-white">
-      <PublicHeader accessSource="terms_header" />
-      <main id="main-content" tabIndex={-1} className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
-        <article className="w-full max-w-3xl">
-          <div className="mb-10 border-b border-white/[0.07] pb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#f3d28d]">Legal</p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Terms of Service</h1>
-            <p className="mt-3 text-sm text-white/55">Effective September 3, 2025 &middot; Last updated July 11, 2026</p>
-          </div>
-
-          {[
+/* Terms text is rendered verbatim; edit the wording only with a matching sitemap revision. */
+const sections: LegalSection[] = [
             { title: "1. Agreement to Terms", content: "These Terms of Service (\"Terms\") govern your access to and use of the OneCommit website and related services (collectively, the \"Service\") operated by OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy." },
             { title: "2. Eligibility; Accounts", content: "You must be at least 13 years old to use the Service. If you are 13-17, you represent that you have permission from a parent or legal guardian, who also agrees to these Terms on your behalf.\n\nYou agree to provide accurate, current, and complete information during registration and to keep it updated. You are responsible for safeguarding your login credentials and for all activity under your account." },
             { title: "3. Description of Service", content: "OneCommit is an athlete-first recruiting copilot. Features may include: (a) school matching based on athletic, academic, and profile inputs; (b) email drafting and sending through your connected email account (Gmail/Outlook); (c) engagement analytics such as opens and replies; (d) organizing recruiting tasks and timelines; and (e) dashboards and recommendations.\n\nNo advisor subscription or recurring call package is part of the current beta. If optional human services are offered later, their scope and separate terms will be presented before purchase.\n\nWe may add, change, or remove features at any time, including during beta. We may throttle or limit usage (e.g., email volume) to protect deliverability and platform integrity." },
@@ -69,19 +56,21 @@ export default function TermsPage() {
             { title: "20. Changes to Terms", content: "We may modify the Service or these Terms at any time. When we make material changes, we will provide reasonable notice (e.g., in-app notice or email). Continued use after changes become effective constitutes acceptance of the updated Terms." },
             { title: "21. Severability; Assignment; Entire Agreement", content: "If any provision is held unenforceable, the remainder will remain in effect. You may not assign or transfer these Terms without our consent; we may assign them as part of a merger, acquisition, or sale of assets. These Terms, together with policies referenced herein, are the entire agreement between you and OneCommit regarding the Service." },
             { title: "22. Contact", content: "Questions about these Terms? Email admin@onecommit.us." },
-          ].map((section, i) => (
-            <section key={section.title} aria-labelledby={`terms-section-${i}`} className="mb-8 scroll-mt-24">
-              <h2 id={`terms-section-${i}`} className="mb-3 text-xl font-semibold tracking-tight text-white">{section.title}</h2>
-              <p className="whitespace-pre-line text-[0.9375rem] leading-7 text-white/70">{section.content}</p>
-            </section>
-          ))}
+]
 
-          <div className="mt-12 border-t border-white/[0.07] pt-6">
-            <Link href="/" className="-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]">&larr; Back to home</Link>
-          </div>
-        </article>
+export default function TermsPage() {
+  return (
+    <RouteShell>
+      <PublicHeader accessSource="terms_header" />
+      <main id="main-content" tabIndex={-1} className="px-4 pb-24 pt-28 sm:px-6 sm:pt-32 lg:pb-32">
+        <LegalArticle
+          title="Terms of Service"
+          meta="Effective September 3, 2025 · Last updated July 11, 2026"
+          idPrefix="terms"
+          sections={sections}
+        />
       </main>
       <FooterSection />
-    </div>
+    </RouteShell>
   )
 }

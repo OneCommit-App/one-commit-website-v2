@@ -1,15 +1,19 @@
 import type { Metadata } from "next"
-import { ArrowRight, CheckCircle2, Mail, Smartphone } from "lucide-react"
+import { ArrowRight, CalendarCheck, Mail, ShieldCheck, Smartphone, Target } from "lucide-react"
+import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FooterSection from "@/components/footer-section"
+import { container, eyebrow, lede } from "@/components/home/tokens"
 import PublicHeader from "@/components/public-header"
+import { RevealGroup, RevealItem } from "@/components/reveal"
+import RouteShell from "@/components/routes/route-shell"
+import { h1, hero, iconDot } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
 import {
   androidDownloadUrl,
   hasConfiguredDownloadUrl,
   iosDownloadUrl,
 } from "@/lib/download"
-import { darkShellViewport } from "@/lib/dark-shell-viewport"
 
 const accessTitle = hasConfiguredDownloadUrl ? "Download" : "Request Beta Access"
 const accessDescription = hasConfiguredDownloadUrl
@@ -49,104 +53,132 @@ const platformLinks = [
   { label: "Download for Android", href: androidDownloadUrl },
 ].filter((item) => item.href && item.href !== "/download")
 
-export const viewport = darkShellViewport
+const betaIncludes = [
+  { icon: CalendarCheck, label: "Free account for invited beta users" },
+  { icon: ShieldCheck, label: "Athlete age gate in the app" },
+  { icon: Target, label: "D3-focused OneScore workspace" },
+]
 
 export default function DownloadPage() {
   return (
-    <div className="min-h-screen bg-[#0f1a14] text-white">
+    <RouteShell>
       <PublicHeader accessSource="download_header" />
       <main id="main-content" tabIndex={-1}>
-      <section aria-labelledby="access-heading" className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
-        <div className="w-full max-w-4xl grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
-          <div>
-            <span className="text-[#4ade80] text-xs font-semibold uppercase tracking-wider">
-              OneCommit Beta
-            </span>
-            <h1 id="access-heading" className="mt-3 text-white text-3xl sm:text-5xl font-bold tracking-tight text-balance">
-              {hasConfiguredDownloadUrl
-                ? "Download the recruiting app built for overlooked track athletes."
-                : "Request beta access to start your track recruiting process."}
-            </h1>
-            <p className="mt-4 text-white/65 text-sm sm:text-base leading-relaxed max-w-2xl">
-              Build a D3-focused college list, generate coach outreach from your own inbox, and track replies without paying for a passive recruiting profile.
-            </p>
+        <section aria-labelledby="access-heading" className={`${hero} overflow-x-clip`}>
+          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+            <div>
+              <p className={eyebrow}>OneCommit Beta</p>
+              <h1 id="access-heading" className={`mt-5 ${h1}`}>
+                {hasConfiguredDownloadUrl
+                  ? "Download the recruiting app built for overlooked track athletes."
+                  : "Request beta access to start your track recruiting process."}
+              </h1>
+              <p className={`mt-6 max-w-xl ${lede}`}>
+                Build a D3-focused college list, generate coach outreach from your own inbox, and track replies
+                without paying for a passive recruiting profile.
+              </p>
 
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              {hasConfiguredDownloadUrl ? (
-                <DownloadLink
-                  analyticsSource="download_page_primary"
-                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
-                >
-                  Open App Download
-                  <ArrowRight aria-hidden="true" size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
-                </DownloadLink>
-              ) : (
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                {hasConfiguredDownloadUrl ? (
+                  <DownloadLink
+                    analyticsSource="download_page_primary"
+                    className="group inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+                  >
+                    Open App Download
+                    <ArrowRight
+                      aria-hidden="true"
+                      size={16}
+                      className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
+                    />
+                  </DownloadLink>
+                ) : (
+                  <TrackedLink
+                    href="mailto:admin@onecommit.us?subject=OneCommit%20app%20download"
+                    eventName="download_click"
+                    eventSource="download_page_fallback_email"
+                    eventDestination="support_email"
+                    className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+                  >
+                    Request Beta Access
+                    <Mail aria-hidden="true" size={16} />
+                  </TrackedLink>
+                )}
                 <TrackedLink
-                  href="mailto:admin@onecommit.us?subject=OneCommit%20app%20download"
-                  eventName="download_click"
-                  eventSource="download_page_fallback_email"
-                  eventDestination="support_email"
-                  className="h-11 px-7 bg-white text-[#0f1a14] text-sm font-semibold rounded-full inline-flex items-center justify-center gap-2 hover:bg-white/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
+                  href="/demo"
+                  eventName="demo_click"
+                  eventSource="download_page_secondary"
+                  className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-full px-6 text-[15px] font-semibold text-ink ring-1 ring-inset ring-ink/15 transition-colors hover:bg-ink/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
                 >
-                  Request Beta Access
-                  <Mail aria-hidden="true" size={15} />
+                  Watch the 1-minute demo
                 </TrackedLink>
+              </div>
+
+              {platformLinks.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {platformLinks.map((link) => (
+                    <DownloadLink
+                      key={link.label}
+                      href={link.href}
+                      analyticsSource={`download_page_${link.label.includes("iPhone") ? "ios" : "android"}`}
+                      className="inline-flex h-11 min-h-11 items-center gap-2 rounded-full bg-card px-4 text-[13px] font-semibold text-ink ring-1 ring-inset ring-ink/15 transition-colors hover:bg-ink/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+                    >
+                      <Smartphone aria-hidden="true" size={15} className="text-green-mid" />
+                      {link.label}
+                    </DownloadLink>
+                  ))}
+                </div>
               )}
-              <TrackedLink
-                href="/demo"
-                eventName="demo_click"
-                eventSource="download_page_secondary"
-                className="h-11 px-6 border border-white/15 text-white text-sm font-medium rounded-full inline-flex items-center justify-center hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
-              >
-                Watch the 1-minute demo
-              </TrackedLink>
+
+              {!hasConfiguredDownloadUrl && (
+                <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-ink-soft">
+                  Public download links are not available yet. Email support to ask about current beta availability;
+                  invitations depend on capacity and a supported app-access path.
+                </p>
+              )}
             </div>
 
-            {platformLinks.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {platformLinks.map((link) => (
-                  <DownloadLink
-                    key={link.label}
-                    href={link.href}
-                    analyticsSource={`download_page_${link.label.includes("iPhone") ? "ios" : "android"}`}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 text-xs font-semibold text-white/80 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
-                  >
-                    <Smartphone aria-hidden="true" size={14} />
-                    {link.label}
-                  </DownloadLink>
-                ))}
+            <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-[8%] top-[10%] bottom-[10%] -z-10 rounded-full bg-green-soft blur-3xl"
+              />
+              <div className="mx-auto w-[min(280px,74vw)] lg:w-[340px]">
+                <DeviceFrame
+                  src="/app/welcome.png"
+                  alt="OneCommit welcome screen"
+                  priority
+                  sizes="(max-width: 1024px) 280px, 340px"
+                />
               </div>
-            )}
-
-            {!hasConfiguredDownloadUrl && (
-              <p className="mt-4 max-w-xl text-xs leading-relaxed text-amber-100/80">
-                Public download links are not available yet. Email support to ask about current beta availability; invitations depend on capacity and a supported app-access path.
-              </p>
-            )}
+            </div>
           </div>
+        </section>
 
-          <section aria-labelledby="beta-includes-heading" className="rounded-xl border border-white/[0.08] bg-white/[0.035] p-5">
-            <h2 id="beta-includes-heading" className="mb-4 text-sm font-semibold text-white">Current beta includes</h2>
-            <ul className="grid gap-3">
-              {[
-                "Free account for invited beta users",
-                "Athlete age gate in the app",
-                "D3-focused OneScore workspace",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-white/80">
-                  <CheckCircle2 aria-hidden="true" size={15} className="shrink-0 text-[#86efac]" />
-                  <span>{item}</span>
-                </li>
+        <section aria-labelledby="beta-includes-heading" className="px-4 pb-24 sm:px-6 lg:pb-32">
+          <div className={container}>
+            <h2 id="beta-includes-heading" className={eyebrow}>
+              Current beta includes
+            </h2>
+            <RevealGroup
+              stagger={0.1}
+              className="mt-5 grid gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
+            >
+              {betaIncludes.map(({ icon: Icon, label }) => (
+                <RevealItem key={label} y={12} className="flex items-center gap-4 bg-card p-6 sm:p-7">
+                  <span className={iconDot}>
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <span className="text-[15px] font-semibold tracking-[-0.01em] text-ink">{label}</span>
+                </RevealItem>
               ))}
-            </ul>
-            <p className="mt-4 text-xs leading-relaxed text-white/65">
+            </RevealGroup>
+            <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-ink-soft">
               Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available.
             </p>
-          </section>
-        </div>
-      </section>
+          </div>
+        </section>
       </main>
       <FooterSection />
-    </div>
+    </RouteShell>
   )
 }
