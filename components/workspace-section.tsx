@@ -65,13 +65,13 @@ export default function WorkspaceSection() {
 
         <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {useCases.map((item) => (
-            <RevealItem key={item.title} className="flex h-full flex-col rounded-card bg-card p-7 shadow-soft ring-1 ring-line">
+            <RevealItem key={item.title} className="oc-raised flex h-full flex-col rounded-card bg-card p-7 shadow-soft ring-1 ring-line">
               <span className="inline-flex w-fit rounded-full bg-green-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-green">
                 {item.badge}
               </span>
               <h3 className="mt-4 text-[19px] font-semibold tracking-[-0.01em] text-ink">{item.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">{item.body}</p>
-              <ul className="mt-5 flex flex-col gap-2.5 border-t border-line pt-5">
+              <p className="mb-5 mt-2 text-[15px] leading-relaxed text-ink-soft">{item.body}</p>
+              <ul className="mt-auto flex flex-col gap-2.5 border-t border-line pt-5">
                 {item.checks.map((check) => (
                   <li key={check} className="flex items-center gap-2.5 text-[14px] text-ink">
                     <CheckCircle2 size={15} aria-hidden="true" className="shrink-0 text-green-mid" />

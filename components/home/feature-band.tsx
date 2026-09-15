@@ -45,13 +45,15 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
         ref={ref}
         whileHover={still ? undefined : { y: -4 }}
         transition={{ duration: 0.45, ease: EASE_OUT }}
-        className="flex h-full flex-col overflow-hidden rounded-card bg-white/[0.05] ring-1 ring-white/[0.08] transition-shadow duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
+        className="oc-raised flex h-full flex-col overflow-hidden rounded-card bg-white/[0.05] ring-1 ring-white/[0.08] transition-shadow duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
       >
         <div className="p-7 sm:p-8">
           <h3 className="text-[22px] font-semibold tracking-[-0.02em] text-white">{feature.title}</h3>
           <p className="mt-2 max-w-md text-[15px] leading-relaxed text-white/70">{feature.desc}</p>
         </div>
-        <div className="relative mt-auto h-[320px] overflow-hidden px-8 sm:h-[360px]">
+        {/* The phone is taller than the well, so it is deliberately cut off — the mask
+            dissolves the bottom into the card instead of guillotining it mid-screen. */}
+        <div className="relative mt-auto h-[320px] overflow-hidden px-8 [mask-image:linear-gradient(to_bottom,#000_62%,transparent_99%)] sm:h-[360px]">
           <motion.div style={still ? undefined : { y }} className="mx-auto w-[min(260px,78%)]">
             <DeviceFrame src={feature.image} alt={feature.alt} sizes="260px" />
           </motion.div>

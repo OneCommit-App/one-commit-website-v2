@@ -65,7 +65,7 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
           The audience switches sit under the fixed nav, so the hero pads past them:
           three wrapped rows below 240px, two rows on narrow phones, one row from sm up.
         */}
-        <section className="relative overflow-x-clip px-4 pb-16 pt-64 min-[240px]:pt-52 sm:px-6 sm:pb-24 sm:pt-40 lg:pt-44">
+        <section className="oc-wash relative overflow-x-clip px-4 pb-16 pt-64 min-[240px]:pt-52 sm:px-6 sm:pb-24 sm:pt-40 lg:pt-44">
           <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
               <p className={eyebrow}>{audience.eyebrow}</p>

@@ -72,7 +72,7 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
       ref={ref}
       data-home-hero="true"
       style={heroPhoneWidth}
-      className="relative overflow-x-clip px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
+      className="oc-wash relative overflow-x-clip px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
     >
       <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">

@@ -49,7 +49,7 @@ export default function AudienceChooser() {
         <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
           {audienceCards.map(({ title, body, href, eventName, source, icon: Icon }) => (
             <RevealItem key={title} className="h-full">
-              <article className="flex h-full flex-col rounded-card bg-card p-7 shadow-soft ring-1 ring-line transition-[transform,box-shadow] duration-500 ease-out-quint hover:-translate-y-1 hover:shadow-lift">
+              <article className="oc-raised flex h-full flex-col rounded-card bg-card p-7 shadow-soft ring-1 ring-line transition-[transform,box-shadow] duration-500 ease-out-quint hover:-translate-y-1 hover:shadow-lift">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-green-soft text-green">
                   <Icon size={20} aria-hidden="true" />
                 </span>

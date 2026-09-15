@@ -74,7 +74,7 @@ export default function AboutPage() {
       <PublicHeader accessSource="about_header" />
       <main id="main-content" tabIndex={-1}>
         {/* Hero: purpose on the left, the athlete's own profile screen on the right. */}
-        <section aria-labelledby="about-heading" className={`${hero} overflow-x-clip`}>
+        <section aria-labelledby="about-heading" className={`${hero} oc-wash relative overflow-x-clip`}>
           <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
               <p className={eyebrow}>About OneCommit</p>
