@@ -96,7 +96,7 @@ try {
 
   for (const requiredText of [
     "Skip to main content",
-    "A recruiting system built around the athlete",
+    "See where your marks stand across Division III track",
     "Turn your marks, grades, and college preferences into a focused list.",
     "Nothing sends without your approval.",
     "Request Beta Access",

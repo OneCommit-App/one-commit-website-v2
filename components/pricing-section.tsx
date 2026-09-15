@@ -46,7 +46,7 @@ const oldWay = [
   "Passive coach discovery",
   "Third-party platform messages",
   "Limited reply visibility",
-  "Large upfront payment",
+  "Price disclosed on a call",
 ]
 
 export default function PricingSection() {
@@ -118,7 +118,7 @@ export default function PricingSection() {
               Often high upfront fees for a passive profile-based model.
             </p>
             <div className="mt-6 flex items-end gap-2">
-              <span className="text-[40px] font-bold leading-none tracking-[-0.03em] text-ink-soft">High fees</span>
+              <span className="text-[40px] font-bold leading-none tracking-[-0.03em] text-ink-soft">Price on request</span>
               <span className="pb-1 text-[14px] text-ink-soft">upfront</span>
             </div>
             <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>

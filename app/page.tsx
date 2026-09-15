@@ -28,7 +28,7 @@ const trustPoints = [
   {
     icon: Target,
     label: "OneScore by school",
-    detail: "School-by-school fit guidance from the current D3 beta dataset.",
+    detail: "School-by-school fit guidance from the current D3 beta dataset, scored on marks you import from MileSplit.",
   },
   {
     icon: Mail,
@@ -88,10 +88,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
           </div>
 
           <h1
-            aria-label="A recruiting system built around the athlete"
+            aria-label="See where your marks stand across Division III track"
             className="mt-6 text-balance text-[2.625rem] font-bold leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.5rem] lg:text-[3.75rem] xl:text-[4rem]"
           >
-            A recruiting system built around <span className="text-green-mid">the athlete</span>
+            See where your marks stand across <span className="text-green-mid">Division III</span> track
           </h1>
 
           {/* The first sentence is asserted verbatim against the server HTML by

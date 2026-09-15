@@ -49,7 +49,7 @@ export const faqData = [
   },
   {
     q: "How is this different from NCSA or CaptainU?",
-    a: "Traditional services often center on a public profile and passive discovery, sometimes with large upfront costs. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace.",
+    a: "Traditional services center on a public profile and passive discovery, and the largest of them does not publish a price at all \u2014 it asks you to book a call to find out. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace. We will show our price before anyone is asked to pay.",
   },
   {
     q: "I have a question or need help. How do I get support?",
