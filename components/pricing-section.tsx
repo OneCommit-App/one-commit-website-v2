@@ -69,7 +69,7 @@ export default function PricingSection() {
             return (
               <RevealItem
                 key={plan.name}
-                className={`flex h-full flex-col rounded-card bg-card p-7 sm:p-8 ${
+                className={`oc-raised flex h-full flex-col rounded-card bg-card p-7 sm:p-8 ${
                   isBeta ? "shadow-lift ring-1 ring-green/20" : "shadow-soft ring-1 ring-line"
                 }`}
               >
@@ -109,17 +109,20 @@ export default function PricingSection() {
             )
           })}
 
-          <RevealItem className="flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8">
+          <RevealItem className="oc-raised flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8">
             <span className="inline-flex w-fit rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">
               Old way
             </span>
             <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink-soft">Legacy recruiting services</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-              Often high upfront fees for a passive profile-based model.
+              A passive profile-based model whose price is disclosed on a sales call rather than on the page.
             </p>
-            <div className="mt-6 flex items-end gap-2">
-              <span className="text-[40px] font-bold leading-none tracking-[-0.03em] text-ink-soft">Price on request</span>
-              <span className="pb-1 text-[14px] text-ink-soft">upfront</span>
+            {/* The price slot holds what the market leader actually publishes: nothing.
+                No "upfront" qualifier — it described a figure that is no longer claimed. */}
+            <div className="mt-6 flex items-end">
+              <span className="text-[28px] font-bold leading-none tracking-[-0.02em] text-ink-soft">
+                Price on request
+              </span>
             </div>
             <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>
             <ul className="mt-4 flex flex-col gap-3">

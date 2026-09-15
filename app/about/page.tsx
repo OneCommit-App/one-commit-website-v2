@@ -127,7 +127,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section aria-labelledby="principles-heading" className="bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+        <section aria-labelledby="principles-heading" className="oc-band bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
           <div className={container}>
             <Reveal className="max-w-2xl">
               <p className={eyebrowDark}>How we build</p>

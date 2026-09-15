@@ -15,7 +15,7 @@ const included = [
 
 export default function CTASection() {
   return (
-    <section aria-labelledby="cta-heading" className="relative overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+    <section aria-labelledby="cta-heading" className="oc-band relative overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
       <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]`}>
         <Reveal>
           <h2 id="cta-heading" className={h2Dark}>

@@ -161,7 +161,7 @@ export default function DownloadPage() {
             </h2>
             <RevealGroup
               stagger={0.1}
-              className="mt-5 grid gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
+              className="oc-raised mt-5 grid gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
             >
               {betaIncludes.map(({ icon: Icon, label }) => (
                 <RevealItem key={label} y={12} className="flex items-center gap-4 bg-card p-6 sm:p-7">

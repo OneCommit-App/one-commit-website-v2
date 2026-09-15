@@ -87,6 +87,10 @@
 }
 
 /* ── Dark scheme ──────────────────────────────────────────────────────────────
+   Note on the surface ladder: after dark a band goes UP from the canvas, not down.
+   The light page is structured by a ~14:1 paper-against-forest inversion; the first
+   dark palette put canvas, subtle, card, shell and shell-deep inside a 1.15:1 spread,
+   so every band seam and card edge became a luminance guess.
    The same palette after dark: a forest-black canvas instead of a paper one, and
    the accent inverted from deep forest to mint so it stays readable as body-weight
    text AND usable as a button surface (--oc-on-green carries the pill's ink).
@@ -99,18 +103,18 @@
     color-scheme: dark;
 
     --oc-bg: #06100c;
-    --oc-bg-subtle: #0a1711;
-    --oc-card: #0e1d16;
-    --oc-mist: #132a20;
+    --oc-bg-subtle: #0c1c15;
+    --oc-card: #173026;
+    --oc-mist: #16332a;
     --oc-ink: #e9f2ec;
     --oc-ink-soft: rgba(233, 242, 236, 0.66);
     --oc-ink-faint: rgba(233, 242, 236, 0.45);
-    --oc-line: rgba(233, 242, 236, 0.11);
+    --oc-line: rgba(233, 242, 236, 0.16);
     --oc-green: #74dfa8;
     --oc-green-mid: #97efc1;
     --oc-on-green: #05150f;
-    --oc-shell: #0d2119;
-    --oc-shell-deep: #081912;
+    --oc-shell: #1a3a2d;
+    --oc-shell-deep: #142e23;
     --oc-mint: #9cd8b5;
     --oc-green-soft: rgba(116, 223, 168, 0.13);
     --oc-green-tint: rgba(116, 223, 168, 0.07);
@@ -119,10 +123,10 @@
     --oc-clay: #e8a866;
     --oc-amber-ink: #f0b27a;
 
-    --oc-shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.5);
+    --oc-shadow-soft: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 24px rgba(0, 0, 0, 0.6);
     --oc-shadow-lift: 0 18px 48px -12px rgba(0, 0, 0, 0.66), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
     --oc-shadow-cta: 0 8px 24px rgba(116, 223, 168, 0.16);
-    --oc-sheen: rgba(255, 255, 255, 0.05);
+    --oc-sheen: rgba(255, 255, 255, 0.07);
     --oc-wash-warm: rgba(240, 169, 96, 0.1);
     --oc-wash-cool: rgba(116, 223, 168, 0.1);
 
@@ -136,18 +140,18 @@
   color-scheme: dark;
 
   --oc-bg: #06100c;
-  --oc-bg-subtle: #0a1711;
-  --oc-card: #0e1d16;
-  --oc-mist: #132a20;
+  --oc-bg-subtle: #0c1c15;
+  --oc-card: #173026;
+  --oc-mist: #16332a;
   --oc-ink: #e9f2ec;
   --oc-ink-soft: rgba(233, 242, 236, 0.66);
   --oc-ink-faint: rgba(233, 242, 236, 0.45);
-  --oc-line: rgba(233, 242, 236, 0.11);
+  --oc-line: rgba(233, 242, 236, 0.16);
   --oc-green: #74dfa8;
   --oc-green-mid: #97efc1;
   --oc-on-green: #05150f;
-  --oc-shell: #0d2119;
-  --oc-shell-deep: #081912;
+  --oc-shell: #1a3a2d;
+  --oc-shell-deep: #142e23;
   --oc-mint: #9cd8b5;
   --oc-green-soft: rgba(116, 223, 168, 0.13);
   --oc-green-tint: rgba(116, 223, 168, 0.07);
@@ -156,10 +160,10 @@
   --oc-clay: #e8a866;
   --oc-amber-ink: #f0b27a;
 
-  --oc-shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.5);
+  --oc-shadow-soft: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 24px rgba(0, 0, 0, 0.6);
   --oc-shadow-lift: 0 18px 48px -12px rgba(0, 0, 0, 0.66), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
   --oc-shadow-cta: 0 8px 24px rgba(116, 223, 168, 0.16);
-  --oc-sheen: rgba(255, 255, 255, 0.05);
+  --oc-sheen: rgba(255, 255, 255, 0.07);
   --oc-wash-warm: rgba(240, 169, 96, 0.1);
   --oc-wash-cool: rgba(116, 223, 168, 0.1);
 
@@ -260,6 +264,19 @@
   background:
     radial-gradient(52% 44% at 76% 26%, var(--oc-wash-cool), transparent 72%),
     radial-gradient(38% 34% at 14% 4%, var(--oc-wash-warm), transparent 70%);
+}
+
+/* A deep-green band on the light canvas is separated by a ~14:1 inversion and needs
+   nothing. After dark the same band sits only ~1.55:1 above the canvas, so its top
+   edge is drawn as a hairline rather than left to luminance. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .oc-band {
+    box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.07);
+  }
+}
+
+:root.dark .oc-band {
+  box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.07);
 }
 
 /* Raised surface: a hairline highlight down the top edge. Transparent on the

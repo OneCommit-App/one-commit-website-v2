@@ -154,7 +154,7 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
         */}
         <section
           aria-labelledby="athlete-workspace-heading"
-          className="isolate overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32"
+          className="oc-band isolate overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32"
         >
           <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16`}>
             <Reveal>
@@ -203,7 +203,7 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
 
         <PilotBoundaries available={audience.available} unavailable={audience.unavailable} />
 
-        <section aria-labelledby="pilot-conversation-heading" className="bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+        <section aria-labelledby="pilot-conversation-heading" className="oc-band bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
           <div className={`${container} grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]`}>
             <Reveal>
               <p className={eyebrowDark}>Pilot conversation</p>

@@ -65,7 +65,7 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
 
 export default function FeatureBand() {
   return (
-    <section id="features" className="scroll-mt-20 bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+    <section id="features" className="oc-band scroll-mt-20 bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
       <div className={container}>
         <Reveal className="max-w-2xl">
           <p className={eyebrowDark}>What&rsquo;s in the beta</p>
