@@ -18,15 +18,15 @@ const useCases = [
     checks: ["Saved schools", "Sent outreach", "Reply status"],
   },
   {
-    badge: "Outreach",
-    title: "Send emails that sound like a real athlete",
-    body: "Draft personalized messages from the athlete's own profile, then send them through Outlook/Microsoft 365, the inbox provider currently offered in the beta app.",
-    checks: ["Own-inbox delivery", "Personal context", "No passive profile waiting"],
+    badge: "Coaches",
+    title: "Stay the guide, not the agent",
+    body: "A high school coach can work through the list with the athlete in the room, and push back on it, without taking over an account, an inbox, or a decision.",
+    checks: ["Athlete owns the account", "No coach dashboard", "No roster monitoring"],
   },
   {
-    badge: "Onboarding",
-    title: "Talk it through with Riley",
-    body: "Use the Riley voice conversation to build an athlete profile, then review the captured details before moving on.",
+    badge: "First time through",
+    title: "Start without knowing the jargon",
+    body: "Nobody has to arrive fluent in divisions, walk-ons, or pre-reads. The first pass is spoken rather than a recruiting form, and the athlete confirms every detail it captures.",
     checks: ["Voice-guided setup", "Athlete-confirmed details", "Profile review before outreach"],
   },
 ]

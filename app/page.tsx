@@ -74,7 +74,7 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
       style={heroPhoneWidth}
       className="oc-wash relative overflow-x-clip px-4 pb-16 pt-20 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
     >
-      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+      <div className={`${container} grid items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8`}>
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
           <div className="inline-flex items-center gap-2 rounded-full bg-green-soft px-3.5 py-1.5">
             <motion.span
@@ -205,6 +205,10 @@ function DemoSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }
               ref={videoRef}
               muted
               playsInline
+              /* Kept unconditional: the custom play button is a React onClick, so with
+                 scripting off the native bar is the only way to play the video at all.
+                 The two are redundant at rest but they do not overlap — the bar sits at
+                 the bottom edge, the button is centred. */
               controls
               poster="/demo-poster.png"
               preload="none"

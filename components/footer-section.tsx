@@ -8,7 +8,7 @@ const footerLinkClass =
 export default function FooterSection() {
   return (
     <footer className="flex flex-col items-center border-t border-white/[0.08] bg-shell-deep px-4 pb-10 pt-14 text-white sm:px-6 sm:pb-12">
-      <div className="flex w-full max-w-6xl flex-col items-start justify-between gap-10 sm:flex-row">
+      <div className="flex w-full max-w-[1200px] flex-col items-start justify-between gap-10 sm:flex-row">
         <div className="flex max-w-xs flex-col gap-3">
           <Link
             href="/"
@@ -55,7 +55,7 @@ export default function FooterSection() {
         </div>
       </div>
 
-      <div className="mt-12 w-full max-w-6xl border-t border-white/[0.08] pt-6">
+      <div className="mt-12 w-full max-w-[1200px] border-t border-white/[0.08] pt-6">
         <p className="text-center text-xs text-white/60">
           © {new Date().getFullYear()} OneCommit LLC. All rights reserved.
         </p>

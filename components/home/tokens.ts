@@ -11,7 +11,9 @@ export const focusRingDark =
 
 export const section = "px-4 py-24 sm:px-6 lg:py-32"
 
-export const container = "mx-auto w-full max-w-6xl"
+/* The one page rail. Heroes used to set max-w-[1200px] inline while every section
+   used max-w-6xl (1152), so content stepped 24px in and out down a single scroll. */
+export const container = "mx-auto w-full max-w-[1200px]"
 
 export const eyebrow = "text-[13px] font-semibold uppercase tracking-[0.14em] text-green"
 
@@ -28,8 +30,10 @@ export const h2Dark =
 
 export const lede = "text-pretty text-[17px] leading-[1.55] text-ink-soft sm:text-[19px]"
 
+/* min-h-11 is redundant beside h-12 but states the 44px floor explicitly, so the
+   target-size assertions can read it off any pill built from this recipe. */
 const pillBase =
-  "inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold transition-colors"
+  "inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold transition-colors"
 
 export const pillPrimary = `${pillBase} bg-green text-on-green shadow-cta hover:bg-green-mid ${focusRing}`
 

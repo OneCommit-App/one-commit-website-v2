@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import type React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { motion, useMotionValueEvent, useScroll } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import DownloadLink from "@/components/download-link"
+import { useState } from "react";
+import type React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import DownloadLink from "@/components/download-link";
 
 type PublicHeaderProps = {
-  accessSource: string
+  accessSource: string;
   /** "dark" when the page opens on a deep-green band: the glass, text, and pill tint to match. */
-  tone?: "light" | "dark"
+  tone?: "light" | "dark";
   /** The audience shell renders its own skip link ahead of this header. */
-  skipLink?: boolean
-}
+  skipLink?: boolean;
+};
 
 const primaryLinks = [
   { label: "Demo", href: "/demo" },
@@ -22,7 +22,7 @@ const primaryLinks = [
   { label: "Schools", href: "/schools" },
   { label: "Programs", href: "/athletic-programs" },
   { label: "How it works", href: "/#how-it-works" },
-]
+];
 
 const mobileLinks = [
   { label: "Demo", href: "/demo" },
@@ -32,7 +32,7 @@ const mobileLinks = [
   { label: "How it works", href: "/#how-it-works" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
-]
+];
 
 /*
  * Tone is carried by CSS variables so every link keeps one plain class string
@@ -71,27 +71,31 @@ const toneVars: Record<"light" | "dark", React.CSSProperties> = {
     "--nav-cta-bg-hover": "var(--oc-green-tint)",
     "--nav-cta-fg": "var(--oc-shell)",
   } as React.CSSProperties,
-}
+};
 
 const focusRing =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]"
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]";
 
 const secondaryLinkClass =
-  "hidden min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-[color:var(--nav-fg-soft)] transition-colors hover:text-[color:var(--nav-fg)] md:inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]"
+  "hidden min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-[color:var(--nav-fg-soft)] transition-colors hover:text-[color:var(--nav-fg)] md:inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]";
 
 /**
  * Shared frosted-glass navigation for every route away from the homepage. It is
  * transparent over the top of the page and turns to glass with a hairline once the
  * page scrolls, matching components/home/site-nav.tsx.
  */
-export default function PublicHeader({ accessSource, tone = "light", skipLink = true }: PublicHeaderProps) {
-  const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const { scrollY } = useScroll()
+export default function PublicHeader({
+  accessSource,
+  tone = "light",
+  skipLink = true,
+}: PublicHeaderProps) {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 12))
+  useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 12));
 
-  const frosted = scrolled || open
+  const frosted = scrolled || open;
 
   return (
     <div className="contents" style={toneVars[tone]}>
@@ -111,16 +115,24 @@ export default function PublicHeader({ accessSource, tone = "light", skipLink = 
             : "border-transparent bg-transparent"
         }`}
       >
-        <nav aria-label="Primary navigation">
-          <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        <nav aria-label="Primary navigation" className="px-4 sm:px-6">
+          <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between gap-3">
             <div className="flex items-center">
               <Link
                 href="/"
                 aria-label="OneCommit home"
                 className="-ml-2 flex min-h-11 items-center gap-2 rounded-full px-2 text-[color:var(--nav-fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]"
               >
-                <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px] rounded-full ring-1 ring-ink/10" />
-                <span className="hidden text-[15px] font-semibold tracking-[-0.01em] min-[360px]:inline">OneCommit</span>
+                <Image
+                  src="/logo.png"
+                  alt=""
+                  width={26}
+                  height={26}
+                  className="h-[26px] w-[26px] rounded-full ring-1 ring-ink/10"
+                />
+                <span className="hidden text-[15px] font-semibold tracking-[-0.01em] min-[360px]:inline">
+                  OneCommit
+                </span>
               </Link>
               <div className="ml-3 hidden items-center gap-0.5 md:flex">
                 {primaryLinks.map(({ label, href }) => (
@@ -137,11 +149,17 @@ export default function PublicHeader({ accessSource, tone = "light", skipLink = 
                 data-mobile-menu-toggle="true"
                 onClick={() => setOpen((value) => !value)}
                 className={`flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--nav-fg-soft)] transition-colors hover:text-[color:var(--nav-fg)] md:hidden ${focusRing}`}
-                aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+                aria-label={
+                  open ? "Close navigation menu" : "Open navigation menu"
+                }
                 aria-expanded={open}
                 aria-controls="route-mobile-navigation"
               >
-                {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+                {open ? (
+                  <X size={18} aria-hidden="true" />
+                ) : (
+                  <Menu size={18} aria-hidden="true" />
+                )}
               </button>
               <DownloadLink
                 analyticsSource={accessSource}
@@ -161,7 +179,10 @@ export default function PublicHeader({ accessSource, tone = "light", skipLink = 
             data-mobile-navigation="true"
             className={`${open ? "block" : "hidden"} border-t border-[color:var(--nav-line)] bg-[color:var(--nav-glass-solid)] backdrop-blur-xl md:hidden`}
           >
-            <div data-mobile-navigation-links="true" className="mx-auto flex w-full max-w-6xl flex-col px-3 py-2">
+            <div
+              data-mobile-navigation-links="true"
+              className="mx-auto flex w-full max-w-[1200px] flex-col px-3 py-2"
+            >
               {mobileLinks.map(({ label, href }) => (
                 <Link
                   key={label}
@@ -177,5 +198,5 @@ export default function PublicHeader({ accessSource, tone = "light", skipLink = 
         </nav>
       </header>
     </div>
-  )
+  );
 }

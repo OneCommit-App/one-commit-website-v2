@@ -65,7 +65,7 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
           three wrapped rows below 240px, two rows on narrow phones, one row from sm up.
         */}
         <section className="oc-wash relative overflow-x-clip px-4 pb-16 pt-64 min-[240px]:pt-52 sm:px-6 sm:pb-24 sm:pt-40 lg:pt-44">
-          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+          <div className={`${container} grid items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8`}>
             <div>
               <p className={eyebrow}>{audience.eyebrow}</p>
               <h1 className={`mt-5 ${h1}`}>{audience.headline}</h1>
@@ -177,19 +177,22 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
             </Reveal>
 
             <figure className="mx-auto w-full max-w-[640px]">
-              <div className="flex items-end justify-center gap-5 sm:gap-7">
-                <div className="w-[46%] max-w-[286px]">
+              {/* Paired from sm up; stacked below it, where 46% of the column is ~165px
+                  and the school rows, OneScore chips and Email actions the caption
+                  names cannot resolve. */}
+              <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-end sm:justify-center sm:gap-7">
+                <div className="w-[78%] max-w-[300px] sm:w-[46%] sm:max-w-[286px]">
                   <DeviceFrame
                     src="/app/pipeline.png"
                     alt="OneCommit Pipeline: six saved D3 schools, each with its OneScore and an Email action, above a prompt to connect an inbox so messages send from the athlete's own address"
-                    sizes="(max-width: 640px) 44vw, 286px"
+                    sizes="(max-width: 640px) 300px, 286px"
                   />
                 </div>
-                <div className="w-[46%] max-w-[286px]">
+                <div className="w-[78%] max-w-[300px] sm:w-[46%] sm:max-w-[286px]">
                   <DeviceFrame
                     src="/app/riley.png"
                     alt="OneCommit home: the day's focused actions above The Queue, which counts matches, sent messages, and replies"
-                    sizes="(max-width: 640px) 44vw, 286px"
+                    sizes="(max-width: 640px) 300px, 286px"
                   />
                 </div>
               </div>

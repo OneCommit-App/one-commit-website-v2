@@ -21,7 +21,7 @@ export default function AudienceNav({ current }: { current: AudienceKey }) {
       </a>
       <PublicHeader accessSource={`${audiences[current].eventSource}_header`} skipLink={false} />
       <nav aria-label="Audience pages" className="absolute inset-x-0 top-14 z-30 px-4 pt-3 sm:px-6">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap gap-2">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-wrap gap-2">
           {audienceOrder.map((key) => {
             const audience = audiences[key]
             const isCurrent = key === current

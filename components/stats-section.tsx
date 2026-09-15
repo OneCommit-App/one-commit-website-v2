@@ -35,7 +35,7 @@ export default function StatsSection({ items = defaultItems }: { items?: TrustPo
     <section aria-label="What the beta includes" className="px-4 sm:px-6">
       <RevealGroup
         stagger={0.1}
-        className="oc-raised mx-auto grid w-full max-w-6xl gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
+        className="oc-raised mx-auto grid w-full max-w-[1200px] gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
       >
         {items.map(({ icon: Icon, label, detail }) => (
           <RevealItem key={label} y={12} className="flex gap-4 bg-card p-6 sm:p-7">

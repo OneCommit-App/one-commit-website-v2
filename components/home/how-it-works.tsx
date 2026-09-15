@@ -111,7 +111,7 @@ export default function HowItWorks() {
     <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-20 overflow-x-clip bg-canvas px-4 pb-10 sm:px-6 lg:pb-16">
       {/* Small screens: the heading scrolls away before the panel pins, so the pinned
           panel only has to fit the phone, the step copy, and the dots. */}
-      <div className="mx-auto w-full max-w-6xl pt-20 lg:hidden">
+      <div className="mx-auto w-full max-w-[1200px] pt-20 lg:hidden">
         <p className={eyebrow}>How it works</p>
         <h2 id="how-heading-compact" className={`mt-4 ${h2}`}>
           Five steps. You&rsquo;re in control.
@@ -121,7 +121,7 @@ export default function HowItWorks() {
       <div
         ref={wrapRef}
         style={{ height: still ? "auto" : `calc(${panelHeight} + ${steps.length} * ${stepTravel})` }}
-        className="relative mx-auto w-full max-w-6xl"
+        className="relative mx-auto w-full max-w-[1200px]"
       >
         <div
           style={still ? undefined : { top: panelTop, height: panelHeight }}

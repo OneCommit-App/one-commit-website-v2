@@ -9,25 +9,25 @@ import { EASE_OUT, Reveal, RevealGroup, RevealItem, useStill } from "@/component
 const features = [
   {
     title: "Riley-guided voice onboarding",
-    desc: "Use Riley's voice conversation to capture marks, academics, and college preferences, then review the profile details.",
+    desc: "A spoken intake instead of a recruiting form. Riley asks, the athlete answers, and every captured detail is editable before anything uses it.",
     image: "/app/profile.png",
     alt: "OneCommit profile screen with a 200m mark, GPA and target prompts, a Riley's Take card, and the OneScore readiness meter",
   },
   {
     title: "SmartAdd + Search",
-    desc: "Search the current D3 beta dataset and save schools to your working list.",
+    desc: "Browse, describe what you want, or search by name across the current D3 beta dataset. Saving a school moves it onto the working list.",
     image: "/app/explore.png",
     alt: "OneCommit Explore screen with Explore, SmartAdd, and Search tabs and a scored program",
   },
   {
     title: "Outreach Dashboard",
-    desc: "Draft emails and organize connected recruiting messages and replies by school.",
+    desc: "One list of every saved school, each carrying its own draft, what has been sent, and what has come back.",
     image: "/app/pipeline.png",
     alt: "OneCommit Pipeline screen listing saved schools with email actions",
   },
   {
     title: "Reply Tracking",
-    desc: "See match details, communication history, and reply status for each saved school.",
+    desc: "Per-school history: the match detail behind the score, the messages in order, and whether a coach has written back.",
     image: "/app/riley.png",
     alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
   },

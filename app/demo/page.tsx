@@ -118,7 +118,7 @@ export default function DemoPage() {
         </section>
 
         <section aria-label="Get the app" className="px-4 pb-24 sm:px-6 lg:pb-32">
-          <Reveal className="mx-auto flex w-full max-w-6xl flex-col items-start gap-6 rounded-hero bg-canvas-subtle p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+          <Reveal className="mx-auto flex w-full max-w-[1200px] flex-col items-start gap-6 rounded-hero bg-canvas-subtle p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
             <p className="max-w-xl text-[17px] leading-[1.55] text-ink sm:text-[19px]">
               Build your college list from your own marks and grades. Then run the outreach.
             </p>
