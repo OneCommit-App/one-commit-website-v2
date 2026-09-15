@@ -1,4 +1,3 @@
-import Image from "next/image"
 import {
   ArrowRight,
   CheckCircle2,
@@ -178,27 +177,25 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
             </Reveal>
 
             <figure className="mx-auto w-full max-w-[640px]">
-              <div className="flex items-end justify-center gap-4 sm:gap-6">
-                <Image
-                  src="/app-explore.png"
-                  alt="Earlier beta build: OneCommit Explore search results listing D3 schools with match percentages and Target or Reach labels"
-                  width={932}
-                  height={1786}
-                  sizes="(max-width: 640px) 44vw, 300px"
-                  className="h-auto w-[46%] max-w-[300px] mix-blend-lighten"
-                />
-                <Image
-                  src="/app-track-replies.png"
-                  alt="Earlier beta build: OneCommit school detail for one D3 program showing match, sent count, and a communication history with a received reply and a sent email"
-                  width={932}
-                  height={1786}
-                  sizes="(max-width: 640px) 44vw, 300px"
-                  className="h-auto w-[46%] max-w-[300px] mix-blend-lighten"
-                />
+              <div className="flex items-end justify-center gap-5 sm:gap-7">
+                <div className="w-[46%] max-w-[286px]">
+                  <DeviceFrame
+                    src="/app/pipeline.png"
+                    alt="OneCommit Pipeline: six saved D3 schools, each with its OneScore and an Email action, above a prompt to connect an inbox so messages send from the athlete's own address"
+                    sizes="(max-width: 640px) 44vw, 286px"
+                  />
+                </div>
+                <div className="w-[46%] max-w-[286px]">
+                  <DeviceFrame
+                    src="/app/riley.png"
+                    alt="OneCommit home: the day's focused actions above The Queue, which counts matches, sent messages, and replies"
+                    sizes="(max-width: 640px) 44vw, 286px"
+                  />
+                </div>
               </div>
-              <figcaption className="mt-5 text-center text-[13px] leading-relaxed text-white/70">
-                Captured on an earlier beta build: a matched school list and one school&rsquo;s communication history.
-                The current Explore screen is shown above.
+              <figcaption className="mt-6 text-center text-[13px] leading-relaxed text-white/70">
+                The current beta build: the saved school list with its outreach actions, and the home queue that counts
+                matches, sent messages, and replies.
               </figcaption>
             </figure>
           </div>

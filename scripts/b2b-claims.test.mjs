@@ -73,8 +73,8 @@ test("shared audience page exposes real athlete screens and accessible interacti
   const combined = `${page}\n${nav}\n${boundaries}`
 
   for (const fragment of [
-    'src="/app-explore.png"',
-    'src="/app-track-replies.png"',
+    'src="/app/pipeline.png"',
+    'src="/app/riley.png"',
     'id="main-content"',
     'href="#main-content"',
     'aria-label="Audience pages"',
