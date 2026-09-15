@@ -1,12 +1,16 @@
 "use client"
 
-import { container, eyebrow, section } from "@/components/home/tokens"
+import { eyebrow, section } from "@/components/home/tokens"
 import { Reveal } from "@/components/reveal"
 
 export default function FounderStory() {
   return (
     <section aria-labelledby="story-heading" className={`${section} bg-canvas-subtle`}>
-      <div className={`${container} max-w-3xl`}>
+      {/* Deliberately not the shared container token plus max-w-3xl: both are
+          max-width utilities in the same layer, so the token's max-w-6xl won on
+          emission order whatever the class string said, and this narrative set at
+          121 characters a line. One explicit box, measured to a ~73-character median. */}
+      <div className="mx-auto w-full max-w-[38rem]">
         <Reveal>
           <p className={eyebrow}>Our story</p>
           <h2 id="story-heading" className="sr-only">

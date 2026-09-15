@@ -39,6 +39,10 @@ const mobileLinks = [
  * (the public-shell gate reads those strings) while the colors follow the band
  * the page opens on. Light: canvas glass, ink text, green pill. Dark: shell glass,
  * white text, white pill.
+ *
+ * The light tone resolves through --oc-* tokens rather than literals so it follows
+ * the colour scheme: a paper-white literal here renders a light bar on the dark
+ * canvas once the page is scrolled, and pairs white with a mint pill.
  */
 const toneVars: Record<"light" | "dark", React.CSSProperties> = {
   light: {
@@ -47,12 +51,12 @@ const toneVars: Record<"light" | "dark", React.CSSProperties> = {
     "--nav-hover": "rgba(11, 31, 24, 0.05)",
     "--nav-ring": "var(--oc-green-mid)",
     "--nav-bg": "var(--oc-bg)",
-    "--nav-glass": "rgba(247, 248, 245, 0.8)",
-    "--nav-glass-solid": "rgba(247, 248, 245, 0.95)",
+    "--nav-glass": "color-mix(in srgb, var(--oc-bg) 80%, transparent)",
+    "--nav-glass-solid": "color-mix(in srgb, var(--oc-bg) 95%, transparent)",
     "--nav-line": "var(--oc-line)",
     "--nav-cta-bg": "var(--oc-green)",
     "--nav-cta-bg-hover": "var(--oc-green-mid)",
-    "--nav-cta-fg": "#ffffff",
+    "--nav-cta-fg": "var(--oc-on-green)",
   } as React.CSSProperties,
   dark: {
     "--nav-fg": "#ffffff",
