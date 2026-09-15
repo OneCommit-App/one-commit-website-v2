@@ -45,7 +45,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.3, ease: EASE_OUT }}
                     className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
                       isOpen
-                        ? "bg-green text-white"
+                        ? "bg-green text-on-green"
                         : "bg-canvas-subtle text-ink-soft group-hover:bg-green-soft group-hover:text-green"
                     }`}
                   >

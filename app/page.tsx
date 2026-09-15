@@ -264,7 +264,7 @@ function LandingPageContent() {
       <div id="onecommit-home" className="relative min-h-screen w-full bg-canvas text-ink">
         <a
           href="#main-content"
-          className={`sr-only fixed left-4 top-4 z-[80] rounded-full bg-green px-4 py-3 text-sm font-semibold text-white shadow-cta focus:not-sr-only ${focusRing}`}
+          className={`sr-only fixed left-4 top-4 z-[80] rounded-full bg-green px-4 py-3 text-sm font-semibold text-on-green shadow-cta focus:not-sr-only ${focusRing}`}
         >
           Skip to main content
         </a>

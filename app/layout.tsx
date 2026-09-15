@@ -69,10 +69,14 @@ export const metadata: Metadata = {
     : {}),
 }
 
-// Light homepage canvas. Routes that still render the dark shell override this with
-// lib/dark-shell-viewport.ts so mobile browser chrome matches each page.
+// Mobile browser chrome follows the page canvas in each scheme (--oc-bg in
+// app/globals.css). Routes that open on the deep-green band override this with
+// lib/dark-shell-viewport.ts.
 export const viewport: Viewport = {
-  themeColor: "#f7f8f5",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f8f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#06100c" },
+  ],
 }
 
 export default function RootLayout({

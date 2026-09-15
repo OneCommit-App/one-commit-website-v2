@@ -6,5 +6,8 @@ import type { Viewport } from "next"
  * root layout's #f7f8f5, so the address bar matches whatever the page opens on.
  */
 export const darkShellViewport: Viewport = {
-  themeColor: "#0b2a1f",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0b2a1f" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d2119" },
+  ],
 }

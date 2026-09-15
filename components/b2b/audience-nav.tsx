@@ -15,7 +15,7 @@ export default function AudienceNav({ current }: { current: AudienceKey }) {
     <>
       <a
         href="#main-content"
-        className="fixed left-4 top-0 z-[100] inline-flex min-h-11 -translate-y-full items-center rounded-full bg-green px-4 text-sm font-semibold text-white transition-transform focus:top-4 focus:translate-y-0 focus:shadow-cta focus:outline-none focus:ring-2 focus:ring-green-mid focus:ring-offset-2 focus:ring-offset-canvas"
+        className="fixed left-4 top-0 z-[100] inline-flex min-h-11 -translate-y-full items-center rounded-full bg-green px-4 text-sm font-semibold text-on-green transition-transform focus:top-4 focus:translate-y-0 focus:shadow-cta focus:outline-none focus:ring-2 focus:ring-green-mid focus:ring-offset-2 focus:ring-offset-canvas"
       >
         Skip to main content
       </a>
@@ -32,7 +32,7 @@ export default function AudienceNav({ current }: { current: AudienceKey }) {
                 aria-current={isCurrent ? "page" : undefined}
                 className={`${chipClass} ${
                   isCurrent
-                    ? "border-green bg-green text-white"
+                    ? "border-green bg-green text-on-green"
                     : "border-line bg-card text-ink-soft hover:border-ink/20 hover:text-ink"
                 }`}
               >

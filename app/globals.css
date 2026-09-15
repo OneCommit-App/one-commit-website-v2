@@ -32,6 +32,20 @@
   --oc-clay: #8a4c10;
   --oc-amber-ink: #a6611e;
 
+  /* Paired with --oc-green so the primary pill keeps AA contrast in both schemes:
+     light = white on forest, dark = deep forest on mint. */
+  --oc-on-green: #ffffff;
+
+  /* Elevation is ink-tinted on the light canvas and black-tinted in the dark one. */
+  --oc-shadow-soft: 0 6px 24px rgba(11, 31, 24, 0.06);
+  --oc-shadow-lift: 0 18px 48px -12px rgba(11, 31, 24, 0.14), 0 6px 16px -8px rgba(11, 31, 24, 0.08);
+  --oc-shadow-cta: 0 8px 20px rgba(11, 74, 56, 0.22);
+
+  /* Hairline highlight along the top of raised surfaces. Invisible on light. */
+  --oc-sheen: rgba(255, 255, 255, 0);
+
+  color-scheme: light;
+
   /* shadcn-compatible aliases mapped onto the app palette (light canvas) */
   --background: var(--oc-bg);
   --foreground: var(--oc-ink);
@@ -40,7 +54,7 @@
   --popover: var(--oc-card);
   --popover-foreground: var(--oc-ink);
   --primary: var(--oc-green);
-  --primary-foreground: #ffffff;
+  --primary-foreground: var(--oc-on-green);
   --secondary: var(--oc-green-soft);
   --secondary-foreground: var(--oc-green);
   --muted: var(--oc-bg-subtle);
@@ -53,6 +67,82 @@
   --input: var(--oc-line);
   --ring: var(--oc-green-mid);
   --radius: 0.875rem;
+}
+
+/* ── Dark scheme ──────────────────────────────────────────────────────────────
+   The same palette after dark: a forest-black canvas instead of a paper one, and
+   the accent inverted from deep forest to mint so it stays readable as body-weight
+   text AND usable as a button surface (--oc-on-green carries the pill's ink).
+   Every surface on the site is expressed in these tokens, so the whole set —
+   homepage, audience pages, legal, 404 — follows from this block.
+   Declared once and applied from two selectors: the OS preference (unless the
+   document opts into light) and an explicit .dark class. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+
+    --oc-bg: #06100c;
+    --oc-bg-subtle: #0a1711;
+    --oc-card: #0e1d16;
+    --oc-mist: #132a20;
+    --oc-ink: #e9f2ec;
+    --oc-ink-soft: rgba(233, 242, 236, 0.66);
+    --oc-ink-faint: rgba(233, 242, 236, 0.45);
+    --oc-line: rgba(233, 242, 236, 0.11);
+    --oc-green: #74dfa8;
+    --oc-green-mid: #97efc1;
+    --oc-on-green: #05150f;
+    --oc-shell: #0d2119;
+    --oc-shell-deep: #081912;
+    --oc-mint: #9cd8b5;
+    --oc-green-soft: rgba(116, 223, 168, 0.13);
+    --oc-green-tint: rgba(116, 223, 168, 0.07);
+    --oc-amber: #f0a960;
+    --oc-orange-soft: rgba(232, 146, 72, 0.18);
+    --oc-clay: #e8a866;
+    --oc-amber-ink: #f0b27a;
+
+    --oc-shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.5);
+    --oc-shadow-lift: 0 18px 48px -12px rgba(0, 0, 0, 0.66), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+    --oc-shadow-cta: 0 8px 24px rgba(116, 223, 168, 0.16);
+    --oc-sheen: rgba(255, 255, 255, 0.05);
+
+    --destructive: oklch(0.68 0.19 25);
+  }
+}
+
+/* Explicit opt-in (next-themes writes .dark on <html>). Keep in sync with the
+   media-query block above — same declarations, different trigger. */
+:root.dark {
+  color-scheme: dark;
+
+  --oc-bg: #06100c;
+  --oc-bg-subtle: #0a1711;
+  --oc-card: #0e1d16;
+  --oc-mist: #132a20;
+  --oc-ink: #e9f2ec;
+  --oc-ink-soft: rgba(233, 242, 236, 0.66);
+  --oc-ink-faint: rgba(233, 242, 236, 0.45);
+  --oc-line: rgba(233, 242, 236, 0.11);
+  --oc-green: #74dfa8;
+  --oc-green-mid: #97efc1;
+  --oc-on-green: #05150f;
+  --oc-shell: #0d2119;
+  --oc-shell-deep: #081912;
+  --oc-mint: #9cd8b5;
+  --oc-green-soft: rgba(116, 223, 168, 0.13);
+  --oc-green-tint: rgba(116, 223, 168, 0.07);
+  --oc-amber: #f0a960;
+  --oc-orange-soft: rgba(232, 146, 72, 0.18);
+  --oc-clay: #e8a866;
+  --oc-amber-ink: #f0b27a;
+
+  --oc-shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.5);
+  --oc-shadow-lift: 0 18px 48px -12px rgba(0, 0, 0, 0.66), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+  --oc-shadow-cta: 0 8px 24px rgba(116, 223, 168, 0.16);
+  --oc-sheen: rgba(255, 255, 255, 0.05);
+
+  --destructive: oklch(0.68 0.19 25);
 }
 
 @theme inline {
@@ -99,6 +189,7 @@
   --color-orange-soft: var(--oc-orange-soft);
   --color-clay: var(--oc-clay);
   --color-amber-ink: var(--oc-amber-ink);
+  --color-on-green: var(--oc-on-green);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -108,9 +199,9 @@
   --radius-card: 22px;
   --radius-hero: 26px;
 
-  --shadow-soft: 0 6px 24px rgba(11, 31, 24, 0.06);
-  --shadow-lift: 0 18px 48px -12px rgba(11, 31, 24, 0.14), 0 6px 16px -8px rgba(11, 31, 24, 0.08);
-  --shadow-cta: 0 8px 20px rgba(11, 74, 56, 0.22);
+  --shadow-soft: var(--oc-shadow-soft);
+  --shadow-lift: var(--oc-shadow-lift);
+  --shadow-cta: var(--oc-shadow-cta);
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -128,9 +219,29 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
+    /* Mint is the same in both schemes, so the ink on it is a literal rather
+       than --oc-ink, which inverts. */
     background: var(--oc-mint);
-    color: var(--oc-ink);
+    color: #05150f;
   }
+}
+
+/* Raised surface: a hairline highlight down the top edge. Transparent on the
+   light canvas, where a soft shadow is enough to lift a card; after dark it is
+   what separates an elevated surface from the canvas behind it. */
+.oc-raised {
+  position: relative;
+  isolation: isolate;
+}
+
+.oc-raised::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(180deg, var(--oc-sheen), transparent 45%);
+  pointer-events: none;
 }
 
 /* ── CSS-drawn iPhone frame (components/device-frame.tsx) ── */

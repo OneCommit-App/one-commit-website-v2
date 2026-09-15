@@ -53,7 +53,7 @@ export default function SiteNav() {
             aria-label="OneCommit home"
             className={`-ml-2 flex min-h-11 items-center gap-2 rounded-full px-2 text-ink ${focusRing}`}
           >
-            <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px] rounded-full" />
+            <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px] rounded-full ring-1 ring-ink/10" />
             <span className="hidden text-[15px] font-semibold tracking-[-0.01em] min-[360px]:inline">OneCommit</span>
           </Link>
           <div className="ml-3 hidden items-center gap-0.5 md:flex">
@@ -84,7 +84,7 @@ export default function SiteNav() {
           <DownloadLink
             analyticsSource="home_nav"
             fallbackLabel="Request Access"
-            className={`inline-flex h-10 items-center whitespace-nowrap rounded-full bg-green px-4 text-[13px] font-semibold text-white shadow-cta transition-colors hover:bg-green-mid ${focusRing}`}
+            className={`inline-flex h-10 items-center whitespace-nowrap rounded-full bg-green px-4 text-[13px] font-semibold text-on-green shadow-cta transition-colors hover:bg-green-mid ${focusRing}`}
           >
             Download App
           </DownloadLink>

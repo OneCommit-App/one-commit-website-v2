@@ -27,7 +27,7 @@ export default function NotFound() {
           <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <Link
               href="/"
-              className="group inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+              className="group inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-on-green shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
             >
               Go to OneCommit
               <ArrowRight

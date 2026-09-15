@@ -56,7 +56,7 @@ const supportSections = [
           href="mailto:admin@onecommit.us"
           eventName="support_click"
           eventSource="support_contact"
-          className="inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+          className="inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-on-green shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         >
           admin@onecommit.us
           <ArrowUpRight aria-hidden="true" size={15} />

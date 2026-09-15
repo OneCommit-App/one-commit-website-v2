@@ -161,7 +161,7 @@ export default function HowItWorks() {
                         <span
                           className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold transition-colors duration-300 ${
                             isActive
-                              ? "bg-green text-white"
+                              ? "bg-green text-on-green"
                               : "bg-canvas text-ink/70 ring-1 ring-line group-hover:text-ink"
                           }`}
                         >

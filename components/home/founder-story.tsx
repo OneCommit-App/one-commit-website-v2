@@ -30,7 +30,7 @@ export default function FounderStory() {
         </Reveal>
 
         <Reveal delay={0.15} className="mt-10 flex items-center gap-4 border-t border-line pt-8">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green text-[13px] font-bold text-white">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green text-[13px] font-bold text-on-green">
             HK
           </span>
           <div>

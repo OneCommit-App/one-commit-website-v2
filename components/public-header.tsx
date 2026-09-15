@@ -115,7 +115,7 @@ export default function PublicHeader({ accessSource, tone = "light", skipLink = 
                 aria-label="OneCommit home"
                 className="-ml-2 flex min-h-11 items-center gap-2 rounded-full px-2 text-[color:var(--nav-fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]"
               >
-                <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px] rounded-full" />
+                <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px] rounded-full ring-1 ring-ink/10" />
                 <span className="hidden text-[15px] font-semibold tracking-[-0.01em] min-[360px]:inline">OneCommit</span>
               </Link>
               <div className="ml-3 hidden items-center gap-0.5 md:flex">

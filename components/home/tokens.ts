@@ -28,10 +28,10 @@ export const lede = "text-pretty text-[17px] leading-[1.55] text-ink-soft sm:tex
 const pillBase =
   "inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold transition-colors"
 
-export const pillPrimary = `${pillBase} bg-green text-white shadow-cta hover:bg-green-mid ${focusRing}`
+export const pillPrimary = `${pillBase} bg-green text-on-green shadow-cta hover:bg-green-mid ${focusRing}`
 
 export const pillSecondary = `${pillBase} text-ink ring-1 ring-inset ring-ink/15 hover:bg-ink/5 ${focusRing}`
 
-export const pillPrimaryDark = `${pillBase} bg-white text-shell hover:bg-green-tint ${focusRingDark}`
+export const pillPrimaryDark = `${pillBase} bg-white text-shell hover:bg-mint ${focusRingDark}`
 
 export const pillSecondaryDark = `${pillBase} text-white ring-1 ring-inset ring-white/25 hover:bg-white/10 ${focusRingDark}`
