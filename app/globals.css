@@ -72,6 +72,18 @@
   --input: var(--oc-line);
   --ring: var(--oc-green-mid);
   --radius: 0.875rem;
+
+  /* How far the page scrolls per step of the pinned how-it-works panel
+     (components/home/how-it-works.tsx). It multiplies by five, so it is the single
+     biggest lever on total page height — at the old 80svh/40rem the section alone
+     was 4,044px of a 14,815px page. */
+  --oc-step-travel: min(45svh, 22rem);
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --oc-step-travel: min(42svh, 21rem);
+  }
 }
 
 /* ── Dark scheme ──────────────────────────────────────────────────────────────

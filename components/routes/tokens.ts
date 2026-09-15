@@ -5,10 +5,10 @@
  */
 
 export const h1 =
-  "text-balance text-[2.5rem] font-bold leading-[1.04] tracking-[-0.035em] text-ink sm:text-[3.25rem] lg:text-[3.75rem]"
+  "text-balance text-[2.5rem] font-bold leading-[1.04] tracking-[-0.035em] text-ink sm:text-[3rem] lg:text-[3.25rem]"
 
 export const h1Dark =
-  "text-balance text-[2.5rem] font-bold leading-[1.04] tracking-[-0.035em] text-white sm:text-[3.25rem] lg:text-[3.75rem]"
+  "text-balance text-[2.5rem] font-bold leading-[1.04] tracking-[-0.035em] text-white sm:text-[3rem] lg:text-[3.25rem]"
 
 export const h3 = "text-[20px] font-semibold tracking-[-0.015em] text-ink"
 
@@ -16,11 +16,11 @@ export const h3 = "text-[20px] font-semibold tracking-[-0.015em] text-ink"
 export const hero = "px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
 
 /** Long-form reading copy (about, support, legal). */
-export const prose = "text-pretty text-[17px] leading-[1.65] text-ink-soft sm:text-[18px]"
+export const prose = "max-w-[62ch] text-pretty text-[17px] leading-[1.65] text-ink-soft sm:text-[18px]"
 
 export const ledeDark = "text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]"
 
-export const proseDark = "text-pretty text-[17px] leading-[1.65] text-white/70 sm:text-[18px]"
+export const proseDark = "max-w-[62ch] text-pretty text-[17px] leading-[1.65] text-white/70 sm:text-[18px]"
 
 /** Quiet text link with a 44px target, used for accountability and recovery rows. */
 export const textLink =

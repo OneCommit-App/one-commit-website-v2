@@ -40,16 +40,17 @@ const steps = [
   },
 ]
 
-const phoneSizes = "(max-width: 1024px) 200px, 340px"
+const phoneSizes = "(max-width: 1024px) 240px, 340px"
 
 /* The fixed nav (components/home/site-nav.tsx, h-14) covers the top 3.5rem of the viewport,
    so the pinned panel starts below it and fills the rest, up to 56rem; each step scrolls for
-   at most 40rem. The panel centers in the space under the nav, which puts its top exactly at
-   the nav edge whenever it fills that space. */
+   the panel centers in the space under the nav, which puts its top exactly at the nav edge
+   whenever it fills that space. Per-step scroll travel lives in --oc-step-travel so the one
+   value that multiplies by five is tunable in one place. */
 const navHeight = "3.5rem"
 const panelHeight = `min(100svh - ${navHeight}, 56rem)`
 const panelTop = `calc(${navHeight} + (100svh - ${navHeight} - ${panelHeight}) / 2)`
-const stepTravel = "min(80svh, 40rem)"
+const stepTravel = "var(--oc-step-travel)"
 
 /**
  * Sticky scrollytelling: the panel pins for one viewport per step while the phone
@@ -100,14 +101,14 @@ export default function HowItWorks() {
     ? { panel: "", heading: "", list: "", step: "", collapsed: "" }
     : {
         panel: "lg:short:py-8 lg:shorter:py-6",
-        heading: "lg:short:text-[2.75rem] lg:shorter:text-[2.25rem]",
+        heading: "lg:short:text-[2.25rem] lg:shorter:text-[2rem]",
         list: "lg:short:mt-6 lg:shorter:mt-4",
         step: "lg:short:py-2 lg:shorter:py-1.5",
         collapsed: "lg:shorter:grid-rows-[0fr]",
       }
 
   return (
-    <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-20 overflow-x-clip bg-canvas px-4 sm:px-6">
+    <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-20 overflow-x-clip bg-canvas px-4 pb-10 sm:px-6 lg:pb-16">
       {/* Small screens: the heading scrolls away before the panel pins, so the pinned
           panel only has to fit the phone, the step copy, and the dots. */}
       <div className="mx-auto w-full max-w-6xl pt-20 lg:hidden">
@@ -127,7 +128,7 @@ export default function HowItWorks() {
           className={
             still
               ? "pb-16 pt-8 lg:py-32"
-              : `sticky flex flex-col justify-start pb-6 pt-4 lg:justify-center lg:py-16 ${tier.panel}`
+              : `sticky flex flex-col justify-center pb-6 pt-4 lg:py-16 ${tier.panel}`
           }
         >
           <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
@@ -207,7 +208,7 @@ export default function HowItWorks() {
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-[6%] bottom-[12%] top-[12%] -z-10 rounded-full bg-green-soft blur-3xl"
               />
-              <div className="mx-auto w-[clamp(150px,calc((100svh-21rem)/2.11),190px)] lg:w-[min(340px,calc((100svh-12rem)/2.11))]">
+              <div className="mx-auto w-[clamp(150px,calc((100svh-21rem)/2.11),240px)] lg:w-[min(340px,calc((100svh-12rem)/2.11))]">
                 <DeviceFrame src={steps[0].image} alt={steps[active].alt} sizes={phoneSizes}>
                   {steps.slice(1).map((step, offset) => {
                     const index = offset + 1

@@ -72,9 +72,9 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
       ref={ref}
       data-home-hero="true"
       style={heroPhoneWidth}
-      className="oc-wash relative overflow-x-clip px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
+      className="oc-wash relative overflow-x-clip px-4 pb-16 pt-20 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-36"
     >
-      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
           <div className="inline-flex items-center gap-2 rounded-full bg-green-soft px-3.5 py-1.5">
             <motion.span
@@ -94,9 +94,17 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
             A recruiting system built around <span className="text-green-mid">the athlete</span>
           </h1>
 
+          {/* The first sentence is asserted verbatim against the server HTML by
+              scripts/home-ssr.test.mjs, so it stays contiguous. The second is hidden
+              below sm — `hidden` is display, not opacity, so the above-the-fold
+              opacity assertion still sees it — which lifts the device ~190px on a
+              phone, putting the app's next-goal card above the fold. */}
           <p data-home-value-proposition="true" className={`mt-6 max-w-xl ${lede}`}>
-            Turn your marks, grades, and college preferences into a focused list. Draft personal coach outreach from
-            your own inbox, review every message, and keep replies organized in one place.
+            Turn your marks, grades, and college preferences into a focused list.{" "}
+            <span className="hidden sm:inline">
+              Draft personal coach outreach from your own inbox, review every message, and keep replies organized in
+              one place.
+            </span>
           </p>
 
           <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">

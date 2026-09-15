@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckCircle2, ChevronRight } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
 import { container, eyebrow, h2, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
@@ -31,8 +31,6 @@ const useCases = [
   },
 ]
 
-const workflow = ["Profile", "OneScore", "Outreach", "Replies", "Review"]
-
 export default function WorkspaceSection() {
   return (
     <section aria-labelledby="workspace-heading" className={section}>
@@ -46,25 +44,6 @@ export default function WorkspaceSection() {
             OneCommit keeps the parts families usually scatter across notes, spreadsheets, inboxes, and memory in one
             focused workflow.
           </p>
-        </Reveal>
-
-        {/* The connector travels inside its step, so a wrap can never leave a chevron
-            pointing at nothing at the end of a row. Below sm the row wraps three deep
-            and the connectors are dropped entirely — the numbers already carry order. */}
-        <Reveal delay={0.05} className="mt-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-2.5">
-          {workflow.map((step, index) => (
-            <span key={step} className="inline-flex items-center gap-2">
-              {index > 0 && (
-                <ChevronRight size={14} aria-hidden="true" className="hidden text-ink/30 sm:inline" />
-              )}
-              <span className="inline-flex h-9 items-center gap-2 rounded-full bg-card pl-1.5 pr-3.5 text-[13px] font-semibold text-ink ring-1 ring-line">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-soft text-[11px] font-bold text-green">
-                  {index + 1}
-                </span>
-                {step}
-              </span>
-            </span>
-          ))}
         </Reveal>
 
         <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">

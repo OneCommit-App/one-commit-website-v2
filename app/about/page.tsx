@@ -106,7 +106,7 @@ export default function AboutPage() {
         </section>
 
         <section aria-labelledby="purpose-heading" className={section}>
-          <div className={`${container} grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20`}>
+          <div className={`${container} grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20`}>
             <Reveal>
               <p className={eyebrow}>Why it exists</p>
               <h2 id="purpose-heading" className={`mt-4 ${h2}`}>
