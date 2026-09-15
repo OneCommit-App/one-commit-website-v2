@@ -125,7 +125,7 @@ export default function PricingSection() {
             <ul className="mt-4 flex flex-col gap-3">
               {oldWay.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink-soft">
-                  <XCircle size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-ink-faint" />
+                  <XCircle size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-ink-soft" />
                   <span>{item}</span>
                 </li>
               ))}
