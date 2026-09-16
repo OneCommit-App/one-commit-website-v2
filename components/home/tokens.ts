@@ -39,6 +39,8 @@ export const pillPrimary = `${pillBase} bg-green text-on-green shadow-cta hover:
 
 export const pillSecondary = `${pillBase} text-ink ring-1 ring-inset ring-ink/15 hover:bg-ink/5 ${focusRing}`
 
-export const pillPrimaryDark = `${pillBase} bg-white text-shell hover:bg-mint ${focusRingDark}`
+/* On a deep-green band. Resolves to a white pill on the light page and to the same
+   mint pill the canvas uses after dark, so one CTA never carries two identities. */
+export const pillPrimaryDark = `${pillBase} bg-pill-on-shell text-pill-on-shell-fg hover:bg-mint hover:text-shell ${focusRingDark}`
 
 export const pillSecondaryDark = `${pillBase} text-white ring-1 ring-inset ring-white/25 hover:bg-white/10 ${focusRingDark}`

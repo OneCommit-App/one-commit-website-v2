@@ -36,6 +36,12 @@
      light = white on forest, dark = deep forest on mint. */
   --oc-on-green: #ffffff;
 
+  /* The primary pill when it sits ON a deep-green band rather than on the canvas.
+     Light: white pill, shell ink. Dark: the band is a lifted dark surface, so it
+     takes the same mint pill the canvas uses instead of a second identity. */
+  --oc-pill-on-shell: #ffffff;
+  --oc-pill-on-shell-fg: var(--oc-shell);
+
   /* Elevation is ink-tinted on the light canvas and black-tinted in the dark one. */
   --oc-shadow-soft: 0 6px 24px rgba(11, 31, 24, 0.06);
   --oc-shadow-lift: 0 18px 48px -12px rgba(11, 31, 24, 0.14), 0 6px 16px -8px rgba(11, 31, 24, 0.08);
@@ -113,6 +119,8 @@
     --oc-green: #74dfa8;
     --oc-green-mid: #97efc1;
     --oc-on-green: #05150f;
+    --oc-pill-on-shell: var(--oc-green);
+    --oc-pill-on-shell-fg: var(--oc-on-green);
     --oc-shell: #1a3a2d;
     --oc-shell-deep: #142e23;
     --oc-mint: #9cd8b5;
@@ -150,6 +158,8 @@
   --oc-green: #74dfa8;
   --oc-green-mid: #97efc1;
   --oc-on-green: #05150f;
+  --oc-pill-on-shell: var(--oc-green);
+  --oc-pill-on-shell-fg: var(--oc-on-green);
   --oc-shell: #1a3a2d;
   --oc-shell-deep: #142e23;
   --oc-mint: #9cd8b5;
@@ -218,6 +228,8 @@
   --color-clay: var(--oc-clay);
   --color-amber-ink: var(--oc-amber-ink);
   --color-on-green: var(--oc-on-green);
+  --color-pill-on-shell: var(--oc-pill-on-shell);
+  --color-pill-on-shell-fg: var(--oc-pill-on-shell-fg);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
