@@ -1,18 +1,8 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
 import "./globals.css"
-
-// The site renders in the system stack first (SF Pro on Apple devices, Inter where
-// installed). DM Sans stays loaded as the web fallback for platforms without either.
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-})
 
 const isVercelDeploy = process.env.VERCEL === "1"
 const appAccessDescription = hasConfiguredDownloadUrl
@@ -85,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} antialiased`}>
+    <html lang="en" className="antialiased">
       <body className="overflow-x-hidden bg-background font-sans text-foreground antialiased">
         {children}
         {isVercelDeploy && <Analytics />}

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState } from "react"
+import { mobileNavLinks } from "@/lib/nav-links"
+import { useMenuLayer } from "@/components/use-menu-layer";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
@@ -16,19 +18,11 @@ const primaryLinks = [
   { label: "How it works", href: "#how-it-works" },
 ];
 
-const mobileLinks = [
-  { label: "Demo", href: "/demo" },
-  { label: "Coaches", href: "/coaches" },
-  { label: "Schools", href: "/schools" },
-  { label: "Athletic Programs", href: "/athletic-programs" },
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-];
 
 /** Transparent over the hero; turns to frosted glass with a hairline once the page scrolls. */
 export default function SiteNav() {
   const [open, setOpen] = useState(false);
+  useMenuLayer(open, () => setOpen(false));
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
@@ -103,6 +97,16 @@ export default function SiteNav() {
         </div>
       </div>
 
+      {open ? (
+        <button
+          type="button"
+          aria-hidden="true"
+          tabIndex={-1}
+          onClick={() => setOpen(false)}
+          className="fixed inset-x-0 bottom-0 top-14 -z-10 cursor-default bg-ink/20 md:hidden"
+        />
+      ) : null}
+
       <motion.div
         initial={false}
         animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
@@ -114,7 +118,7 @@ export default function SiteNav() {
           data-mobile-navigation-links="true"
           className="mx-auto flex w-full max-w-[1200px] flex-col px-3 py-2"
         >
-          {mobileLinks.map(({ label, href }) => (
+          {mobileNavLinks.map(({ label, href }) => (
             <a
               key={label}
               href={href}
