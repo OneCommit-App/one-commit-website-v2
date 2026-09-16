@@ -108,8 +108,8 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
               />
               <div className="mx-auto w-[min(280px,74vw)] lg:w-[340px]">
                 <DeviceFrame
-                  src="/app/explore.png"
-                  alt="OneCommit Explore screen scoring a D3 program against the athlete's 200m and 400m marks, GPA, and SAT, with a Save to pipeline action"
+                  src={audience.heroImage.src}
+                  alt={audience.heroImage.alt}
                   priority
                   sizes="(max-width: 1024px) 280px, 340px"
                 />
@@ -206,8 +206,8 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
 
         <PilotBoundaries available={audience.available} unavailable={audience.unavailable} />
 
-        <section aria-labelledby="pilot-conversation-heading" className="oc-band bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
-          <div className={`${container} grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]`}>
+        <section aria-labelledby="pilot-conversation-heading" className="oc-band bg-shell px-4 py-20 text-white sm:px-6 lg:py-24">
+          <div className={container}>
             <Reveal>
               <p className={eyebrowDark}>Pilot conversation</p>
               <h2 id="pilot-conversation-heading" className={`mt-4 ${h2Dark}`}>
@@ -221,7 +221,7 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
                 {isCoachPage ? "A coach invitation" : "An adult pilot conversation"} does not replace that permission.
               </p>
             </Reveal>
-            <Reveal delay={0.1} className="flex lg:justify-end">
+            <Reveal delay={0.1} className="mt-8 flex">
               <TrackedLink
                 href={audience.mailtoHref}
                 eventName={interestEvent}

@@ -91,8 +91,8 @@ export default function DemoPage() {
         </section>
 
         <section aria-labelledby="demo-chapters-heading" className={section}>
-          <div className={`${container} grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20`}>
-            <Reveal className="lg:sticky lg:top-28 lg:self-start">
+          <div className={`${container} grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-20`}>
+            <Reveal>
               <p className={eyebrow}>What the walkthrough covers</p>
               <h2 id="demo-chapters-heading" className={`mt-4 ${h2}`}>
                 Profile, matches, outreach, replies.

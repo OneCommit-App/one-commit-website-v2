@@ -32,9 +32,14 @@ const audienceCards = [
   },
 ]
 
+/*
+ * Deliberately on the plain canvas: founder-story and pricing both sit on
+ * bg-canvas-subtle, and three consecutive tinted sections read as one
+ * undifferentiated stretch with no edge between them.
+ */
 export default function AudienceChooser() {
   return (
-    <section aria-labelledby="audience-chooser-heading" className={`${section} bg-canvas-subtle`}>
+    <section aria-labelledby="audience-chooser-heading" className={section}>
       <div className={container}>
         <Reveal className="max-w-3xl">
           <p className={eyebrow}>For the adults supporting the athlete</p>

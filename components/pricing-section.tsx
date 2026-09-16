@@ -81,7 +81,7 @@ export default function PricingSection() {
                   {plan.eyebrow}
                 </span>
                 <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink">{plan.name}</h3>
-                <p className="mt-2 min-h-16 text-[15px] leading-relaxed text-ink-soft">{plan.description}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink-soft sm:min-h-16">{plan.description}</p>
 
                 <div className="mt-6">
                   <div className="flex items-end gap-2">
@@ -109,7 +109,7 @@ export default function PricingSection() {
             )
           })}
 
-          <RevealItem className="oc-raised flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8">
+          <RevealItem className="oc-raised order-first flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8 lg:order-none">
             <span className="inline-flex w-fit rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">
               Old way
             </span>

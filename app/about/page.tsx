@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import DeviceFrame from "@/components/device-frame";
+import DownloadLink from "@/components/download-link";
 import FooterSection from "@/components/footer-section";
 import {
   container,
@@ -10,6 +11,8 @@ import {
   h2,
   h2Dark,
   lede,
+  pillPrimary,
+  pillSecondary,
   section,
 } from "@/components/home/tokens";
 import PublicHeader from "@/components/public-header";
@@ -98,6 +101,24 @@ export default function AboutPage() {
                 evaluate D3-focused school matches, and manage recruiting
                 outreach from their own account.
               </p>
+              <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
+                <DownloadLink analyticsSource="about_hero" className={`${pillPrimary} group w-full sm:w-auto`}>
+                  Download the App
+                  <ArrowRight
+                    size={16}
+                    aria-hidden="true"
+                    className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
+                  />
+                </DownloadLink>
+                <TrackedLink
+                  href="/demo"
+                  eventName="demo_click"
+                  eventSource="about_hero"
+                  className={`${pillSecondary} w-full sm:w-auto`}
+                >
+                  Watch the 1-minute demo
+                </TrackedLink>
+              </div>
             </div>
 
             <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
@@ -180,9 +201,9 @@ export default function AboutPage() {
           className={`${section} bg-canvas-subtle`}
         >
           <div
-            className={`${container} grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20`}
+            className={`${container} grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-20`}
           >
-            <Reveal className="lg:sticky lg:top-28 lg:self-start">
+            <Reveal>
               <p className={eyebrow}>Current status</p>
               <h2 id="beta-heading" className={`mt-4 ${h2}`}>
                 What beta means today
