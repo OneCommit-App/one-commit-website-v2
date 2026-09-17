@@ -11,7 +11,6 @@ import DownloadLink from "@/components/download-link";
 import { focusRing } from "@/components/home/tokens";
 
 const primaryLinks = [
-  { label: "Demo", href: "/demo" },
   { label: "Coaches", href: "/coaches" },
   { label: "Schools", href: "/schools" },
   { label: "Programs", href: "/athletic-programs" },

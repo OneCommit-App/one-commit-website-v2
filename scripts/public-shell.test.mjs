@@ -10,12 +10,11 @@ const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const nextBin = path.join(repoRoot, "node_modules", "next", "dist", "bin", "next");
 const host = "127.0.0.1";
 
-const [footerSource, headerSource, homeNavSource, tokensSource, demoSource, downloadSource, supportSource, aboutSource, notFoundSource] = await Promise.all([
+const [footerSource, headerSource, homeNavSource, tokensSource, downloadSource, supportSource, aboutSource, notFoundSource] = await Promise.all([
   readFile(path.join(repoRoot, "components", "footer-section.tsx"), "utf8"),
   readFile(path.join(repoRoot, "components", "public-header.tsx"), "utf8"),
   readFile(path.join(repoRoot, "components", "home", "site-nav.tsx"), "utf8"),
   readFile(path.join(repoRoot, "components", "home", "tokens.ts"), "utf8"),
-  readFile(path.join(repoRoot, "app", "demo", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "download", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "support", "page.tsx"), "utf8"),
   readFile(path.join(repoRoot, "app", "about", "page.tsx"), "utf8"),
@@ -143,8 +142,6 @@ assert.match(
   /fallbackLabel="Request Access"[\s\S]{0,400}?\bmin-h-11\b/,
   "home nav access action must retain a 44px minimum target",
 );
-assert.doesNotMatch(demoSource, /\bautoPlay\b|\bloop\b/, "demo playback must remain user initiated");
-assert.match(demoSource, /kind="captions"/, "demo video must retain captions");
 for (const [name, source] of [
   ["download", downloadSource],
   ["support", supportSource],
@@ -196,11 +193,6 @@ assert.match(
 );
 assert.match(
   downloadSource,
-  /eventSource="download_page_secondary"[\s\S]{0,420}?\bpillSecondary\b/,
-  "download demo action must use the shared secondary pill",
-);
-assert.match(
-  downloadSource,
   /analyticsSource={`download_page_\$\{[\s\S]{0,160}?}[\s\S]{0,420}?className="[^"]*\bmin-h-11\b/,
   "every platform action must retain a 44px target",
 );
@@ -244,7 +236,7 @@ try {
       throw new Error(`Next server exited before public-shell smoke test:\n${serverOutput}`);
     }
     try {
-      readyResponse = await fetch(`${origin}/demo`, { cache: "no-store" });
+      readyResponse = await fetch(`${origin}/download`, { cache: "no-store" });
       if (readyResponse.ok) break;
     } catch {
       // The production server is still starting.
@@ -254,8 +246,7 @@ try {
   assert(readyResponse?.ok, `public shell did not become ready:\n${serverOutput}`);
 
   const routeCases = [
-    { route: "/demo", status: 200, response: readyResponse },
-    { route: "/download", status: 200 },
+    { route: "/download", status: 200, response: readyResponse },
     { route: "/support", status: 200 },
     { route: "/about", status: 200 },
     { route: "/privacy", status: 200 },

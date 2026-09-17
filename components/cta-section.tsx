@@ -34,9 +34,6 @@ export default function CTASection() {
                 className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
               />
             </DownloadLink>
-            <TrackedLink href="/demo" eventName="demo_click" eventSource="home_final_cta" className={pillSecondaryDark}>
-              Watch demo
-            </TrackedLink>
           </div>
           <ul className="mt-8 flex flex-col gap-2.5">
             {included.map((item) => (

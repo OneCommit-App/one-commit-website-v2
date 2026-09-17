@@ -60,8 +60,8 @@ export const metadata: Metadata = {
 }
 
 // Mobile browser chrome follows the page canvas in each scheme (--oc-bg in
-// app/globals.css). Routes that open on the deep-green band override this with
-// lib/dark-shell-viewport.ts.
+// app/globals.css). Every public route now opens on the canvas, so nothing
+// overrides this.
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f7f8f5" },

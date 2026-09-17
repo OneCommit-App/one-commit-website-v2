@@ -14,12 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://www.onecommit.us/demo",
-      lastModified: launchModified,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
       url: "https://www.onecommit.us/download",
       lastModified: launchModified,
       changeFrequency: "monthly",

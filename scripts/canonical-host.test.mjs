@@ -97,7 +97,7 @@ try {
   assert.equal(readyResponse?.status, 200, `canonical host did not become ready:\n${serverOutput}`);
   assert.match(
     readyResponse.body,
-    /See where your marks stand across Division III track/,
+    /A recruiting system built around the athlete/,
     "canonical host must continue to render the homepage",
   );
 
@@ -139,7 +139,7 @@ try {
     );
     assert.doesNotMatch(
       response.body,
-      /See where your marks stand across Division III track/,
+      /A recruiting system built around the athlete/,
       "legacy-host redirects must not render duplicate page content",
     );
   }
@@ -158,7 +158,7 @@ try {
     assert.equal(response.headers.location, undefined, `${nearMatchHost} must not receive a redirect location`);
     assert.match(
       response.body,
-      /See where your marks stand across Division III track/,
+      /A recruiting system built around the athlete/,
       `${nearMatchHost} must keep the normal application response`,
     );
   }

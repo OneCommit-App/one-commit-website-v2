@@ -36,15 +36,6 @@ export default function ProblemSection() {
           <p className={`mt-4 max-w-md ${lede}`}>
             Unless you&rsquo;re a blue-chip recruit, you&rsquo;re on your own. We&rsquo;re changing that.
           </p>
-          <p className="mt-6 max-w-md border-l-2 border-green-mid/40 pl-4 text-[15px] leading-relaxed text-ink-soft">
-            Division III awards no athletic scholarships. The decision is a roster spot and an admissions read
-            &mdash; which is why fit, not exposure, is the whole game. About 2% of high school track athletes go on
-            to compete in Division III.
-          </p>
-          <p className="mt-3 max-w-md text-[13px] leading-relaxed text-ink-soft">
-            Sources: NCAA Division III eligibility requirements; NCAA Estimated Probability of Competing in College
-            Athletics.
-          </p>
         </Reveal>
 
         <RevealGroup className="border-t border-line">

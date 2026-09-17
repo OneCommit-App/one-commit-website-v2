@@ -88,10 +88,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
           </div>
 
           <h1
-            aria-label="See where your marks stand across Division III track"
+            aria-label="A recruiting system built around the athlete"
             className="mt-6 text-balance text-[2.625rem] font-bold leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.5rem] lg:text-[3.75rem] xl:text-[4rem]"
           >
-            See where your marks stand across <span className="text-green-mid">Division III</span> track
+            A recruiting system built around <span className="text-green-mid">the athlete</span>
           </h1>
 
           {/* The first sentence is asserted verbatim against the server HTML by
@@ -116,14 +116,6 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
                 className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
               />
             </DownloadLink>
-            <TrackedLink
-              href="/demo"
-              eventName="demo_click"
-              eventSource="home_hero"
-              className={`${pillSecondary} w-full sm:w-auto`}
-            >
-              Watch the 1-minute demo
-            </TrackedLink>
           </div>
 
           <p className="mt-5 inline-flex items-center gap-2 text-[14px] font-medium text-ink-soft">
@@ -169,96 +161,6 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
   )
 }
 
-/* ── One-minute demo in a rounded well with a play affordance ──
-   The recording predates the current app screens shown elsewhere on the page, so the
-   well stays compact and the caption dates it instead of presenting it as product proof. */
-function DemoSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [started, setStarted] = useState(false)
-
-  function startPlayback() {
-    const video = videoRef.current
-    if (!video) return
-    const attempt = video.play()
-    if (attempt && typeof attempt.catch === "function") {
-      attempt.catch(() => undefined)
-    }
-  }
-
-  return (
-    <section aria-labelledby="demo-heading" className={section}>
-      <div className={container}>
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className={eyebrow}>One-minute demo</p>
-          <h2 id="demo-heading" className={`mt-4 ${h2}`}>
-            See the whole workflow.
-          </h2>
-          <p className={`mt-4 ${lede}`}>
-            Follow D3-focused OneScore matches, reviewed outreach from a connected inbox, and coach-reply tracking in
-            one short walkthrough.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.1} className="mx-auto mt-12 w-full max-w-[560px]">
-          <div className="relative overflow-hidden rounded-hero bg-shell shadow-soft ring-1 ring-ink/10">
-            <video
-              ref={videoRef}
-              muted
-              playsInline
-              /* Kept unconditional: the custom play button is a React onClick, so with
-                 scripting off the native bar is the only way to play the video at all.
-                 The two are redundant at rest but they do not overlap — the bar sits at
-                 the bottom edge, the button is centred. */
-              controls
-              poster="/demo-poster.png"
-              preload="none"
-              aria-label="OneCommit product demo preview"
-              onPlay={() => setStarted(true)}
-              className="block aspect-square w-full bg-shell object-cover"
-            >
-              <source src="/demo.mp4" type="video/mp4" />
-              <track src="/demo.vtt" kind="captions" label="English" default />
-            </video>
-            {!started && (
-              <button
-                type="button"
-                onClick={startPlayback}
-                aria-label="Play the OneCommit demo video"
-                className="group absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                <motion.span
-                  aria-hidden="true"
-                  animate={prefersReducedMotion ? undefined : { scale: [1, 1.55], opacity: [0.45, 0] }}
-                  transition={prefersReducedMotion ? undefined : { duration: 1.9, repeat: Infinity, ease: "easeOut" }}
-                  className="absolute inset-3 rounded-full bg-white/40"
-                />
-                <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-green shadow-cta transition-transform duration-300 ease-out-quint group-hover:scale-105">
-                  <Play size={22} fill="currentColor" aria-hidden="true" className="ml-0.5" />
-                </span>
-              </button>
-            )}
-          </div>
-          <p className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
-            1-minute walkthrough, recorded on an earlier beta build.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.15} className="mt-4 text-center">
-          <TrackedLink
-            href="/demo"
-            eventName="demo_click"
-            eventSource="home_video"
-            className={`inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[15px] font-semibold text-green transition-colors hover:text-green-mid ${focusRing}`}
-          >
-            Open the full demo page
-            <ArrowRight size={15} aria-hidden="true" />
-          </TrackedLink>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 function LandingPageContent() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
@@ -286,7 +188,6 @@ function LandingPageContent() {
         <main id="main-content" tabIndex={-1}>
           <Hero prefersReducedMotion={prefersReducedMotion} />
           <StatsSection items={trustPoints} />
-          <DemoSection prefersReducedMotion={prefersReducedMotion} />
           <ProblemSection />
           <FeatureBand />
           <HowItWorks />

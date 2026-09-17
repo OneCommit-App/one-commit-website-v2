@@ -141,7 +141,6 @@ test("public product surfaces do not promise inbox providers the app does not cu
 
   for (const path of [
     "app/page.tsx",
-    "app/demo/page.tsx",
     "app/download/page.tsx",
     "app/support/page.tsx",
     "app/coaches/page.tsx",

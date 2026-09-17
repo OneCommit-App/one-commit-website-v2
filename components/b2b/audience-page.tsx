@@ -81,15 +81,6 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
                   <Mail size={16} aria-hidden="true" />
                   {audience.primaryCta}
                 </TrackedLink>
-                <TrackedLink
-                  href="/demo"
-                  eventName="demo_click"
-                  eventSource={`${audience.eventSource}_hero`}
-                  className={`${pillSecondary} w-full sm:w-auto`}
-                >
-                  See the athlete workflow
-                  <ArrowRight size={15} aria-hidden="true" />
-                </TrackedLink>
               </div>
               <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[14px] font-medium text-ink-soft">
                 {heroProofPoints.map((item) => (

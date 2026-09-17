@@ -110,14 +110,6 @@ export default function AboutPage() {
                     className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
                   />
                 </DownloadLink>
-                <TrackedLink
-                  href="/demo"
-                  eventName="demo_click"
-                  eventSource="about_hero"
-                  className={`${pillSecondary} w-full sm:w-auto`}
-                >
-                  Watch the 1-minute demo
-                </TrackedLink>
               </div>
             </div>
 

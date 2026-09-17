@@ -103,14 +103,6 @@ export default function DownloadPage() {
                     <Mail aria-hidden="true" size={16} />
                   </TrackedLink>
                 )}
-                <TrackedLink
-                  href="/demo"
-                  eventName="demo_click"
-                  eventSource="download_page_secondary"
-                  className={pillSecondary}
-                >
-                  Watch the 1-minute demo
-                </TrackedLink>
               </div>
 
               {platformLinks.length > 0 && (

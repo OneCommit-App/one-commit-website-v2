@@ -28,7 +28,6 @@ const campaignAttributionPath = new URL("../components/coach-campaign-attributio
 
 const routeChecks = [
   { path: "/", typeIncludes: "text/html" },
-  { path: "/demo", typeIncludes: "text/html" },
   { path: "/download", typeIncludes: "text/html" },
   { path: "/coaches", typeIncludes: "text/html" },
   { path: "/schools", typeIncludes: "text/html" },
@@ -40,14 +39,11 @@ const routeChecks = [
   { path: "/robots.txt", typeIncludes: "text/plain" },
   { path: "/sitemap.xml", typeIncludes: "application/xml" },
   { path: "/opengraph-image", typeIncludes: "image/png" },
-  { path: "/demo.mp4", typeIncludes: "video/mp4" },
-  { path: "/demo-poster.png", typeIncludes: "image/png" },
   { path: "/logo.png", typeIncludes: "image/png" },
 ]
 
 const canonicalPaths = [
   "/",
-  "/demo",
   "/download",
   "/coaches",
   "/schools",
@@ -206,11 +202,6 @@ async function checkCanonicalArtifacts() {
         hasDescription: Boolean(metadata.description),
       })
     }
-    if (path === "/demo" && !metadata.description.toLowerCase().includes("d3-focused")) {
-      fail("Demo metadata does not disclose D3-focused matching", {
-        description: metadata.description,
-      })
-    }
   }
 
   if (sitemap.includes("<loc>https://www.onecommit.us/waitlist</loc>")) {
@@ -283,7 +274,7 @@ async function checkDownloadLinks() {
   const renderedPages = new Map()
   const renderedPageMarkup = new Map()
 
-  for (const path of ["/", "/demo", "/download", "/about", "/coaches", "/schools", "/athletic-programs"]) {
+  for (const path of ["/", "/download", "/about", "/coaches", "/schools", "/athletic-programs"]) {
     const { response, text } = await fetchText(asUrl(path), { redirect: "follow" })
     if (response.status !== 200) {
       fail("Download CTA page returned non-200", { path, status: response.status })
@@ -310,11 +301,6 @@ async function checkDownloadLinks() {
           "supported app-access path",
         ],
         forbidden: ["free app access", "beta app access", "start the recruiting workspace"],
-      },
-      {
-        path: "/demo",
-        required: ["request access", "request beta access"],
-        forbidden: ["get access", "get app access"],
       },
       {
         path: "/download",
@@ -378,7 +364,7 @@ async function checkDownloadLinks() {
     console.log("ok no-download fallback: CTAs request access and copy discloses invitation capacity")
 
     fail("No external app download URL found on production pages", {
-      checkedPages: ["/", "/demo", "/download", "/about", "/coaches", "/schools", "/athletic-programs"],
+      checkedPages: ["/", "/download", "/about", "/coaches", "/schools", "/athletic-programs"],
       runbook: downloadRunbook,
     })
   }
@@ -454,16 +440,6 @@ async function checkHonestMarketingClaims() {
         "one athlete-owned workflow. three ways to support it.",
       ],
       forbidden: ["typed onboarding", "typed setup", "manual entry", "enter them yourself"],
-    },
-    {
-      path: "/demo",
-      required: [
-        'aria-label="primary navigation"',
-        'aria-label="onecommit home"',
-        'href="#main-content"',
-        'id="main-content"',
-        'aria-label="onecommit product demo video"',
-      ],
     },
     {
       path: "/about",

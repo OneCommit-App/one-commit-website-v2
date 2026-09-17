@@ -19,7 +19,6 @@ type PublicHeaderProps = {
 };
 
 const primaryLinks = [
-  { label: "Demo", href: "/demo" },
   { label: "Coaches", href: "/coaches" },
   { label: "Schools", href: "/schools" },
   { label: "Programs", href: "/athletic-programs" },

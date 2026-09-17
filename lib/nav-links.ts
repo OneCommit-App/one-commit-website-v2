@@ -13,7 +13,6 @@
 export type NavLink = { label: string; href: string }
 
 export const mobileNavLinks: NavLink[] = [
-  { label: "Demo", href: "/demo" },
   { label: "Coaches", href: "/coaches" },
   { label: "Schools", href: "/schools" },
   { label: "Athletic Programs", href: "/athletic-programs" },
