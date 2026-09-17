@@ -10,6 +10,7 @@ import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FAQSection from "@/components/faq-section"
 import FooterSection from "@/components/footer-section"
+import DailyLoop from "@/components/home/daily-loop"
 import FeatureBand from "@/components/home/feature-band"
 import FounderStory from "@/components/home/founder-story"
 import HowItWorks from "@/components/home/how-it-works"
@@ -191,6 +192,7 @@ function LandingPageContent() {
           <ProblemSection />
           <FeatureBand />
           <HowItWorks />
+          <DailyLoop />
           <WorkspaceSection />
           <FounderStory />
           <AudienceChooser />
