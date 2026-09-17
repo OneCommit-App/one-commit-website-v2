@@ -15,6 +15,7 @@ import FeatureBand from "@/components/home/feature-band"
 import FounderStory from "@/components/home/founder-story"
 import HowItWorks from "@/components/home/how-it-works"
 import ProblemSection from "@/components/home/problem-section"
+import WhereYouStand from "@/components/home/where-you-stand"
 import SiteNav from "@/components/home/site-nav"
 import { container, eyebrow, focusRing, h2, lede, pillPrimary, pillSecondary, section } from "@/components/home/tokens"
 import JsonLd from "@/components/json-ld"
@@ -190,6 +191,7 @@ function LandingPageContent() {
           <Hero prefersReducedMotion={prefersReducedMotion} />
           <StatsSection items={trustPoints} />
           <ProblemSection />
+          <WhereYouStand />
           <FeatureBand />
           <HowItWorks />
           <DailyLoop />
