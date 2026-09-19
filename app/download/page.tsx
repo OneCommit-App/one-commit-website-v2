@@ -105,6 +105,24 @@ export default function DownloadPage() {
                 )}
               </div>
 
+              {/* Above the fold on purpose. The supported-inbox constraint is the
+                  highest-friction step in the whole funnel, and a family on another
+                  provider should find that out here rather than after twenty minutes of
+                  onboarding. The fuller disclosure still sits with the beta-includes
+                  strip below. NOTE: scripts/b2b-claims.test.mjs scans raw source, so the
+                  other provider cannot be named even in a comment — only the approved
+                  boundary sentence may carry it. */}
+              <p className="mt-5 flex max-w-xl items-start gap-2.5 text-[14px] leading-relaxed text-ink-soft">
+                <Mail aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-green-mid" />
+                <span>
+                  Outreach sends from your own inbox, and{" "}
+                  <strong className="font-semibold text-ink">
+                    Outlook/Microsoft 365 is the only inbox supported in the beta
+                  </strong>
+                  . Gmail is not currently available.
+                </span>
+              </p>
+
               {platformLinks.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {platformLinks.map((link) => (
