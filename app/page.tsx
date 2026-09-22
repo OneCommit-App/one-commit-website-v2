@@ -85,7 +85,7 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
               className="h-1.5 w-1.5 rounded-full bg-green-mid"
             />
             <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-green">
-              Athlete-owned · D3-focused beta
+              Athlete-owned · Track &amp; Field beta
             </span>
           </div>
 

@@ -78,7 +78,7 @@ export default async function OGImage() {
             textAlign: "center",
           }}
         >
-          Track &amp; Field · D3-focused beta
+          Track &amp; Field · Invite-only beta
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "46px" }}>

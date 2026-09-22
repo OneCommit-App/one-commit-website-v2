@@ -16,7 +16,7 @@ const audienceCards = [
   },
   {
     title: "Schools",
-    body: "Give track and field athletes a common D3-focused workflow without adding an administrator portal.",
+    body: "Give track and field athletes a common recruiting workflow without adding an administrator portal.",
     href: "/schools",
     eventName: "audience_page_click" as const,
     source: "home_audience_schools",

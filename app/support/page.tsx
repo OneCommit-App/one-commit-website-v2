@@ -94,7 +94,7 @@ const supportSections = [
         <li>After receiving an invitation, create your beta account.</li>
         <li>Complete your athlete profile — times, GPA, what you care about in a college.</li>
         <li>Outlook/Microsoft 365 is currently the only inbox option offered in the beta app. Gmail is not currently available.</li>
-        <li>Review your D3-focused OneScore matches and start reaching out to coaches.</li>
+        <li>Review your OneScore matches and start reaching out to coaches.</li>
         <li>Use in-app help or email support if access, profile, or inbox setup gets stuck.</li>
       </ol>
     ),

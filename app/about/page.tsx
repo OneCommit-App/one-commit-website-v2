@@ -98,7 +98,7 @@ export default function AboutPage() {
               <p className={`mt-6 max-w-xl ${lede}`}>
                 We are building OneCommit for high school track and field
                 athletes who need a clearer way to organize their profile,
-                evaluate D3-focused school matches, and manage recruiting
+                evaluate school matches, and manage recruiting
                 outreach from their own account.
               </p>
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">

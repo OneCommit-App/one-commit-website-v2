@@ -71,7 +71,7 @@ export default function FeatureBand() {
           <p className={eyebrowDark}>What&rsquo;s in the beta</p>
           <h2 className={`mt-4 ${h2Dark}`}>Everything you need to run outreach.</h2>
           <p className="mt-4 text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
-            Create your profile, review D3-focused OneScore matches, send outreach, and track replies from one
+            Create your profile, review your OneScore matches, send outreach, and track replies from one
             workspace.
           </p>
         </Reveal>

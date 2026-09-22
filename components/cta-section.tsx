@@ -22,7 +22,7 @@ export default function CTASection() {
             Build your college list. Then run the outreach.
           </h2>
           <p className="mt-5 max-w-xl text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
-            Request a OneCommit beta invitation to build a D3-focused OneScore list, draft personal coach emails, and
+            Request a OneCommit beta invitation to build your OneScore list, draft personal coach emails, and
             track replies from one recruiting workspace.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

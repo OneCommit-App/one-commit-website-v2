@@ -6,8 +6,8 @@ import "./globals.css"
 
 const isVercelDeploy = process.env.VERCEL === "1"
 const appAccessDescription = hasConfiguredDownloadUrl
-  ? "Download OneCommit to build your Track & Field recruiting process with D3-focused OneScore matches, own-inbox outreach, and reply tracking."
-  : "Request a OneCommit beta invitation to build your Track & Field recruiting process with D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+  ? "Download OneCommit to build your Track & Field recruiting process with OneScore fit matching, own-inbox outreach, and reply tracking."
+  : "Request a OneCommit beta invitation to build your Track & Field recruiting process with OneScore fit matching, own-inbox outreach, and reply tracking."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.onecommit.us"),

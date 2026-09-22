@@ -17,8 +17,8 @@ import {
 
 const accessTitle = hasConfiguredDownloadUrl ? "Download" : "Request Beta Access"
 const accessDescription = hasConfiguredDownloadUrl
-  ? "Download OneCommit for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
-  : "Request a OneCommit beta invitation for Track & Field recruiting: D3-focused OneScore matches, own-inbox outreach, and reply tracking."
+  ? "Download OneCommit for Track & Field recruiting: OneScore fit matching, own-inbox outreach, and reply tracking."
+  : "Request a OneCommit beta invitation for Track & Field recruiting: OneScore fit matching, own-inbox outreach, and reply tracking."
 
 export const metadata: Metadata = {
   title: accessTitle,
@@ -74,7 +74,7 @@ export default function DownloadPage() {
                   : "Request beta access to start your track recruiting process."}
               </h1>
               <p className={`mt-6 max-w-xl ${lede}`}>
-                Build a D3-focused college list, generate coach outreach from your own inbox, and track replies
+                Build your college list, generate coach outreach from your own inbox, and track replies
                 without paying for a passive recruiting profile.
               </p>
 
