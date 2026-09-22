@@ -18,6 +18,7 @@ export const mobileNavLinks: NavLink[] = [
   { label: "Athletic Programs", href: "/athletic-programs" },
   { label: "How it works", href: "/#how-it-works" },
   { label: "Pricing", href: "/#pricing" },
+  { label: "For parents", href: "/parents" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
 ]

@@ -38,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: "https://www.onecommit.us/parents",
+      lastModified: launchModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: "https://www.onecommit.us/support",
       lastModified: launchModified,
       changeFrequency: "monthly",
