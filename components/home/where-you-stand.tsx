@@ -33,7 +33,7 @@ export default function WhereYouStand() {
         <RevealGroup stagger={0.07} className="mt-10 flex flex-wrap items-center justify-center gap-3">
           {bands.map((band) => (
             <RevealItem key={band} y={12}>
-              <span className="inline-flex min-h-11 items-center rounded-full bg-card px-5 text-[14px] font-semibold uppercase tracking-[0.12em] text-green shadow-soft ring-1 ring-line">
+              <span className="inline-flex items-center rounded-full bg-card px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-green ring-1 ring-line">
                 {band}
               </span>
             </RevealItem>
@@ -41,7 +41,7 @@ export default function WhereYouStand() {
         </RevealGroup>
 
         <Reveal delay={0.12}>
-          <p className="mx-auto mt-10 max-w-2xl border-t border-line pt-8 text-[17px] leading-relaxed text-ink-soft">
+          <p className="mx-auto mt-8 max-w-2xl text-[14px] leading-relaxed text-ink-faint">
             And the right move changes with the year you are in. Early on, the app says so plainly: no outreach
             pressure at this stage &mdash; log real races, keep the grades up, and let your trajectory tell the
             story.

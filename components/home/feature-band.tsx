@@ -27,7 +27,7 @@ const features = [
   },
   {
     title: "Reply Tracking",
-    desc: "Per-school history: the match detail behind the score, the messages in order, and whether a coach has written back.",
+    desc: "One queue for the whole process: schools matched, messages sent, and replies received, counted in one place.",
     image: "/app/riley.png",
     alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
   },

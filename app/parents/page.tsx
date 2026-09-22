@@ -58,7 +58,7 @@ const doesNot = [
   "Promise admission, a roster spot, a coach reply, or any recruiting outcome.",
   "Send anything without your athlete reading it and approving it first.",
   "Give coaches, schools, or programs a dashboard, a roster view, or any account that watches your athlete.",
-  "Decide who your athlete is allowed to contact. OneScore is a read on where they stand, not a gate.",
+  "Decide who your athlete is allowed to contact. OneScore \u2014 the app\u0027s fit rating, which sorts each school into Reach, Target or Foundation \u2014 is a read on where they stand, not a gate on who they may write to.",
   "Give you a parent account, a parent login, or a digest of your athlete's activity. This page is the explanation instead.",
 ]
 

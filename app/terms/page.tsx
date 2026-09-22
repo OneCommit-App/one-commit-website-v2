@@ -65,7 +65,7 @@ export default function TermsPage() {
       <main id="main-content" tabIndex={-1} className="px-4 pb-24 pt-28 sm:px-6 sm:pt-32 lg:pb-32">
         <LegalArticle
           title="Terms of Service"
-          meta="Effective September 3, 2025 · Last updated July 11, 2026"
+          meta="Effective September 3, 2025 · Last updated September 22, 2026"
           idPrefix="terms"
           sections={sections}
         />

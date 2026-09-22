@@ -5,7 +5,6 @@ import { track } from "@vercel/analytics"
 
 type FunnelEventName =
   | "download_click"
-  | "demo_click"
   | "support_click"
   | "coach_page_click"
   | "coach_interest_click"

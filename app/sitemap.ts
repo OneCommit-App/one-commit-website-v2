@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const launchModified = new Date("2026-07-11")
   const aboutModified = new Date("2026-08-31")
   const privacyModified = new Date("2026-08-31")
-  const termsModified = new Date("2025-09-03")
+  const termsModified = new Date("2026-09-22")
 
   return [
     {

@@ -271,7 +271,7 @@ export default function HowItWorks() {
                     onClick={() => goTo(index)}
                     aria-label={`Go to step ${index + 1}: ${step.title}`}
                     aria-current={index === active ? "step" : undefined}
-                    className={`flex h-11 w-9 items-center justify-center rounded-full ${focusRing}`}
+                    className={`flex h-11 w-11 items-center justify-center rounded-full ${focusRing}`}
                   >
                     <span
                       className={`block h-1.5 rounded-full transition-all duration-300 ${

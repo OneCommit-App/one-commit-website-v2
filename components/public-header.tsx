@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react"
-import { mobileNavLinks } from "@/lib/nav-links"
+import { mobileNavLinks, primaryNavLinks } from "@/lib/nav-links"
 import { useMenuLayer } from "@/components/use-menu-layer";
 import type React from "react";
 import Image from "next/image";
@@ -18,12 +18,6 @@ type PublicHeaderProps = {
   skipLink?: boolean;
 };
 
-const primaryLinks = [
-  { label: "Coaches", href: "/coaches" },
-  { label: "Schools", href: "/schools" },
-  { label: "Programs", href: "/athletic-programs" },
-  { label: "How it works", href: "/#how-it-works" },
-];
 
 
 /*
@@ -128,7 +122,7 @@ export default function PublicHeader({
                 </span>
               </Link>
               <div className="ml-3 hidden items-center gap-0.5 md:flex">
-                {primaryLinks.map(({ label, href }) => (
+                {primaryNavLinks.map(({ label, href }) => (
                   <Link key={label} href={href} className={secondaryLinkClass}>
                     {label}
                   </Link>

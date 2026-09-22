@@ -12,6 +12,15 @@
  */
 export type NavLink = { label: string; href: string }
 
+/** The desktop header row, shared by both headers so the two cannot drift apart. */
+export const primaryNavLinks: NavLink[] = [
+  { label: "Coaches", href: "/coaches" },
+  { label: "Schools", href: "/schools" },
+  { label: "Programs", href: "/athletic-programs" },
+  { label: "For parents", href: "/parents" },
+  { label: "How it works", href: "/#how-it-works" },
+]
+
 export const mobileNavLinks: NavLink[] = [
   { label: "Coaches", href: "/coaches" },
   { label: "Schools", href: "/schools" },

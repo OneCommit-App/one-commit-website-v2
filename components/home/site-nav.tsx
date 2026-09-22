@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react"
-import { mobileNavLinks } from "@/lib/nav-links"
+import { mobileNavLinks, primaryNavLinks } from "@/lib/nav-links"
 import { useMenuLayer } from "@/components/use-menu-layer";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,12 +10,6 @@ import { Menu, X } from "lucide-react";
 import DownloadLink from "@/components/download-link";
 import { focusRing } from "@/components/home/tokens";
 
-const primaryLinks = [
-  { label: "Coaches", href: "/coaches" },
-  { label: "Schools", href: "/schools" },
-  { label: "Programs", href: "/athletic-programs" },
-  { label: "How it works", href: "#how-it-works" },
-];
 
 
 /** Transparent over the hero; turns to frosted glass with a hairline once the page scrolls. */
@@ -59,7 +53,7 @@ export default function SiteNav() {
               </span>
             </Link>
             <div className="ml-3 hidden items-center gap-0.5 md:flex">
-              {primaryLinks.map(({ label, href }) => (
+              {primaryNavLinks.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
