@@ -6,9 +6,12 @@ import { container, eyebrow, h2, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 /**
- * Every claim here is readable in the two captures this section renders
- * (public/app/brief.png and public/app/home.png). Nothing describes behaviour the
- * screens do not show, and no counts or outcomes are invented.
+ * Every claim here is readable in a shipped screen. This band renders brief.png,
+ * which carries rows 1 and 2; rows 3 and 4 are visible in home.png, which the page
+ * shows in the hero rather than here — the comment used to say this band renders
+ * both, and it does not. Nothing describes behaviour the screens do not show, and no
+ * counts or outcomes are invented: the copy names what the counters ARE, never what
+ * they read.
  */
 const loop = [
   {
@@ -41,10 +44,6 @@ export default function DailyLoop() {
       <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20`}>
         <Reveal className="order-2 lg:order-1">
           <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-[6%] bottom-[8%] top-[8%] -z-10 rounded-full bg-green-soft blur-3xl"
-            />
             <div className="mx-auto w-[min(280px,74vw)] lg:w-[320px]">
               <DeviceFrame
                 src="/app/brief.png"
@@ -70,7 +69,7 @@ export default function DailyLoop() {
           <RevealGroup stagger={0.06} className="mt-10 border-t border-line">
             {loop.map(({ icon: Icon, title, body }) => (
               <RevealItem key={title} y={12} className="flex gap-4 border-b border-line py-5">
-                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
+                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card text-green ring-1 ring-line">
                   <Icon size={17} aria-hidden="true" />
                 </span>
                 <div>

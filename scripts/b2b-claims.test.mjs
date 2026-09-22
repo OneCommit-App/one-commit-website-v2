@@ -25,7 +25,6 @@ const publicProductSourcePaths = async () => {
         !path.startsWith("app/privacy/") &&
         !path.startsWith("app/terms/"),
     ),
-    "public/demo.vtt",
   ].sort()
 }
 
@@ -148,7 +147,6 @@ test("public product surfaces do not promise inbox providers the app does not cu
     "app/athletic-programs/page.tsx",
     "components/faq-data.ts",
     "lib/b2b-audiences.ts",
-    "public/demo.vtt",
   ]) {
     assert.ok(paths.includes(path), `provider-claim scan is missing public product source: ${path}`)
   }

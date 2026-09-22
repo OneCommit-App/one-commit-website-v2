@@ -41,7 +41,7 @@ const theDay = [
     body: "The app opens on today's date with a few things to do — review new matches, prepare a note to a program, log a race result. Each one carries a time estimate.",
   },
   {
-    title: "They write the emails",
+    title: "The app drafts. Your athlete decides.",
     body: "OneCommit drafts outreach from what your athlete told it about themselves and about that specific program. They read it, change it, and decide whether it goes.",
   },
   {
@@ -59,6 +59,7 @@ const doesNot = [
   "Send anything without your athlete reading it and approving it first.",
   "Give coaches, schools, or programs a dashboard, a roster view, or any account that watches your athlete.",
   "Decide who your athlete is allowed to contact. OneScore is a read on where they stand, not a gate.",
+  "Give you a parent account, a parent login, or a digest of your athlete's activity. This page is the explanation instead.",
 ]
 
 export default function ParentsPage() {
@@ -71,7 +72,7 @@ export default function ParentsPage() {
             <div>
               <p className={eyebrow}>For parents</p>
               <h1 id="parents-heading" className={`mt-5 ${h1}`}>
-                Your athlete does the work. You can see exactly what that is.
+                Your athlete does the work. Here is exactly what that work is.
               </h1>
               <p className={`mt-6 max-w-xl ${lede}`}>
                 OneCommit is a recruiting workflow your track and field athlete runs themselves. This page is the
@@ -104,6 +105,9 @@ export default function ParentsPage() {
                   priority
                   sizes="(max-width: 1024px) 260px, 300px"
                 />
+                <p className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
+                  What your athlete opens each morning.
+                </p>
               </div>
             </div>
           </div>
@@ -153,7 +157,10 @@ export default function ParentsPage() {
         </section>
 
         <section aria-labelledby="cost-heading" className={`${section} bg-canvas-subtle`}>
-          <div className={`${container} mx-auto max-w-[46rem]`}>
+          {/* Nested for the same reason as components/home/where-you-stand.tsx: two
+              max-width utilities in one string collide and the wider one wins. */}
+          <div className={container}>
+            <div className="mx-auto w-full max-w-[46rem]">
             <Reveal>
               <p className={eyebrow}>What it costs</p>
               <h2 id="cost-heading" className={`mt-4 ${h2}`}>
@@ -196,6 +203,7 @@ export default function ParentsPage() {
                 .
               </p>
             </Reveal>
+            </div>
           </div>
         </section>
       </main>

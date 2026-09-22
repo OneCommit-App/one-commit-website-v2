@@ -8,8 +8,8 @@ export const faqData = [
     a: "OneScore compares your times or marks, academics, and college preferences with the current D3 beta dataset. It is school-fit guidance, not a guarantee of coach interest or admission.",
   },
   {
-    q: "Who is Riley?",
-    a: "Riley is the voice guide in athlete onboarding. Riley helps capture marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
+    q: "What is Riley?",
+    a: "Riley is OneCommit's AI recruiting coach — a feature in the app, not a person. Riley guides the voice onboarding that captures marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
   },
   {
     q: "Do the emails come from my own inbox?",

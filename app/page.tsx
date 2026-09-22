@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import type React from "react"
 import { motion, MotionConfig, useScroll, useSpring, useTransform } from "framer-motion"
-import { ArrowRight, CalendarCheck, Mail, Play, ShieldCheck, Target } from "lucide-react"
+import { ArrowRight, CalendarCheck, Mail, ShieldCheck, Target } from "lucide-react"
 import AudienceChooser from "@/components/b2b/audience-chooser"
 import CTASection from "@/components/cta-section"
 import DeviceFrame from "@/components/device-frame"

@@ -3,7 +3,7 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
-import { container, h2Dark, pillPrimaryDark, pillSecondaryDark } from "@/components/home/tokens"
+import { container, h2Dark, pillPrimaryDark } from "@/components/home/tokens"
 import { Reveal } from "@/components/reveal"
 import TrackedLink from "@/components/tracked-link"
 

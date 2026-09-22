@@ -14,7 +14,11 @@ const bands = ["Reach", "Target", "Foundation"]
 export default function WhereYouStand() {
   return (
     <section aria-labelledby="where-you-stand-heading" className={`${section} bg-canvas-subtle`}>
-      <div className={`${container} mx-auto max-w-[52rem] text-center`}>
+      {/* Nested, not `${container} max-w-[52rem]` — two max-width utilities in one class
+          string collide and the token's max-w-6xl wins on emission order. Outer box is the
+          rail, inner box is the measure. */}
+      <div className={container}>
+        <div className="mx-auto w-full max-w-[52rem] text-center">
         <Reveal>
           <p className={eyebrow}>Where you stand</p>
           <h2 id="where-you-stand-heading" className={`mt-4 ${h2}`}>
@@ -43,6 +47,7 @@ export default function WhereYouStand() {
             story.
           </p>
         </Reveal>
+        </div>
       </div>
     </section>
   )

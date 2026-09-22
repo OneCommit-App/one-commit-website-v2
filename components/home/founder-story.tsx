@@ -3,9 +3,14 @@
 import { eyebrow, section } from "@/components/home/tokens"
 import { Reveal } from "@/components/reveal"
 
+/*
+ * Plain canvas on purpose: DailyLoop above is bg-canvas-subtle, and two tinted
+ * sections abutting leaves no edge between them — the seam WorkspaceSection used to
+ * provide. The run is now HowItWorks canvas / DailyLoop subtle / FounderStory canvas.
+ */
 export default function FounderStory() {
   return (
-    <section aria-labelledby="story-heading" className={`${section} bg-canvas-subtle`}>
+    <section aria-labelledby="story-heading" className={section}>
       {/* Deliberately not the shared container token plus max-w-3xl: both are
           max-width utilities in the same layer, so the token's max-w-6xl won on
           emission order whatever the class string said, and this narrative set at
