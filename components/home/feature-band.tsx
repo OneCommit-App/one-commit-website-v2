@@ -18,19 +18,7 @@ const features = [
     desc: "Browse, describe what you want, or search by name across the current D3 beta dataset. Saving a school moves it onto the working list.",
     image: "/app/explore.png",
     alt: "OneCommit Explore screen with Explore, SmartAdd, and Search tabs and a scored program",
-  },
-  {
-    title: "Outreach Dashboard",
-    desc: "One list of every saved school, each carrying its own draft, what has been sent, and what has come back.",
-    image: "/app/pipeline.png",
-    alt: "OneCommit Pipeline screen listing saved schools with email actions",
-  },
-  {
-    title: "Reply Tracking",
-    desc: "One queue for the whole process: schools matched, messages sent, and replies received, counted in one place.",
-    image: "/app/riley.png",
-    alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
-  },
+  }
 ]
 
 function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
@@ -69,10 +57,10 @@ export default function FeatureBand() {
       <div className={container}>
         <Reveal className="max-w-2xl">
           <p className={eyebrowDark}>What&rsquo;s in the beta</p>
-          <h2 className={`mt-4 ${h2Dark}`}>Everything you need to run outreach.</h2>
+          <h2 className={`mt-4 ${h2Dark}`}>Where the work actually starts.</h2>
           <p className="mt-4 text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
-            Create your profile, review your OneScore matches, send outreach, and track replies from one
-            workspace.
+            Two things no recruiting form does: a spoken intake, and a search that ranks real programs
+            against your own marks.
           </p>
         </Reveal>
 

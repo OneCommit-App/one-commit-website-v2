@@ -31,13 +31,7 @@ const steps = [
     desc: "See who replied, manage threads, and plan the next follow-up from your outreach history.",
     image: "/app/riley.png",
     alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
-  },
-  {
-    title: "Keep improving",
-    desc: "Use reply history and follow-up reminders to make your next move clearer.",
-    image: "/app/brief.png",
-    alt: "OneCommit Brief screen listing today's recruiting tasks",
-  },
+  }
 ]
 
 const phoneSizes = "(max-width: 1024px) 240px, 340px"
@@ -114,7 +108,7 @@ export default function HowItWorks() {
       <div className="mx-auto w-full max-w-[1200px] pt-20 lg:hidden">
         <p className={eyebrow}>How it works</p>
         <h2 id="how-heading-compact" className={`mt-4 ${h2}`}>
-          Five steps. You&rsquo;re in control.
+          Four steps. You&rsquo;re in control.
         </h2>
       </div>
 
@@ -136,7 +130,7 @@ export default function HowItWorks() {
             <div className="hidden lg:block">
               <p className={eyebrow}>How it works</p>
               <h2 id="how-heading" className={`mt-4 ${h2} ${tier.heading}`}>
-                Five steps. You&rsquo;re in control.
+                Four steps. You&rsquo;re in control.
               </h2>
 
               <ol className={`relative mt-8 ${tier.list}`}>
