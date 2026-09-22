@@ -23,7 +23,6 @@ import PricingSection from "@/components/pricing-section"
 import { Reveal, useStill } from "@/components/reveal"
 import StatsSection from "@/components/stats-section"
 import TrackedLink from "@/components/tracked-link"
-import WorkspaceSection from "@/components/workspace-section"
 
 /* Three truthful proof points shown directly under the hero. No counts, no outcomes. */
 const trustPoints = [
@@ -195,7 +194,6 @@ function LandingPageContent() {
           <FeatureBand />
           <HowItWorks />
           <DailyLoop />
-          <WorkspaceSection />
           <FounderStory />
           <AudienceChooser />
           <div id="pricing" className="scroll-mt-20">
