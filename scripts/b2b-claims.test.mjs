@@ -25,7 +25,6 @@ const publicProductSourcePaths = async () => {
         !path.startsWith("app/privacy/") &&
         !path.startsWith("app/terms/"),
     ),
-    "public/demo.vtt",
   ].sort()
 }
 
@@ -73,8 +72,8 @@ test("shared audience page exposes real athlete screens and accessible interacti
   const combined = `${page}\n${nav}\n${boundaries}`
 
   for (const fragment of [
-    'src="/app-explore.png"',
-    'src="/app-track-replies.png"',
+    'src="/app/pipeline.png"',
+    'src="/app/riley.png"',
     'id="main-content"',
     'href="#main-content"',
     'aria-label="Audience pages"',
@@ -141,7 +140,6 @@ test("public product surfaces do not promise inbox providers the app does not cu
 
   for (const path of [
     "app/page.tsx",
-    "app/demo/page.tsx",
     "app/download/page.tsx",
     "app/support/page.tsx",
     "app/coaches/page.tsx",
@@ -149,7 +147,6 @@ test("public product surfaces do not promise inbox providers the app does not cu
     "app/athletic-programs/page.tsx",
     "components/faq-data.ts",
     "lib/b2b-audiences.ts",
-    "public/demo.vtt",
   ]) {
     assert.ok(paths.includes(path), `provider-claim scan is missing public product source: ${path}`)
   }

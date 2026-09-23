@@ -105,7 +105,7 @@ try {
     assert(html.includes(requiredText), `server HTML is missing: ${requiredText}`);
   }
 
-  for (const href of ["/demo", "/coaches", "/schools", "/athletic-programs"]) {
+  for (const href of ["/coaches", "/schools", "/athletic-programs"]) {
     assert(html.includes(`href="${href}"`), `server HTML is missing navigation link ${href}`);
   }
   assert.match(html, /<a[^>]*href="#main-content"[^>]*>/, "server HTML is missing the skip link");
@@ -114,7 +114,7 @@ try {
   const mobileNavigationStart = html.indexOf('id="mobile-navigation"');
   assert(mobileNavigationStart >= 0, "server HTML is missing the mobile navigation target");
   const mobileNavigationHtml = html.slice(mobileNavigationStart, heroStart);
-  for (const href of ["/demo", "/coaches", "/schools", "/athletic-programs"]) {
+  for (const href of ["/coaches", "/schools", "/athletic-programs"]) {
     assert(
       mobileNavigationHtml.includes(`href="${href}"`),
       `server mobile navigation is missing ${href}`,
@@ -173,13 +173,13 @@ try {
 
   assert.equal(
     (homeSource.match(/animate=\{prefersReducedMotion \? undefined :/g) || []).length,
-    4,
-    "all four infinite Motion loops must stop for reduced-motion users",
+    3,
+    "all three infinite Motion loops must stop for reduced-motion users",
   );
   assert.equal(
     (homeSource.match(/transition=\{prefersReducedMotion \? undefined :/g) || []).length,
-    4,
-    "all four infinite Motion transitions must stop for reduced-motion users",
+    3,
+    "all three infinite Motion transitions must stop for reduced-motion users",
   );
   assert.match(
     homeSource,

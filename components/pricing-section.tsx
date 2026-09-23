@@ -1,8 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { CheckCircle2, XCircle } from "lucide-react"
 import DownloadLink from "@/components/download-link"
+import { container, eyebrow, h2, lede, pillPrimary, section } from "@/components/home/tokens"
+import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const plans = [
   {
@@ -45,136 +46,96 @@ const oldWay = [
   "Passive coach discovery",
   "Third-party platform messages",
   "Limited reply visibility",
-  "Large upfront payment",
+  "Price disclosed on a call",
 ]
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-}
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-}
-
-const cardReveal = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-}
-
-const featureListStagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.2 } },
-}
-
-const featureItem = {
-  hidden: { opacity: 0, x: -8 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
-}
 
 export default function PricingSection() {
   return (
-    <motion.section
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className="px-4 pb-16 flex justify-center"
-    >
-      <div className="w-full max-w-4xl">
-        <div className="text-center mb-8 scroll-mt-20">
-          <span className="text-[#4ade80] text-xs font-semibold uppercase">Beta access</span>
-          <h2 className="mt-2 text-white text-2xl sm:text-3xl md:text-4xl font-bold text-balance">
+    <section aria-labelledby="pricing-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
+      <div className={container}>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className={eyebrow}>Beta access</p>
+          <h2 id="pricing-heading" className={`mt-4 ${h2}`}>
             Free during beta. No paid plan is live.
           </h2>
-          <p className="mt-2 text-white/50 text-sm max-w-lg mx-auto leading-relaxed">
+          <p className={`mt-4 ${lede}`}>
             We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
           </p>
-        </div>
+        </Reveal>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(250px,0.78fr)] gap-4"
-        >
+        <RevealGroup className="mt-14 grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,0.9fr)]">
           {plans.map((plan) => {
+            const isBeta = plan.ctaType === "download"
             return (
-              <motion.div
+              <RevealItem
                 key={plan.name}
-                variants={cardReveal}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="relative flex flex-col rounded-lg border border-white/[0.08] bg-white/[0.035] p-6"
+                className={`oc-raised flex h-full flex-col rounded-card bg-card p-7 sm:p-8 ${
+                  isBeta ? "shadow-lift ring-1 ring-green/20" : "shadow-soft ring-1 ring-line"
+                }`}
               >
-                <div className="flex min-h-5 flex-wrap items-start justify-between gap-2">
-                  <div className="text-[#86efac] text-xs font-semibold uppercase">{plan.eyebrow}</div>
-                </div>
-                <h3 className="mt-2 text-white text-xl font-bold">{plan.name}</h3>
-                <p className="mt-2 min-h-16 text-white/50 text-sm leading-relaxed">{plan.description}</p>
+                <span
+                  className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                    isBeta ? "bg-green-soft text-green" : "bg-orange-soft text-clay"
+                  }`}
+                >
+                  {plan.eyebrow}
+                </span>
+                <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink">{plan.name}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink-soft sm:min-h-16">{plan.description}</p>
 
-                <div className="mt-5">
+                <div className="mt-6">
                   <div className="flex items-end gap-2">
-                    <span className="text-white text-5xl font-bold">{plan.price}</span>
-                    <span className="pb-1 text-white/30 text-sm">{plan.cadence}</span>
+                    <span className="text-[52px] font-bold leading-none tracking-[-0.03em] text-ink">{plan.price}</span>
+                    <span className="pb-1 text-[14px] text-ink-soft">{plan.cadence}</span>
                   </div>
-                  <p className="mt-2 text-white/25 text-xs">{plan.note}</p>
+                  <p className="mt-3 text-[13px] leading-relaxed text-ink-soft">{plan.note}</p>
                 </div>
 
-                {plan.ctaType === "download" ? (
-                  <DownloadLink
-                    analyticsSource="pricing_beta"
-                    className="mt-5 h-10 rounded-full border border-white/[0.10] bg-white/[0.06] text-sm font-semibold text-white/70 transition-colors inline-flex items-center justify-center hover:bg-white/[0.10] hover:text-white"
-                  >
+                {isBeta ? (
+                  <DownloadLink analyticsSource="pricing_beta" className={`mt-6 ${pillPrimary}`}>
                     {plan.cta}
                   </DownloadLink>
                 ) : null}
 
-                <motion.div
-                  variants={featureListStagger}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-40px" }}
-                  className="mt-6 flex flex-col gap-2"
-                >
+                <ul className="mt-7 flex flex-col gap-3 border-t border-line pt-6">
                   {plan.features.map((feature) => (
-                    <motion.div key={feature} variants={featureItem} className="flex items-start gap-2.5">
-                      <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#86efac]" />
-                      <span className="text-white/70 text-xs leading-relaxed">{feature}</span>
-                    </motion.div>
+                    <li key={feature} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink">
+                      <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-green-mid" />
+                      <span>{feature}</span>
+                    </li>
                   ))}
-                </motion.div>
-              </motion.div>
+                </ul>
+              </RevealItem>
             )
           })}
 
-          <motion.div
-            variants={cardReveal}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-6"
-          >
-            <div className="text-white/30 text-xs font-semibold uppercase">Old way</div>
-            <h3 className="mt-2 text-white/60 text-xl font-bold">Legacy recruiting services</h3>
-            <p className="mt-2 text-white/30 text-sm leading-relaxed">
-              Often high upfront fees for a passive profile-based model.
+          <RevealItem className="oc-raised order-first flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8 lg:order-none">
+            <span className="inline-flex w-fit rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">
+              Old way
+            </span>
+            <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink-soft">Legacy recruiting services</h3>
+            <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+              A passive profile-based model whose price is disclosed on a sales call rather than on the page.
             </p>
-            <div className="mt-5 flex items-end gap-2">
-              <span className="text-white/60 text-4xl font-bold">High fees</span>
-              <span className="pb-1 text-white/20 text-sm">upfront</span>
+            {/* The price slot holds what the market leader actually publishes: nothing.
+                No "upfront" qualifier — it described a figure that is no longer claimed. */}
+            <div className="mt-6 flex items-end">
+              <span className="text-[28px] font-bold leading-none tracking-[-0.02em] text-ink-soft">
+                Price on request
+              </span>
             </div>
-            <p className="mt-5 text-xs font-semibold uppercase text-white/25">Typical legacy model</p>
-            <div className="mt-6 flex flex-col gap-2">
+            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>
+            <ul className="mt-4 flex flex-col gap-3">
               {oldWay.map((item) => (
-                <div key={item} className="flex items-start gap-2.5">
-                  <XCircle size={14} className="mt-0.5 shrink-0 text-white/25" />
-                  <span className="text-white/30 text-xs leading-relaxed">{item}</span>
-                </div>
+                <li key={item} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink-soft">
+                  <XCircle size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-ink-soft" />
+                  <span>{item}</span>
+                </li>
               ))}
-            </div>
-          </motion.div>
-        </motion.div>
+            </ul>
+          </RevealItem>
+        </RevealGroup>
       </div>
-    </motion.section>
+    </section>
   )
 }

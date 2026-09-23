@@ -8,6 +8,12 @@ export type AudienceBenefit = {
   icon: "profile" | "target" | "messages" | "checklist" | "shield" | "people"
 }
 
+export type AudienceHeroImage = {
+  /** A capture under public/app. Not one of the two the dark band pins, so no page shows the same screen twice. */
+  src: string
+  alt: string
+}
+
 export type AudienceContent = {
   key: AudienceKey
   label: string
@@ -20,6 +26,7 @@ export type AudienceContent = {
   primaryCta: string
   mailtoHref: `mailto:${string}`
   eventSource: string
+  heroImage: AudienceHeroImage
   benefitsHeading: string
   benefitsDescription: string
   benefits: AudienceBenefit[]
@@ -58,6 +65,11 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
       "Best time to talk:",
     ]),
     eventSource: "coaches",
+    heroImage: {
+      src: "/app/explore.png",
+      alt:
+        "OneCommit Explore screen scoring a D3 program against the athlete's 200m and 400m marks, GPA, and SAT, with a Save to pipeline action",
+    },
     benefitsHeading: "Keep the check-in focused on decisions.",
     benefitsDescription:
       "OneCommit organizes the athlete's work before you meet, so the conversation can start with real profile details, school context, and communication history.",
@@ -110,6 +122,11 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
       "Best time to talk:",
     ]),
     eventSource: "schools",
+    heroImage: {
+      src: "/app/brief.png",
+      alt:
+        "OneCommit's daily Brief listing four things to do today: review top matches, then prepare for three D3 programs' likely-letter windows",
+    },
     benefitsHeading: "Give athletes a common starting point.",
     benefitsDescription:
       "The current product is an athlete workspace. A school pilot evaluates whether that shared structure makes existing coach and counselor conversations more useful.",
@@ -162,6 +179,11 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
       "Best time to talk:",
     ]),
     eventSource: "athletic_programs",
+    heroImage: {
+      src: "/app/home.png",
+      alt:
+        "OneCommit home screen showing the athlete's next goal, today's tasks, and the queue of matches, sent messages, and replies",
+    },
     benefitsHeading: "Add structure without taking over.",
     benefitsDescription:
       "The athlete does the recruiting work. Your program reinforces the same checkpoints and helps the athlete make informed decisions.",

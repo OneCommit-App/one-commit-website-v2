@@ -8,8 +8,8 @@ export const faqData = [
     a: "OneScore compares your times or marks, academics, and college preferences with the current D3 beta dataset. It is school-fit guidance, not a guarantee of coach interest or admission.",
   },
   {
-    q: "Who is Riley?",
-    a: "Riley is the voice guide in athlete onboarding. Riley helps capture marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
+    q: "What is Riley?",
+    a: "Riley is OneCommit's AI recruiting coach — a feature in the app, not a person. Riley guides the voice onboarding that captures marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
   },
   {
     q: "Do the emails come from my own inbox?",
@@ -49,7 +49,7 @@ export const faqData = [
   },
   {
     q: "How is this different from NCSA or CaptainU?",
-    a: "Traditional services often center on a public profile and passive discovery, sometimes with large upfront costs. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace.",
+    a: "Traditional services center on a public profile and passive discovery, and the largest of them does not publish a price at all \u2014 it asks you to book a call to find out. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace. We will show our price before anyone is asked to pay.",
   },
   {
     q: "I have a question or need help. How do I get support?",

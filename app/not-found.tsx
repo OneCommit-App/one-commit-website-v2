@@ -1,47 +1,52 @@
 import Link from "next/link"
-import { ArrowRight, Compass, LifeBuoy } from "lucide-react"
+import { ArrowRight, LifeBuoy } from "lucide-react"
 import FooterSection from "@/components/footer-section"
+import { eyebrow, lede } from "@/components/home/tokens"
 import PublicHeader from "@/components/public-header"
+import RouteShell from "@/components/routes/route-shell"
+import { h1 } from "@/components/routes/tokens"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#0f1a14] text-white">
+    <RouteShell>
       <PublicHeader accessSource="not_found_header" />
       <main
         id="main-content"
         tabIndex={-1}
-        className="flex min-h-[62vh] items-center justify-center px-4 py-16 text-center"
+        className="flex min-h-[72vh] items-center justify-center px-4 pb-24 pt-28 text-center sm:px-6 sm:pt-32"
       >
-        <section aria-labelledby="not-found-heading" className="w-full max-w-xl">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#e6b85c]/25 bg-[#e6b85c]/10 text-[#f3d28d]">
-            <Compass aria-hidden="true" size={26} />
-          </div>
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-[#f3d28d]">404 · Page not found</p>
-          <h1 id="not-found-heading" className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+        <section aria-labelledby="not-found-heading" className="w-full max-w-2xl">
+          <p className={eyebrow}>404 · Page not found</p>
+          <h1 id="not-found-heading" className={`mt-5 ${h1}`}>
             This page missed the mark.
           </h1>
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/65">
-            The link may be outdated, but your recruiting plan does not have to stop here. Return home or contact us if you expected something else.
+          <p className={`mx-auto mt-6 max-w-lg ${lede}`}>
+            The link may be outdated, but your recruiting plan does not have to stop here. Return home or contact us if
+            you expected something else.
           </p>
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+          <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <Link
               href="/"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0f1a14] transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1a14]"
+              className="group inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green px-6 text-[15px] font-semibold text-on-green shadow-cta transition-colors hover:bg-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
             >
               Go to OneCommit
-              <ArrowRight aria-hidden="true" size={15} />
+              <ArrowRight
+                size={16}
+                aria-hidden="true"
+                className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
+              />
             </Link>
             <Link
               href="/support"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]"
+              className="inline-flex h-12 min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold text-ink ring-1 ring-inset ring-ink/15 transition-colors hover:bg-ink/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
             >
-              <LifeBuoy aria-hidden="true" size={15} />
+              <LifeBuoy size={16} aria-hidden="true" className="text-green-mid" />
               Contact support
             </Link>
           </div>
         </section>
       </main>
       <FooterSection />
-    </div>
+    </RouteShell>
   )
 }

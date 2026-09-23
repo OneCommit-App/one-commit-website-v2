@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const launchModified = new Date("2026-07-11")
   const aboutModified = new Date("2026-08-31")
   const privacyModified = new Date("2026-08-31")
-  const termsModified = new Date("2025-09-03")
+  const termsModified = new Date("2026-09-22")
 
   return [
     {
@@ -12,12 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: launchModified,
       changeFrequency: "weekly",
       priority: 1,
-    },
-    {
-      url: "https://www.onecommit.us/demo",
-      lastModified: launchModified,
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: "https://www.onecommit.us/download",
@@ -42,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: launchModified,
       changeFrequency: "weekly",
       priority: 0.7,
+    },
+    {
+      url: "https://www.onecommit.us/parents",
+      lastModified: launchModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: "https://www.onecommit.us/support",

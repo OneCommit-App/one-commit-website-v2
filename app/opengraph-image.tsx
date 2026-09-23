@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og"
+import { ocMarkDataUri } from "@/app/og-mark"
 import { hasConfiguredDownloadUrl } from "@/lib/download"
 
 export const runtime = "edge"
@@ -6,8 +7,17 @@ export const alt = "OneCommit — Track & Field Recruiting Copilot"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
-const accessAction = hasConfiguredDownloadUrl ? "Download the beta app" : "Request a beta invitation"
 const accessButton = hasConfiguredDownloadUrl ? "Download OneCommit" : "Request Beta Access"
+
+/* The same three proof points the homepage trust strip carries. Nothing here is a
+   count, an outcome, or a claim the product cannot back. */
+const proofPoints = ["OneScore by school", "Outreach from your own inbox", "Coach reply tracking"]
+
+/* Palette values are the literal --oc-* tokens from app/globals.css. ImageResponse
+   renders on the server with no stylesheet, so they cannot be var() references. */
+const SHELL_DEEP = "#071a14"
+const MINT = "#9cd8b5"
+const WHITE = "#ffffff"
 
 export default async function OGImage() {
   return new ImageResponse(
@@ -20,83 +30,86 @@ export default async function OGImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0f1a14",
+          backgroundColor: SHELL_DEEP,
+          backgroundImage:
+            "radial-gradient(60% 55% at 50% 12%, rgba(156,216,181,0.13), rgba(7,26,20,0) 70%)",
           fontFamily: "sans-serif",
+          padding: "0 80px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            marginBottom: "32px",
-          }}
-        >
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "#4ade80",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "24px",
-              fontWeight: 700,
-              color: "#0f1a14",
-            }}
-          >
-            1C
-          </div>
-          <span
-            style={{
-              color: "white",
-              fontSize: "36px",
-              fontWeight: 700,
-            }}
-          >
+        <div style={{ display: "flex", alignItems: "center", gap: "18px", marginBottom: "40px" }}>
+          <img
+            src={ocMarkDataUri}
+            width={64}
+            height={64}
+            alt=""
+            style={{ borderRadius: "18px" }}
+          />
+          <span style={{ color: WHITE, fontSize: "36px", fontWeight: 700, letterSpacing: "-0.01em" }}>
             OneCommit
           </span>
         </div>
+
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "4px",
-            color: "white",
-            fontSize: "52px",
+            color: WHITE,
+            fontSize: "60px",
             fontWeight: 700,
             textAlign: "center",
-            maxWidth: "800px",
-            lineHeight: 1.15,
+            letterSpacing: "-0.035em",
+            lineHeight: 1.08,
           }}
         >
-          <span>Build your recruiting process for</span>
-          <span style={{ color: "#4ade80" }}>Track & Field</span>
+          <span>A recruiting system built</span>
+          <span style={{ display: "flex", gap: "16px" }}>
+            <span>around</span>
+            <span style={{ color: MINT }}>the athlete.</span>
+          </span>
         </div>
+
         <div
           style={{
-            color: "rgba(255,255,255,0.5)",
-            fontSize: "22px",
-            marginTop: "20px",
+            color: "rgba(255,255,255,0.62)",
+            fontSize: "24px",
+            marginTop: "26px",
             textAlign: "center",
-            maxWidth: "600px",
           }}
         >
-          {`Compare D3 fits. Send outreach. Track replies. ${accessAction}.`}
+          Track &amp; Field · Invite-only beta
         </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "46px" }}>
+          {proofPoints.map((point) => (
+            <span
+              key={point}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                color: "rgba(255,255,255,0.8)",
+                fontSize: "19px",
+                padding: "11px 22px",
+                borderRadius: "9999px",
+                border: "1px solid rgba(255,255,255,0.16)",
+              }}
+            >
+              {point}
+            </span>
+          ))}
+        </div>
+
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "8px",
-            marginTop: "40px",
-            backgroundColor: "white",
-            color: "#0f1a14",
-            fontSize: "18px",
+            marginTop: "44px",
+            backgroundColor: WHITE,
+            color: SHELL_DEEP,
+            fontSize: "19px",
             fontWeight: 600,
-            padding: "12px 32px",
+            padding: "14px 34px",
             borderRadius: "9999px",
           }}
         >
@@ -104,6 +117,6 @@ export default async function OGImage() {
         </div>
       </div>
     ),
-    { ...size }
+    { ...size },
   )
 }

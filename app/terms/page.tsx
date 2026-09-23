@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
+import LegalArticle, { type LegalSection } from "@/components/routes/legal-article"
+import RouteShell from "@/components/routes/route-shell"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -31,23 +32,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default function TermsPage() {
-  return (
-    <div className="min-h-screen bg-[#0f1a14] text-white">
-      <PublicHeader accessSource="terms_header" />
-      <main id="main-content" tabIndex={-1} className="flex justify-center px-4 pb-20 pt-14 sm:pt-16">
-        <article className="w-full max-w-3xl">
-          <div className="mb-10 border-b border-white/[0.07] pb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#f3d28d]">Legal</p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Terms of Service</h1>
-            <p className="mt-3 text-sm text-white/55">Effective September 3, 2025 &middot; Last updated July 11, 2026</p>
-          </div>
-
-          {[
+/* Terms text is rendered verbatim; edit the wording only with a matching sitemap revision. */
+const sections: LegalSection[] = [
             { title: "1. Agreement to Terms", content: "These Terms of Service (\"Terms\") govern your access to and use of the OneCommit website and related services (collectively, the \"Service\") operated by OneCommit LLC (\"OneCommit,\" \"we,\" \"us,\" or \"our\"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy." },
             { title: "2. Eligibility; Accounts", content: "You must be at least 13 years old to use the Service. If you are 13-17, you represent that you have permission from a parent or legal guardian, who also agrees to these Terms on your behalf.\n\nYou agree to provide accurate, current, and complete information during registration and to keep it updated. You are responsible for safeguarding your login credentials and for all activity under your account." },
-            { title: "3. Description of Service", content: "OneCommit is an athlete-first recruiting copilot. Features may include: (a) school matching based on athletic, academic, and profile inputs; (b) email drafting and sending through your connected email account (Gmail/Outlook); (c) engagement analytics such as opens and replies; (d) organizing recruiting tasks and timelines; and (e) dashboards and recommendations.\n\nNo advisor subscription or recurring call package is part of the current beta. If optional human services are offered later, their scope and separate terms will be presented before purchase.\n\nWe may add, change, or remove features at any time, including during beta. We may throttle or limit usage (e.g., email volume) to protect deliverability and platform integrity." },
-            { title: "4. Connecting Email Accounts", content: "When you connect Gmail/Outlook, you authorize OneCommit to send recruiting emails on your behalf and to process limited recruiting email data, including message metadata and relevant recruiting thread content when needed for analytics and follow-ups.\n\nWe do not store unrelated inbox content or full mailbox archives; see the Privacy Policy for details. You can disconnect at any time in settings or via your provider's security dashboard." },
+            { title: "3. Description of Service", content: "OneCommit is an athlete-first recruiting copilot. Features may include: (a) school matching based on athletic, academic, and profile inputs; (b) email drafting and sending through your connected email account — Outlook/Microsoft 365 is currently the only inbox option offered in the beta app, and Gmail is not currently available; (c) engagement analytics that may include opens and replies; (d) organizing recruiting tasks and timelines; and (e) dashboards and recommendations.\n\nNo advisor subscription or recurring call package is part of the current beta. If optional human services are offered later, their scope and separate terms will be presented before purchase.\n\nWe may add, change, or remove features at any time, including during beta. We may throttle or limit usage (e.g., email volume) to protect deliverability and platform integrity." },
+            { title: "4. Connecting Email Accounts", content: "When you connect a supported email account, you authorize OneCommit to send recruiting emails on your behalf and to process limited recruiting email data, including message metadata and relevant recruiting thread content when needed for analytics and follow-ups.\n\nWe do not store unrelated inbox content or full mailbox archives; see the Privacy Policy for details. You can disconnect at any time in settings or via your provider's security dashboard." },
             { title: "5. Student-Athlete Compliance", content: "You are solely responsible for understanding and complying with all applicable recruiting rules (e.g., NCAA/NAIA/NJCAA, high-school association rules, and institutional policies).\n\nOneCommit is not a legal advisor or compliance authority. We provide tools; we do not guarantee eligibility or outcomes." },
             { title: "6. Acceptable Use", content: "No unlawful, deceptive, harassing, hateful, or abusive content or conduct.\nNo spam or unsolicited mass outreach beyond reasonable recruiting purposes. Respect coach communication rules and quiet periods.\nNo attempts to breach security, probe systems, or disrupt the Service.\nNo scraping or reverse-engineering except as permitted by law.\nNo use that infringes third-party rights (IP, privacy, publicity, contract)." },
             { title: "7. Subscriptions, Trials, and Billing", content: "Certain future features may require a paid subscription. Prices, features, and tiers may change with notice and will be presented before any paid plan starts.\n\nTrials/promotions may be offered; unless canceled before trial end, your plan may convert to a paid subscription only after you have accepted the applicable paid-plan terms.\n\nTaxes may apply. You authorize us and our payment processors to charge your payment method for fees due if you activate a paid plan. Refund requests submitted within 7 days of a charge will be reviewed, but fees are non-refundable except where we approve a discretionary refund or where required by law." },
@@ -55,7 +45,7 @@ export default function TermsPage() {
             { title: "9. Content; License to OneCommit", content: "You retain ownership of content you submit (metrics, profile, emails, preferences). You grant OneCommit a worldwide, non-exclusive, royalty-free license to use, reproduce, and display your content solely to provide and improve the Service.\n\nYou represent that you have all necessary rights to your content and that it does not violate law or third-party rights." },
             { title: "10. Intellectual Property", content: "The Service, including all software, designs, text, graphics, logos, and trademarks (excluding your content), are owned by or licensed to OneCommit and are protected by intellectual-property laws. No rights are granted except as expressly stated in these Terms." },
             { title: "11. Feedback", content: "You may submit ideas or suggestions. By doing so, you grant OneCommit a perpetual, irrevocable, worldwide, royalty-free license to use them without restriction or compensation." },
-            { title: "12. Third-Party Services", content: "The Service may integrate third-party services (e.g., Gmail/Outlook, payment providers, cloud hosting, AI services). Your use of such services is subject to their terms and policies. We are not responsible for third-party actions or outages." },
+            { title: "12. Third-Party Services", content: "The Service may integrate third-party services (e.g., email providers, payment providers, cloud hosting, AI services). Your use of such services is subject to their terms and policies. We are not responsible for third-party actions or outages." },
             { title: "13. Beta Features; Disclaimers", content: "Beta or experimental features may be offered \"as is\" with reduced or different reliability and support.\n\nAI-assisted features generate drafts and recommendations; you must review for accuracy, appropriateness, and compliance before sending." },
             { title: "14. Disclaimers", content: "TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SERVICE IS PROVIDED \"AS IS\" AND \"AS AVAILABLE,\" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR MEET YOUR REQUIREMENTS, NOR DO WE GUARANTEE ANY RECRUITING OUTCOMES." },
             { title: "15. Limitation of Liability", content: "TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL ONECOMMIT LLC BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES (INCLUDING LOSS OF DATA, PROFITS, OR GOODWILL), OR FOR DAMAGES EXCEEDING THE AMOUNTS YOU PAID TO ONECOMMIT IN THE 12 MONTHS PRECEDING THE CLAIM." },
@@ -66,19 +56,21 @@ export default function TermsPage() {
             { title: "20. Changes to Terms", content: "We may modify the Service or these Terms at any time. When we make material changes, we will provide reasonable notice (e.g., in-app notice or email). Continued use after changes become effective constitutes acceptance of the updated Terms." },
             { title: "21. Severability; Assignment; Entire Agreement", content: "If any provision is held unenforceable, the remainder will remain in effect. You may not assign or transfer these Terms without our consent; we may assign them as part of a merger, acquisition, or sale of assets. These Terms, together with policies referenced herein, are the entire agreement between you and OneCommit regarding the Service." },
             { title: "22. Contact", content: "Questions about these Terms? Email admin@onecommit.us." },
-          ].map((section, i) => (
-            <section key={section.title} aria-labelledby={`terms-section-${i}`} className="mb-8 scroll-mt-24">
-              <h2 id={`terms-section-${i}`} className="mb-3 text-xl font-semibold tracking-tight text-white">{section.title}</h2>
-              <p className="whitespace-pre-line text-[0.9375rem] leading-7 text-white/70">{section.content}</p>
-            </section>
-          ))}
+]
 
-          <div className="mt-12 border-t border-white/[0.07] pt-6">
-            <Link href="/" className="-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#86efac] transition-colors hover:bg-white/[0.04] hover:text-[#bbf7d0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6b85c]">&larr; Back to home</Link>
-          </div>
-        </article>
+export default function TermsPage() {
+  return (
+    <RouteShell>
+      <PublicHeader accessSource="terms_header" />
+      <main id="main-content" tabIndex={-1} className="px-4 pb-24 pt-28 sm:px-6 sm:pt-32 lg:pb-32">
+        <LegalArticle
+          title="Terms of Service"
+          meta="Effective September 3, 2025 · Last updated September 22, 2026"
+          idPrefix="terms"
+          sections={sections}
+        />
       </main>
       <FooterSection />
-    </div>
+    </RouteShell>
   )
 }

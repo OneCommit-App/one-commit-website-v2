@@ -59,7 +59,7 @@ test("sitemap reports privacy and terms revisions independently", async () => {
   for (const fragment of [
     'const privacyModified = new Date("2026-08-31")',
     'url: "https://www.onecommit.us/privacy",\n      lastModified: privacyModified,',
-    'const termsModified = new Date("2025-09-03")',
+    'const termsModified = new Date("2026-09-22")',
     'url: "https://www.onecommit.us/terms",\n      lastModified: termsModified,',
   ]) {
     assert.ok(sitemap.includes(fragment), `sitemap missing independent policy timestamp: ${fragment}`)

@@ -196,7 +196,6 @@ for (const state of cases) {
 
     const fallback = anchorBlock(html, "download_page_fallback_email")
     const primary = anchorBlock(html, "download_page_primary")
-    const secondary = anchorBlock(html, "download_page_secondary")
     const aboutAccess = anchorBlock(aboutHtml, "about_header")
     const platformBlocks = [
       anchorBlock(html, "download_page_ios"),
@@ -213,19 +212,16 @@ for (const state of cases) {
     assert.equal(label(aboutAccess), state.primary ? "Get the app" : "Request Access", `${state.name} about access label`)
     assert.equal(href(aboutAccess), state.primary || "/download", `${state.name} about access href`)
     assertDownloadTarget(aboutAccess, "min-h-11", `${state.name} about access action`)
-    assert(secondary, `${state.name} demo action visibility`)
-    assert.equal(href(secondary), "/demo", `${state.name} demo href`)
-    assertDownloadTarget(secondary, "h-11", `${state.name} demo action`)
 
     if (fallback) {
       assert.equal(label(fallback), "Request Beta Access", `${state.name} fallback label`)
       assert.equal(href(fallback), "mailto:admin@onecommit.us?subject=OneCommit%20app%20download", `${state.name} fallback href`)
-      assertDownloadTarget(fallback, "h-11", `${state.name} fallback action`)
+      assertDownloadTarget(fallback, "min-h-11", `${state.name} fallback action`)
     }
     if (primary) {
       assert.equal(label(primary), "Open App Download", `${state.name} primary label`)
       assert.equal(href(primary), state.primary, `${state.name} primary href`)
-      assertDownloadTarget(primary, "h-11", `${state.name} primary action`)
+      assertDownloadTarget(primary, "min-h-11", `${state.name} primary action`)
       assertExternalSafety(primary, `${state.name} primary action`)
       assertExternalSafety(aboutAccess, `${state.name} about access action`)
     }
