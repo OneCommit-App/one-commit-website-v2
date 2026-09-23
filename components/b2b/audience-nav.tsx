@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import PublicHeader from "@/components/public-header"
 import { audienceOrder, audiences, type AudienceKey } from "@/lib/b2b-audiences"
 
@@ -21,7 +22,20 @@ export default function AudienceNav({ current }: { current: AudienceKey }) {
       </a>
       <PublicHeader accessSource={`${audiences[current].eventSource}_header`} skipLink={false} />
       <nav aria-label="Audience pages" className="absolute inset-x-0 top-14 z-30 px-4 pt-3 sm:px-6">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-wrap gap-2">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-2">
+          {/* These three pages are the adult-facing branch of the site. Without an
+              explicit way back, a visitor who lands here from search has only the
+              header logo — unlabelled — to return to the athlete site. Required by
+              scripts/smoke-production.mjs, which had been asserting it against a
+              site that never carried it. */}
+          <Link
+            href="/"
+            aria-label="back to athlete site"
+            className={`${chipClass} border-line bg-card text-ink-soft hover:border-ink/20 hover:text-ink`}
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            <span className="hidden min-[360px]:inline">Athlete site</span>
+          </Link>
           {audienceOrder.map((key) => {
             const audience = audiences[key]
             const isCurrent = key === current
