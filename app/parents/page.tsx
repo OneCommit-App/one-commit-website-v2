@@ -187,7 +187,21 @@ export default function ParentsPage() {
                   ),
                 )}
               </ul>
-              <p className="mt-8 text-[15px] leading-relaxed text-ink-soft">
+              <div className="mt-10 flex flex-col items-start gap-3 border-t border-line pt-8">
+                <DownloadLink analyticsSource="parents_footer" className={`${pillPrimary} group`}>
+                  Request Beta Access
+                  <ArrowRight
+                    size={16}
+                    aria-hidden="true"
+                    className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5"
+                  />
+                </DownloadLink>
+                <p className="text-[14px] leading-relaxed text-ink-soft">
+                  Athletes ages 13&ndash;17 need permission from a parent or guardian before creating an account.
+                </p>
+              </div>
+
+              <p className="mt-8 text-[14px] leading-relaxed text-ink-faint">
                 Questions are welcome directly:{" "}
                 <Link href="/support" className={inlineLink}>
                   contact support

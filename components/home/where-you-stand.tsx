@@ -13,7 +13,7 @@ const bands = ["Reach", "Target", "Foundation"]
 
 export default function WhereYouStand() {
   return (
-    <section aria-labelledby="where-you-stand-heading" className={`${section} bg-canvas-subtle`}>
+    <section aria-labelledby="where-you-stand-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       {/* Nested, not `${container} max-w-[52rem]` — two max-width utilities in one class
           string collide and the token's max-w-6xl wins on emission order. Outer box is the
           rail, inner box is the measure. */}

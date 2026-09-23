@@ -51,7 +51,7 @@ const oldWay = [
 
 export default function PricingSection() {
   return (
-    <section aria-labelledby="pricing-heading" className={`${section} bg-canvas-subtle`}>
+    <section aria-labelledby="pricing-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={container}>
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className={eyebrow}>Beta access</p>

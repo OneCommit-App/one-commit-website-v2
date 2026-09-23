@@ -40,7 +40,7 @@ const loop = [
    page, so the sequence does not read as one template repeated. */
 export default function DailyLoop() {
   return (
-    <section aria-labelledby="daily-loop-heading" className={`${section} bg-canvas-subtle`}>
+    <section aria-labelledby="daily-loop-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20`}>
         <Reveal className="order-2 lg:order-1">
           <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">

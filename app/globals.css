@@ -294,6 +294,19 @@
   box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.07);
 }
 
+/* Weaker sibling of .oc-band, for the bg-canvas-subtle sections. Their step off the
+   canvas is about a third as strong as a deep-green band's, so the hairline is
+   correspondingly brighter. Light needs nothing — the tint alone reads there. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .oc-band-soft {
+    box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.1);
+  }
+}
+
+:root.dark .oc-band-soft {
+  box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.1);
+}
+
 /* Raised surface: a hairline highlight down the top edge. Transparent on the
    light canvas, where a soft shadow is enough to lift a card; after dark it is
    what separates an elevated surface from the canvas behind it. */
