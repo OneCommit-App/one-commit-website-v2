@@ -184,7 +184,7 @@
   /* The stack every capture on this site actually renders in. "SF Pro Display"/"SF Pro
      Text" were unreachable behind -apple-system, and DM Sans was fetched at four
      weights on Apple devices without ever painting there. */
-  --font-sans: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", Roboto, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", Roboto, ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 
