@@ -10,6 +10,7 @@ import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FAQSection from "@/components/faq-section"
 import FooterSection from "@/components/footer-section"
+import BuildingStage from "@/components/home/building-stage"
 import DailyLoop from "@/components/home/daily-loop"
 import FeatureBand from "@/components/home/feature-band"
 import FounderStory from "@/components/home/founder-story"
@@ -193,6 +194,7 @@ function LandingPageContent() {
           <WhereYouStand />
           <FeatureBand />
           <HowItWorks />
+          <BuildingStage />
           <DailyLoop />
           <FounderStory />
           <div id="pricing" className="scroll-mt-20">

@@ -46,11 +46,6 @@ export default function WhereYouStand() {
               already clear a program&rsquo;s published standard. OneCommit gives you the same honest read and
               leaves the button where it is.
             </p>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-ink-soft">
-              And the right move changes with the year you are in. Early on the app says so plainly: no outreach
-              pressure at this stage &mdash; log real races, keep the grades up, and let your trajectory tell the
-              story.
-            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
