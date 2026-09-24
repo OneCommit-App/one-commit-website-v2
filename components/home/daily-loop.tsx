@@ -1,17 +1,16 @@
 "use client"
 
+import Image from "next/image"
 import { BellRing, CheckCircle2, Gauge, ListChecks } from "lucide-react"
-import DeviceFrame from "@/components/device-frame"
 import { container, eyebrow, h3Section, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 /**
- * Every claim here is readable in a shipped screen. This band renders brief.png,
- * which carries rows 1 and 2; rows 3 and 4 are visible in home.png, which the page
- * shows in the hero rather than here — the comment used to say this band renders
- * both, and it does not. Nothing describes behaviour the screens do not show, and no
- * counts or outcomes are invented: the copy names what the counters ARE, never what
- * they read.
+ * Every claim here is readable in a shipped screen. This band renders a crop of
+ * brief.png, which carries rows 1 and 2; rows 3 and 4 are visible in home.png, which
+ * the page shows in the hero rather than here. Nothing describes behaviour the
+ * screens do not show, and no counts or outcomes are invented: the copy names what
+ * the counters ARE, never what they read.
  */
 const loop = [
   {
@@ -36,22 +35,36 @@ const loop = [
   },
 ]
 
-/* Phone on the left, copy on the right — the inverse of every other band on the
-   page, so the sequence does not read as one template repeated. */
+/* Screen on the left, copy on the right — the inverse of every other band on the
+   page, so the sequence does not read as one template repeated. The image is a crop
+   of brief.png rather than the phone it used to be: at 320px inside a device frame
+   the one sentence worth reading here — "4 things to do today." — was 11px tall.
+   The columns had to even up when the art turned landscape; the inversion is the
+   order, not the ratio. */
 export default function DailyLoop() {
   return (
     <section aria-labelledby="daily-loop-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
-      <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20`}>
+      <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16`}>
         <Reveal className="order-2 lg:order-1">
-          <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
-            <div className="mx-auto w-[min(280px,74vw)] lg:w-[320px]">
-              <DeviceFrame
-                src="/app/brief.png"
-                alt="OneCommit's daily Brief, dated, listing four things to do today with a time estimate on each"
-                sizes="(max-width: 1024px) 280px, 320px"
+          <figure className="mx-auto w-full max-w-[600px] lg:mx-0">
+            {/* Light-appearance capture. Same treatment as the OneScore card: a
+                hairline so it is not a white slab after dark, and a fixed width and
+                height either way, so CLS stays 0. */}
+            <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:brightness-[0.96] [@media(prefers-color-scheme:dark)]:ring-white/10">
+              <Image
+                src="/app/brief-today.png"
+                alt="The Brief in the OneCommit app, dated Wednesday September 9, headed '4 things to do today.', with the first task card marked 8 MIN, 'Review 71 top matches', and an Open button"
+                width={1206}
+                height={928}
+                sizes="(max-width: 1024px) 92vw, 600px"
+                className="h-auto w-full"
               />
             </div>
-          </div>
+            <figcaption className="mt-4 text-[13px] leading-relaxed text-ink-soft">
+              A Brief from the beta. The date, the count and the time estimates are whatever your own list
+              holds that morning.
+            </figcaption>
+          </figure>
         </Reveal>
 
         <div className="order-1 lg:order-2">
