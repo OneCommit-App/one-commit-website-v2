@@ -29,7 +29,7 @@ export default function SiteNav() {
       aria-label="Primary navigation"
       className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-500 ease-out-quint ${
         frosted
-          ? "border-line bg-canvas/80 backdrop-blur-xl backdrop-saturate-150"
+          ? "border-line bg-[color:var(--oc-nav-glass)] backdrop-blur-xl backdrop-saturate-150"
           : "border-transparent bg-transparent"
       }`}
     >

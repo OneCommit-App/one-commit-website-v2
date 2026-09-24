@@ -37,12 +37,12 @@ export default function PricingSection() {
   return (
     <section aria-labelledby="pricing-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={container}>
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <Reveal className="max-w-2xl">
           <p className={eyebrow}>Beta access</p>
           <h2 id="pricing-heading" className={`mt-4 ${h3Section}`}>
             Free during beta. The price will be shown before anyone is billed.
           </h2>
-          <p className={`mt-4 ${lede}`}>
+          <p className={`mt-4 max-w-xl ${lede}`}>
             We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
           </p>
         </Reveal>
@@ -64,7 +64,7 @@ export default function PricingSection() {
                 >
                   {plan.eyebrow}
                 </span>
-                <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink">{plan.name}</h3>
+                <h3 className="mt-4 text-[20px] font-semibold tracking-[-0.01em] text-ink">{plan.name}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-soft sm:min-h-16">{plan.description}</p>
 
                 <div className="mt-6">
@@ -93,11 +93,11 @@ export default function PricingSection() {
             )
           })}
 
-          <RevealItem className="oc-raised order-first flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8 lg:order-none">
+          <RevealItem className="oc-raised flex h-full flex-col rounded-card bg-mist p-7 ring-1 ring-line sm:p-8">
             <span className="inline-flex w-fit rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">
               Old way
             </span>
-            <h3 className="mt-4 text-[26px] font-bold tracking-[-0.02em] text-ink-soft">Legacy recruiting services</h3>
+            <h3 className="mt-4 text-[20px] font-semibold tracking-[-0.01em] text-ink-soft">Legacy recruiting services</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
               A passive profile-based model whose price is disclosed on a sales call rather than on the page.
             </p>
@@ -108,7 +108,7 @@ export default function PricingSection() {
                 Price on request
               </span>
             </div>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>
+            <p className="mt-auto pt-8 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft">Typical legacy model</p>
             <ul className="mt-4 flex flex-col gap-3">
               {oldWay.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink-soft">

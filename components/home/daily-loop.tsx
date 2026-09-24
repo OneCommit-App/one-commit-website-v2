@@ -16,12 +16,12 @@ const loop = [
   {
     icon: ListChecks,
     title: "A dated list, not a dashboard",
-    body: "The Brief opens on today's date with a short list of things to do, each one carrying its own time estimate.",
+    body: "The Brief opens on today’s date with a short list of things to do, each one carrying its own time estimate.",
   },
   {
     icon: CheckCircle2,
-    title: "Today's actions keep their own count",
-    body: "The day's tasks sit under a completion counter, so finishing the list is a thing you can actually do.",
+    title: "Today’s actions keep their own count",
+    body: "The day’s tasks sit under a completion counter, so finishing the list is a thing you can actually do.",
   },
   {
     icon: Gauge,
@@ -48,16 +48,16 @@ export default function DailyLoop() {
         <Reveal className="order-2 lg:order-1">
           <figure className="mx-auto w-full max-w-[600px] lg:mx-0">
             {/* Light-appearance capture. Same treatment as the OneScore card: a
-                hairline so it is not a white slab after dark, and a fixed width and
-                height either way, so CLS stays 0. */}
-            <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:brightness-[0.96] [@media(prefers-color-scheme:dark)]:ring-white/10">
+                hairline plus .oc-capture (app/globals.css) so it is seated rather than
+                lit after dark, and a fixed width and height either way, so CLS stays 0. */}
+            <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:ring-white/10">
               <Image
                 src="/app/brief-today.png"
                 alt="The Brief in the OneCommit app, dated Wednesday September 9, headed '4 things to do today.', with the first task card marked 8 MIN, 'Review 71 top matches', and an Open button"
                 width={1206}
                 height={928}
                 sizes="(max-width: 1024px) 92vw, 600px"
-                className="h-auto w-full"
+                className="oc-capture h-auto w-full"
               />
             </div>
             <figcaption className="mt-4 text-[13px] leading-relaxed text-ink-soft">

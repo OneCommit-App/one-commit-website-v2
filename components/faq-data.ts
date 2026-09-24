@@ -9,22 +9,22 @@ export const faqData = [
   },
   {
     q: "What is Riley?",
-    a: "Riley is OneCommit's AI recruiting coach — a feature in the app, not a person. Riley guides the voice onboarding that captures marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
+    a: "Riley is OneCommit’s AI recruiting coach — a feature in the app, not a person. Riley guides the voice onboarding that captures marks, academics, and college preferences, and athletes review the resulting profile details before moving on.",
   },
   {
     q: "Do the emails come from my own inbox?",
-    a: "Yes. When you connect Outlook/Microsoft 365, the inbox provider currently offered in the beta app, emails go out from your real email address, so coaches see a genuine person reaching out - not a third-party platform.",
+    a: "Yes. When you connect Outlook/Microsoft 365, the inbox provider currently offered in the beta app, emails go out from your real email address, so coaches see a genuine person reaching out — not a third-party platform.",
   },
   {
     q: "Do I have to send the generated email as-is?",
     a: "No. OneCommit gives you a first draft based on your profile. You can edit it before sending, and the final email goes from your own inbox.",
   },
   {
-    q: "Can I use OneCommit if I'm already talking to coaches?",
+    q: "Can I use OneCommit if I’m already talking to coaches?",
     a: "Yes. Add schools you are already contacting to your dashboard and use OneCommit to organize recruiting messages, replies, and additional outreach.",
   },
   {
-    q: "What if a school I want isn't in the database?",
+    q: "What if a school I want isn’t in the database?",
     a: "Search by school name or use SmartAdd to describe what you are looking for. Schools outside the current D3 beta dataset may have limited matching detail, so review the available information before adding them to your plan.",
   },
   {
@@ -33,7 +33,7 @@ export const faqData = [
   },
   {
     q: "Is my data private? Who sees my profile?",
-    a: "Your profile is not a public recruiting page. OneCommit doesn't sell or rent your data, and coaches only hear from you if you choose to send them an email. We use the service providers listed in our Privacy Policy to operate the product.",
+    a: "Your profile is not a public recruiting page. OneCommit doesn’t sell or rent your data, and coaches only hear from you if you choose to send them an email. We use the service providers listed in our Privacy Policy to operate the product.",
   },
   {
     q: "What sports does OneCommit support?",

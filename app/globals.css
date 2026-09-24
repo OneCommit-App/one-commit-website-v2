@@ -16,6 +16,10 @@
   --oc-bg-subtle: #eff1ed;
   --oc-card: #ffffff;
   --oc-mist: #ecf1ee;
+  /* The fixed nav's glass. Light can stay thin — everything behind it is already
+     near-canvas. After dark the canvas is #06100c, so a thin veil lets a bright app
+     capture scrolling underneath smear a grey rectangle across the bar. */
+  --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 80%, transparent);
   --oc-ink: #0b1f18;
   --oc-ink-soft: rgba(11, 31, 24, 0.62);
   --oc-ink-faint: rgba(11, 31, 24, 0.4);
@@ -111,7 +115,8 @@
     --oc-bg: #06100c;
     --oc-bg-subtle: #0c1c15;
     --oc-card: #173026;
-    --oc-mist: #16332a;
+    --oc-mist: #0e2119;
+    --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 96%, transparent);
     --oc-ink: #e9f2ec;
     --oc-ink-soft: rgba(233, 242, 236, 0.66);
     --oc-ink-faint: rgba(233, 242, 236, 0.45);
@@ -150,7 +155,8 @@
   --oc-bg: #06100c;
   --oc-bg-subtle: #0c1c15;
   --oc-card: #173026;
-  --oc-mist: #16332a;
+  --oc-mist: #0e2119;
+  --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 96%, transparent);
   --oc-ink: #e9f2ec;
   --oc-ink-soft: rgba(233, 242, 236, 0.66);
   --oc-ink-faint: rgba(233, 242, 236, 0.45);
@@ -378,6 +384,22 @@
 
 :root.dark .oc-band-soft {
   box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.1);
+}
+
+/* Light-appearance app captures on a dark page. Measured on the live build: the
+   riley-take and explore-tabs strips render rgb(255,255,255) on a card of
+   rgb(26,58,45) over a canvas of rgb(6,16,12) — the brightest objects anywhere on a
+   12,705px page. The brightness-[0.96] these carried before moved 255 to 245, which
+   is invisible. Applied to the <img> and not its wrapper, so the ring and shadow
+   keep full strength; `filter` is not a layout property, so CLS stays 0. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .oc-capture {
+    filter: brightness(0.8) saturate(0.95);
+  }
+}
+
+:root.dark .oc-capture {
+  filter: brightness(0.8) saturate(0.95);
 }
 
 /* Raised surface: a hairline highlight down the top edge. Transparent on the
