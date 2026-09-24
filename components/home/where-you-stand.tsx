@@ -28,6 +28,11 @@ export default function WhereYouStand() {
             OneScore sorts every school on your list from your marks, grades, and preferences. That is a read on
             where you stand today — not a rule about who you are allowed to write to. You choose who to contact.
           </p>
+          <p className={`mx-auto mt-4 max-w-2xl ${lede}`}>
+            And it shows its work. Open any school and the score breaks down input by input — each mark, your
+            GPA, your SAT — against that program&rsquo;s range, so you can see what is carrying the number and
+            what is holding it back.
+          </p>
         </Reveal>
 
         <RevealGroup stagger={0.07} className="mt-10 flex flex-wrap items-center justify-center gap-3">
