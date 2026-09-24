@@ -7,31 +7,44 @@ import DeviceFrame from "@/components/device-frame"
 import { eyebrow, focusRing, h2 } from "@/components/home/tokens"
 import { EASE_OUT, useStill } from "@/components/reveal"
 
+/**
+ * One Tuesday, in order, in the second person. Every fact here is legible in the
+ * capture beside it: the Edit details button and the profile chips in profile.png;
+ * Reach / Target / Foundation and the "WHY IT SCORES 85" breakdown in explore.png;
+ * "4 things to do today.", the 8 MIN review and three 15 MIN prep cards in
+ * brief.png; "6 schools saved · nothing sent yet" and "So Riley can send from your
+ * address, not ours" in pipeline.png.
+ *
+ * Nothing here describes an outcome. Narrative present tense makes it very tempting
+ * to end on a coach writing back, and no capture shows that, so the tour ends where
+ * the evidence does — on the send. The school names stay inside the captures rather
+ * than being re-typed into marketing HTML, where they would read as partnerships.
+ */
 const steps = [
   {
-    title: "Build your athlete profile",
-    desc: "Talk through your marks, academics, and preferences with Riley, then review the profile details.",
+    title: "You talk it through once",
+    desc: "You answer out loud instead of filling in a form, then edit anything Riley got wrong before it counts.",
     image: "/app/profile.png",
-    alt: "OneCommit profile screen with marks, GPA, target, and OneScore readiness",
+    alt: "OneCommit profile screen with a 200m mark, GPA and target chips, a Riley's Take card, an Edit details button, and the OneScore readiness meter",
   },
   {
-    title: "Review OneScore matches",
-    desc: "Compare D3 programs using your marks, academics, and college preferences.",
+    title: "It shows its arithmetic",
+    desc: "Every program lands in Reach, Target or Foundation, with the numbers that put it there underneath.",
     image: "/app/explore.png",
-    alt: "OneCommit Explore screen scoring a program against the athlete's profile",
+    alt: "OneCommit Explore screen: a program scored 85 out of 100 and banded Target, under a heading reading why it scores 85, listing each mark, the GPA and the SAT against the program's range",
   },
   {
-    title: "Send outreach emails",
-    desc: "Generate personalized emails and send them from your own inbox.",
+    title: "The next morning, four things",
+    desc: "Not a dashboard. Eight minutes to review your top matches, then fifteen each to prep three schools.",
+    image: "/app/brief.png",
+    alt: "OneCommit's dated Brief, headed with the number of things to do today, each task carrying its own time estimate",
+  },
+  {
+    title: "You send from your own inbox",
+    desc: "Nothing goes out until you connect your own email, so every message leaves from your address, not ours.",
     image: "/app/pipeline.png",
-    alt: "OneCommit Pipeline screen with saved schools and an inbox connection prompt",
+    alt: "OneCommit Pipeline screen listing saved schools with nothing sent yet, above a prompt to connect your inbox so mail sends from your address",
   },
-  {
-    title: "Track coach replies",
-    desc: "See who replied, manage threads, and plan the next follow-up from your outreach history.",
-    image: "/app/riley.png",
-    alt: "OneCommit home screen scrolled to The Queue, counting matches, sent messages, and replies, with Riley's Desk below",
-  }
 ]
 
 const phoneSizes = "(max-width: 1024px) 240px, 340px"
@@ -40,7 +53,7 @@ const phoneSizes = "(max-width: 1024px) 240px, 340px"
    so the pinned panel starts below it and fills the rest, up to 56rem; each step scrolls for
    the panel centers in the space under the nav, which puts its top exactly at the nav edge
    whenever it fills that space. Per-step scroll travel lives in --oc-step-travel so the one
-   value that multiplies by five is tunable in one place. */
+   value that multiplies by the step count is tunable in one place. */
 const navHeight = "3.5rem"
 const panelHeight = `min(100svh - ${navHeight}, 56rem)`
 const panelTop = `calc(${navHeight} + (100svh - ${navHeight} - ${panelHeight}) / 2)`
@@ -48,13 +61,15 @@ const stepTravel = "var(--oc-step-travel)"
 
 /**
  * Sticky scrollytelling: the panel pins for one viewport per step while the phone
- * screen crossfades through the five steps and the matching copy highlights.
+ * screen stacks the four screens in order and the matching copy highlights. The
+ * later screens are absolutely-positioned layers inside one device frame, not a
+ * crossfade between frames, so every layer has to share the device aspect ratio.
  * Reduced motion: nothing pins, scroll position never drives the step, and the
  * steps are plain buttons that swap the screen.
  *
  * Desktop viewports too short for the full copy column step down through the
  * `short` and `shorter` tiers (app/globals.css): tighter spacing and a smaller
- * heading first, then inactive descriptions collapse so the heading, all five
+ * heading first, then inactive descriptions collapse so the heading, all four
  * steps, and the phone stay inside the pinned panel down to about 490px tall.
  */
 export default function HowItWorks() {
@@ -108,7 +123,7 @@ export default function HowItWorks() {
       <div className="mx-auto w-full max-w-[1200px] pt-20 lg:hidden">
         <p className={eyebrow}>How it works</p>
         <h2 id="how-heading-compact" className={`mt-4 ${h2}`}>
-          Four steps. You&rsquo;re in control.
+          From the first conversation to the first send.
         </h2>
       </div>
 
@@ -130,7 +145,7 @@ export default function HowItWorks() {
             <div className="hidden lg:block">
               <p className={eyebrow}>How it works</p>
               <h2 id="how-heading" className={`mt-4 ${h2} ${tier.heading}`}>
-                Four steps. You&rsquo;re in control.
+                From the first conversation to the first send.
               </h2>
 
               <ol className={`relative mt-8 ${tier.list}`}>
