@@ -21,14 +21,17 @@ export default function FounderStory() {
           <h2 id="story-heading" className="sr-only">
             Why OneCommit exists
           </h2>
+          {/* The plainest, most physical sentence gets the display size — unquoted, so at
+              this scale it reads as the author talking rather than as a testimonial. The
+              2024 setup moved down into the body where it belongs. */}
           <blockquote className="mt-5 text-balance text-[1.625rem] font-semibold leading-[1.2] tracking-[-0.025em] text-ink sm:text-[2.125rem] lg:text-[2.5rem]">
-            {"“In early 2024, I started reaching out to college track programs. I had the times, the grades, the drive — but I had no idea which schools actually fit me athletically and academically.”"}
+            {"I spent weeks Googling coach emails, copy-pasting the same intro letter over and over, and sending messages into the void. Most never got a reply."}
           </blockquote>
         </Reveal>
 
         <Reveal delay={0.1} className="mt-10 space-y-5 text-[17px] leading-[1.65] text-ink-soft sm:text-[18px]">
           <p>
-            {"I spent weeks manually Googling coach emails, copy-pasting the same intro letter over and over, and sending messages into the void. Most never got a reply. I had no system for tracking who I’d contacted, what they said, or when to follow up."}
+            {"In early 2024 I started reaching out to college track programs. I had the times, the grades, the drive — but no idea which schools actually fit me, athletically or academically, and no system for tracking who I’d contacted, what they said, or when to follow up."}
           </p>
           <p>
             {"So I built one. What started as a quick script to organize my own outreach turned into a matching and email workflow that made the process clearer. I realized the problem wasn’t my ability — it was the system I was trying to navigate."}

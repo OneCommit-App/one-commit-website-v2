@@ -2,7 +2,7 @@
 
 import { BellRing, CheckCircle2, Gauge, ListChecks } from "lucide-react"
 import DeviceFrame from "@/components/device-frame"
-import { container, eyebrow, h2, lede, section } from "@/components/home/tokens"
+import { container, eyebrow, h3Section, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 /**
@@ -57,7 +57,7 @@ export default function DailyLoop() {
         <div className="order-1 lg:order-2">
           <Reveal>
             <p className={eyebrow}>The daily loop</p>
-            <h2 id="daily-loop-heading" className={`mt-4 ${h2}`}>
+            <h2 id="daily-loop-heading" className={`mt-4 ${h3Section}`}>
               It tells you what to do today.
             </h2>
             <p className={`mt-4 max-w-xl ${lede}`}>

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Plus } from "lucide-react"
 import { faqData } from "@/components/faq-data"
-import { container, eyebrow, focusRing, h2, lede, section } from "@/components/home/tokens"
+import { container, eyebrow, focusRing, h3Section, lede, section } from "@/components/home/tokens"
 import { EASE_OUT, Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 export default function FAQSection() {
@@ -17,7 +17,7 @@ export default function FAQSection() {
       <div className={`${container} grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20`}>
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <p className={eyebrow}>FAQ</p>
-          <h2 id="faq-heading" className={`mt-4 ${h2}`}>
+          <h2 id="faq-heading" className={`mt-4 ${h3Section}`}>
             Frequently asked questions.
           </h2>
           <p className={`mt-4 max-w-sm ${lede}`}>

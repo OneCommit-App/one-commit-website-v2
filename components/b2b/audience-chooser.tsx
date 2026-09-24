@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowRight, School, ShieldCheck, UsersRound } from "lucide-react"
-import { container, eyebrow, focusRing, h2, lede, section } from "@/components/home/tokens"
+import { container, eyebrow, focusRing, h3Section, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 import TrackedLink from "@/components/tracked-link"
 
@@ -43,7 +43,7 @@ export default function AudienceChooser() {
       <div className={container}>
         <Reveal className="max-w-3xl">
           <p className={eyebrow}>For the adults supporting the athlete</p>
-          <h2 id="audience-chooser-heading" className={`mt-4 ${h2}`}>
+          <h2 id="audience-chooser-heading" className={`mt-4 ${h3Section}`}>
             One athlete-owned workflow. Three ways to support it.
           </h2>
           <p className={`mt-4 ${lede}`}>

@@ -33,7 +33,20 @@ export default function WhereYouStand() {
               Then you decide. You can write to any school on the list, including the ones it called a Reach.
               The read is there to inform the letter, not to decide whether you are allowed to send it.
             </p>
-            <p className="mt-6 max-w-xl border-t border-line pt-6 text-[15px] leading-relaxed text-ink-soft">
+            {/* "Not a locked door" is abstract until the reader knows a door exists.
+                Describes the GATING BEHAVIOUR only — verified 2026-09-23 on the vendor's
+                own product page, which states a Contact Coach button appears on programs
+                where verified performances meet the program's standards. Deliberately
+                does NOT assert why they do it: the research inferred a motive from their
+                business model, and they also sell paid tiers to athletes, so the motive
+                is contested and the behaviour is not. No vendor is named until Hugh says
+                so; naming one dates the claim the day they change the gate. */}
+            <p className={`mt-6 max-w-xl border-t border-line pt-6 ${lede}`}>
+              Elsewhere in this sport a contact button can be gated — it appears only once your verified marks
+              already clear a program&rsquo;s published standard. OneCommit gives you the same honest read and
+              leaves the button where it is.
+            </p>
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-ink-soft">
               And the right move changes with the year you are in. Early on the app says so plainly: no outreach
               pressure at this stage &mdash; log real races, keep the grades up, and let your trajectory tell the
               story.
