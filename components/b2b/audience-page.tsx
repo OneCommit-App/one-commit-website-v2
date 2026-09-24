@@ -41,7 +41,7 @@ const icons = {
   people: UsersRound,
 }
 
-const heroProofPoints = ["Athlete-owned accounts", "D3-focused OneScore", "Capacity-dependent beta"]
+const heroProofPoints = ["Athlete-owned accounts", "OneScore, D3 beta dataset", "Capacity-dependent beta"]
 
 const workspacePoints = [
   "D3 match context organized by school",

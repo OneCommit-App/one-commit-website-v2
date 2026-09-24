@@ -54,9 +54,9 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
     eyebrow: "For high school track and field coaches",
     headline: "Give every athlete a recruiting plan without becoming their recruiting agent.",
     description:
-      "OneCommit gives athletes a structured place to build a D3-focused school list, prepare personal outreach, and keep replies organized. You guide the decisions while each athlete owns the account, message, and next move.",
+      "OneCommit gives athletes a structured place to build a school list from the current D3 beta dataset, prepare personal outreach, and keep replies organized. You guide the decisions while each athlete owns the account, message, and next move.",
     metadataDescription:
-      "Give track and field athletes an athlete-owned recruiting workflow with D3-focused OneScore guidance, personal outreach, and organized reply history.",
+      "Give track and field athletes an athlete-owned recruiting workflow with OneScore guidance across the current D3 beta dataset, personal outreach, and organized reply history.",
     primaryCta: "Request a coach pilot conversation",
     mailtoHref: pilotHref("OneCommit coach pilot", [
       "School:",
@@ -81,7 +81,7 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
       },
       {
         icon: "target",
-        title: "D3-focused OneScore context",
+        title: "OneScore context, D3 beta dataset",
         body: "Athletes compare current D3 beta matches school by school instead of rebuilding a list from an empty spreadsheet.",
       },
       {
@@ -92,7 +92,7 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
     ],
     available: [
       "Athlete-owned accounts and profile review",
-      "D3-focused OneScore matching and school lists",
+      "OneScore matching and school lists across the current D3 beta dataset",
       "Personal outreach through a supported connected inbox",
       "Communication history organized by school",
     ],
@@ -149,7 +149,7 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
     ],
     available: [
       "Riley-guided athlete onboarding and profile review",
-      "D3-focused school comparison",
+      "School comparison across the current D3 beta dataset",
       "Athlete-reviewed outreach preparation",
       "A consistent process for existing support conversations",
     ],
@@ -206,7 +206,7 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
     ],
     available: [
       "Athlete-owned profiles and school lists",
-      "D3-focused OneScore context",
+      "OneScore context, D3 beta dataset",
       "Personal outreach through a supported connected inbox",
       "School communication history for athlete check-ins",
     ],
