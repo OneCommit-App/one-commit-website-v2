@@ -28,6 +28,13 @@ export const h2 =
 export const h2Dark =
   "text-balance text-[2rem] font-bold leading-[1.14] tracking-[-0.03em] text-white sm:text-[2.25rem] sm:leading-[1.08] lg:text-[2.625rem] lg:leading-[1.05]"
 
+/* A second heading step. Before this, h1 was 60px and every other heading on a
+   12,000px page sat at 40-42px — a dynamic range of 1.43:1, which is no hierarchy at
+   all. h2 is reserved for the three moments that earn it; everything else steps down
+   to this. */
+export const h3Section =
+  "text-balance text-[1.5rem] font-bold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[1.625rem] lg:text-[1.75rem]"
+
 export const lede = "text-pretty text-[17px] leading-[1.55] text-ink-soft sm:text-[19px]"
 
 /* min-h-11 is redundant beside h-12 but states the 44px floor explicitly, so the

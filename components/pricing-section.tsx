@@ -2,7 +2,7 @@
 
 import { CheckCircle2, XCircle } from "lucide-react"
 import DownloadLink from "@/components/download-link"
-import { container, eyebrow, h2, lede, pillPrimary, section } from "@/components/home/tokens"
+import { container, eyebrow, h3Section, lede, pillPrimary, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const plans = [
@@ -55,7 +55,7 @@ export default function PricingSection() {
       <div className={container}>
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className={eyebrow}>Beta access</p>
-          <h2 id="pricing-heading" className={`mt-4 ${h2}`}>
+          <h2 id="pricing-heading" className={`mt-4 ${h3Section}`}>
             Free during beta. No paid plan is live.
           </h2>
           <p className={`mt-4 ${lede}`}>
