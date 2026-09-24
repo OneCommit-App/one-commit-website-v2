@@ -37,7 +37,7 @@ test("B2B audience data stays limited to the truthful athlete-owned pilot", asyn
     'pilotHref("OneCommit school pilot"',
     'pilotHref("OneCommit athletic program pilot"',
     "Athlete-owned accounts and profile review",
-    "D3-focused OneScore",
+    "current D3 beta dataset",
     "supported connected inbox",
     "No coach or administrator dashboard",
     "No school administrator dashboard",
