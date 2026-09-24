@@ -33,20 +33,24 @@ const audienceCards = [
 ]
 
 /*
- * Deliberately on the plain canvas: founder-story and pricing both sit on
- * bg-canvas-subtle, and three consecutive tinted sections read as one
- * undifferentiated stretch with no edge between them.
+ * Tinted, like every other soft band. The note that used to sit here claimed
+ * founder-story was on bg-canvas-subtle and that three tinted sections would abut;
+ * founder-story.tsx:13 is plain `section`, and the FAQ sits between pricing and this
+ * band anyway, so that run never existed. What did exist was the page's one invisible
+ * seam: 264px of edgeless field at exactly the athlete-to-adults handoff. The actual
+ * run is DailyLoop subtle / FounderStory canvas / Pricing subtle / FAQ canvas /
+ * Audience subtle / CTA shell.
  */
 export default function AudienceChooser() {
   return (
-    <section aria-labelledby="audience-chooser-heading" className={section}>
+    <section aria-labelledby="audience-chooser-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={container}>
         <Reveal className="max-w-3xl">
           <p className={eyebrow}>For the adults supporting the athlete</p>
           <h2 id="audience-chooser-heading" className={`mt-4 ${h3Section}`}>
             One athlete-owned workflow. Three ways to support it.
           </h2>
-          <p className={`mt-4 ${lede}`}>
+          <p className={`mt-4 max-w-xl ${lede}`}>
             OneCommit stays athlete-owned: no coach or administrator dashboard, roster monitoring, team reporting, or
             automatic outreach.
           </p>

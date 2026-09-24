@@ -56,7 +56,7 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
             width={1176}
             height={375}
             sizes="(max-width: 767px) 92vw, (max-width: 1280px) 46vw, 588px"
-            className="h-auto w-full"
+            className="oc-capture h-auto w-full"
           />
         </div>
       </motion.article>

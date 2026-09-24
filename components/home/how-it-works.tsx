@@ -149,17 +149,22 @@ export default function HowItWorks() {
               </h2>
 
               <ol className={`relative mt-8 ${tier.list}`}>
-                <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-px bg-line" />
+                <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-0.5 bg-line" />
                 <motion.span
                   aria-hidden="true"
                   style={{ scaleY: still ? (active + 1) / steps.length : scrollYProgress }}
-                  className="absolute bottom-3 left-[15px] top-3 w-px origin-top bg-green"
+                  className="absolute bottom-3 left-[15px] top-3 w-0.5 origin-top bg-green"
                 />
                 {steps.map((step, index) => {
                   const isActive = index === active
                   // Inactive steps dim only while scroll drives them; with reduced motion
                   // every step stays fully readable and the badge marks the current one.
                   const dimmed = !isActive && !still
+                  // The rail already promises past/present/future; without this the
+                  // badges offer only two states, so a step you have passed looks
+                  // identical to one you have not reached. `still` forces it false, so
+                  // reduced motion is unchanged.
+                  const done = !still && index < active
                   return (
                     <li key={step.title}>
                       <button
@@ -172,7 +177,9 @@ export default function HowItWorks() {
                           className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold transition-colors duration-300 ${
                             isActive
                               ? "bg-green text-on-green"
-                              : "bg-canvas text-ink/70 ring-1 ring-line group-hover:text-ink"
+                              : done
+                                ? "bg-green-soft text-green ring-1 ring-green/40"
+                                : "bg-canvas text-ink/70 ring-1 ring-line group-hover:text-ink"
                           }`}
                         >
                           {index + 1}

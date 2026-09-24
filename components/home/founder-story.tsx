@@ -24,7 +24,7 @@ export default function FounderStory() {
           {/* The plainest, most physical sentence gets the display size — unquoted, so at
               this scale it reads as the author talking rather than as a testimonial. The
               2024 setup moved down into the body where it belongs. */}
-          <blockquote className="mt-5 text-balance text-[1.625rem] font-semibold leading-[1.2] tracking-[-0.025em] text-ink sm:text-[2.125rem] lg:text-[2.5rem]">
+          <blockquote className="mt-5 text-pretty text-[1.625rem] font-semibold leading-[1.28] tracking-[-0.025em] text-ink sm:text-[1.75rem] sm:leading-[1.26] lg:text-[2rem] lg:leading-[1.24]">
             {"I spent weeks Googling coach emails, copy-pasting the same intro letter over and over, and sending messages into the void. Most never got a reply."}
           </blockquote>
         </Reveal>
