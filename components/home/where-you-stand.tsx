@@ -1,57 +1,66 @@
 "use client"
 
+import Image from "next/image"
 import { container, eyebrow, h2, lede, section } from "@/components/home/tokens"
-import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
+import { Reveal } from "@/components/reveal"
 
 /**
- * The band names are the ones the app uses (visible in public/app/explore.png).
- * They are named here without thresholds or counts on purpose — the boundaries live
- * in the product and describing them here would be inventing a definition the site
- * cannot back.
+ * The band names are the app's own (visible in public/app/explore.png). They are set
+ * without thresholds on purpose — the boundaries live in the product, and describing
+ * them here would invent a definition the site cannot back.
+ *
+ * The card is a crop of that same capture rather than a phone-framed thumbnail: at
+ * 260px inside a device frame not one of its numbers is legible, and those numbers
+ * are the entire argument. The crop deliberately includes the grey "Preferences 50%"
+ * row — four green bars and one grey one is what makes "what is holding it back"
+ * true rather than a boast.
  */
-const bands = ["Reach", "Target", "Foundation"]
-
 export default function WhereYouStand() {
   return (
     <section aria-labelledby="where-you-stand-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
-      {/* Nested, not `${container} max-w-[52rem]` — two max-width utilities in one class
-          string collide and the token's max-w-6xl wins on emission order. Outer box is the
-          rail, inner box is the measure. */}
       <div className={container}>
-        <div className="mx-auto w-full max-w-[52rem] text-center">
-        <Reveal>
-          <p className={eyebrow}>Where you stand</p>
-          <h2 id="where-you-stand-heading" className={`mt-4 ${h2}`}>
-            An honest read, not a locked door.
-          </h2>
-          <p className={`mx-auto mt-5 max-w-2xl ${lede}`}>
-            OneScore sorts every school on your list from your marks, grades, and preferences. That is a read on
-            where you stand today — not a rule about who you are allowed to write to. You choose who to contact.
-          </p>
-          <p className={`mx-auto mt-4 max-w-2xl ${lede}`}>
-            And it shows its work. Open any school and the score breaks down input by input — each mark, your
-            GPA, your SAT — against that program&rsquo;s range, so you can see what is carrying the number and
-            what is holding it back.
-          </p>
-        </Reveal>
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-16">
+          <Reveal>
+            <p className={eyebrow}>Where you stand</p>
+            <h2 id="where-you-stand-heading" className={`mt-4 ${h2}`}>
+              An honest read, not a locked door.
+            </h2>
+            <p className={`mt-5 max-w-xl ${lede}`}>
+              Every school on your list gets a band — Reach, Target, or Foundation — and the score shows its
+              work. Each mark, your GPA, your SAT, measured against that program&rsquo;s own range.
+            </p>
+            <p className={`mt-4 max-w-xl ${lede}`}>
+              Then you decide. You can write to any school on the list, including the ones it called a Reach.
+              The read is there to inform the letter, not to decide whether you are allowed to send it.
+            </p>
+            <p className="mt-6 max-w-xl border-t border-line pt-6 text-[15px] leading-relaxed text-ink-soft">
+              And the right move changes with the year you are in. Early on the app says so plainly: no outreach
+              pressure at this stage &mdash; log real races, keep the grades up, and let your trajectory tell the
+              story.
+            </p>
+          </Reveal>
 
-        <RevealGroup stagger={0.07} className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          {bands.map((band) => (
-            <RevealItem key={band} y={12}>
-              <span className="inline-flex items-center rounded-full bg-card px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-green ring-1 ring-line">
-                {band}
-              </span>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-
-        <Reveal delay={0.12}>
-          <p className="mx-auto mt-8 max-w-2xl text-[14px] leading-relaxed text-ink-faint">
-            And the right move changes with the year you are in. Early on, the app says so plainly: no outreach
-            pressure at this stage &mdash; log real races, keep the grades up, and let your trajectory tell the
-            story.
-          </p>
-        </Reveal>
+          <Reveal delay={0.1}>
+            <figure className="mx-auto w-full max-w-[560px]">
+              {/* The capture is light-appearance. On the dark canvas it would read as a
+                  white slab, so it keeps a hairline and is eased very slightly down —
+                  width and height stay fixed either way, so CLS stays 0. */}
+              <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line dark:ring-white/10 [@media(prefers-color-scheme:dark)]:brightness-[0.96] [@media(prefers-color-scheme:dark)]:ring-white/10">
+                <Image
+                  src="/app/onescore-card.png"
+                  alt="A school card in the OneCommit app: Anderson University, OneScore 85 out of 100, banded Target, above the line 'Your 200m is right in their range', then a breakdown headed 'Why it scores 85' listing a 22.31 200m, a 50.44 400m, a 3.70 GPA and a 1280 SAT each marked above the program's range, with preferences at 50 percent"
+                  width={1150}
+                  height={1248}
+                  sizes="(max-width: 1024px) 92vw, 560px"
+                  className="h-auto w-full"
+                />
+              </div>
+              <figcaption className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
+                A school card from the app. Anderson University is one program in the current D3 beta dataset,
+                not a OneCommit partner.
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
       </div>
     </section>

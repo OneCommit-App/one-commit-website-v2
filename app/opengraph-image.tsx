@@ -63,11 +63,8 @@ export default async function OGImage() {
             lineHeight: 1.08,
           }}
         >
-          <span>A recruiting system built</span>
-          <span style={{ display: "flex", gap: "16px" }}>
-            <span>around</span>
-            <span style={{ color: MINT }}>the athlete.</span>
-          </span>
+          <span>Know where you stand.</span>
+          <span style={{ color: MINT }}>Write anyway.</span>
         </div>
 
         <div

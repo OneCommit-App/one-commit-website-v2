@@ -45,7 +45,7 @@ const trustPoints = [
 ]
 
 /* Sized from the viewport height so the whole phone sits above the fold on desktop. */
-const heroPhoneWidth = { "--hero-phone-w": "min(340px, calc((100svh - 11rem) / 2.11))" } as React.CSSProperties
+const heroPhoneWidth = { "--hero-phone-w": "min(440px, calc((100svh - 7rem) / 2.11))" } as React.CSSProperties
 
 export default function LandingPage() {
   return (
@@ -89,10 +89,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
           </div>
 
           <h1
-            aria-label="A recruiting system built around the athlete"
+            aria-label="Know where you stand. Write anyway."
             className="mt-6 text-balance text-[2.625rem] font-bold leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.5rem] lg:text-[3.75rem] xl:text-[4rem]"
           >
-            A recruiting system built around <span className="text-green-mid">the athlete</span>
+            Know where you stand. <span className="text-green-mid">Write anyway.</span>
           </h1>
 
           {/* The first sentence is asserted verbatim against the server HTML by
@@ -127,7 +127,7 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
 
         <div
           data-home-product-proof="true"
-          className="relative mx-auto w-full max-w-[420px] lg:max-w-none"
+          className="relative mx-auto w-full max-w-[420px] lg:max-w-none lg:translate-x-8 xl:translate-x-16"
           style={{ perspective: 1600 }}
         >
           <motion.div
@@ -149,10 +149,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
               transition={prefersReducedMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
             >
               <DeviceFrame
-                src="/app/home.png"
-                alt="OneCommit home screen showing the athlete's next goal, today's tasks, and the queue of matches, sent messages, and replies"
+                src="/app/home-hero.png"
+                alt="OneCommit home screen: a greeting, then a card headed BUILDING reading 'Right now, the work is the win — no outreach pressure at this stage', the athlete's next goal, today's tasks, and the queue of matches, sent messages and replies"
                 priority
-                sizes="(max-width: 1024px) 280px, 340px"
+                sizes="(max-width: 1024px) 320px, 440px"
               />
             </motion.div>
           </motion.div>
