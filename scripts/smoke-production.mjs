@@ -457,7 +457,14 @@ async function checkHonestMarketingClaims() {
     {
       path: "/coaches",
       required: [
-        "d3-focused onescore",
+        // Was "d3-focused onescore", which stopped existing when #39 moved the D3
+        // qualifier off the product and onto the dataset ("OneScore guidance across
+        // the current D3 beta dataset"). The assertion's job is to prove these pages
+        // still name the scope rather than implying equal coverage across divisions,
+        // so it pins the scope, not the old phrasing. /athletic-programs words the
+        // surrounding sentence differently again, which is why the pin is the two
+        // words all three share.
+        "d3 beta dataset",
         "athlete-owned accounts",
         "mailto:admin@onecommit.us",
         "coach_interest_click",
@@ -483,7 +490,7 @@ async function checkHonestMarketingClaims() {
     {
       path: "/schools",
       required: [
-        "d3-focused onescore",
+        "d3 beta dataset",
         "athlete-owned accounts",
         "mailto:admin@onecommit.us?subject=onecommit%20school%20pilot",
         "pilot_interest_click",
@@ -500,7 +507,7 @@ async function checkHonestMarketingClaims() {
     {
       path: "/athletic-programs",
       required: [
-        "d3-focused onescore",
+        "d3 beta dataset",
         "athlete-owned accounts",
         "mailto:admin@onecommit.us?subject=onecommit%20athletic%20program%20pilot",
         "pilot_interest_click",
