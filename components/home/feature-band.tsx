@@ -1,36 +1,43 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import DeviceFrame from "@/components/device-frame"
+import Image from "next/image"
+import { motion } from "framer-motion"
 import { container, eyebrowDark, h2Dark } from "@/components/home/tokens"
 import { EASE_OUT, Reveal, RevealGroup, RevealItem, useStill } from "@/components/reveal"
 
+/**
+ * Each card shows a strip cut out of the shipped capture it names, not a phone.
+ * At the 260px the device frames rendered at, none of this type was legible, and
+ * two of the six phones on the page were repeats of these same two screens. The
+ * crops are pre-cut into public/app/ at the size they render — a CSS crop window
+ * would ship the whole 2622px capture to show 400px of it.
+ *
+ * Both strips are 1176x375 so the two cards land on the same height. The Explore
+ * crop deliberately stops above "213 programs fit you": the band counts belong to
+ * one athlete against one beta dataset, and on a marketing page they would read as
+ * a claim about the catalogue.
+ */
 const features = [
   {
     title: "Riley-guided voice onboarding",
     desc: "A spoken intake instead of a recruiting form. Riley asks, the athlete answers, and every captured detail is editable before anything uses it.",
-    image: "/app/profile.png",
-    alt: "OneCommit profile screen with a 200m mark, GPA and target prompts, a Riley's Take card, and the OneScore readiness meter",
+    image: "/app/riley-take.png",
+    alt: "A card in the OneCommit app headed RILEY'S TAKE, naming the athlete's top match on file and suggesting they ask Riley for a first draft this week",
   },
   {
     title: "SmartAdd + Search",
     desc: "Browse, describe what you want, or search by name across the current D3 beta dataset. Saving a school moves it onto the working list.",
-    image: "/app/explore.png",
-    alt: "OneCommit Explore screen with Explore, SmartAdd, and Search tabs and a scored program",
-  }
+    image: "/app/explore-tabs.png",
+    alt: "The OneCommit Explore screen's tab row — Explore, SmartAdd and Search — above the line 'Schools ranked against your profile, one at a time.'",
+  },
 ]
 
 function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
-  const ref = useRef<HTMLElement>(null)
   const still = useStill()
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], [28, -28])
 
   return (
     <RevealItem className="h-full">
       <motion.article
-        ref={ref}
         whileHover={still ? undefined : { y: -4 }}
         transition={{ duration: 0.45, ease: EASE_OUT }}
         className="oc-raised flex h-full flex-col overflow-hidden rounded-card bg-white/[0.05] ring-1 ring-white/[0.08] transition-shadow duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
@@ -39,12 +46,18 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
           <h3 className="text-[22px] font-semibold tracking-[-0.02em] text-white">{feature.title}</h3>
           <p className="mt-2 max-w-md text-[15px] leading-relaxed text-white/70">{feature.desc}</p>
         </div>
-        {/* The phone is taller than the well, so it is deliberately cut off — the mask
-            dissolves the bottom into the card instead of guillotining it mid-screen. */}
-        <div className="relative mt-auto h-[320px] overflow-hidden px-8 [mask-image:linear-gradient(to_bottom,#000_62%,transparent_99%)] sm:h-[360px]">
-          <motion.div style={still ? undefined : { y }} className="mx-auto w-[min(260px,78%)]">
-            <DeviceFrame src={feature.image} alt={feature.alt} sizes="260px" />
-          </motion.div>
+        {/* Full-bleed to the card edge: the card already clips to rounded-card, so the
+            strip picks up the bottom corners. The hairline keeps the light capture
+            from fusing with the deep-green card above it. */}
+        <div className="mt-auto border-t border-white/10">
+          <Image
+            src={feature.image}
+            alt={feature.alt}
+            width={1176}
+            height={375}
+            sizes="(max-width: 767px) 92vw, (max-width: 1280px) 46vw, 588px"
+            className="h-auto w-full"
+          />
         </div>
       </motion.article>
     </RevealItem>
