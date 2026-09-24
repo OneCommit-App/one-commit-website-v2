@@ -294,6 +294,79 @@
   box-shadow: inset 0 1px 0 rgba(233, 242, 236, 0.07);
 }
 
+/* Nav link underline. There is exactly one whileHover in the codebase and the other
+   thirty-odd hover utilities are colour swaps, so hovering anything returns the same
+   answer everywhere. This wipes in from the left over 240ms on the page's own easing
+   and keeps the colour change, because an underline alone is not a sufficient
+   non-colour cue for a link that is already underlined-on-hover elsewhere.
+
+   Gated on a real pointer: on touch, :hover sticks after a tap and would leave an
+   underline behind on the tapped link. Reduced motion keeps the underline and drops
+   the wipe. */
+.oc-nav-link {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .oc-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.8rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 240ms var(--ease-out-quint);
+  }
+
+  .oc-nav-link:hover::after,
+  .oc-nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-nav-link::after {
+    transition: none;
+  }
+}
+
+/* Lane rule: a second hairline 3px off the first, the way a track paints its lane
+   lines. Drawn as a pseudo-element rather than a box-shadow, because these rows
+   have no background of their own and a shadow behind them shows through as a
+   solid block instead of an edge. Nothing here participates in layout, so CLS
+   stays 0. Held at 45% of the hairline: past that it stops being a track and
+   starts being a high-school yearbook.
+
+   Applied to exactly three places — the problem stack, the founder byline rule and
+   the door paragraph in where-you-stand. NOT to the card rings, where a doubled
+   edge reads as a rendering bug rather than a detail. */
+.oc-lane-top,
+.oc-lane-bottom {
+  position: relative;
+}
+
+.oc-lane-top::after,
+.oc-lane-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--oc-line) 45%, transparent);
+  pointer-events: none;
+}
+
+.oc-lane-top::after {
+  top: 3px;
+}
+
+.oc-lane-bottom::after {
+  bottom: -5px;
+}
+
 /* Weaker sibling of .oc-band, for the bg-canvas-subtle sections. Their step off the
    canvas is about a third as strong as a deep-green band's, so the hairline is
    correspondingly brighter. Light needs nothing — the tint alone reads there. */
@@ -373,6 +446,27 @@
   border-radius: 11.3% / 5.2%;
   background: #0b0d0c;
   transform: translateZ(0);
+  /* So anything drawn over the capture can be sized in cqw and stay right at every
+     frame width, the way .oc-device-btn stays right using percentages. */
+  container-type: inline-size;
+}
+
+/* Status-bar clock (components/device-clock.tsx). Centred on the Dynamic Island the
+   frame draws rather than on the capture's own status bar: the island is what a
+   reader can actually see, and the capture's 9:41 is white on #F7F8F5. The island
+   sits at 2.55%-6.6% of the body and the screen spans 1.33%-98.67% of it, so the
+   island's centre is 3.34% down the screen box. */
+.oc-device-clock {
+  position: absolute;
+  left: 15.2%;
+  top: 3.34%;
+  transform: translate(-50%, -50%);
+  font-size: 4.43cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #1c1c1e;
+  font-variant-numeric: tabular-nums;
 }
 
 .oc-device-island {

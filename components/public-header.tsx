@@ -63,7 +63,7 @@ const focusRing =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]";
 
 const secondaryLinkClass =
-  "hidden min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-[color:var(--nav-fg-soft)] transition-colors hover:text-[color:var(--nav-fg)] md:inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]";
+  "oc-nav-link hidden min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-[color:var(--nav-fg-soft)] transition-colors hover:text-[color:var(--nav-fg)] md:inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--nav-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--nav-bg)]";
 
 /**
  * Shared frosted-glass navigation for every route away from the homepage. It is

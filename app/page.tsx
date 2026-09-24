@@ -6,6 +6,7 @@ import { motion, MotionConfig, useScroll, useSpring, useTransform } from "framer
 import { ArrowRight, CalendarCheck, Mail, ShieldCheck, Target } from "lucide-react"
 import AudienceChooser from "@/components/b2b/audience-chooser"
 import CTASection from "@/components/cta-section"
+import DeviceClock from "@/components/device-clock"
 import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FAQSection from "@/components/faq-section"
@@ -154,7 +155,9 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
                 alt="OneCommit home screen: a greeting, then a card headed BUILDING reading 'Right now, the work is the win — no outreach pressure at this stage', the athlete's next goal, today's tasks, and the queue of matches, sent messages and replies"
                 priority
                 sizes="(max-width: 1024px) 320px, 440px"
-              />
+              >
+                <DeviceClock />
+              </DeviceFrame>
             </motion.div>
           </motion.div>
         </div>
