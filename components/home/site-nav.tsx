@@ -57,7 +57,7 @@ export default function SiteNav() {
                 <a
                   key={label}
                   href={href}
-                  className={`inline-flex min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink ${focusRing}`}
+                  className={`oc-nav-link inline-flex min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink ${focusRing}`}
                 >
                   {label}
                 </a>

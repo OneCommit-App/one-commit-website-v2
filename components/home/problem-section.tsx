@@ -38,9 +38,9 @@ export default function ProblemSection() {
           </p>
         </Reveal>
 
-        <RevealGroup className="border-t border-line">
+        <RevealGroup className="oc-lane-top border-t border-line">
           {problems.map((item) => (
-            <RevealItem key={item.problem} className="grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
+            <RevealItem key={item.problem} className="oc-lane-bottom grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
               <div className="flex gap-3.5">
                 <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-soft text-clay">
                   <X size={14} strokeWidth={2.5} aria-hidden="true" />

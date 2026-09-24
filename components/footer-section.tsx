@@ -3,7 +3,7 @@ import Link from "next/link"
 import TrackedLink from "@/components/tracked-link"
 
 const footerLinkClass =
-  "-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm text-white/65 transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+  "-mx-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm text-white/65 transition-[color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-[2px] hover:text-white motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
 
 export default function FooterSection() {
   return (
@@ -13,7 +13,7 @@ export default function FooterSection() {
           <Link
             href="/"
             aria-label="OneCommit home"
-            className="-mx-2 flex min-h-11 w-fit items-center gap-2 rounded-lg px-2 text-white transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            className="-mx-2 flex min-h-11 w-fit items-center gap-2 rounded-lg px-2 text-white transition-[color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-[2px] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
           >
             <Image src="/logo.png" alt="" width={28} height={28} className="h-7 w-7 rounded-full" />
             <span className="text-[15px] font-semibold tracking-[-0.01em]">OneCommit</span>
@@ -25,7 +25,7 @@ export default function FooterSection() {
             href="mailto:admin@onecommit.us"
             eventName="support_click"
             eventSource="footer_email_primary"
-            className="-mx-3 inline-flex min-h-11 w-fit items-center rounded-lg px-3 text-sm font-medium text-mint transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            className="-mx-3 inline-flex min-h-11 w-fit items-center rounded-lg px-3 text-sm font-medium text-mint transition-[color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-[2px] hover:text-white motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
           >
             admin@onecommit.us
           </TrackedLink>
