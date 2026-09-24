@@ -195,11 +195,11 @@ function LandingPageContent() {
           <HowItWorks />
           <DailyLoop />
           <FounderStory />
-          <AudienceChooser />
           <div id="pricing" className="scroll-mt-20">
             <PricingSection />
           </div>
           <FAQSection />
+          <AudienceChooser />
           <CTASection />
         </main>
 
