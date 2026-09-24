@@ -22,23 +22,7 @@ const plans = [
       "Outlook/Microsoft 365 inbox connection",
       "Coach reply tracking",
     ],
-  },
-  {
-    name: "Paid plans",
-    eyebrow: "Not live",
-    description: "There is no paid tier, advisor subscription, or recurring call package available today.",
-    price: "TBD",
-    cadence: "after validation",
-    note: "Any future price and terms will be shown before billing can start.",
-    cta: "",
-    ctaType: "none",
-    features: [
-      "No checkout in the current beta",
-      "No public paid price yet",
-      "Beta outcomes will shape future plans",
-      "Terms shown before any purchase",
-    ],
-  },
+  }
 ]
 
 const oldWay = [
@@ -56,14 +40,14 @@ export default function PricingSection() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className={eyebrow}>Beta access</p>
           <h2 id="pricing-heading" className={`mt-4 ${h3Section}`}>
-            Free during beta. No paid plan is live.
+            Free during beta. The price will be shown before anyone is billed.
           </h2>
           <p className={`mt-4 ${lede}`}>
             We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
           </p>
         </Reveal>
 
-        <RevealGroup className="mt-14 grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,0.9fr)]">
+        <RevealGroup className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
           {plans.map((plan) => {
             const isBeta = plan.ctaType === "download"
             return (
