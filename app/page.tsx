@@ -90,11 +90,17 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
             </span>
           </div>
 
+          {/* Each sentence owns its own line. Left to text-balance the two clauses
+              ran together and stranded "Then" alone on line two. The xl 64px step is
+              gone because at 64px the second clause needs two lines and the headline
+              becomes a three-line rag; at 60px both clauses are exactly one line,
+              measured at 1440. */}
           <h1
-            aria-label="Know where you stand. Write anyway."
-            className="mt-6 text-balance text-[2.625rem] font-bold leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.5rem] lg:text-[3.75rem] xl:text-[4rem]"
+            aria-label="Find the schools that fit. Then actually email them."
+            className="mt-6 text-balance text-[2.625rem] font-bold leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.5rem] lg:text-[3.75rem]"
           >
-            Know where you stand. <span className="text-green-mid">Write anyway.</span>
+            Find the schools that fit.{" "}
+            <span className="block text-green-mid">Then actually email them.</span>
           </h1>
 
           {/* The first sentence is asserted verbatim against the server HTML by
@@ -103,10 +109,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
               opacity assertion still sees it — which lifts the device ~190px on a
               phone, putting the app's next-goal card above the fold. */}
           <p data-home-value-proposition="true" className={`mt-6 max-w-xl ${lede}`}>
-            Turn your marks, grades, and college preferences into a focused list.{" "}
+            OneCommit scores real programs against your own marks and grades, and shows its work.{" "}
             <span className="hidden sm:inline">
-              Draft personal coach outreach from your own inbox, review every message, and keep replies organized in
-              one place.
+              Then it turns the list into a few things to do today &mdash; written with you, sent from your inbox,
+              never ours.
             </span>
           </p>
 

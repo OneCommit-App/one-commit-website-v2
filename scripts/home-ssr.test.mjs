@@ -96,8 +96,8 @@ try {
 
   for (const requiredText of [
     "Skip to main content",
-    "Know where you stand. Write anyway.",
-    "Turn your marks, grades, and college preferences into a focused list.",
+    "Find the schools that fit. Then actually email them.",
+    "OneCommit scores real programs against your own marks and grades, and shows its work.",
     "Nothing sends without your approval.",
     "Request Beta Access",
     "OneScore by school",
