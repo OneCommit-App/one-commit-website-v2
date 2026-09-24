@@ -63,8 +63,8 @@ export default async function OGImage() {
             lineHeight: 1.08,
           }}
         >
-          <span>Know where you stand.</span>
-          <span style={{ color: MINT }}>Write anyway.</span>
+          <span>Find the schools that fit.</span>
+          <span style={{ color: MINT }}>Then actually email them.</span>
         </div>
 
         <div
