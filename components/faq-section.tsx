@@ -2,13 +2,17 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Plus } from "lucide-react"
+import { ArrowUpRight, Plus } from "lucide-react"
 import { faqData } from "@/components/faq-data"
 import { container, eyebrow, focusRing, h3Section, lede, section } from "@/components/home/tokens"
 import { EASE_OUT, Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 export default function FAQSection() {
-  const [open, setOpen] = useState<number[]>([])
+  // The first row opens on load. Closed, this band is twelve identical rows and a
+  // reader never sees what an answer looks like before deciding whether to open one.
+  // It is a list of <button>s with aria-expanded, not a disclosure that traps focus,
+  // so an open row costs nothing to a keyboard or screen-reader user.
+  const [open, setOpen] = useState<number[]>([0])
   const toggle = (index: number) =>
     setOpen((current) => (current.includes(index) ? current.filter((item) => item !== index) : [...current, index]))
 
@@ -23,6 +27,25 @@ export default function FAQSection() {
           <p className={`mt-4 max-w-sm ${lede}`}>
             Everything you need to know about building your recruiting process with OneCommit.
           </p>
+          {/* This column is sticky and held a heading and two lines above roughly 900px
+              of nothing — the largest empty rectangle on the page. The address is
+              already in the last FAQ answer and in the footer, but both are hidden: one
+              behind a plus, one below 12,000px of scroll. Here it travels with the list,
+              so it is on screen at the exact moment a reader finds their question is
+              not in it. No response-time or headcount promise — neither is backed. */}
+          <div className="oc-lane-top mt-10 max-w-sm border-t border-line pt-8">
+            <p className="text-[17px] font-semibold tracking-[-0.01em] text-ink">Not on the list?</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+              Send the question straight to us. Every message goes to a person, not a ticket queue.
+            </p>
+            <a
+              href="mailto:admin@onecommit.us"
+              className={`mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-green transition-colors hover:text-green-mid ${focusRing}`}
+            >
+              admin@onecommit.us
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
         </Reveal>
 
         <RevealGroup stagger={0.04} className="border-t border-line">

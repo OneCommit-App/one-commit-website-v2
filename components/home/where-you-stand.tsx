@@ -17,7 +17,10 @@ import { Reveal } from "@/components/reveal"
  */
 export default function WhereYouStand() {
   return (
-    <section aria-labelledby="where-you-stand-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
+    <section
+      aria-labelledby="where-you-stand-heading"
+      className={`oc-band-soft ${section} overflow-x-clip bg-canvas-subtle`}
+    >
       <div className={container}>
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-16">
           <Reveal>
@@ -54,7 +57,26 @@ export default function WhereYouStand() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <figure className="mx-auto w-full max-w-[560px]">
+            {/* The one element on 12,600px of page that leaves the 1200px rail.
+                Up to here nothing ever crosses a band edge or steps outside the rail,
+                which is what makes the page read as competently templated rather than
+                designed — and this is the band that earns the exception, because the
+                card IS the argument.
+
+                It also buys the page its only display number without inventing one. At
+                560px the card's "85" rendered around 44px, below the section heads; at
+                1440 this runs it to ~690px and at 1920 to ~930px, which sets the real
+                number the product computed at 54-72px. Re-typing "85" into marketing
+                HTML beside a screenshot of the same 85 would have been the redundant
+                way to get there.
+
+                Width is `100% + the gutter between the rail and the viewport`, floored
+                at 0 so it never goes negative below 1248px. 100vw counts the scrollbar,
+                so the section carries overflow-x-clip — the same guard how-it-works
+                uses; clip does not create a scroll container, so nothing sticky breaks.
+                Right corners square off at lg: a rounded corner landing exactly on the
+                viewport edge reads as an accident, a flush cut reads as a decision. */}
+            <figure className="mx-auto w-full max-w-[560px] lg:mx-0 lg:max-w-none lg:w-[calc(100%+max(0px,(100vw-1200px)/2)+1.5rem)]">
               {/* The capture is light-appearance, so on the dark canvas it keeps a
                   hairline and .oc-capture seats it (app/globals.css). The hairline is
                   MORE load-bearing after the dim, not less: this capture is not a
@@ -62,17 +84,17 @@ export default function WhereYouStand() {
                   band without it. The dead `dark:` variants that used to sit here never
                   fired; no ThemeProvider is mounted, so .dark is never set and the dark
                   scheme arrives only through the media query. */}
-              <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:ring-white/10">
+              <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line lg:rounded-r-none [@media(prefers-color-scheme:dark)]:ring-white/10">
                 <Image
                   src="/app/onescore-card.png"
                   alt="A school card in the OneCommit app: Anderson University, OneScore 85 out of 100, banded Target, above the line 'Your 200m is right in their range', then a breakdown headed 'Why it scores 85' listing a 22.31 200m, a 50.44 400m, a 3.70 GPA and a 1280 SAT each marked above the program's range, with preferences at 50 percent"
                   width={1150}
                   height={1248}
-                  sizes="(max-width: 1024px) 92vw, 560px"
+                  sizes="(max-width: 1024px) 92vw, (max-width: 1440px) 50vw, 60vw"
                   className="oc-capture h-auto w-full"
                 />
               </div>
-              <figcaption className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
+              <figcaption className="mt-4 max-w-xl text-center text-[13px] leading-relaxed text-ink-soft lg:text-left">
                 A school card from the app. Anderson University is one program in the current D3 beta dataset,
                 not a OneCommit partner.
               </figcaption>
