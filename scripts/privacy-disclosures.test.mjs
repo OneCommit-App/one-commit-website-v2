@@ -13,7 +13,7 @@ test("privacy policy discloses Riley voice interactions", async () => {
     "When you confirm your profile, OneCommit also stores the transcript and confirmed profile details with your account to complete onboarding and support Riley features.",
     "A typed onboarding option is available if you prefer not to use voice.",
     "a voice-AI provider that processes audio to power Riley voice conversations",
-    "Last updated August 31, 2026",
+    "Last updated October 21, 2026",
   ]) {
     assert.ok(page.includes(fragment), `privacy page missing voice disclosure: ${fragment}`)
   }
@@ -57,9 +57,9 @@ test("sitemap reports privacy and terms revisions independently", async () => {
   const sitemap = await source("app/sitemap.ts")
 
   for (const fragment of [
-    'const privacyModified = new Date("2026-08-31")',
+    'const privacyModified = new Date("2026-10-21")',
     'url: "https://www.onecommit.us/privacy",\n      lastModified: privacyModified,',
-    'const termsModified = new Date("2026-09-22")',
+    'const termsModified = new Date("2026-10-21")',
     'url: "https://www.onecommit.us/terms",\n      lastModified: termsModified,',
   ]) {
     assert.ok(sitemap.includes(fragment), `sitemap missing independent policy timestamp: ${fragment}`)

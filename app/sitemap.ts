@@ -3,8 +3,8 @@ import type { MetadataRoute } from "next"
 export default function sitemap(): MetadataRoute.Sitemap {
   const launchModified = new Date("2026-07-11")
   const aboutModified = new Date("2026-08-31")
-  const privacyModified = new Date("2026-08-31")
-  const termsModified = new Date("2026-09-22")
+  const privacyModified = new Date("2026-10-21")
+  const termsModified = new Date("2026-10-21")
 
   return [
     {

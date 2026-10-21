@@ -50,6 +50,7 @@ jobs:
       - run: node --test scripts/b2b-claims.test.mjs
       - run: node --test scripts/privacy-disclosures.test.mjs
       - run: node --test scripts/parent-pay.test.mjs
+      - run: node --test scripts/pass-copy.test.mjs
       - run: pnpm audit --prod
       - run: pnpm build
       - run: node scripts/canonical-host.test.mjs

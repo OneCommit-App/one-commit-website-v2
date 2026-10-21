@@ -13,12 +13,12 @@ import { h1, hero, inlineLink, prose } from "@/components/routes/tokens"
 export const metadata: Metadata = {
   title: "For parents",
   description:
-    "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
+    "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs.",
   alternates: { canonical: "https://www.onecommit.us/parents" },
   openGraph: {
     title: "For parents | OneCommit",
     description:
-      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
+      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs.",
     url: "https://www.onecommit.us/parents",
     siteName: "OneCommit",
     locale: "en_US",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "For parents | OneCommit",
     description:
-      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
+      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs.",
     images: ["/opengraph-image"],
   },
 }
@@ -164,13 +164,16 @@ export default function ParentsPage() {
             <Reveal>
               <p className={eyebrow}>What it costs</p>
               <h2 id="cost-heading" className={`mt-4 ${h2}`}>
-                Free during the beta.
+                One payment. Nothing renews.
               </h2>
               <div className={`mt-6 space-y-5 ${prose}`}>
                 <p>
-                  There is no paid plan, no checkout, and no published price today. Access is invite-only and
-                  depends on capacity. If a paid plan is introduced later, the terms and the price will be shown
-                  before anything can be billed.
+                  The Recruiting Pass is $149.99, paid once. It covers your athlete through Aug 31 of their
+                  graduation year, or 90 days if that ends later. Their first 3 coach emails are free.
+                </p>
+                <p>
+                  They can buy it in the app, or text you a link to pay on our website through Stripe, with no
+                  account. If they log a commitment before your payment goes through, we refund it in full.
                 </p>
                 <p>
                   Outreach sends from your athlete&rsquo;s own connected mailbox, and Outlook/Microsoft 365 is
@@ -178,7 +181,7 @@ export default function ParentsPage() {
                 </p>
               </div>
               <ul className="mt-8 flex flex-col gap-3 border-t border-line pt-8">
-                {["No credit card to request access", "No auto-renewing subscription today", "No recruiting outcome is promised"].map(
+                {["One payment of $149.99", "No auto-renewing subscription", "No recruiting outcome is promised"].map(
                   (item) => (
                     <li key={item} className="flex items-start gap-3 text-[16px] leading-relaxed text-ink">
                       <CheckCircle2 size={17} aria-hidden="true" className="mt-0.5 shrink-0 text-green-mid" />

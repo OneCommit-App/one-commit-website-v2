@@ -69,16 +69,16 @@ const supportSections = [
     body: (
       <ul className={`list-disc space-y-3 pl-5 ${bodyClass}`}>
         <li>
-          <strong className="font-semibold text-ink">Paid plans:</strong>{" "}
-          {"None are active today. Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. Future terms would appear before billing can start."}
+          <strong className="font-semibold text-ink">Recruiting Pass:</strong>{" "}
+          {"$149.99, paid once. Nothing renews. It covers the athlete through Aug 31 of their graduation year, or 90 days if that ends later. Buy it in the app, or a parent can pay on our website from a link the athlete sends. The first 3 coach emails are free."}
         </li>
         <li>
           <strong className="font-semibold text-ink">Account changes:</strong>{" "}
           {"Email support if you need to change the email tied to your account."}
         </li>
         <li>
-          <strong className="font-semibold text-ink">Future refunds:</strong> If a paid plan becomes available, email <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_refunds" className={inlineLinkClass}>admin@onecommit.us</TrackedLink>{" "}
-          {"within 7 days of a charge and we'll review your request. Refunds are discretionary unless required by law."}
+          <strong className="font-semibold text-ink">Refunds:</strong> Apple handles App Store refunds. For a payment on our website, email <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_refunds" className={inlineLinkClass}>admin@onecommit.us</TrackedLink>{" "}
+          {"within 14 days for a full refund. A full refund ends the pass. If the athlete logs a commitment before a parent's payment goes through, we refund it automatically."}
         </li>
         <li>
           <strong className="font-semibold text-ink">Delete your account:</strong>{" "}
