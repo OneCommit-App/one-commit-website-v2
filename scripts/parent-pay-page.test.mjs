@@ -471,6 +471,31 @@ try {
     const rootFont = async (px) => {
       await send("Page.setFontSizes", { fontSizes: { standard: px, fixed: Math.round((px * 13) / 16) } })
     }
+    // The price is one word: it never breaks mid-number, and it stays inside
+    // its card (the edge check above only sees the screen edge).
+    const priceBox = async () => {
+      const found = await evaluate(`(() => {
+        const card = document.querySelector('section[aria-label="What the pass covers"]')
+        const span = card && [...card.querySelectorAll("span")].find((el) => el.textContent.trim() === "$149.99")
+        if (!span) return null
+        const range = document.createRange()
+        range.selectNodeContents(span)
+        const lines = new Set([...range.getClientRects()].filter((r) => r.width > 0).map((r) => Math.round(r.top))).size
+        const box = span.getBoundingClientRect()
+        const cardBox = card.getBoundingClientRect()
+        const contentRight = cardBox.right - parseFloat(getComputedStyle(card).paddingRight)
+        return { lines, right: box.right, contentRight, width: box.width, fontSize: parseFloat(getComputedStyle(span).fontSize) }
+      })()`)
+      assert(found, "the price is on the page")
+      return found
+    }
+    const priceFits = async (label) => {
+      const price = await priceBox()
+      const where = `font=${price.fontSize}px width=${Math.round(price.width)} right=${Math.round(price.right)} card content right=${Math.round(price.contentRight)}`
+      assert.equal(price.lines, 1, `${label}: the price breaks across ${price.lines} lines (${where})`)
+      assert(price.right <= price.contentRight + 0.5, `${label}: the price runs past its card (${where})`)
+    }
+    const refundLine = "If the pass can’t be added, we refund you in full."
     const step = async (label, fn) => {
       try {
         await fn()
@@ -505,10 +530,24 @@ try {
         "Pay $149.99",
         "Secure checkout by Stripe. We never see your card.",
         "No account needed · US only",
+        "By paying, you agree to our Terms, which cover refunds.",
       ]) {
         assert(body.includes(needle), `missing ${JSON.stringify(needle)}`)
       }
       assert.equal(await evaluate("document.querySelectorAll('main button').length"), 1, "one button")
+      // The parent is the buyer: the Terms (and their refund rule) are linked
+      // next to Pay, in a new tab so the page and the ticked box survive.
+      assert.deepEqual(
+        await evaluate(`(() => {
+          const a = document.querySelector('main form a[href="/terms"]')
+          return a && { text: a.innerText.trim(), target: a.target, rel: a.rel }
+        })()`),
+        { text: "Terms", target: "_blank", rel: "noopener noreferrer" },
+        "the Terms link sits with the Pay button",
+      )
+      const price = await priceBox()
+      assert.equal(price.fontSize, 44, "default text: the price is still 44px")
+      assert.equal(price.lines, 1)
       const calls = requestsSince(mark)
       assert.equal(calls.length, 1, "one lookup")
       assert.equal(calls[0].url, "/v1/parent-pay/links/lookup")
@@ -611,20 +650,28 @@ try {
     await step("back from Stripe (?paid=1): thank you, then confirmed once the pass lands", async () => {
       await goto("/p/PAYD2345?paid=1")
       await waitForText("Thank you.")
-      assert((await text()).includes("Stripe emails your receipt."))
+      // Pending is the first screen on every return from Stripe, before the
+      // pass is seen: a payment after a commitment, or for an athlete
+      // already covered, is refunded instead, so pending claims nothing.
+      const pending = await text()
+      assert(pending.includes("Stripe emails your receipt."))
+      assert(pending.includes(refundLine), "pending: the refund case is stated")
+      assert(!pending.includes("goes straight to"), "pending: no claim that the pass landed")
+      assert(!pending.includes("nothing else to do"), "pending: no claim that the parent is done")
       await shoot("06-paid-pending-390")
       await waitForText("You’re all set.", 15_000)
       const body = await text()
       assert(body.includes("Avery is covered through Aug 31, 2028"))
       assert(body.includes("The pass goes straight to Avery’s account."))
       assert(body.includes("Nothing renews. There’s nothing else to do."))
+      assert(!body.includes(refundLine), "confirmed: the pass is on the account, no refund line")
       assert(!body.includes("Didn’t finish paying?"))
       await shoot("07-paid-confirmed-390")
     })
 
     await step("?paid=1 on a link that no longer answers: thank you, honest wait", async () => {
       await goto("/p/GQNE7777?paid=1")
-      await waitForText("This can take a few minutes.")
+      await waitForText("The pass hasn’t shown up yet.")
       const body = await text()
       assert(body.includes("Thank you."))
       assert(body.includes("Didn’t finish paying?"))
@@ -635,6 +682,10 @@ try {
       assert(body.includes("If the payment went through:"), "the steps are conditional")
       assert(!body.includes("goes straight to"), "no claim that the pass landed")
       assert(!body.includes("nothing else to do"), "no claim that the parent is done")
+      // A bank payment can take days, and a refund never lands at all, so
+      // the wait is not promised as "a few minutes".
+      assert(!body.includes("a few minutes"), "no promised wait")
+      assert(body.includes(refundLine), "the refund case is stated")
       await shoot("11-paid-unknown-390")
     })
 
@@ -673,31 +724,48 @@ try {
       ["rate limited", "/p/SLWW2345", "Too many tries."],
       ["paid pending", "/p/K7Q2M9AB?paid=1", "Finishing up"],
       ["paid confirmed", "/p/PAYD2345?paid=1", "You’re all set."],
-      ["paid unknown", "/p/GQNE7777?paid=1", "This can take a few minutes."],
+      ["paid unknown", "/p/GQNE7777?paid=1", "The pass hasn’t shown up yet."],
     ]
+    const pricedStates = new Set(["payable", "guardian note", "long name"])
     for (const [width, height, font] of [
       [320, 640, 24],
       [390, 844, 32],
       [240, 520, 16],
+      [280, 600, 24],
     ]) {
       await step(`${width}px wide, ${font}px text: nothing past the screen edge in any state`, async () => {
         await viewport(width, height)
         await rootFont(font)
         const problems = []
         try {
+          // Every state is measured even when an earlier one fails, so a red
+          // run lists everything at once.
           for (const [label, route, ready, action] of states) {
-            await goto(route)
-            if (action) {
-              await waitForText("Cover Avery’s recruiting app.")
-              await evaluate(action)
-            }
-            await waitForText(ready)
-            assert.equal(await evaluate("getComputedStyle(document.documentElement).fontSize"), `${font}px`, "the text-size setting applies")
-            await sleep(150)
+            const at = `${label} at ${width}px / ${font}px`
             try {
-              await nothingPastTheEdge(`${label} at ${width}px / ${font}px`)
+              await goto(route)
+              if (action) {
+                await waitForText("Cover Avery’s recruiting app.")
+                await evaluate(action)
+              }
+              await waitForText(ready)
+              assert.equal(await evaluate("getComputedStyle(document.documentElement).fontSize"), `${font}px`, "the text-size setting applies")
+              await sleep(150)
+            } catch (error) {
+              problems.push(`${at}: ${error.message.split("\n")[0]}`)
+              continue
+            }
+            try {
+              await nothingPastTheEdge(at)
             } catch (error) {
               problems.push(error.message)
+            }
+            if (pricedStates.has(label)) {
+              try {
+                await priceFits(at)
+              } catch (error) {
+                problems.push(error.message)
+              }
             }
             if (label === "payable" && font !== 16) await shoot(`12-payable-${width}-text-${font}`, { fullPage: false })
           }

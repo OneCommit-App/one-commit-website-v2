@@ -6,6 +6,7 @@ import {
   CalendarCheck,
   CircleAlert,
   CircleCheck,
+  HandCoins,
   Link2Off,
   LoaderCircle,
   Lock,
@@ -307,10 +308,13 @@ function Payable({ view, api, code, headingRef, onView }: PayableProps) {
       <p className={lede}>One payment. Nothing renews.</p>
 
       <section aria-label="What the pass covers" className={`mt-7 ${card}`}>
-        {/* Large text: the price shrinks to fit a narrow screen and "once"
-            wraps under it, instead of running off the edge. */}
-        <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-2">
-          <span className="text-[length:min(2.75rem,16vw)] font-bold leading-none tracking-[-0.035em] text-ink tabular-nums">
+        {/* Large text: "once" wraps under the price instead of running off the
+            edge. The price is one word: it never breaks mid-number (the column
+            above allows breaks anywhere, for long names), and it is sized to
+            this row (cqi), so it fits its card at any text size. 44px at
+            default text, as before; 16vw where container units don't exist. */}
+        <div className="@container flex flex-wrap items-baseline gap-x-2.5 gap-y-2">
+          <span className="whitespace-nowrap text-[length:min(2.75rem,16vw)] font-bold leading-none tracking-[-0.035em] text-ink tabular-nums [overflow-wrap:normal] supports-[width:1cqi]:text-[length:min(2.75rem,24cqi)]">
             {view.price.display}
           </span>
           <span className="rounded-full bg-green-soft px-2.5 py-1 text-[13px] font-semibold text-green">once</span>
@@ -403,6 +407,20 @@ function Payable({ view, api, code, headingRef, onView }: PayableProps) {
         </button>
 
         <div className="mt-4 space-y-1 text-center text-[13px] leading-relaxed text-ink-soft">
+          {/* The parent is the buyer: the Terms, which hold the refund rule,
+              sit with the button. A new tab keeps this page and the ticked box. */}
+          <p>
+            By paying, you agree to our{" "}
+            <a
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`rounded-sm font-semibold text-green underline decoration-green/30 underline-offset-[3px] hover:text-green-mid ${focusRing}`}
+            >
+              Terms
+            </a>
+            , which cover refunds.
+          </p>
           <p className="flex items-center justify-center gap-1.5">
             <Lock size={13} aria-hidden="true" className="text-green" />
             Secure checkout by Stripe. We never see your card.
@@ -462,20 +480,26 @@ type PaidProps = {
 function Paid({ view, rawCode, headingRef }: PaidProps) {
   const who = named(view.firstName)
   const confirmed = view.status === "confirmed"
-  // "unknown": the link stopped answering, or the pass hasn't landed after
-  // ~30 seconds. That can be a refund (paid after the athlete committed) or a
-  // bank payment still on its way, so say nothing that claims the pass landed.
+  // Only "confirmed" has seen the pass on the account. Until then (pending,
+  // the first screen on every return) and in "unknown" (the link stopped
+  // answering, or no pass after ~30 seconds), the payment may still be on its
+  // way (a bank payment can take days) or be refunded: the API refunds a
+  // payment that lands after the athlete commits, for an athlete already
+  // covered, or for a deleted account. So nothing here claims the pass landed.
   const unsure = view.status === "unknown"
   const steps = [
     { icon: <Receipt size={17} aria-hidden="true" />, text: "Stripe emails your receipt." },
     {
       icon: <UserCheck size={17} aria-hidden="true" />,
-      text: unsure ? `The pass goes to ${who.possessive} account.` : `The pass goes straight to ${who.possessive} account.`,
+      text: confirmed ? `The pass goes straight to ${who.possessive} account.` : `The pass goes to ${who.possessive} account.`,
     },
     {
       icon: <CalendarCheck size={17} aria-hidden="true" />,
-      text: unsure ? "Nothing renews." : "Nothing renews. There’s nothing else to do.",
+      text: confirmed ? "Nothing renews. There’s nothing else to do." : "Nothing renews.",
     },
+    ...(confirmed
+      ? []
+      : [{ icon: <HandCoins size={17} aria-hidden="true" />, text: "If the pass can’t be added, we refund you in full." }]),
   ]
 
   return (
@@ -500,7 +524,7 @@ function Paid({ view, rawCode, headingRef }: PaidProps) {
             Finishing up
           </span>
         ) : view.status === "unknown" ? (
-          <p className="text-[17px] leading-[1.5] text-ink-soft">This can take a few minutes.</p>
+          <p className="text-[17px] leading-[1.5] text-ink-soft">The pass hasn’t shown up yet.</p>
         ) : null}
       </div>
 
