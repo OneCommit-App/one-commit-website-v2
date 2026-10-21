@@ -80,6 +80,10 @@ const fixtures = {
   BADU2345: { lookup: [payable()], checkout: { status: 200, body: { status: true, data: { url: "https://evil.example.com/c/pay/cs_test_x" } } } },
   TAKN2345: { lookup: [payable()], checkout: { status: 409, body: { status: false, code: "already_covered", message: "Already covered. There's nothing to pay.", ends_on: "2027-08-31" } } },
   PAYD2345: { lookup: [payable(), covered] },
+  DWNN2345: { lookup: [outage] },
+  // The API cuts a first name to its first word, at most 40 characters
+  // (firstNameOf in ParentPay.service.js); a long real one must still wrap.
+  LNGN2345: { lookup: [payable("Wolfeschlegelsteinhausenbergerdorff")] },
 }
 
 const apiRequests = []
@@ -419,16 +423,53 @@ try {
       await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 2, mobile: width < 768 })
       await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: dark ? "dark" : "light" }, { name: "prefers-reduced-motion", value: "reduce" }] })
     }
-    const shoot = async (name) => {
+    // fullPage false keeps Chrome's text-size setting: capturing beyond the
+    // viewport re-lays the page out at the default size.
+    const shoot = async (name, { fullPage = true } = {}) => {
       if (!shotsDir) return
       await mkdir(shotsDir, { recursive: true })
       await sleep(300)
-      const { data } = await send("Page.captureScreenshot", { format: "png", captureBeyondViewport: true })
+      const { data } = await send("Page.captureScreenshot", { format: "png", captureBeyondViewport: fullPage })
       await writeFile(path.join(shotsDir, `${name}.png`), Buffer.from(data, "base64"))
     }
     const noOverflow = async (label) => {
       const widths = await evaluate("({ doc: document.documentElement.scrollWidth, view: window.innerWidth })")
       assert(widths.doc <= widths.view, `${label}: horizontal overflow ${widths.doc} > ${widths.view}`)
+    }
+    // The page wrapper clips sideways overflow (overflow-x: clip), so the
+    // document never scrolls and noOverflow can't see a price or date cut off
+    // at the screen edge. This measures every element on the page instead.
+    const nothingPastTheEdge = async (label) => {
+      const found = await evaluate(`(() => {
+        const edge = document.documentElement.clientWidth
+        const out = []
+        const past = (box) => box.width > 0 && box.height > 0 && (box.right > edge + 0.5 || box.left < -0.5)
+        const where = (box) => " left=" + Math.round(box.left) + " right=" + Math.round(box.right) + " edge=" + edge
+        for (const el of document.body.querySelectorAll("*")) {
+          const box = el.getBoundingClientRect()
+          if (past(box)) out.push(el.tagName.toLowerCase() + " " + JSON.stringify((el.innerText || "").trim().slice(0, 30)) + where(box))
+        }
+        // A long word runs out of its block's box without moving the box, so
+        // measure the text itself too.
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+        const range = document.createRange()
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          if (!node.textContent.trim() || node.parentElement.closest("script, style, noscript, .sr-only")) continue
+          range.selectNodeContents(node)
+          for (const box of range.getClientRects()) {
+            if (past(box)) {
+              out.push("text " + JSON.stringify(node.textContent.trim().slice(0, 30)) + where(box))
+              break
+            }
+          }
+        }
+        return out
+      })()`)
+      assert.deepEqual(found, [], `${label}: elements past the screen edge`)
+    }
+    // Chrome's own text-size setting ("Very large" is 24px), not page zoom.
+    const rootFont = async (px) => {
+      await send("Page.setFontSizes", { fontSizes: { standard: px, fixed: Math.round((px * 13) / 16) } })
     }
     const step = async (label, fn) => {
       try {
@@ -588,6 +629,13 @@ try {
       assert(body.includes("Thank you."))
       assert(body.includes("Didn’t finish paying?"))
       assert.equal(await evaluate("document.querySelector('main a[href=\"/p/GQNE7777\"]') !== null"), true)
+      // The link closing can also mean a refund (a payment that lands after
+      // the athlete commits) or a bank payment still on its way, so nothing
+      // here may say the pass landed.
+      assert(body.includes("If the payment went through:"), "the steps are conditional")
+      assert(!body.includes("goes straight to"), "no claim that the pass landed")
+      assert(!body.includes("nothing else to do"), "no claim that the parent is done")
+      await shoot("11-paid-unknown-390")
     })
 
     await step("small phone, dark scheme and desktop: no overflow", async () => {
@@ -611,6 +659,54 @@ try {
       await noOverflow("payable 1280")
       await shoot("10-payable-light-1280")
     })
+
+    // Large text and narrow screens: Chrome's "Very large" text on a small
+    // phone, a larger setting on a normal one, and about 160% zoom on a phone
+    // (240 CSS px). Every state, plus the longest first name the API can send.
+    const states = [
+      ["payable", "/p/K7Q2M9AB", "Cover Avery’s recruiting app."],
+      ["guardian note", "/p/K7Q2M9AB", "Please confirm you’re Avery’s parent or guardian.", "document.querySelector('main button[type=submit]').click()"],
+      ["long name", "/p/LNGN2345", "Cover Wolfeschlegelsteinhausenbergerdorff’s recruiting app."],
+      ["covered", "/p/CVRD2345", "Already covered."],
+      ["unavailable", "/p/GQNE7777", "This link isn’t active."],
+      ["error", "/p/DWNN2345", "This page didn’t load."],
+      ["rate limited", "/p/SLWW2345", "Too many tries."],
+      ["paid pending", "/p/K7Q2M9AB?paid=1", "Finishing up"],
+      ["paid confirmed", "/p/PAYD2345?paid=1", "You’re all set."],
+      ["paid unknown", "/p/GQNE7777?paid=1", "This can take a few minutes."],
+    ]
+    for (const [width, height, font] of [
+      [320, 640, 24],
+      [390, 844, 32],
+      [240, 520, 16],
+    ]) {
+      await step(`${width}px wide, ${font}px text: nothing past the screen edge in any state`, async () => {
+        await viewport(width, height)
+        await rootFont(font)
+        const problems = []
+        try {
+          for (const [label, route, ready, action] of states) {
+            await goto(route)
+            if (action) {
+              await waitForText("Cover Avery’s recruiting app.")
+              await evaluate(action)
+            }
+            await waitForText(ready)
+            assert.equal(await evaluate("getComputedStyle(document.documentElement).fontSize"), `${font}px`, "the text-size setting applies")
+            await sleep(150)
+            try {
+              await nothingPastTheEdge(`${label} at ${width}px / ${font}px`)
+            } catch (error) {
+              problems.push(error.message)
+            }
+            if (label === "payable" && font !== 16) await shoot(`12-payable-${width}-text-${font}`, { fullPage: false })
+          }
+        } finally {
+          await rootFont(16)
+        }
+        assert.deepEqual(problems, [])
+      })
+    }
 
     assert.deepEqual(offMachine, [], "no request left this machine")
     console.log("ok nothing left this machine (Stripe answered by a stub)")

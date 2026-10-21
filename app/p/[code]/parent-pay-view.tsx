@@ -307,15 +307,17 @@ function Payable({ view, api, code, headingRef, onView }: PayableProps) {
       <p className={lede}>One payment. Nothing renews.</p>
 
       <section aria-label="What the pass covers" className={`mt-7 ${card}`}>
-        <div className="flex items-baseline gap-2.5">
-          <span className="text-[2.75rem] font-bold leading-none tracking-[-0.035em] text-ink tabular-nums">
+        {/* Large text: the price shrinks to fit a narrow screen and "once"
+            wraps under it, instead of running off the edge. */}
+        <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-2">
+          <span className="text-[length:min(2.75rem,16vw)] font-bold leading-none tracking-[-0.035em] text-ink tabular-nums">
             {view.price.display}
           </span>
           <span className="rounded-full bg-green-soft px-2.5 py-1 text-[13px] font-semibold text-green">once</span>
         </div>
 
         <div className="mt-6">
-          <div className="flex items-center justify-between gap-3 text-[13px] font-medium">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-[13px] font-medium">
             <span className="text-ink-soft">Today</span>
             <span className="rounded-full bg-canvas-subtle px-2.5 py-0.5 font-semibold text-ink ring-1 ring-inset ring-line">
               {months} {months === 1 ? "month" : "months"}
@@ -460,10 +462,20 @@ type PaidProps = {
 function Paid({ view, rawCode, headingRef }: PaidProps) {
   const who = named(view.firstName)
   const confirmed = view.status === "confirmed"
+  // "unknown": the link stopped answering, or the pass hasn't landed after
+  // ~30 seconds. That can be a refund (paid after the athlete committed) or a
+  // bank payment still on its way, so say nothing that claims the pass landed.
+  const unsure = view.status === "unknown"
   const steps = [
     { icon: <Receipt size={17} aria-hidden="true" />, text: "Stripe emails your receipt." },
-    { icon: <UserCheck size={17} aria-hidden="true" />, text: `The pass goes straight to ${who.possessive} account.` },
-    { icon: <CalendarCheck size={17} aria-hidden="true" />, text: "Nothing renews. There’s nothing else to do." },
+    {
+      icon: <UserCheck size={17} aria-hidden="true" />,
+      text: unsure ? `The pass goes to ${who.possessive} account.` : `The pass goes straight to ${who.possessive} account.`,
+    },
+    {
+      icon: <CalendarCheck size={17} aria-hidden="true" />,
+      text: unsure ? "Nothing renews." : "Nothing renews. There’s nothing else to do.",
+    },
   ]
 
   return (
@@ -492,7 +504,8 @@ function Paid({ view, rawCode, headingRef }: PaidProps) {
         ) : null}
       </div>
 
-      <ul className={`mt-6 space-y-4 ${card}`}>
+      {unsure ? <p className="mt-6 text-[15px] font-medium text-ink-soft">If the payment went through:</p> : null}
+      <ul className={`${unsure ? "mt-3" : "mt-6"} space-y-4 ${card}`}>
         {steps.map((step) => (
           <li key={step.text} className="flex items-center gap-3">
             <span className={iconDot}>{step.icon}</span>

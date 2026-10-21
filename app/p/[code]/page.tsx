@@ -83,7 +83,9 @@ export default async function ParentPayPage({ params, searchParams }: PageProps)
         </header>
 
         <main id="main-content" tabIndex={-1} className="px-4 pb-12 pt-6 focus:outline-none sm:px-6 sm:pt-12">
-          <div className="mx-auto w-full max-w-[30rem]">
+          {/* overflow-wrap: anywhere lets a long first name (the API sends up
+              to 40 characters) break instead of running off a small screen. */}
+          <div className="mx-auto w-full max-w-[30rem] [overflow-wrap:anywhere]">
             <ParentPayView
               rawCode={code}
               paid={query.paid === "1"}
