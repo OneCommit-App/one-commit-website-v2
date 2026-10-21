@@ -7,12 +7,12 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const plans = [
   {
-    name: "Beta",
-    eyebrow: "App access",
-    description: "Request a free invitation to the core recruiting workspace during beta.",
-    price: "Free",
-    cadence: "during beta",
-    note: "No credit card is required if you receive a beta invitation.",
+    name: "Recruiting Pass",
+    eyebrow: "Paid once",
+    description: "Covers you through Aug 31 of your senior year, or 90 days after purchase if that ends later.",
+    price: "$149.99",
+    cadence: "once",
+    note: "Buy it in the app, or text a parent a link to pay on our website. Nothing renews.",
     cta: "Request Beta Access",
     ctaType: "download",
     features: [
@@ -38,12 +38,12 @@ export default function PricingSection() {
     <section aria-labelledby="pricing-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={container}>
         <Reveal className="max-w-2xl">
-          <p className={eyebrow}>Beta access</p>
+          <p className={eyebrow}>Price</p>
           <h2 id="pricing-heading" className={`mt-4 ${h3Section}`}>
-            Free during beta. The price will be shown before anyone is billed.
+            One payment. Nothing renews.
           </h2>
           <p className={`mt-4 max-w-xl ${lede}`}>
-            We are validating the athlete workflow before publishing a price or asking anyone to subscribe.
+            Your first 3 coach emails are free. Then one $149.99 pass covers you through Aug 31 of your senior year.
           </p>
         </Reveal>
 

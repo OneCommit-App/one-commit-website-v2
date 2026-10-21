@@ -169,7 +169,7 @@ export default function ParentsPage() {
               <div className={`mt-6 space-y-5 ${prose}`}>
                 <p>
                   The Recruiting Pass is $149.99, paid once. It covers your athlete through Aug 31 of their
-                  graduation year, or 90 days if that ends later. Their first 3 coach emails are free.
+                  graduation year, or 90 days after purchase if that ends later. Their first 3 coach emails are free.
                 </p>
                 <p>
                   They can buy it in the app, or text you a link to pay on our website through Stripe, with no

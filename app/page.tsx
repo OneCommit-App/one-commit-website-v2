@@ -41,8 +41,8 @@ const trustPoints = [
   },
   {
     icon: CalendarCheck,
-    label: "Free, capacity-limited beta",
-    detail: "Request access and start when capacity and a supported app-access path are available.",
+    label: "$149.99 once, nothing renews",
+    detail: "The first 3 coach emails are free. Beta access depends on capacity and a supported app-access path.",
   },
 ]
 

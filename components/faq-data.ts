@@ -45,11 +45,11 @@ export const faqData = [
   },
   {
     q: "How much does OneCommit cost?",
-    a: "Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. No paid plan, advisor subscription, or recurring call package is active today. Any future price and terms will be shown before billing can start.",
+    a: "Your first 3 coach emails are free. After that, the Recruiting Pass is $149.99, paid once. It covers you through Aug 31 of your graduation year, or 90 days after purchase if that ends later. Nothing renews, and there is no advisor subscription or call package. You can buy it in the app, or a parent can pay from a link you send. Beta access still depends on capacity and a supported app-access path.",
   },
   {
     q: "How is this different from NCSA or CaptainU?",
-    a: "Traditional services center on a public profile and passive discovery, and the largest of them does not publish a price at all \u2014 it asks you to book a call to find out. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace. We will show our price before anyone is asked to pay.",
+    a: "Traditional services center on a public profile and passive discovery, and the largest of them does not publish a price at all \u2014 it asks you to book a call to find out. OneCommit is built around the athlete taking action: building a school list, sending outreach from their own email, and tracking replies in one workspace. Our price is public: $149.99, paid once.",
   },
   {
     q: "I have a question or need help. How do I get support?",

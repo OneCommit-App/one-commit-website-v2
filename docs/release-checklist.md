@@ -37,11 +37,35 @@ to Stripe Checkout. Before the API's `PARENT_PAY_ENABLED` goes on:
       already ships. It reaches the browser, so it must never be a server secret. Unset,
       the page answers "This page didn't load."
 - [ ] `ONECOMMIT_API_BASE_URL` left empty (production API) or set to a staging API.
-- [ ] Support, Privacy and Terms updated: they still say no paid plan is active.
+- [ ] The Recruiting Pass copy ships in the same release (see "Recruiting Pass copy: launch gate" below).
 - [ ] Stripe email receipts on (successful payments and refunds): the thank-you page says
       "Stripe emails your receipt", and a receipt is the parent's only record.
 - [ ] Only `https://checkout.stripe.com` addresses are followed. A Stripe custom checkout
       domain needs `CHECKOUT_HOSTS` in `lib/parent-pay.ts` first.
+
+## Recruiting Pass copy: launch gate
+
+`/terms` section 7, `/privacy` ("Payments and Parent Pay Links"), `/support`, `/parents`, the home
+pricing section, the trust strip, the FAQ and the JSON-LD describe the pass as on sale today, at
+$149.99 once, with the first 3 coach emails free. Each of those is true only once the items below
+are done, so this copy merges and deploys in the same release as all of them, never on its own
+schedule. `scripts/pass-copy.test.mjs` keeps the words consistent; it cannot see these switches.
+
+- [ ] Hugh and counsel have read `/terms` section 7, the privacy section, and the refund wording.
+      The web refund rule is still the published 7-day discretionary review; a different window
+      or an unconditional refund is their call (change `/terms`, `/support` and the test together).
+- [ ] API: `RECRUITING_PASS_ENABLED` and `IAP_ENFORCEMENT_ENABLED` both on. Only then is the free
+      allowance the pass trial: 3 coach emails, then the paywall (`src/routes/SubscriptionRoutes.js`).
+      With `RECRUITING_PASS_ENABLED` off it is 1 email (`freeEmailLimit` in `src/config/limits.js`),
+      and `FREE_EMAIL_LIMIT`, if set, overrides either default.
+- [ ] API: `PARENT_PAY_ENABLED` on. It needs `RECRUITING_PASS_ENABLED` too; otherwise every pay
+      link answers 404 `parent_pay_disabled`.
+- [ ] App Store Connect: `us.onecommit.app.recruiting_pass` live at $149.99 (Hugh).
+- [ ] App: the pass paywall (A2) and Ask a parent (A3) released, so "buy it in the app" and
+      "text a parent a link" are true.
+- [ ] Stripe: email receipts on; the Stripe Tax decision made ("Taxes may apply").
+- [ ] "Last updated" on `/privacy` and `/terms`, the sitemap dates, and the
+      `scripts/privacy-disclosures.test.mjs` pins set to the publish day.
 
 ## Demo media
 

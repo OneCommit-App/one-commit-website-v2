@@ -9,11 +9,14 @@ export default function JsonLd() {
     operatingSystem: "iOS, Android",
     description:
       "Self-service recruiting copilot for high school Track & Field athletes. Review OneScore matches, generate outreach emails, and track coach replies.",
+    // The same price and rules as /terms section 7 (scripts/pass-copy.test.mjs).
     offers: {
       "@type": "Offer",
-      price: "0",
+      name: "Recruiting Pass",
+      price: "149.99",
       priceCurrency: "USD",
-      description: "Free, capacity-limited beta invitations; no paid plan is currently active.",
+      description:
+        "One payment, nothing renews. Covers the athlete through Aug 31 of their graduation year, or 90 days after purchase if that ends later. The first 3 coach emails are free.",
     },
   }
 

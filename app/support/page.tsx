@@ -70,7 +70,7 @@ const supportSections = [
       <ul className={`list-disc space-y-3 pl-5 ${bodyClass}`}>
         <li>
           <strong className="font-semibold text-ink">Recruiting Pass:</strong>{" "}
-          {"$149.99, paid once. Nothing renews. It covers the athlete through Aug 31 of their graduation year, or 90 days if that ends later. Buy it in the app, or a parent can pay on our website from a link the athlete sends. The first 3 coach emails are free."}
+          {"$149.99, paid once. Nothing renews. It covers the athlete through Aug 31 of their graduation year, or 90 days after purchase if that ends later. Buy it in the app, or a parent can pay on our website from a link the athlete sends. The first 3 coach emails are free."}
         </li>
         <li>
           <strong className="font-semibold text-ink">Account changes:</strong>{" "}
@@ -78,7 +78,7 @@ const supportSections = [
         </li>
         <li>
           <strong className="font-semibold text-ink">Refunds:</strong> Apple handles App Store refunds. For a payment on our website, email <TrackedLink href="mailto:admin@onecommit.us" eventName="support_click" eventSource="support_refunds" className={inlineLinkClass}>admin@onecommit.us</TrackedLink>{" "}
-          {"within 14 days for a full refund. A full refund ends the pass. If the athlete logs a commitment before a parent's payment goes through, we refund it automatically."}
+          {"within 7 days of the payment and we'll review your request. Refunds are discretionary unless the law requires one. A full refund ends the pass. If the athlete logs a commitment before a parent's payment goes through, we refund it automatically."}
         </li>
         <li>
           <strong className="font-semibold text-ink">Delete your account:</strong>{" "}

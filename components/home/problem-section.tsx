@@ -15,8 +15,7 @@ const problems = [
   },
   {
     problem: "You shouldn’t need a large upfront package",
-    answer:
-      "OneCommit starts with a free beta invitation when capacity and a supported app-access path are available.",
+    answer: "Your first 3 coach emails are free. Then one $149.99 payment covers you through Aug 31 of your senior year.",
   },
   {
     problem: "Waiting on coaches to notice you isn’t a strategy",

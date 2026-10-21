@@ -299,7 +299,7 @@ async function checkDownloadLinks() {
         path: "/",
         required: [
           "request access",
-          "capacity-limited beta invitations",
+          "beta access depends on capacity",
           "supported app-access path",
         ],
         forbidden: ["free app access", "beta app access", "start the recruiting workspace"],
@@ -438,10 +438,10 @@ async function checkHonestMarketingClaims() {
         "d3-focused",
         "coach_page_click",
         "audience_page_click",
-        "free, capacity-limited beta",
+        "$149.99 once, nothing renews",
         "one athlete-owned workflow. three ways to support it.",
       ],
-      forbidden: ["typed onboarding", "typed setup", "manual entry", "enter them yourself"],
+      forbidden: ["typed onboarding", "typed setup", "manual entry", "enter them yourself", "no paid plan", "free during beta"],
     },
     {
       path: "/about",
