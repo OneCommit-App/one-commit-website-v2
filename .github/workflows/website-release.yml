@@ -49,11 +49,13 @@ jobs:
       - run: node --test scripts/security-headers.test.mjs
       - run: node --test scripts/b2b-claims.test.mjs
       - run: node --test scripts/privacy-disclosures.test.mjs
+      - run: node --test scripts/parent-pay.test.mjs
       - run: pnpm audit --prod
       - run: pnpm build
       - run: node scripts/canonical-host.test.mjs
       - run: node scripts/public-shell.test.mjs
       - run: node scripts/home-ssr.test.mjs
+      - run: node scripts/parent-pay-page.test.mjs
       - run: node scripts/download-states.test.mjs
 
   production-smoke:

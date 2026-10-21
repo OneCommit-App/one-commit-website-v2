@@ -22,6 +22,21 @@ const securityHeaders = [
   },
 ]
 
+// The parent pay link (onecommit.us/p/<code>, app/p/[code]) is a private
+// address: never indexed, and never handed on as a referrer to Stripe, the
+// API or the next page. Listed after the site-wide entry so its
+// Referrer-Policy wins (Next applies the last matching value for a key).
+const parentPayHeaders = [
+  {
+    key: "Referrer-Policy",
+    value: "no-referrer",
+  },
+  {
+    key: "X-Robots-Tag",
+    value: "noindex, nofollow, noarchive",
+  },
+]
+
 const legacyMarketingHosts = ["onecommit\\.org\\.?", "www\\.onecommit\\.org\\.?"]
 
 const nextConfig = {
@@ -43,6 +58,10 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        source: "/p/:path*",
+        headers: parentPayHeaders,
       },
     ]
   },

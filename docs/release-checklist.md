@@ -27,6 +27,22 @@ To check a local env file without exporting variables first:
 pnpm env:check -- --env-file=.env.local
 ```
 
+## Parent pay page (`/p/<code>`)
+
+The page a parent opens from the athlete's "text a parent" link. It calls the API's
+`/v1/parent-pay/links/lookup` and `/checkout` from the browser and sends the parent
+to Stripe Checkout. Before the API's `PARENT_PAY_ENABLED` goes on:
+
+- [ ] `ONECOMMIT_API_KEY` set on the host: the API's `x-api-key`, the client key the app
+      already ships. It reaches the browser, so it must never be a server secret. Unset,
+      the page answers "This page didn't load."
+- [ ] `ONECOMMIT_API_BASE_URL` left empty (production API) or set to a staging API.
+- [ ] Support, Privacy and Terms updated: they still say no paid plan is active.
+- [ ] Stripe email receipts on (successful payments and refunds): the thank-you page says
+      "Stripe emails your receipt", and a receipt is the parent's only record.
+- [ ] Only `https://checkout.stripe.com` addresses are followed. A Stripe custom checkout
+      domain needs `CHECKOUT_HOSTS` in `lib/parent-pay.ts` first.
+
 ## Demo media
 
 - [x] Compressed `public/demo.mp4` from 15 MB to 2.1 MB for the production landing page.
@@ -42,6 +58,8 @@ pnpm lint
 pnpm typecheck
 pnpm audit --prod
 pnpm build
+node --test scripts/parent-pay.test.mjs
+node scripts/parent-pay-page.test.mjs
 ```
 
 Use Node `24.x` per `package.json`; verify with `node -v` before running release checks.

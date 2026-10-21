@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Analytics } from "@vercel/analytics/react"
+import SiteAnalytics from "@/components/site-analytics"
 import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
 import "./globals.css"
 
@@ -78,7 +78,7 @@ export default function RootLayout({
     <html lang="en" className="antialiased">
       <body className="overflow-x-hidden bg-background font-sans text-foreground antialiased">
         {children}
-        {isVercelDeploy && <Analytics />}
+        {isVercelDeploy && <SiteAnalytics />}
       </body>
     </html>
   )
