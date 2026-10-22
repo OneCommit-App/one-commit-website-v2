@@ -6,6 +6,7 @@ import FooterSection from "@/components/footer-section"
 import { container, eyebrow, lede, pillPrimary, pillSecondary } from "@/components/home/tokens"
 import PublicHeader from "@/components/public-header"
 import { RevealGroup, RevealItem } from "@/components/reveal"
+import WashLanes from "@/components/home/wash-lanes"
 import RouteShell from "@/components/routes/route-shell"
 import { h1, hero, iconDot } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
@@ -65,7 +66,8 @@ export default function DownloadPage() {
       <PublicHeader accessSource="download_header" />
       <main id="main-content" tabIndex={-1}>
         <section aria-labelledby="access-heading" className={`${hero} oc-wash relative overflow-x-clip`}>
-          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+          <WashLanes />
+          <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
               <p className={eyebrow}>OneCommit Beta</p>
               <h1 id="access-heading" className={`mt-5 ${h1}`}>

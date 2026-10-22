@@ -69,11 +69,12 @@ export default function PricingSection() {
 
                 <div className="mt-6">
                   <div className="flex items-end gap-2">
-                    <span className="text-[52px] font-bold leading-none tracking-[-0.03em] text-ink">{plan.price}</span>
-                    <span className="pb-1 text-[14px] text-ink-soft">{plan.cadence}</span>
+                    <span className="text-[4.5rem] font-bold leading-none tracking-[-0.045em] text-ink sm:text-[5.25rem]">{plan.price}</span>
+                    <span className="pb-2 text-[14px] text-ink-soft">{plan.cadence}</span>
                   </div>
                   <p className="mt-3 text-[13px] leading-relaxed text-ink-soft">{plan.note}</p>
                 </div>
+                <div className="oc-perforation mt-6" aria-hidden="true" />
 
                 {isBeta ? (
                   <DownloadLink analyticsSource="pricing_beta" className={`mt-6 ${pillPrimary}`}>

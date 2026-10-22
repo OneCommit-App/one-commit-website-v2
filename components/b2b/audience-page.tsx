@@ -27,6 +27,7 @@ import {
   section,
 } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
+import WashLanes from "@/components/home/wash-lanes"
 import RouteShell from "@/components/routes/route-shell"
 import { h1, h3, iconDot, ledeDark } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
@@ -65,7 +66,8 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
           three wrapped rows below 240px, two rows on narrow phones, one row from sm up.
         */}
         <section className="oc-wash relative overflow-x-clip px-4 pb-16 pt-64 min-[240px]:pt-52 sm:px-6 sm:pb-24 sm:pt-40 lg:pt-44">
-          <div className={`${container} grid items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8`}>
+          <WashLanes />
+          <div className={`${container} relative z-10 grid items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8`}>
             <div>
               <p className={eyebrow}>{audience.eyebrow}</p>
               <h1 className={`mt-5 ${h1}`}>{audience.headline}</h1>

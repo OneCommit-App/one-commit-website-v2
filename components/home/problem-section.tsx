@@ -38,30 +38,37 @@ export default function ProblemSection() {
           </p>
         </Reveal>
 
-        <RevealGroup className="oc-lane-top border-t border-line">
-          {problems.map((item) => (
-            <RevealItem key={item.problem} className="oc-lane-bottom grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
-              <div className="flex gap-3.5">
-                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-soft text-clay">
-                  <X size={14} strokeWidth={2.5} aria-hidden="true" />
-                </span>
-                <p className="text-[17px] font-semibold leading-snug tracking-[-0.01em] text-ink">
-                  <span className="sr-only">Problem: </span>
-                  {item.problem}
-                </p>
-              </div>
-              <div className="flex gap-3.5">
-                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
-                  <Check size={14} strokeWidth={2.5} aria-hidden="true" />
-                </span>
-                <p className="text-[16px] leading-relaxed text-ink-soft">
-                  <span className="sr-only">With OneCommit: </span>
-                  {item.answer}
-                </p>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <div>
+          <div className="mb-2 hidden grid-cols-2 gap-8 sm:grid">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-clay">The usual way</p>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-green">With OneCommit</p>
+          </div>
+          <RevealGroup className="oc-lane-top border-t border-line">
+            {problems.map((item, index) => (
+              <RevealItem key={item.problem} className="oc-lane-bottom grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-soft text-[12px] font-bold text-clay">
+                    <X size={14} strokeWidth={2.5} aria-hidden="true" className="sm:hidden" />
+                    <span className="hidden sm:inline">{String(index + 1).padStart(2, "0")}</span>
+                  </span>
+                  <p className="text-[17px] font-semibold leading-snug tracking-[-0.01em] text-ink">
+                    <span className="sr-only">Problem: </span>
+                    {item.problem}
+                  </p>
+                </div>
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
+                    <Check size={14} strokeWidth={2.5} aria-hidden="true" />
+                  </span>
+                  <p className="text-[16px] leading-relaxed text-ink-soft">
+                    <span className="sr-only">With OneCommit: </span>
+                    {item.answer}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
       </div>
     </section>
   )

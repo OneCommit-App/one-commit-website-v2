@@ -283,8 +283,65 @@
   z-index: -20;
   pointer-events: none;
   background:
-    radial-gradient(52% 44% at 76% 26%, var(--oc-wash-cool), transparent 72%),
-    radial-gradient(38% 34% at 14% 4%, var(--oc-wash-warm), transparent 70%);
+    radial-gradient(52% 48% at 82% 18%, var(--oc-wash-cool), transparent 70%),
+    radial-gradient(42% 40% at 8% 0%, var(--oc-wash-warm), transparent 68%),
+    radial-gradient(36% 30% at 50% 100%, var(--oc-wash-cool), transparent 72%);
+}
+
+/* The homepage opener and any other full-bleed night panel. Colors are literals
+   so the panel stays a track at night in both color schemes — the light page
+   inverts into it, the dark page sits beside it. Text inside must be literal
+   white or mint, never --oc-ink, which flips. */
+.oc-stadium {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(80% 60% at 92% 0%, rgba(156, 216, 181, 0.2), transparent 54%),
+    radial-gradient(42% 48% at 0% 100%, rgba(232, 146, 72, 0.18), transparent 58%),
+    linear-gradient(168deg, #164536 0%, #0c2e22 42%, #071610 100%);
+  box-shadow:
+    0 50px 100px -48px rgba(7, 22, 16, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(156, 216, 181, 0.16);
+  color: #ffffff;
+}
+
+@media (min-width: 64rem) {
+  .oc-stadium {
+    border-radius: 36px;
+  }
+}
+
+/* One lane creeps. The global reduced-motion rule collapses this to a single
+   frame, so it never keeps moving for someone who asked it to stop. */
+@keyframes oc-lane-dash {
+  to {
+    stroke-dashoffset: -280;
+  }
+}
+
+.oc-lane-dash {
+  stroke-dasharray: 10 16;
+  animation: oc-lane-dash 32s linear infinite;
+}
+
+/* The phone has to lift off a near-black panel. The default device shadow is
+   ink-on-paper and disappears here. */
+.oc-stadium .oc-device-body {
+  box-shadow:
+    0 46px 80px -28px rgba(0, 0, 0, 0.72),
+    0 16px 28px -16px rgba(0, 0, 0, 0.5);
+}
+
+/* Ticket stub: a perforation between the price and what it includes. */
+.oc-perforation {
+  height: 18px;
+  background-image: radial-gradient(circle at 9px 9px, transparent 7px, var(--oc-line) 7.5px, var(--oc-line) 8.5px, transparent 9px);
+  background-size: 18px 18px;
+  background-repeat: repeat-x;
+  background-position: center;
 }
 
 /* A deep-green band on the light canvas is separated by a ~14:1 inversion and needs

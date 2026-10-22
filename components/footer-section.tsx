@@ -18,8 +18,11 @@ export default function FooterSection() {
             <Image src="/logo.png" alt="" width={28} height={28} className="h-7 w-7 rounded-full" />
             <span className="text-[15px] font-semibold tracking-[-0.01em]">OneCommit</span>
           </Link>
-          <p className="text-sm leading-relaxed text-white/60">
+          <p className="text-sm leading-relaxed text-white/65">
             An athlete-owned recruiting workflow for track &amp; field.
+          </p>
+          <p className="text-sm font-medium tracking-[-0.01em] text-white/80">
+            Talk. Score. Prep. Send from your own inbox.
           </p>
           <TrackedLink
             href="mailto:admin@onecommit.us"
