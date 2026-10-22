@@ -73,3 +73,44 @@ test("release workflow runs the privacy disclosure gate", async () => {
     "website-release.yml must run the privacy disclosure test",
   )
 })
+
+test("delete-account page is linked from privacy and stays inside that policy", async () => {
+  const privacy = await source("app/privacy/page.tsx")
+  const page = await source("app/delete-account/page.tsx")
+
+  assert.match(privacy, /href="\/delete-account"/, "privacy page must link to /delete-account")
+  assert.match(page, /Me › Settings › Delete account/, "delete-account page must explain the in-app path")
+  assert.match(page, /href="mailto:privacy@onecommit\.us"/, "delete-account page must email the privacy contact")
+  assert.match(page, /href="mailto:admin@onecommit\.us"/, "delete-account page must email the support contact")
+
+  for (const fragment of [
+    "privacy@onecommit.us",
+    "admin@onecommit.us",
+    "We'll respond within 30 days.",
+    "Parents have the right to review and request deletion of their child's information.",
+    "Deletion -- request deletion (legal/legitimate retention may apply).",
+    "Active accounts -- retained while subscription is active.",
+    "After cancellation -- personal data deleted within 3 months (subject to legal retention).",
+    "Anonymized data may be retained indefinitely for service improvement.",
+  ]) {
+    assert.ok(privacy.includes(fragment), `privacy page missing source statement: ${fragment}`)
+    assert.ok(page.includes(fragment), `delete-account page missing stated limit: ${fragment}`)
+  }
+
+  const lower = page.toLowerCase()
+  for (const fragment of [
+    "audio is deleted",
+    "audio is never stored",
+    "transcript is deleted",
+    "transcript never leaves your device",
+    "immediately",
+    "permanently",
+    "all data",
+    "backup",
+    "gmail",
+    "within 24",
+    "within 7 days",
+  ]) {
+    assert.ok(!lower.includes(fragment), `delete-account page adds an unstated claim: ${fragment}`)
+  }
+})
