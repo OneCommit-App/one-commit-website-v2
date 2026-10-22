@@ -14,39 +14,19 @@ import {
   hasConfiguredDownloadUrl,
   iosDownloadUrl,
 } from "@/lib/download"
+import { pageMetadata } from "@/lib/page-metadata"
 
 const accessTitle = hasConfiguredDownloadUrl ? "Download" : "Request Beta Access"
 const accessDescription = hasConfiguredDownloadUrl
   ? "Download OneCommit for Track & Field recruiting: OneScore fit matching, own-inbox outreach, and reply tracking."
   : "Request a OneCommit beta invitation for Track & Field recruiting: OneScore fit matching, own-inbox outreach, and reply tracking."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: accessTitle,
   description: accessDescription,
-  alternates: { canonical: "https://www.onecommit.us/download" },
-  openGraph: {
-    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
-    description: accessDescription,
-    url: "https://www.onecommit.us/download",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
-    description: accessDescription,
-    images: ["/opengraph-image"],
-  },
-}
+  path: "/download",
+  openGraphTitle: hasConfiguredDownloadUrl ? "Download OneCommit" : "Request OneCommit Beta Access",
+})
 
 const platformLinks = [
   { label: "Download for iPhone", href: iosDownloadUrl },
@@ -155,7 +135,7 @@ export default function DownloadPage() {
               <div className="mx-auto w-[min(280px,74vw)] lg:w-[340px]">
                 <DeviceFrame
                   src="/app/welcome.png"
-                  alt="OneCommit welcome screen"
+                  alt="OneCommit welcome screen: Stop waiting for coaches to find you. Riley drafts the outreach, and nothing sends until you review and approve it."
                   priority
                   sizes="(max-width: 1024px) 280px, 340px"
                 />

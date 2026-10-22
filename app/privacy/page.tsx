@@ -3,34 +3,14 @@ import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
 import LegalArticle, { type LegalSection } from "@/components/routes/legal-article"
 import RouteShell from "@/components/routes/route-shell"
+import { pageMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description: "OneCommit privacy policy -- how we collect, use, and protect your information.",
-  alternates: { canonical: "https://www.onecommit.us/privacy" },
-  openGraph: {
-    title: "Privacy Policy | OneCommit",
-    description: "How OneCommit collects, uses, and protects student-athlete information.",
-    url: "https://www.onecommit.us/privacy",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "OneCommit privacy policy",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Privacy Policy | OneCommit",
-    description: "How OneCommit collects, uses, and protects student-athlete information.",
-    images: ["/opengraph-image"],
-  },
-}
+  path: "/privacy",
+  openGraphDescription: "How OneCommit collects, uses, and protects student-athlete information.",
+})
 
 /* Policy text is rendered verbatim; edit the wording only with a matching sitemap revision. */
 const sections: LegalSection[] = [

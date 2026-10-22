@@ -175,14 +175,14 @@ export default function AudiencePage({ audience: key }: { audience: AudienceKey 
                 <div className="w-[78%] max-w-[300px] sm:w-[46%] sm:max-w-[286px]">
                   <DeviceFrame
                     src="/app/pipeline.png"
-                    alt="OneCommit Pipeline: six saved D3 schools, each with its OneScore and an Email action, above a prompt to connect an inbox so messages send from the athlete's own address"
+                    alt="OneCommit Pipeline: a prompt to connect an inbox so messages send from the athlete's own address, above six saved D3 schools, each with its OneScore and an Email action"
                     sizes="(max-width: 640px) 300px, 286px"
                   />
                 </div>
                 <div className="w-[78%] max-w-[300px] sm:w-[46%] sm:max-w-[286px]">
                   <DeviceFrame
                     src="/app/riley.png"
-                    alt="OneCommit home: the day's focused actions above The Queue, which counts matches, sent messages, and replies"
+                    alt="OneCommit home: the day's next goal and tasks above The Queue, which counts matches, sent messages, and replies, plus a Riley's Desk card"
                     sizes="(max-width: 640px) 300px, 286px"
                   />
                 </div>

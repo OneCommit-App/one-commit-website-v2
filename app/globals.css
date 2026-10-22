@@ -22,7 +22,8 @@
   --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 80%, transparent);
   --oc-ink: #0b1f18;
   --oc-ink-soft: rgba(11, 31, 24, 0.62);
-  --oc-ink-faint: rgba(11, 31, 24, 0.4);
+  /* 0.40 was about 2.5:1 on the canvas. Quiet text cannot go below ink-soft and still clear 4.5:1. */
+  --oc-ink-faint: rgba(11, 31, 24, 0.62);
   --oc-line: rgba(11, 31, 24, 0.08);
   --oc-green: #0b4a38;
   --oc-green-mid: #1f7a56;
@@ -119,7 +120,7 @@
     --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 96%, transparent);
     --oc-ink: #e9f2ec;
     --oc-ink-soft: rgba(233, 242, 236, 0.66);
-    --oc-ink-faint: rgba(233, 242, 236, 0.45);
+    --oc-ink-faint: rgba(233, 242, 236, 0.66);
     --oc-line: rgba(233, 242, 236, 0.16);
     --oc-green: #74dfa8;
     --oc-green-mid: #97efc1;
@@ -159,7 +160,7 @@
   --oc-nav-glass: color-mix(in srgb, var(--oc-bg) 96%, transparent);
   --oc-ink: #e9f2ec;
   --oc-ink-soft: rgba(233, 242, 236, 0.66);
-  --oc-ink-faint: rgba(233, 242, 236, 0.45);
+  --oc-ink-faint: rgba(233, 242, 236, 0.66);
   --oc-line: rgba(233, 242, 236, 0.16);
   --oc-green: #74dfa8;
   --oc-green-mid: #97efc1;

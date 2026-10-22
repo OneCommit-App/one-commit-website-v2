@@ -9,30 +9,14 @@ import PublicHeader from "@/components/public-header"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 import RouteShell from "@/components/routes/route-shell"
 import { h1, hero, inlineLink, prose } from "@/components/routes/tokens"
+import { pageMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "For parents",
   description:
     "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
-  alternates: { canonical: "https://www.onecommit.us/parents" },
-  openGraph: {
-    title: "For parents | OneCommit",
-    description:
-      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
-    url: "https://www.onecommit.us/parents",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "OneCommit for parents" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "For parents | OneCommit",
-    description:
-      "What your athlete actually does inside OneCommit, what OneCommit does not do, and what it costs during the beta.",
-    images: ["/opengraph-image"],
-  },
-}
+  path: "/parents",
+})
 
 /* Each line describes a screen that ships today (public/app/brief.png, home.png). */
 const theDay = [
@@ -201,7 +185,7 @@ export default function ParentsPage() {
                 </p>
               </div>
 
-              <p className="mt-8 text-[14px] leading-relaxed text-ink-faint">
+              <p className="mt-8 text-[14px] leading-relaxed text-ink-soft">
                 Questions are welcome directly:{" "}
                 <Link href="/support" className={inlineLink}>
                   contact support

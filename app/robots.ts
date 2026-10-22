@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { siteUrl, sitemapUrl } from "@/lib/page-metadata"
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.onecommit.us/sitemap.xml",
+    sitemap: sitemapUrl,
+    host: siteUrl,
   }
 }

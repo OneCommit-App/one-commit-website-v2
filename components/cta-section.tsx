@@ -57,7 +57,11 @@ export default function CTASection() {
         >
           <div className="relative h-[380px] sm:h-[420px] lg:h-[492px]">
             <div className="absolute left-1/2 top-0 w-[min(300px,80%)] -translate-x-1/2 lg:w-[340px]">
-              <DeviceFrame src="/app/welcome.png" alt="OneCommit welcome screen" sizes="(max-width: 1024px) 300px, 340px" />
+              <DeviceFrame
+                src="/app/welcome.png"
+                alt="OneCommit welcome screen: Stop waiting for coaches to find you. Riley drafts the outreach, and nothing sends until you review and approve it."
+                sizes="(max-width: 1024px) 300px, 340px"
+              />
             </div>
           </div>
         </Reveal>

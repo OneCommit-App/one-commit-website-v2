@@ -45,28 +45,6 @@ export default function DailyLoop() {
   return (
     <section aria-labelledby="daily-loop-heading" className={`oc-band-soft ${section} bg-canvas-subtle`}>
       <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16`}>
-        <Reveal className="order-2 lg:order-1">
-          <figure className="mx-auto w-full max-w-[600px] lg:mx-0">
-            {/* Light-appearance capture. Same treatment as the OneScore card: a
-                hairline plus .oc-capture (app/globals.css) so it is seated rather than
-                lit after dark, and a fixed width and height either way, so CLS stays 0. */}
-            <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:ring-white/10">
-              <Image
-                src="/app/brief-today.png"
-                alt="The Brief in the OneCommit app, dated Wednesday September 9, headed '4 things to do today.', with the first task card marked 8 MIN, 'Review 71 top matches', and an Open button"
-                width={1206}
-                height={928}
-                sizes="(max-width: 1024px) 92vw, 600px"
-                className="oc-capture h-auto w-full"
-              />
-            </div>
-            <figcaption className="mt-4 text-[13px] leading-relaxed text-ink-soft">
-              A Brief from the beta. The date, the count and the time estimates are whatever your own list
-              holds that morning.
-            </figcaption>
-          </figure>
-        </Reveal>
-
         <div className="order-1 lg:order-2">
           <Reveal>
             <p className={eyebrow}>The daily loop</p>
@@ -93,6 +71,28 @@ export default function DailyLoop() {
             ))}
           </RevealGroup>
         </div>
+
+        <Reveal className="order-2 lg:order-1">
+          <figure className="mx-auto w-full max-w-[600px] lg:mx-0">
+            {/* Light-appearance capture. Same treatment as the OneScore card: a
+                hairline plus .oc-capture (app/globals.css) so it is seated rather than
+                lit after dark, and a fixed width and height either way, so CLS stays 0. */}
+            <div className="oc-raised overflow-hidden rounded-card bg-card shadow-lift ring-1 ring-line [@media(prefers-color-scheme:dark)]:ring-white/10">
+              <Image
+                src="/app/brief-today.png"
+                alt="The Brief in the OneCommit app, dated Wednesday September 9, headed '4 things to do today.', with the first task card marked 8 MIN, 'Review 71 top matches', and an Open button"
+                width={1206}
+                height={928}
+                sizes="(max-width: 1024px) 92vw, 600px"
+                className="oc-capture h-auto w-full"
+              />
+            </div>
+            <figcaption className="mt-4 text-[13px] leading-relaxed text-ink-soft">
+              A Brief from the beta. The date, the count and the time estimates are whatever your own list
+              holds that morning.
+            </figcaption>
+          </figure>
+        </Reveal>
       </div>
     </section>
   )
