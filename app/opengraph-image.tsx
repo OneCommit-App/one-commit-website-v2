@@ -1,9 +1,10 @@
 import { ImageResponse } from "next/og"
 import { ocMarkDataUri } from "@/app/og-mark"
 import { hasConfiguredDownloadUrl } from "@/lib/download"
+import { sharedOgImage } from "@/lib/page-metadata"
 
 export const runtime = "edge"
-export const alt = "OneCommit — Track & Field Recruiting Copilot"
+export const alt = sharedOgImage.alt
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 

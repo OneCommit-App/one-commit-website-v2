@@ -3,34 +3,14 @@ import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
 import LegalArticle, { type LegalSection } from "@/components/routes/legal-article"
 import RouteShell from "@/components/routes/route-shell"
+import { pageMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms of Service",
   description: "OneCommit terms of service governing your use of the platform.",
-  alternates: { canonical: "https://www.onecommit.us/terms" },
-  openGraph: {
-    title: "Terms of Service | OneCommit",
-    description: "Terms governing use of the OneCommit recruiting platform.",
-    url: "https://www.onecommit.us/terms",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "OneCommit terms of service",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Terms of Service | OneCommit",
-    description: "Terms governing use of the OneCommit recruiting platform.",
-    images: ["/opengraph-image"],
-  },
-}
+  path: "/terms",
+  openGraphDescription: "Terms governing use of the OneCommit recruiting platform.",
+})
 
 /* Terms text is rendered verbatim; edit the wording only with a matching sitemap revision. */
 const sections: LegalSection[] = [

@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/react"
 import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
+import { sharedOgImage, siteUrl } from "@/lib/page-metadata"
 import "./globals.css"
 
 const isVercelDeploy = process.env.VERCEL === "1"
@@ -10,12 +11,16 @@ const appAccessDescription = hasConfiguredDownloadUrl
   : "Request a OneCommit beta invitation to build your Track & Field recruiting process with OneScore fit matching, own-inbox outreach, and reply tracking."
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.onecommit.us"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "OneCommit — Personalized Track & Field Recruiting",
     template: "%s | OneCommit",
   },
   description: appAccessDescription,
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       {
@@ -28,27 +33,20 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OneCommit — Personalized Track & Field Recruiting",
     description: appAccessDescription,
-    url: "https://www.onecommit.us",
+    url: siteUrl,
     siteName: "OneCommit",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "OneCommit — Personalized Track & Field Recruiting",
-      },
-    ],
+    images: [sharedOgImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "OneCommit — Personalized Track & Field Recruiting",
     description: appAccessDescription,
-    images: ["/opengraph-image"],
+    images: [{ url: sharedOgImage.url, alt: sharedOgImage.alt }],
   },
   alternates: {
-    canonical: "https://www.onecommit.us",
+    canonical: siteUrl,
   },
   ...(appStoreId
     ? {

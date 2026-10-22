@@ -7,37 +7,16 @@ import PublicHeader from "@/components/public-header"
 import RouteShell from "@/components/routes/route-shell"
 import { h1, hero } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
+import { pageMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Support",
   description:
     "Get help with OneCommit — contact our team, find answers to common questions, or manage app access and account requests.",
-  alternates: { canonical: "https://www.onecommit.us/support" },
-  openGraph: {
-    title: "Support | OneCommit",
-    description:
-      "Contact OneCommit support, find answers to common questions, and get help with app access or account requests.",
-    url: "https://www.onecommit.us/support",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "OneCommit support",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Support | OneCommit",
-    description:
-      "Contact OneCommit support, find answers to common questions, and get help with app access or account requests.",
-    images: ["/opengraph-image"],
-  },
-}
+  path: "/support",
+  openGraphDescription:
+    "Contact OneCommit support, find answers to common questions, and get help with app access or account requests.",
+})
 
 const inlineLinkClass =
   "inline-flex min-h-6 items-center rounded-sm px-0.5 font-medium text-green underline decoration-green/30 underline-offset-[3px] transition-colors hover:text-green-mid hover:decoration-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-mid"

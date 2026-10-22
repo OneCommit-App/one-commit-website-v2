@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/page-metadata"
 
 export type AudienceKey = "coaches" | "schools" | "athletic-programs"
 
@@ -221,34 +222,11 @@ export const audiences: Record<AudienceKey, AudienceContent> = {
 
 export function audienceMetadata(key: AudienceKey): Metadata {
   const audience = audiences[key]
-  const canonical = `https://www.onecommit.us${audience.path}`
   const title = key === "athletic-programs" ? "For Athletic Programs" : `For ${audience.shortLabel}`
 
-  return {
+  return pageMetadata({
     title,
     description: audience.metadataDescription,
-    alternates: { canonical },
-    openGraph: {
-      title: `${title} | OneCommit`,
-      description: audience.metadataDescription,
-      url: canonical,
-      siteName: "OneCommit",
-      locale: "en_US",
-      type: "website",
-      images: [
-        {
-          url: "/opengraph-image",
-          width: 1200,
-          height: 630,
-          alt: `${audience.shortLabel} supporting an athlete-owned OneCommit recruiting workflow`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title} | OneCommit`,
-      description: audience.metadataDescription,
-      images: ["/opengraph-image"],
-    },
-  }
+    path: audience.path,
+  })
 }

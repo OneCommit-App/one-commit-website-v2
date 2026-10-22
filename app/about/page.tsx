@@ -21,37 +21,19 @@ import RouteShell from "@/components/routes/route-shell";
 import { h1, hero, prose, textLink } from "@/components/routes/tokens";
 import TrackedLink from "@/components/tracked-link";
 import { hasConfiguredDownloadUrl } from "@/lib/download";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "Learn why OneCommit is building an athlete-owned track and field recruiting workflow, the principles guiding the product, and what its beta status means today.",
-  alternates: { canonical: "https://www.onecommit.us/about" },
-  openGraph: {
-    title: "About OneCommit",
-    description:
-      "OneCommit is building an athlete-owned track and field recruiting workflow with truthful evidence, deliberate outreach, and clear beta boundaries.",
-    url: "https://www.onecommit.us/about",
-    siteName: "OneCommit",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "About OneCommit",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About OneCommit",
-    description:
-      "An athlete-owned track and field recruiting workflow with truthful evidence, deliberate outreach, and clear beta boundaries.",
-    images: ["/opengraph-image"],
-  },
-};
+  path: "/about",
+  openGraphTitle: "About OneCommit",
+  openGraphDescription:
+    "OneCommit is building an athlete-owned track and field recruiting workflow with truthful evidence, deliberate outreach, and clear beta boundaries.",
+  twitterDescription:
+    "An athlete-owned track and field recruiting workflow with truthful evidence, deliberate outreach, and clear beta boundaries.",
+});
 
 const principles = [
   {

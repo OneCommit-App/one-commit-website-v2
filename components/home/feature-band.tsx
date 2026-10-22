@@ -66,11 +66,11 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
 
 export default function FeatureBand() {
   return (
-    <section id="features" className="oc-band scroll-mt-20 bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+    <section id="features" aria-labelledby="features-heading" className="oc-band scroll-mt-20 bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
       <div className={container}>
         <Reveal className="max-w-2xl">
           <p className={eyebrowDark}>What&rsquo;s in the beta</p>
-          <h2 className={`mt-4 ${h2Dark}`}>Where the work actually starts.</h2>
+          <h2 id="features-heading" className={`mt-4 ${h2Dark}`}>Where the work actually starts.</h2>
           <p className="mt-4 text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
             Two things no recruiting form does: a spoken intake, and a search that ranks real programs
             against your own marks.

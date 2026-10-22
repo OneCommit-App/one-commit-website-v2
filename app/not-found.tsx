@@ -1,10 +1,20 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, LifeBuoy } from "lucide-react"
 import FooterSection from "@/components/footer-section"
 import { eyebrow, lede } from "@/components/home/tokens"
 import PublicHeader from "@/components/public-header"
+import { pageMetadata } from "@/lib/page-metadata"
 import RouteShell from "@/components/routes/route-shell"
 import { h1 } from "@/components/routes/tokens"
+
+export const metadata: Metadata = pageMetadata({
+  title: "Page not found",
+  description:
+    "This page is not on the OneCommit site. The link may be outdated. Return home or contact support.",
+  path: "/",
+  index: false,
+})
 
 export default function NotFound() {
   return (
