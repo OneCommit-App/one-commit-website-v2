@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import FooterSection from "@/components/footer-section"
 import PublicHeader from "@/components/public-header"
 import LegalArticle, { type LegalSection } from "@/components/routes/legal-article"
 import RouteShell from "@/components/routes/route-shell"
+import { inlineLink } from "@/components/routes/tokens"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -58,7 +60,15 @@ export default function PrivacyPage() {
           meta="Effective September 3, 2025 · Last updated August 31, 2026"
           idPrefix="privacy"
           sections={sections}
-        />
+        >
+          <p>
+            To delete an account, follow the steps on the{" "}
+            <Link href="/delete-account" className={inlineLink}>
+              delete account page
+            </Link>
+            .
+          </p>
+        </LegalArticle>
       </main>
       <FooterSection />
     </RouteShell>
