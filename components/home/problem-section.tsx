@@ -1,7 +1,7 @@
 "use client"
 
 import { Check, X } from "lucide-react"
-import { container, eyebrow, h3Section, lede, section } from "@/components/home/tokens"
+import { container, eyebrow, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const problems = [
@@ -30,7 +30,10 @@ export default function ProblemSection() {
       <div className={`${container} grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20`}>
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <p className={eyebrow}>The problem</p>
-          <h2 id="problem-heading" className={`mt-4 ${h3Section}`}>
+          <h2
+            id="problem-heading"
+            className="mt-4 text-balance text-[2.25rem] font-bold leading-[1.05] tracking-[-0.035em] text-ink sm:text-[2.75rem] lg:text-[3.25rem]"
+          >
             The recruiting system isn&rsquo;t built for you.
           </h2>
           <p className={`mt-4 max-w-md ${lede}`}>
@@ -38,30 +41,37 @@ export default function ProblemSection() {
           </p>
         </Reveal>
 
-        <RevealGroup className="oc-lane-top border-t border-line">
-          {problems.map((item) => (
-            <RevealItem key={item.problem} className="oc-lane-bottom grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
-              <div className="flex gap-3.5">
-                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-soft text-clay">
-                  <X size={14} strokeWidth={2.5} aria-hidden="true" />
-                </span>
-                <p className="text-[17px] font-semibold leading-snug tracking-[-0.01em] text-ink">
-                  <span className="sr-only">Problem: </span>
-                  {item.problem}
-                </p>
-              </div>
-              <div className="flex gap-3.5">
-                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
-                  <Check size={14} strokeWidth={2.5} aria-hidden="true" />
-                </span>
-                <p className="text-[16px] leading-relaxed text-ink-soft">
-                  <span className="sr-only">With OneCommit: </span>
-                  {item.answer}
-                </p>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <div>
+          <div className="mb-2 hidden grid-cols-2 gap-8 sm:grid">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-clay">The usual way</p>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-green">With OneCommit</p>
+          </div>
+          <RevealGroup className="oc-lane-top border-t border-line">
+            {problems.map((item, index) => (
+              <RevealItem key={item.problem} className="oc-lane-bottom grid gap-4 border-b border-line py-7 sm:grid-cols-2 sm:gap-8">
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-soft text-[12px] font-bold text-clay">
+                    <X size={14} strokeWidth={2.5} aria-hidden="true" className="sm:hidden" />
+                    <span className="hidden sm:inline">{String(index + 1).padStart(2, "0")}</span>
+                  </span>
+                  <p className="text-[17px] font-semibold leading-snug tracking-[-0.01em] text-ink">
+                    <span className="sr-only">Problem: </span>
+                    {item.problem}
+                  </p>
+                </div>
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
+                    <Check size={14} strokeWidth={2.5} aria-hidden="true" />
+                  </span>
+                  <p className="text-[16px] leading-relaxed text-ink-soft">
+                    <span className="sr-only">With OneCommit: </span>
+                    {item.answer}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
       </div>
     </section>
   )

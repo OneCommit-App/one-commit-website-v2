@@ -1,3 +1,4 @@
+import TrackField from "@/components/home/track-field"
 import { container, eyebrowDark } from "@/components/home/tokens"
 import { Reveal } from "@/components/reveal"
 
@@ -20,9 +21,10 @@ export default function BuildingStage() {
   return (
     <section
       aria-labelledby="building-stage-heading"
-      className="oc-band bg-shell px-4 py-28 text-white sm:px-6 sm:py-36"
+      className="oc-band relative overflow-hidden bg-shell px-4 py-28 text-white sm:px-6 sm:py-36"
     >
-      <div className={`${container} text-center`}>
+      <TrackField className="opacity-60" />
+      <div className={`${container} relative text-center`}>
         <Reveal>
           <p className={eyebrowDark}>The app at the Building stage</p>
           <h2
@@ -31,11 +33,11 @@ export default function BuildingStage() {
           >
             Right now, the work is the win.
           </h2>
-          <p className="mx-auto mt-6 max-w-[40rem] text-pretty text-[19px] leading-[1.5] text-white/75 sm:text-[21px]">
+          <p className="mx-auto mt-6 max-w-[40rem] text-pretty text-[19px] leading-[1.5] text-white/90 sm:text-[21px]">
             No outreach pressure at this stage. Log real races, keep the grades up, and let your trajectory
             tell the story.
           </p>
-          <p className="mx-auto mt-8 max-w-[36rem] text-[14px] leading-relaxed text-white/60">
+          <p className="mx-auto mt-8 max-w-[36rem] text-[14px] leading-relaxed text-white/75">
             Quoted verbatim from the Building stage of the app&rsquo;s home screen. It would be easier to sell
             if it said something else.
           </p>

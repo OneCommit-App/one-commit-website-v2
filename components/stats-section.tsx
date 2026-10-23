@@ -35,16 +35,16 @@ export default function StatsSection({ items = defaultItems }: { items?: TrustPo
     <section aria-label="What the beta includes" className="px-4 sm:px-6">
       <RevealGroup
         stagger={0.1}
-        className="oc-raised mx-auto grid w-full max-w-[1200px] gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-3"
+        className="oc-raised mx-auto grid w-full max-w-[1200px] gap-px overflow-hidden rounded-card bg-line shadow-lift ring-1 ring-line sm:grid-cols-3"
       >
         {items.map(({ icon: Icon, label, detail }) => (
-          <RevealItem key={label} y={12} className="flex gap-4 bg-card p-6 sm:p-7">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
+          <RevealItem key={label} y={12} className="flex gap-4 border-t-2 border-[#1f7a56] bg-white p-6 sm:p-7">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e8f1ec] text-[#0b4a38]">
               <Icon size={18} aria-hidden="true" />
             </span>
             <div>
-              <div className="text-[15px] font-semibold tracking-[-0.01em] text-ink">{label}</div>
-              <p className="mt-1 text-[14px] leading-relaxed text-ink-soft">{detail}</p>
+              <div className="text-[15px] font-semibold tracking-[-0.01em] text-[#0b1f18]">{label}</div>
+              <p className="mt-1 text-[14px] leading-relaxed text-[#3c5248]">{detail}</p>
             </div>
           </RevealItem>
         ))}

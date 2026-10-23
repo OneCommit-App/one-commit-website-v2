@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
+import TrackField from "@/components/home/track-field"
 import { container, eyebrowDark, h2Dark } from "@/components/home/tokens"
 import { EASE_OUT, Reveal, RevealGroup, RevealItem, useStill } from "@/components/reveal"
 
@@ -40,11 +41,11 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
       <motion.article
         whileHover={still ? undefined : { y: -4 }}
         transition={{ duration: 0.45, ease: EASE_OUT }}
-        className="oc-raised flex h-full flex-col overflow-hidden rounded-card bg-white/[0.05] ring-1 ring-white/[0.08] transition-shadow duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
+        className="oc-raised flex h-full flex-col overflow-hidden rounded-card bg-shell-deep ring-1 ring-white/15 transition-shadow duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
       >
         <div className="p-7 sm:p-8">
           <h3 className="text-[22px] font-semibold tracking-[-0.02em] text-white">{feature.title}</h3>
-          <p className="mt-2 max-w-md text-[15px] leading-relaxed text-white/70">{feature.desc}</p>
+          <p className="mt-2 max-w-md text-[15px] leading-relaxed text-[#d7ebe0]">{feature.desc}</p>
         </div>
         {/* Full-bleed to the card edge: the card already clips to rounded-card, so the
             strip picks up the bottom corners. The hairline keeps the light capture
@@ -66,12 +67,13 @@ function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
 
 export default function FeatureBand() {
   return (
-    <section id="features" className="oc-band scroll-mt-20 bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
-      <div className={container}>
+    <section id="features" className="oc-band relative scroll-mt-20 overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
+      <TrackField className="opacity-40" />
+      <div className={`${container} relative`}>
         <Reveal className="max-w-2xl">
           <p className={eyebrowDark}>What&rsquo;s in the beta</p>
           <h2 className={`mt-4 ${h2Dark}`}>Where the work actually starts.</h2>
-          <p className="mt-4 text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
+          <p className="mt-4 text-pretty text-[17px] leading-[1.55] text-[#d7ebe0] sm:text-[19px]">
             Two things no recruiting form does: a spoken intake, and a search that ranks real programs
             against your own marks.
           </p>

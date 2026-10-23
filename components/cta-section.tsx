@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
+import TrackField from "@/components/home/track-field"
 import { container, h2Dark, pillPrimaryDark } from "@/components/home/tokens"
 import { Reveal } from "@/components/reveal"
 import TrackedLink from "@/components/tracked-link"
@@ -16,12 +17,13 @@ const included = [
 export default function CTASection() {
   return (
     <section aria-labelledby="cta-heading" className="oc-band relative overflow-hidden bg-shell px-4 py-24 text-white sm:px-6 lg:py-32">
-      <div className={`${container} grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]`}>
+      <TrackField className="opacity-50" />
+      <div className={`${container} relative grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]`}>
         <Reveal>
           <h2 id="cta-heading" className={h2Dark}>
             Build your college list. Then run the outreach.
           </h2>
-          <p className="mt-5 max-w-xl text-pretty text-[17px] leading-[1.55] text-white/70 sm:text-[19px]">
+          <p className="mt-5 max-w-xl text-pretty text-[17px] leading-[1.55] text-white/85 sm:text-[19px]">
             Request a OneCommit beta invitation to build your OneScore list, draft personal coach emails, and
             track replies from one recruiting workspace.
           </p>

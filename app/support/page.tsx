@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react"
 import FooterSection from "@/components/footer-section"
 import { eyebrow, lede } from "@/components/home/tokens"
 import PublicHeader from "@/components/public-header"
+import WashLanes from "@/components/home/wash-lanes"
 import RouteShell from "@/components/routes/route-shell"
 import { h1, hero } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
@@ -146,8 +147,9 @@ export default function SupportPage() {
     <RouteShell>
       <PublicHeader accessSource="support_header" />
       <main id="main-content" tabIndex={-1}>
-        <section aria-labelledby="support-heading" className={`${hero} pb-10 lg:pb-14`}>
-          <div className="mx-auto w-full max-w-3xl">
+        <section aria-labelledby="support-heading" className={`${hero} oc-wash relative overflow-x-clip pb-10 lg:pb-14`}>
+          <WashLanes />
+          <div className="relative z-10 mx-auto w-full max-w-3xl">
             <p className={eyebrow}>Help &amp; Support</p>
             <h1 id="support-heading" className={`mt-5 ${h1}`}>
               How can we help?

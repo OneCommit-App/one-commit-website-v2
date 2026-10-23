@@ -183,13 +183,13 @@ assert.match(
 );
 assert.match(
   downloadSource,
-  /eventSource="download_page_fallback_email"[\s\S]{0,420}?\bpillPrimary\b/,
-  "download fallback action must use the shared primary pill",
+  /eventSource="download_page_fallback_email"[\s\S]{0,420}?\bpillPrimaryDark\b/,
+  "download fallback action must use the shared night primary pill",
 );
 assert.match(
   downloadSource,
-  /analyticsSource="download_page_primary"[\s\S]{0,420}?\bpillPrimary\b/,
-  "download primary action must use the shared primary pill",
+  /analyticsSource="download_page_primary"[\s\S]{0,420}?\bpillPrimaryDark\b/,
+  "download primary action must use the shared night primary pill",
 );
 assert.match(
   downloadSource,

@@ -11,14 +11,16 @@ import {
   h2,
   h2Dark,
   lede,
-  pillPrimary,
-  pillSecondary,
+  pillPrimaryDark,
   section,
+  stadiumLede,
+  stadiumTitle,
 } from "@/components/home/tokens";
+import TrackField from "@/components/home/track-field";
 import PublicHeader from "@/components/public-header";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import RouteShell from "@/components/routes/route-shell";
-import { h1, hero, prose, textLink } from "@/components/routes/tokens";
+import { hero, prose, textLink } from "@/components/routes/tokens";
 import TrackedLink from "@/components/tracked-link";
 import { hasConfiguredDownloadUrl } from "@/lib/download";
 
@@ -87,22 +89,24 @@ export default function AboutPage() {
         {/* Hero: purpose on the left, the athlete's own profile screen on the right. */}
         <section
           aria-labelledby="about-heading"
-          className={`${hero} oc-wash relative overflow-x-clip`}
+          className={`${hero} relative overflow-x-clip`}
         >
-          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
+          <div className="oc-stadium oc-stadium-card relative px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+          <TrackField />
+          <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
-              <p className={eyebrow}>About OneCommit</p>
-              <h1 id="about-heading" className={`mt-5 ${h1}`}>
+              <p className={eyebrowDark}>About OneCommit</p>
+              <h1 id="about-heading" className={`mt-5 ${stadiumTitle}`}>
                 A recruiting workflow built around the athlete.
               </h1>
-              <p className={`mt-6 max-w-xl ${lede}`}>
+              <p className={`mt-6 max-w-xl ${stadiumLede}`}>
                 We are building OneCommit for high school track and field
                 athletes who need a clearer way to organize their profile,
                 evaluate school matches, and manage recruiting
                 outreach from their own account.
               </p>
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
-                <DownloadLink analyticsSource="about_hero" className={`${pillPrimary} group w-full sm:w-auto`}>
+                <DownloadLink analyticsSource="about_hero" className={`${pillPrimaryDark} group w-full sm:w-auto`}>
                   Download the App
                   <ArrowRight
                     size={16}
@@ -127,6 +131,7 @@ export default function AboutPage() {
                 />
               </div>
             </div>
+          </div>
           </div>
         </section>
 

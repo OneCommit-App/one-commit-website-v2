@@ -37,6 +37,12 @@ export const h3Section =
 
 export const lede = "text-pretty text-[17px] leading-[1.55] text-ink-soft sm:text-[19px]"
 
+/* Type that sits on .oc-stadium. Literals, because --oc-ink flips with the scheme. */
+export const stadiumTitle =
+  "text-balance text-[2.6rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.85rem]"
+
+export const stadiumLede = "text-pretty text-[17px] leading-[1.55] text-[#d7ebe0] sm:text-[19px]"
+
 /* min-h-11 is redundant beside h-12 but states the 44px floor explicitly, so the
    target-size assertions can read it off any pill built from this recipe. */
 const pillBase =
