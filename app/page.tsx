@@ -21,7 +21,7 @@ import ProblemSection from "@/components/home/problem-section"
 import TrackField from "@/components/home/track-field"
 import WhereYouStand from "@/components/home/where-you-stand"
 import SiteNav from "@/components/home/site-nav"
-import { container, focusRing, pillPrimaryDark, pillSecondaryDark } from "@/components/home/tokens"
+import { focusRing, pillPrimaryDark, pillSecondaryDark } from "@/components/home/tokens"
 import JsonLd from "@/components/json-ld"
 import PricingSection from "@/components/pricing-section"
 import { Reveal, useStill } from "@/components/reveal"
@@ -49,7 +49,7 @@ const trustPoints = [
 ]
 
 /* Sized from the viewport height so the whole phone sits above the fold on desktop. */
-const heroPhoneWidth = { "--hero-phone-w": "min(440px, calc((100svh - 7rem) / 2.11))" } as React.CSSProperties
+const heroPhoneWidth = { "--hero-phone-w": "min(460px, calc((100svh - 8rem) / 2.11))" } as React.CSSProperties
 
 export default function LandingPage() {
   return (
@@ -79,11 +79,10 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
       ref={ref}
       data-home-hero="true"
       style={heroPhoneWidth}
-      className="relative overflow-x-clip px-3 pb-6 pt-[4.75rem] sm:px-5 sm:pt-20 lg:px-8 lg:pb-4 lg:pt-24"
+      className="oc-stadium relative overflow-x-clip px-5 pb-32 pt-24 sm:px-8 sm:pb-36 sm:pt-28 lg:px-10 lg:pb-44 lg:pt-32"
     >
-      <div className="oc-stadium mx-auto w-full max-w-[1440px] px-5 pb-28 pt-10 sm:px-10 sm:pb-32 sm:pt-14 lg:px-14 lg:pb-40 lg:pt-16">
-        <TrackField />
-        <div className={`${container} relative grid items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-x-12 lg:gap-y-10`}>
+      <TrackField />
+      <div className="relative mx-auto grid w-full max-w-[1320px] items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-x-12 lg:gap-y-8">
           <div className="flex flex-col items-center text-center lg:col-span-2 lg:items-start lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 ring-1 ring-white/15">
               <motion.span
@@ -101,7 +100,7 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
                 The aria-label is the string the server-HTML test requires. */}
             <h1
               aria-label="Find the schools that fit. Then actually email them."
-              className="mt-6 text-balance text-[2.75rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-[4rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+              className="mt-6 text-balance text-[2.85rem] font-bold leading-[0.94] tracking-[-0.05em] text-white sm:text-[4.25rem] lg:text-[5.25rem] xl:text-[5.75rem]"
             >
               Find the schools that fit.{" "}
               <span className="block text-mint">Then actually email them.</span>
@@ -176,7 +175,6 @@ function Hero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
             </motion.div>
           </div>
         </div>
-      </div>
     </section>
   )
 }
@@ -207,7 +205,7 @@ function LandingPageContent() {
 
         <main id="main-content" tabIndex={-1}>
           <Hero prefersReducedMotion={prefersReducedMotion} />
-          <div className="relative z-10 -mt-16 sm:-mt-20">
+          <div className="relative z-10 -mt-20 sm:-mt-24">
             <StatsSection items={trustPoints} />
           </div>
           <LoopBand />

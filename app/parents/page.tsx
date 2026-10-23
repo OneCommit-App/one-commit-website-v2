@@ -4,12 +4,12 @@ import { ArrowRight, CheckCircle2, XCircle } from "lucide-react"
 import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FooterSection from "@/components/footer-section"
-import { container, eyebrow, h2, lede, pillPrimary, section } from "@/components/home/tokens"
+import { container, eyebrow, eyebrowDark, h2, lede, pillPrimary, pillPrimaryDark, section, stadiumLede, stadiumTitle } from "@/components/home/tokens"
+import TrackField from "@/components/home/track-field"
 import PublicHeader from "@/components/public-header"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
-import WashLanes from "@/components/home/wash-lanes"
 import RouteShell from "@/components/routes/route-shell"
-import { h1, hero, inlineLink, prose } from "@/components/routes/tokens"
+import { hero, inlineLink, prose } from "@/components/routes/tokens"
 
 export const metadata: Metadata = {
   title: "For parents",
@@ -68,20 +68,21 @@ export default function ParentsPage() {
     <RouteShell>
       <PublicHeader accessSource="parents_header" />
       <main id="main-content" tabIndex={-1}>
-        <section aria-labelledby="parents-heading" className={`${hero} oc-wash relative overflow-x-clip`}>
-          <WashLanes />
+        <section aria-labelledby="parents-heading" className={`${hero} relative overflow-x-clip`}>
+          <div className="oc-stadium oc-stadium-card relative px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+          <TrackField />
           <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
-              <p className={eyebrow}>For parents</p>
-              <h1 id="parents-heading" className={`mt-5 ${h1}`}>
+              <p className={eyebrowDark}>For parents</p>
+              <h1 id="parents-heading" className={`mt-5 ${stadiumTitle}`}>
                 Your athlete does the work. Here is exactly what that work is.
               </h1>
-              <p className={`mt-6 max-w-xl ${lede}`}>
+              <p className={`mt-6 max-w-xl ${stadiumLede}`}>
                 OneCommit is a recruiting workflow your track and field athlete runs themselves. This page is the
                 plain version of what it does each day, what it deliberately does not do, and what it costs.
               </p>
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
-                <DownloadLink analyticsSource="parents_hero" className={`${pillPrimary} group w-full sm:w-auto`}>
+                <DownloadLink analyticsSource="parents_hero" className={`${pillPrimaryDark} group w-full sm:w-auto`}>
                   Download the App
                   <ArrowRight
                     size={16}
@@ -90,7 +91,7 @@ export default function ParentsPage() {
                   />
                 </DownloadLink>
               </div>
-              <p className="mt-5 text-[14px] leading-relaxed text-ink-soft">
+              <p className="mt-5 text-[14px] leading-relaxed text-[#d7ebe0]">
                 Athletes ages 13&ndash;17 need permission from a parent or guardian before creating an account.
               </p>
             </div>
@@ -107,11 +108,12 @@ export default function ParentsPage() {
                   priority
                   sizes="(max-width: 1024px) 260px, 300px"
                 />
-                <p className="mt-4 text-center text-[13px] leading-relaxed text-ink-soft">
+                <p className="mt-4 text-center text-[13px] leading-relaxed text-[#d7ebe0]">
                   What your athlete opens each morning.
                 </p>
               </div>
             </div>
+          </div>
           </div>
         </section>
 

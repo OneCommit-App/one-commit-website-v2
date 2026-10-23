@@ -3,12 +3,12 @@ import { ArrowRight, CalendarCheck, Mail, ShieldCheck, Smartphone, Target } from
 import DeviceFrame from "@/components/device-frame"
 import DownloadLink from "@/components/download-link"
 import FooterSection from "@/components/footer-section"
-import { container, eyebrow, lede, pillPrimary, pillSecondary } from "@/components/home/tokens"
+import { container, eyebrow, eyebrowDark, pillPrimaryDark, stadiumLede, stadiumTitle } from "@/components/home/tokens"
+import TrackField from "@/components/home/track-field"
 import PublicHeader from "@/components/public-header"
 import { RevealGroup, RevealItem } from "@/components/reveal"
-import WashLanes from "@/components/home/wash-lanes"
 import RouteShell from "@/components/routes/route-shell"
-import { h1, hero, iconDot } from "@/components/routes/tokens"
+import { hero, iconDot } from "@/components/routes/tokens"
 import TrackedLink from "@/components/tracked-link"
 import {
   androidDownloadUrl,
@@ -65,17 +65,18 @@ export default function DownloadPage() {
     <RouteShell>
       <PublicHeader accessSource="download_header" />
       <main id="main-content" tabIndex={-1}>
-        <section aria-labelledby="access-heading" className={`${hero} oc-wash relative overflow-x-clip`}>
-          <WashLanes />
+        <section aria-labelledby="access-heading" className={`${hero} relative overflow-x-clip`}>
+          <div className="oc-stadium oc-stadium-card relative px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+          <TrackField />
           <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
             <div>
-              <p className={eyebrow}>OneCommit Beta</p>
-              <h1 id="access-heading" className={`mt-5 ${h1}`}>
+              <p className={eyebrowDark}>OneCommit Beta</p>
+              <h1 id="access-heading" className={`mt-5 ${stadiumTitle}`}>
                 {hasConfiguredDownloadUrl
                   ? "Download the recruiting app built for overlooked track athletes."
                   : "Request beta access to start your track recruiting process."}
               </h1>
-              <p className={`mt-6 max-w-xl ${lede}`}>
+              <p className={`mt-6 max-w-xl ${stadiumLede}`}>
                 Build your college list, generate coach outreach from your own inbox, and track replies
                 without paying for a passive recruiting profile.
               </p>
@@ -84,7 +85,7 @@ export default function DownloadPage() {
                 {hasConfiguredDownloadUrl ? (
                   <DownloadLink
                     analyticsSource="download_page_primary"
-                    className={`${pillPrimary} group`}
+                    className={`${pillPrimaryDark} group`}
                   >
                     Open App Download
                     <ArrowRight
@@ -99,7 +100,7 @@ export default function DownloadPage() {
                     eventName="download_click"
                     eventSource="download_page_fallback_email"
                     eventDestination="support_email"
-                    className={pillPrimary}
+                    className={pillPrimaryDark}
                   >
                     Request Beta Access
                     <Mail aria-hidden="true" size={16} />
@@ -114,11 +115,11 @@ export default function DownloadPage() {
                   strip below. NOTE: scripts/b2b-claims.test.mjs scans raw source, so the
                   other provider cannot be named even in a comment — only the approved
                   boundary sentence may carry it. */}
-              <p className="mt-5 flex max-w-xl items-start gap-2.5 text-[14px] leading-relaxed text-ink-soft">
-                <Mail aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-green-mid" />
+              <p className="mt-5 flex max-w-xl items-start gap-2.5 text-[14px] leading-relaxed text-[#d7ebe0]">
+                <Mail aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-mint" />
                 <span>
                   Outreach sends from your own inbox, and{" "}
-                  <strong className="font-semibold text-ink">
+                  <strong className="font-semibold text-white">
                     Outlook/Microsoft 365 is the only inbox supported in the beta
                   </strong>
                   . Gmail is not currently available.
@@ -142,7 +143,7 @@ export default function DownloadPage() {
               )}
 
               {!hasConfiguredDownloadUrl && (
-                <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-ink-soft">
+                <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-[#d7ebe0]">
                   Public download links are not available yet. Email support to ask about current beta availability;
                   invitations depend on capacity and a supported app-access path.
                 </p>
@@ -163,6 +164,7 @@ export default function DownloadPage() {
                 />
               </div>
             </div>
+          </div>
           </div>
         </section>
 

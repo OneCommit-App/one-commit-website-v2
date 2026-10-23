@@ -1,7 +1,7 @@
 "use client"
 
 import { Check, X } from "lucide-react"
-import { container, eyebrow, h3Section, lede, section } from "@/components/home/tokens"
+import { container, eyebrow, lede, section } from "@/components/home/tokens"
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
 
 const problems = [
@@ -30,7 +30,10 @@ export default function ProblemSection() {
       <div className={`${container} grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20`}>
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <p className={eyebrow}>The problem</p>
-          <h2 id="problem-heading" className={`mt-4 ${h3Section}`}>
+          <h2
+            id="problem-heading"
+            className="mt-4 text-balance text-[2.25rem] font-bold leading-[1.05] tracking-[-0.035em] text-ink sm:text-[2.75rem] lg:text-[3.25rem]"
+          >
             The recruiting system isn&rsquo;t built for you.
           </h2>
           <p className={`mt-4 max-w-md ${lede}`}>

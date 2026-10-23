@@ -8,7 +8,7 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import DownloadLink from "@/components/download-link";
-import { focusRing } from "@/components/home/tokens";
+import { focusRing, focusRingDark } from "@/components/home/tokens";
 
 
 
@@ -22,6 +22,10 @@ export default function SiteNav() {
   useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 12));
 
   const frosted = scrolled || open;
+  /* The homepage opens on a full-bleed night panel. Until the bar frosts, the
+     type has to be white or it disappears into the track. */
+  const night = !frosted;
+  const ring = night ? focusRingDark : focusRing;
 
   return (
     <nav
@@ -39,14 +43,14 @@ export default function SiteNav() {
             <Link
               href="/"
               aria-label="OneCommit home"
-              className={`-ml-2 flex min-h-11 items-center gap-2 rounded-full px-2 text-ink ${focusRing}`}
+              className={`-ml-2 flex min-h-11 items-center gap-2 rounded-full px-2 ${night ? "text-white" : "text-ink"} ${ring}`}
             >
               <Image
                 src="/logo.png"
                 alt=""
                 width={26}
                 height={26}
-                className="h-[26px] w-[26px] rounded-full ring-1 ring-ink/10"
+                className={`h-[26px] w-[26px] rounded-full ring-1 ${night ? "ring-white/40" : "ring-ink/10"}`}
               />
               <span className="hidden text-[15px] font-semibold tracking-[-0.01em] min-[360px]:inline">
                 OneCommit
@@ -57,7 +61,7 @@ export default function SiteNav() {
                 <a
                   key={label}
                   href={href}
-                  className={`oc-nav-link inline-flex min-h-11 items-center rounded-full px-3 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink ${focusRing}`}
+                  className={`oc-nav-link inline-flex min-h-11 items-center rounded-full px-3 text-[13px] font-medium transition-colors ${night ? "text-white/85 hover:text-white" : "text-ink-soft hover:text-ink"} ${ring}`}
                 >
                   {label}
                 </a>
@@ -70,7 +74,7 @@ export default function SiteNav() {
               type="button"
               data-mobile-menu-toggle="true"
               onClick={() => setOpen((value) => !value)}
-              className={`flex h-11 w-11 items-center justify-center rounded-full text-ink-soft transition-colors hover:text-ink md:hidden ${focusRing}`}
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors md:hidden ${night ? "text-white/85 hover:text-white" : "text-ink-soft hover:text-ink"} ${ring}`}
               aria-label={
                 open ? "Close navigation menu" : "Open navigation menu"
               }
@@ -82,7 +86,9 @@ export default function SiteNav() {
             <DownloadLink
               analyticsSource="home_nav"
               fallbackLabel="Request Access"
-              className={`inline-flex min-h-11 items-center whitespace-nowrap rounded-full bg-green px-4 text-[13px] font-semibold text-on-green shadow-cta transition-colors hover:bg-green-mid ${focusRing}`}
+              className={`inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-4 text-[13px] font-semibold shadow-cta transition-colors ${
+                night ? "bg-white text-[#071610] hover:bg-[#d7ebe0]" : "bg-green text-on-green hover:bg-green-mid"
+              } ${ring}`}
             >
               Download App
             </DownloadLink>

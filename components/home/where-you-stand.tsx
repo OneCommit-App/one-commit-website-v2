@@ -32,6 +32,16 @@ export default function WhereYouStand() {
               Every school on your list gets a band — Reach, Target, or Foundation — and the score shows its
               work. Each mark, your GPA, your SAT, measured against that program&rsquo;s own range.
             </p>
+            <ul aria-label="Fit bands" className="mt-8 flex flex-col gap-1">
+              {["Reach", "Target", "Foundation"].map((band) => (
+                <li
+                  key={band}
+                  className="text-[clamp(2rem,4vw,3rem)] font-bold leading-none tracking-[-0.045em] text-ink"
+                >
+                  {band}
+                </li>
+              ))}
+            </ul>
             {/* The band's whole argument cashes out in this paragraph, and it used to be
                 the middle of three identical grey blocks. Same size and leading as `lede`
                 — only the ink token changes — so nothing rewraps and it inverts correctly

@@ -1,5 +1,5 @@
 import { container, focusRing } from "@/components/home/tokens"
-import { Reveal, RevealGroup, RevealItem } from "@/components/reveal"
+import { Reveal } from "@/components/reveal"
 
 /**
  * The product in four words, in the same order as the pinned how-it-works tour.
@@ -31,36 +31,39 @@ const beats = [
 
 export default function LoopBand() {
   return (
-    <section aria-labelledby="loop-heading" className="px-4 py-20 sm:px-6 lg:py-28">
+    <section aria-labelledby="loop-heading" className="overflow-x-clip px-4 py-20 sm:px-6 lg:py-28">
       <div className={container}>
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2
               id="loop-heading"
-              className="max-w-xl text-balance text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-ink sm:text-[2rem]"
+              className="max-w-xl text-balance text-[1.75rem] font-bold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.25rem]"
             >
               One loop. Finish it before practice.
             </h2>
             <a
               href="#how-it-works"
-              className={`inline-flex min-h-11 items-center text-[15px] font-semibold text-green ${focusRing} rounded-full`}
+              className={`inline-flex min-h-11 items-center rounded-full text-[15px] font-semibold text-green ${focusRing}`}
             >
               Walk through a Tuesday
             </a>
           </div>
         </Reveal>
 
-        <RevealGroup className="mt-10 grid gap-px overflow-hidden rounded-card bg-line ring-1 ring-line sm:grid-cols-2 xl:grid-cols-4">
+        <ol className="relative mt-14 grid gap-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
+          <span aria-hidden="true" className="absolute left-[8%] right-[8%] top-7 hidden h-px bg-line lg:block" />
           {beats.map((beat) => (
-            <RevealItem key={beat.n} className="flex h-full flex-col bg-card p-6 sm:p-7">
-              <span className="text-[12px] font-semibold tracking-[0.16em] text-green">{beat.n}</span>
-              <p className="mt-4 text-[clamp(2.5rem,5vw,3.5rem)] font-bold leading-none tracking-[-0.045em] text-ink">
+            <li key={beat.n} className="relative">
+              <span className="relative z-10 inline-flex h-14 min-w-14 items-center justify-center rounded-full bg-green px-3 text-[13px] font-bold tracking-[0.08em] text-on-green ring-8 ring-canvas">
+                {beat.n}
+              </span>
+              <p className="mt-6 text-[clamp(3rem,6vw,4.5rem)] font-bold leading-[0.9] tracking-[-0.05em] text-ink">
                 {beat.title}
               </p>
-              <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{beat.body}</p>
-            </RevealItem>
+              <p className="mt-4 max-w-[18rem] text-[15px] leading-relaxed text-ink-soft">{beat.body}</p>
+            </li>
           ))}
-        </RevealGroup>
+        </ol>
       </div>
     </section>
   )
