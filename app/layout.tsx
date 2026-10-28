@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/react"
 import { appStoreId, hasConfiguredDownloadUrl } from "@/lib/download"
+import OrganizationJsonLd from "@/components/organization-json-ld"
 import "./globals.css"
 
 const isVercelDeploy = process.env.VERCEL === "1"
@@ -77,6 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <body className="overflow-x-hidden bg-background font-sans text-foreground antialiased">
+        <OrganizationJsonLd />
         {children}
         {isVercelDeploy && <Analytics />}
       </body>
