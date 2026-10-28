@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "smoke:production": "node scripts/smoke-production.mjs",
     "start": "next start",
-    "typecheck": "tsc --noEmit --incremental false"
+    "typecheck": "tsc --noEmit --incremental false",
+    "lh": "node scripts/lighthouse.mjs",
+    "test:lh": "node --test scripts/performance/*.test.mjs"
   },
   "engines": {
     "node": "24.x"
@@ -74,8 +76,10 @@
     "@types/node": "^22",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "chrome-launcher": "^1.2.2",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.5.25",
+    "lighthouse": "^13.6.0",
     "postcss": "8.5.26",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
