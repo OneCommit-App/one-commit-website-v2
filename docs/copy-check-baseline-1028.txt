@@ -1,0 +1,26 @@
+
+> onecommit-website@0.1.0 check:copy /Users/hughkopittke/Desktop/onecommit-site-1028-s1
+> node scripts/check-copy.mjs
+
+app/about/page.tsx:151:17 [guarantee] "guarantee" — and next steps, but it cannot know a coach's final evaluation or guarantee an outcome.
+app/download/page.tsx:57:33 [free] "Free" — Free account for invited beta users
+app/page.tsx:34:13 [provider] "MileSplit" — rom the current D3 beta dataset, scored on marks you import from MileSplit.
+app/page.tsx:44:12 [free] "Free" — Free, capacity-limited beta
+app/parents/page.tsx:167:17 [free] "Free" — Free during the beta.
+app/privacy/page.tsx:44:48 [guarantee] "guarantee" — of electronic transmission or storage is 100% secure; we cannot guarantee absolute security.
+app/support/page.tsx:73:12 [free] "free" — Paid plans: None are active today. Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. Future
+app/terms/page.tsx:41:64 [guarantee] "guarantee" — gal advisor or compliance authority. We provide tools; we do not guarantee eligibility or outcomes.
+app/terms/page.tsx:44:75 [guarantee] "guarantee" — ctors (sender reputation, content, recipient filters). We cannot guarantee delivery, opens, or replies. You are responsible for the content of outreach and for honoring
+app/terms/page.tsx:45:67 [free] "free" — rences). You grant OneCommit a worldwide, non-exclusive, royalty-free license to use, reproduce, and display your content solely to provide and improve the Service.
+app/terms/page.tsx:47:47 [free] "free" — you grant OneCommit a perpetual, irrevocable, worldwide, royalty-free license to use them without restriction or compensation.
+app/terms/page.tsx:50:50 [free] "FREE" — WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR MEET YOUR REQUIREMENTS, NOR DO WE GUARANTEE ANY RECRUITING OUTCOMES.
+app/terms/page.tsx:50:50 [guarantee] "GUARANTEE" — UNINTERRUPTED, ERROR-FREE, OR MEET YOUR REQUIREMENTS, NOR DO WE GUARANTEE ANY RECRUITING OUTCOMES.
+components/faq-data.ts:8:8 [guarantee] "guarantee" — th the current D3 beta dataset. It is school-fit guidance, not a guarantee of coach interest or admission.
+components/faq-data.ts:48:8 [free] "free" — Invited core app access is free during the beta; availability depends on beta capacity and a supported app-access path. No pai
+components/home/problem-section.tsx:19:7 [free] "free" — With OneCommit: OneCommit starts with a free beta invitation when capacity and a supported app-access path are available.
+components/json-ld.tsx:16:20 [free] "Free" — Free, capacity-limited beta invitations; no paid plan is currently active.
+components/pricing-section.tsx:12:18 [free] "free" — Request a free invitation to the core recruiting workspace during beta.
+components/pricing-section.tsx:13:12 [free] "Free" — Free
+components/pricing-section.tsx:43:13 [free] "Free" — Free during beta. The price will be shown before anyone is billed.
+components/stats-section.tsx:27:12 [free] "Free" — Free, capacity-limited beta
+Copy check: 21 findings across 100 source files (report-only).

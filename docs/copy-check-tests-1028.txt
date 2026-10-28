@@ -1,0 +1,27 @@
+
+> onecommit-website@0.1.0 test:copy /Users/hughkopittke/Desktop/onecommit-site-1028-s1
+> node --test scripts/check-copy.test.mjs
+
+✔ lexical free pattern (3.63725ms)
+✔ lexical provider pattern (0.448208ms)
+✔ lexical guarantee pattern (0.112083ms)
+✔ lexical odds pattern (47.997834ms)
+✔ lexical percent-chance pattern (1.939041ms)
+✔ lexical chance-of pattern (2.185708ms)
+✔ lexical dollar-amount pattern (0.164583ms)
+✔ word boundaries avoid unrelated words without semantic exclusions (15.363792ms)
+✔ extracts JSX text, entities, literals, templates, inline splits and both conditional branches (431.651459ms)
+✔ does not lint comments, identifiers, imports, unused data, comparisons or implementation attributes (58.740125ms)
+✔ follows local/imported objects and mapped arrays with source provenance (44.276167ms)
+✔ scans supplied component copy, metadata and JSON-LD but not technical props (63.584209ms)
+✔ only dollar amounts sourced entirely from exact lib/pricing.ts are exempt (82.828583ms)
+✔ does not invent words across block boundaries or dynamic values (154.357625ms)
+✔ CLI report/strict/clean/error statuses and actionable output (20955.243708ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23320.953125
