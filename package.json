@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "check:headers": "node scripts/check-headers.mjs",
     "env:check": "node scripts/check-env.mjs",
     "test:download-states": "node scripts/download-states.test.mjs",
     "lint": "eslint .",

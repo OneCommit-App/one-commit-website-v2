@@ -1,0 +1,10 @@
+
+> onecommit-website@0.1.0 check:headers /Users/hughkopittke/Desktop/onecommit-site-1028-s4
+> node scripts/check-headers.mjs
+
+PASS / HTTP 200: HSTS, nosniff, referrer, permissions, framing, report-only CSP
+PASS /download HTTP 200: HSTS, nosniff, referrer, permissions, framing, report-only CSP
+PASS /waitlist HTTP 307: HSTS, nosniff, referrer, permissions, framing, report-only CSP
+PASS /privacy HTTP 200: HSTS, nosniff, referrer, permissions, framing, report-only CSP
+PASS /terms HTTP 200: HSTS, nosniff, referrer, permissions, framing, report-only CSP
+Local header check passed. This is not a securityheaders.com grade or a deployment check.
