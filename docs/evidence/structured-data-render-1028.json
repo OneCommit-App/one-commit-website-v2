@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "schemas": [
+      "Organization",
+      "MobileApplication",
+      "FAQPage"
+    ],
+    "duplicates": false,
+    "exactExportMatch": true
+  },
+  {
+    "route": "/privacy",
+    "status": 200,
+    "schemas": [
+      "Organization"
+    ],
+    "duplicates": false,
+    "exactExportMatch": true
+  },
+  {
+    "route": "/download",
+    "status": 200,
+    "schemas": [
+      "Organization"
+    ],
+    "duplicates": false,
+    "exactExportMatch": true
+  }
+]
