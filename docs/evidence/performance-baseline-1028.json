@@ -1,0 +1,388 @@
+{
+  "observedAt": "2026-10-28T23:45:56.525Z",
+  "sourceCommit": "df915cb41ad1484ff06c1405a4d4803cc3970b43",
+  "node": "v24.19.0",
+  "lighthouse": "13.6.0",
+  "budgets": {
+    "mobileLcpMs": 2500,
+    "cls": 0.1,
+    "scriptTransferBytes": 256000
+  },
+  "reportOnly": true,
+  "coverage": {
+    "routes": [
+      "/",
+      "/about",
+      "/athletic-programs",
+      "/coaches",
+      "/download",
+      "/parents",
+      "/privacy",
+      "/schools",
+      "/support",
+      "/terms",
+      "/waitlist"
+    ],
+    "modes": [
+      "mobile",
+      "desktop"
+    ],
+    "full": true
+  },
+  "rows": [
+    {
+      "route": "/",
+      "mode": "mobile",
+      "score": 89,
+      "lcpMs": 3598.2660000000005,
+      "cls": 0,
+      "jsBytes": 189493,
+      "failures": [
+        "LCP"
+      ],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/"
+    },
+    {
+      "route": "/",
+      "mode": "desktop",
+      "score": 99,
+      "lcpMs": 865.6963499999999,
+      "cls": 0,
+      "jsBytes": 189493,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/"
+    },
+    {
+      "route": "/about",
+      "mode": "mobile",
+      "score": 99,
+      "lcpMs": 2159.2604,
+      "cls": 0,
+      "jsBytes": 193310,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/about"
+    },
+    {
+      "route": "/about",
+      "mode": "desktop",
+      "score": 99,
+      "lcpMs": 824.9058,
+      "cls": 0,
+      "jsBytes": 203368,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/about"
+    },
+    {
+      "route": "/athletic-programs",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 1234.6281,
+      "cls": 0,
+      "jsBytes": 195733,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/athletic-programs"
+    },
+    {
+      "route": "/athletic-programs",
+      "mode": "desktop",
+      "score": 99,
+      "lcpMs": 628.7953,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [
+        "The page loaded too slowly to finish within the time limit. Results may be incomplete."
+      ],
+      "finalUrl": "http://127.0.0.1:63164/athletic-programs"
+    },
+    {
+      "route": "/coaches",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 931.8026,
+      "cls": 0,
+      "jsBytes": 195733,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/coaches"
+    },
+    {
+      "route": "/coaches",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 543.9611,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/coaches"
+    },
+    {
+      "route": "/download",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 930.5247999999999,
+      "cls": 0,
+      "jsBytes": 193311,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/download"
+    },
+    {
+      "route": "/download",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 507.65074999999996,
+      "cls": 0,
+      "jsBytes": 203369,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/download"
+    },
+    {
+      "route": "/parents",
+      "mode": "mobile",
+      "score": 98,
+      "lcpMs": 2312.7792,
+      "cls": 0,
+      "jsBytes": 193311,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/parents"
+    },
+    {
+      "route": "/parents",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 468.52740000000006,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/parents"
+    },
+    {
+      "route": "/privacy",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 934.9840999999999,
+      "cls": 0,
+      "jsBytes": 189493,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/privacy"
+    },
+    {
+      "route": "/privacy",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 260.166,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/privacy"
+    },
+    {
+      "route": "/schools",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 935.9787000000001,
+      "cls": 0,
+      "jsBytes": 195733,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/schools"
+    },
+    {
+      "route": "/schools",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 518.2669000000001,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/schools"
+    },
+    {
+      "route": "/support",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 940.7792999999999,
+      "cls": 0,
+      "jsBytes": 192881,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/support"
+    },
+    {
+      "route": "/support",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 282.808,
+      "cls": 0,
+      "jsBytes": 202939,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/support"
+    },
+    {
+      "route": "/terms",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 914.6929,
+      "cls": 0,
+      "jsBytes": 189493,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/terms"
+    },
+    {
+      "route": "/terms",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 265.2625,
+      "cls": 0,
+      "jsBytes": 199551,
+      "failures": [],
+      "warnings": [],
+      "finalUrl": "http://127.0.0.1:63164/terms"
+    },
+    {
+      "route": "/waitlist",
+      "mode": "mobile",
+      "score": 100,
+      "lcpMs": 1119.97785,
+      "cls": 0,
+      "jsBytes": 193311,
+      "failures": [],
+      "warnings": [
+        "Clearing the browser cache timed out. Try auditing this page again and file a bug if the issue persists.",
+        "The page may not be loading as expected because your test URL (http://127.0.0.1:63164/waitlist) was redirected to http://127.0.0.1:63164/download. Try testing the second URL directly."
+      ],
+      "finalUrl": "http://127.0.0.1:63164/download"
+    },
+    {
+      "route": "/waitlist",
+      "mode": "desktop",
+      "score": 100,
+      "lcpMs": 542.9546499999999,
+      "cls": 0,
+      "jsBytes": 203369,
+      "failures": [],
+      "warnings": [
+        "Clearing the browser cache timed out. Try auditing this page again and file a bug if the issue persists.",
+        "The page may not be loading as expected because your test URL (http://127.0.0.1:63164/waitlist) was redirected to http://127.0.0.1:63164/download. Try testing the second URL directly."
+      ],
+      "finalUrl": "http://127.0.0.1:63164/download"
+    }
+  ],
+  "assets": [
+    {
+      "file": "public/app/profile.png",
+      "bytes": 1152568
+    },
+    {
+      "file": "public/app/home.png",
+      "bytes": 823514
+    },
+    {
+      "file": "public/app/riley.png",
+      "bytes": 772316
+    },
+    {
+      "file": "public/app/brief.png",
+      "bytes": 734374
+    },
+    {
+      "file": "public/proof-email.png",
+      "bytes": 728734
+    },
+    {
+      "file": "public/match.png",
+      "bytes": 699002
+    },
+    {
+      "file": "public/_archive/app-explore.png",
+      "bytes": 590904
+    },
+    {
+      "file": "public/_archive/app-smart-add.png",
+      "bytes": 588851
+    },
+    {
+      "file": "public/_archive/app-track-replies.png",
+      "bytes": 584400
+    },
+    {
+      "file": "public/app/explore.png",
+      "bytes": 582528
+    },
+    {
+      "file": "public/proof-engagement.png",
+      "bytes": 572876
+    },
+    {
+      "file": "public/proof-dashboard.png",
+      "bytes": 561095
+    },
+    {
+      "file": "public/track.png",
+      "bytes": 561095
+    },
+    {
+      "file": "public/app/home-hero.png",
+      "bytes": 486104
+    },
+    {
+      "file": "public/app/pipeline.png",
+      "bytes": 445408
+    },
+    {
+      "file": "public/app/welcome.png",
+      "bytes": 239819
+    },
+    {
+      "file": ".next/static/chunks/framework-faf1e4d1fc68a61c.js",
+      "bytes": 189763
+    },
+    {
+      "file": "public/app/onescore-card.png",
+      "bytes": 179150
+    },
+    {
+      "file": ".next/static/chunks/232-87d94ee6d10e2e02.js",
+      "bytes": 173884
+    },
+    {
+      "file": ".next/static/chunks/f74b8410-8e240c0b5e4ac837.js",
+      "bytes": 173017
+    },
+    {
+      "file": ".next/static/chunks/442-c7f49b9020e8e772.js",
+      "bytes": 154614
+    },
+    {
+      "file": ".next/static/chunks/main-7e17639b34719ae4.js",
+      "bytes": 128487
+    },
+    {
+      "file": ".next/static/css/9f2cdea718413ecf.css",
+      "bytes": 121088
+    },
+    {
+      "file": "public/app/brief-today.png",
+      "bytes": 120207
+    },
+    {
+      "file": ".next/static/chunks/polyfills-42372ed130431b0a.js",
+      "bytes": 112594
+    }
+  ]
+}
